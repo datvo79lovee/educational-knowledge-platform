@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.venv/
+venv/
+
+# IDE
+.vscode/
+
+# Data Lake
+data/bronze/
+data/silver/
+data/gold/
+test_*.py
