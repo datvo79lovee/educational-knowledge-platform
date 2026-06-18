@@ -1,21 +1,27 @@
 # Educational Knowledge Platform
 
-## Nhật ký tiến độ - Ngày 1
+# Ngày 1 - 17/06/2026
 
-Ngày: 17/06/2026
+## 1. Mục tiêu trong ngày
+
+* Thiết kế kiến trúc tổng thể dự án.
+* Thiết kế mô hình dữ liệu.
+* Thiết lập môi trường phát triển.
+* Xây dựng schema PostgreSQL.
+* Khởi tạo GitHub Repository.
 
 ---
 
-# Mục tiêu hoàn thành hôm nay
+## 2. Công việc đã thực hiện
 
-## 1. Thiết kế kiến trúc hệ thống
+### 2.1 Thiết kế kiến trúc hệ thống
 
-Đã hoàn thành:
+Hoàn thành:
 
-* Architecture Diagram
-* ERD Diagram
+* Architecture Diagram.
+* ERD Diagram.
 
-Luồng dữ liệu hiện tại:
+Kiến trúc hiện tại:
 
 YouTube API
 
@@ -43,11 +49,11 @@ PostgreSQL được sử dụng để lưu metadata và quản lý dữ liệu.
 
 ---
 
-## 2. Thiết kế mô hình dữ liệu
+### 2.2 Thiết kế mô hình dữ liệu
 
 Đã thiết kế các bảng:
 
-### sources
+#### sources
 
 Lưu thông tin nguồn dữ liệu.
 
@@ -56,32 +62,28 @@ Ví dụ:
 * MIT OpenCourseWare
 * Stanford Online
 
-### videos
+#### videos
 
-Lưu metadata video:
+Lưu metadata video.
 
-* video_id
-* title
-* publish_date
+#### transcripts
 
-### transcripts
+Lưu transcript gốc.
 
-Lưu transcript gốc của video.
-
-### chunks
+#### chunks
 
 Lưu dữ liệu sau khi chunking.
 
 ---
 
-## 3. Thiết lập môi trường phát triển
+### 2.3 Thiết lập môi trường phát triển
 
 Hoàn thành:
 
-* Cài đặt PostgreSQL
-* Kết nối DataGrip
-* Tạo database
-* Kiểm tra kết nối thành công
+* Cài đặt PostgreSQL.
+* Kết nối DataGrip.
+* Tạo database.
+* Kiểm tra kết nối thành công.
 
 Database:
 
@@ -89,202 +91,143 @@ educational_knowledge_platform
 
 ---
 
-## 4. Xây dựng Schema
+### 2.4 Xây dựng Schema
 
-Đã tạo và triển khai:
+Đã tạo:
 
 sql/schema.sql
 
-Các bảng đã được tạo thành công:
+Các bảng:
 
 * sources
 * videos
 * transcripts
 * chunks
 
-Đã xác nhận các bảng tồn tại trong PostgreSQL.
-
 ---
 
-## 5. Khởi tạo GitHub Repository
+### 2.5 Khởi tạo GitHub Repository
 
 Hoàn thành:
 
-* Git initialization
-* GitHub remote connection
-* Commit đầu tiên
-* Push thành công lên GitHub
-
-Các thành phần đã được quản lý bằng Git:
-
-* README
-* Documentation
-* Architecture
-* ERD
-* Schema
-* Source Code Structure
+* Git initialization.
+* GitHub remote connection.
+* Commit đầu tiên.
+* Push thành công lên GitHub.
 
 ---
 
-## 6. Cấu trúc dự án hiện tại
+## 3. Kết quả đạt được
 
-data/
+* Hoàn thành thiết kế kiến trúc dự án.
+* Hoàn thành ERD.
+* Hoàn thành thiết kế schema database.
+* Thiết lập thành công PostgreSQL.
+* Khởi tạo GitHub Repository.
 
-* bronze/
-* silver/
-* gold/
-
-docs/
-
-* architecture.md
-* architecture.png
-* erd.png
-* project_plan.md
-
-sql/
-
-* schema.sql
-
-src/
-
-* ingestion/
-* processing/
-* embedding/
-* database/
+Dự án sẵn sàng chuyển sang giai đoạn triển khai ingestion pipeline.
 
 ---
 
-# Các vấn đề gặp phải
+## 4. Vấn đề gặp phải
 
-## 1. Nhầm lẫn giữa schema.sql và PostgreSQL Schema
+### Vấn đề 1: Nhầm lẫn giữa schema.sql và PostgreSQL Schema
 
-Đã hiểu rõ:
+Ban đầu chưa phân biệt rõ:
 
-* schema.sql là file mã nguồn SQL
-* PostgreSQL schema là đối tượng thực tế trong database
+* schema.sql (file mã nguồn SQL)
+* PostgreSQL Schema (đối tượng trong database)
 
-Bài học:
+Sau khi tìm hiểu:
 
-Mọi thay đổi cấu trúc database cần được lưu lại trong schema.sql để có thể tái tạo hệ thống.
-
----
-
-# Kế hoạch ngày mai
-
-## Mục tiêu chính
-
-Xây dựng pipeline ingestion đầu tiên.
+* schema.sql dùng để tái tạo cấu trúc database.
+* PostgreSQL Schema là cấu trúc thực tế đang tồn tại trong DBMS.
 
 ---
 
-## Công việc 1
+## 5. Bài học rút ra
 
-Thiết lập YouTube Data API v3
-
-Bao gồm:
-
-* Tạo Google Cloud Project
-* Enable YouTube Data API
-* Tạo API Key
-* Lưu cấu hình vào file .env
-
-Kết quả mong đợi:
-
-Kết nối được tới YouTube API.
+* Kiến trúc cần được thiết kế trước khi code pipeline.
+* ERD giúp định hình luồng dữ liệu và schema.
+* Mọi thay đổi database cần được lưu vào file SQL để có thể tái tạo hệ thống.
 
 ---
 
-## Công việc 2
-
-Xây dựng:
-
-src/ingestion/fetch_videos.py
-
-Chức năng:
-
-* Kết nối YouTube API
-* Lấy danh sách video từ MIT OpenCourseWare
-* Trích xuất metadata
-
-Các trường dữ liệu:
-
-* video_id
-* title
-* publish_date
-
-Kết quả mong đợi:
-
-Thu thập được ít nhất 100 video.
-
----
-
-## Công việc 3
-
-Xây dựng:
-
-src/database/load_videos.py
-
-Chức năng:
-
-* Đọc dữ liệu metadata
-* Insert vào bảng videos
-
-Kết quả mong đợi:
-
-Bảng videos có trên 100 bản ghi.
-
----
-
-# Tiêu chí hoàn thành ngày mai
-
-Thành công nếu đạt được:
-
-* Kết nối YouTube API
-* Thu thập metadata video
-* Insert dữ liệu vào PostgreSQL
-
-Mục tiêu:
-
-sources: 1
-
-videos: 100+
-
-# Nhật ký tiến độ - Ngày 2
-
-Ngày: 18/06/2026
-
----
-
-# Mục tiêu hoàn thành hôm nay
-
-## 1. Thiết lập YouTube Data API
+## 6. Trạng thái dự án
 
 Đã hoàn thành:
 
-- Tạo API Key
-- Kết nối YouTube Data API v3
-- Quản lý cấu hình bằng .env
+* Architecture Diagram
+* ERD Diagram
+* PostgreSQL Setup
+* Database Schema
+* GitHub Repository
 
-Kết quả:
+Chưa hoàn thành:
 
-Kết nối thành công tới YouTube API.
+* YouTube API Integration
+* Bronze Layer
+* Silver Layer
+* Gold Layer
+* Embedding Pipeline
 
 ---
 
-## 2. Xây dựng Channel Discovery
+## 7. Kế hoạch ngày tiếp theo
+
+### Mục tiêu
+
+Xây dựng ingestion pipeline đầu tiên.
+
+### Công việc
+
+* Thiết lập YouTube Data API.
+* Tìm hiểu cách lấy dữ liệu từ MIT OpenCourseWare.
+* Thu thập video từ YouTube.
+* Chuẩn bị dữ liệu cho Bronze Layer.
+
+### Tiêu chí hoàn thành
+
+* Kết nối được YouTube API.
+* Thu thập được video từ MIT OpenCourseWare.
+* Bắt đầu xây dựng ingestion pipeline.
+
+---
+
+# Ngày 2 - 18/06/2026
+
+## 1. Mục tiêu trong ngày
+
+* Kết nối YouTube Data API.
+* Thu thập video từ MIT OpenCourseWare.
+* Lưu dữ liệu vào Bronze Layer.
+* Chuẩn bị metadata cho PostgreSQL.
+
+---
+
+## 2. Công việc đã thực hiện
+
+### 2.1 Thiết lập YouTube Data API
+
+Hoàn thành:
+
+* Tạo API Key.
+* Cấu hình file .env.
+* Kết nối thành công YouTube Data API.
+
+---
+
+### 2.2 Tìm Channel ID
 
 Đã xây dựng:
 
 src/ingestion/get_channel.py
 
-Chức năng:
-
-- Tìm kiếm kênh YouTube
-- Lấy Channel ID
-
 Kết quả:
 
 MIT OpenCourseWare
+
+↓
 
 Channel ID:
 
@@ -292,24 +235,21 @@ UCEBb1b_L6zDS3xTUrIALZOw
 
 ---
 
-## 3. Xây dựng Uploads Playlist Discovery
+### 2.3 Tìm Uploads Playlist
 
 Đã xây dựng:
 
 src/ingestion/get_uploads_playlist.py
 
-Chức năng:
-
-- Truy vấn Channel API
-- Lấy Uploads Playlist ID
-
 Kết quả:
+
+Uploads Playlist ID:
 
 UUEBb1b_L6zDS3xTUrIALZOw
 
 ---
 
-## 4. Xây dựng Ingestion Pagination Pipeline
+### 2.4 Xây dựng Pagination Pipeline
 
 Đã xây dựng:
 
@@ -317,21 +257,20 @@ src/ingestion/fetch_playlist_videos.py
 
 Chức năng:
 
-- Đọc Uploads Playlist
-- Thực hiện pagination bằng nextPageToken
-- Thu thập toàn bộ playlist items
+* Đọc Uploads Playlist.
+* Thu thập dữ liệu bằng pagination.
+* Lặp cho tới khi nextPageToken bằng None.
 
 Kết quả:
 
-Total Records: 8021
-
-Unique Video IDs: 8021
+* Total Records: 8021
+* Unique Video IDs: 8021
 
 ---
 
-## 5. Xây dựng Bronze Layer đầu tiên
+### 2.5 Xây dựng Bronze Layer đầu tiên
 
-Đã hoàn thành:
+Đã lưu dữ liệu:
 
 data/bronze/videos_raw.jsonl
 
@@ -341,112 +280,150 @@ JSON Lines (JSONL)
 
 Mỗi dòng lưu một playlist item raw từ YouTube API.
 
-Nguyên tắc:
+---
 
-Bronze lưu dữ liệu gần với nguồn nhất và không thực hiện deduplication.
+### 2.6 Quản lý mã nguồn
+
+Đã tạo các commit:
+
+* feat: lấy Channel ID từ kênh YouTube
+* feat: lấy Uploads Playlist từ Channel ID
+* feat: xây dựng pipeline phân trang thu thập video (pagination)
+* chore: bổ sung gitignore cho data lake và môi trường
+* docs: cập nhật kế hoạch dự án và tiến độ ngày 2
 
 ---
 
-# Kiến thức Data Engineering học được
+## 3. Kết quả đạt được
 
-## Pagination
-
-Hiểu cơ chế:
-
-nextPageToken
-
-được sử dụng để truy xuất các trang dữ liệu tiếp theo cho đến khi giá trị trả về là None.
+* Kết nối thành công YouTube Data API.
+* Hiểu cách lấy dữ liệu từ một kênh YouTube.
+* Thu thập thành công 8021 video từ MIT OpenCourseWare.
+* Xây dựng ingestion pipeline đầu tiên.
+* Xây dựng Bronze Layer đầu tiên của dự án.
 
 ---
 
-## Medallion Architecture
+## 4. Vấn đề gặp phải
 
-Bronze:
-
-- Raw Data
-- Có thể chứa duplicate
-- Không xử lý nghiệp vụ
-
-Silver:
-
-- Clean Data
-- Deduplicate
-- Chuẩn hóa dữ liệu
-
-Gold:
-
-- Business Ready Data
----
-## Vấn đề phát hiện
+### Vấn đề 1: Search API không phù hợp cho bài toán ingestion
 
 Ban đầu sử dụng:
 
 youtube.search().list()
 
-để thu thập video từ kênh MIT OpenCourseWare.
+Kỳ vọng:
+
+* Lấy toàn bộ video của kênh MIT OpenCourseWare.
 
 Kết quả:
 
-Search API không phù hợp cho bài toán ingestion toàn bộ dữ liệu vì đây là API tìm kiếm, không phải API liệt kê toàn bộ nội dung của kênh.
+* Không thể sử dụng Search API để thu thập toàn bộ dữ liệu của kênh.
+
+Nguyên nhân:
+
+* Search API được thiết kế cho bài toán tìm kiếm.
+* Không phải API chuyên dụng để liệt kê toàn bộ video của một channel.
 
 Giải pháp:
 
-Sử dụng:
+Channels API
 
-Channel API
-→ Uploads Playlist
+↓
+
+Uploads Playlist
+
+↓
 
 PlaylistItems API
-→ Pagination
 
-để truy xuất toàn bộ video của kênh.
----
+↓
 
-# Kế hoạch ngày tiếp theo
-
-## Mục tiêu chính
-
-Lấy metadata chi tiết cho toàn bộ video.
+Pagination
 
 ---
 
-## Công việc 1
+### Vấn đề 2: Hiểu cơ chế Pagination
+
+Ban đầu chưa hiểu vai trò của:
+
+nextPageToken
+
+Sau khi triển khai:
+
+* Mỗi request trả về tối đa 50 video.
+* nextPageToken dùng để truy xuất trang tiếp theo.
+* Khi token trả về None nghĩa là đã đọc hết dữ liệu.
+
+---
+
+## 5. Bài học rút ra
+
+* Không phải API nào trả dữ liệu cũng phù hợp cho ingestion.
+* Cần hiểu mục đích thiết kế của từng API endpoint.
+* Pagination là kỹ năng nền tảng trong Data Engineering.
+* Bronze Layer nên lưu dữ liệu gần với nguồn nhất.
+* JSONL phù hợp hơn JSON khi làm việc với dữ liệu lớn.
+
+---
+
+## 6. Trạng thái dự án
+
+Đã hoàn thành:
+
+* Architecture Diagram
+* ERD Diagram
+* PostgreSQL Setup
+* Database Schema
+* YouTube API Integration
+* Channel Discovery
+* Uploads Playlist Discovery
+* Pagination Pipeline
+* Bronze Layer Ingestion
+
+Chưa hoàn thành:
+
+* Video Metadata Enrichment
+* PostgreSQL Data Loading
+* Silver Layer
+* Gold Layer
+* Transcript Processing
+* Embedding Pipeline
+* Vector Database
+
+---
+
+## 7. Kế hoạch ngày tiếp theo
+
+### Mục tiêu
+
+Thu thập metadata chi tiết cho toàn bộ video.
+
+### Công việc
 
 Xây dựng:
 
 src/ingestion/fetch_video_metadata.py
 
-Chức năng:
+Sử dụng:
 
-- Đọc danh sách video_id
-- Gọi videos().list()
-
----
-
-## Công việc 2
+youtube.videos().list()
 
 Thu thập:
 
-- title
-- description
-- publish_date
-- duration
-- view_count
+* video_id
+* title
+* description
+* publish_date
+* duration
+* view_count
 
----
-
-## Công việc 3
-
-Lưu metadata vào Bronze Layer mới
-
-Dự kiến:
+Lưu dữ liệu:
 
 data/bronze/video_metadata_raw.jsonl
 
----
+### Tiêu chí hoàn thành
 
-# Tiêu chí hoàn thành
-
-- Thu thập metadata chi tiết từ videos API
-- Chuẩn bị dữ liệu cho Silver Layer
-- Bắt đầu ánh xạ dữ liệu vào schema videos
+* Thu thập được metadata chi tiết của video.
+* Chuẩn bị dữ liệu cho bảng videos.
+* Sẵn sàng chuyển sang bước load dữ liệu vào PostgreSQL.
