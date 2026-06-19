@@ -427,3 +427,378 @@ data/bronze/video_metadata_raw.jsonl
 * Thu thập được metadata chi tiết của video.
 * Chuẩn bị dữ liệu cho bảng videos.
 * Sẵn sàng chuyển sang bước load dữ liệu vào PostgreSQL.
+---
+# Ngày 3 - 19/06/2026
+# Metadata Enrichment Pipeline
+
+## Đã hoàn thành
+
+### 1. Xây dựng Metadata Extraction Pipeline
+
+File:
+
+src/ingestion/fetch_video_metadata.py
+
+Đã triển khai:
+
+* Đọc dữ liệu từ:
+
+  * data/bronze/videos_raw.jsonl
+* Trích xuất:
+
+  * video_id
+* Kiểm tra dữ liệu đầu vào.
+
+Kết quả:
+
+Total Records:
+
+8021
+
+Video IDs:
+
+8021
+
+Missing Video IDs:
+
+0
+
+---
+
+### 2. Thực hiện Deduplication
+
+Đã triển khai:
+
+* deduplicate_video_ids()
+
+Mục đích:
+
+* Loại bỏ video_id trùng lặp trước khi gọi Metadata API.
+
+Kết quả:
+
+Before Dedup:
+
+8021
+
+After Dedup:
+
+8021
+
+Duplicates:
+
+0
+
+Phát hiện:
+
+* Không có video_id trùng lặp trong dữ liệu hiện tại.
+
+---
+
+### 3. Xây dựng Batching Pipeline
+
+Đã triển khai:
+
+* chunk_list()
+
+Mục đích:
+
+* Chia danh sách video_id thành các batch.
+* Tuân thủ giới hạn của Videos API.
+
+Kết quả:
+
+Batch Size:
+
+50
+
+Total Batches:
+
+161
+
+Videos In Last Batch:
+
+21
+
+---
+
+### 4. Khám phá Videos API
+
+Đã thử nghiệm:
+
+youtube.videos().list()
+
+Sử dụng:
+
+part="snippet,contentDetails,statistics"
+
+Đã xác nhận có thể thu thập:
+
+* video_id
+* title
+* description
+* publish_date
+* duration
+* view_count
+
+---
+
+### 5. Xây dựng Metadata Collection Pipeline
+
+Đã triển khai:
+
+* fetch_video_metadata()
+
+Chức năng:
+
+* Gọi Videos API theo từng batch.
+* Thu thập metadata cho toàn bộ video.
+* Gom dữ liệu vào bộ nhớ trước khi ghi file.
+
+Kết quả:
+
+Total Batches Processed:
+
+161
+
+Metadata Records Collected:
+
+8021
+
+---
+
+### 6. Xây dựng Bronze Metadata Layer
+
+Đã tạo:
+
+data/bronze/video_metadata_raw.jsonl
+
+Đặc điểm:
+
+* Dữ liệu raw từ Videos API.
+* Mỗi dòng là một JSON object.
+* Chưa thực hiện cleaning.
+* Chưa thực hiện validation.
+* Giữ dữ liệu gần với source nhất.
+
+Kết quả kiểm tra:
+
+Expected Records:
+
+8021
+
+Records Written:
+
+8021
+
+---
+
+### 7. Git History
+
+Đã commit:
+
+feat: xây dựng pipeline thu thập metadata video
+
+---
+
+# Những điều đã học được
+
+## Playlist Items API không đủ cho Video Schema
+
+Ban đầu kỳ vọng:
+
+playlistItems().list()
+
+có thể cung cấp đầy đủ dữ liệu cho bảng videos.
+
+Nhưng phát hiện:
+
+Không có:
+
+* duration
+* view_count
+
+Do đó:
+
+Playlist Items API
+
+↓
+
+Trích xuất video_id
+
+↓
+
+Videos API
+
+↓
+
+Metadata Enrichment
+
+---
+
+## Videos API
+
+Đã hiểu:
+
+videos().list()
+
+cho phép lấy metadata chi tiết của video.
+
+Các nhóm dữ liệu chính:
+
+* snippet
+* contentDetails
+* statistics
+
+Trong đó:
+
+snippet
+
+↓
+
+title
+
+description
+
+publishedAt
+
+contentDetails
+
+↓
+
+duration
+
+statistics
+
+↓
+
+viewCount
+
+---
+
+## Batching
+
+Đã hiểu:
+
+Videos API chỉ nhận:
+
+Tối đa 50 video_id mỗi request.
+
+Do đó cần:
+
+* Chia batch.
+* Lặp qua toàn bộ dữ liệu.
+* Gom kết quả về một collection chung.
+
+---
+
+## Bronze Layer có thể gồm nhiều tập dữ liệu
+
+Hiện tại Bronze Layer bao gồm:
+
+videos_raw.jsonl
+
+và
+
+video_metadata_raw.jsonl
+
+Cả hai đều là:
+
+Raw API Response
+
+và đều thuộc Bronze Layer.
+
+---
+
+# Vấn đề còn tồn tại
+
+Hiện tại dữ liệu trong:
+
+video_metadata_raw.jsonl
+
+vẫn là:
+
+Raw JSON Response
+
+Chưa map sang schema PostgreSQL.
+
+Schema videos yêu cầu:
+
+* video_id
+* title
+* description
+* publish_date
+* duration_seconds
+* view_count
+
+Do đó cần thêm bước:
+
+* Data Quality Check
+* Schema Mapping
+* PostgreSQL Loading
+
+---
+
+# Mục tiêu Ngày 4
+
+## Mục tiêu chính
+
+Kiểm tra chất lượng dữ liệu và chuẩn bị load PostgreSQL.
+
+---
+
+## Bước 1
+
+Tạo file:
+
+src/quality/check_video_metadata.py
+
+---
+
+## Bước 2
+
+Đọc:
+
+data/bronze/video_metadata_raw.jsonl
+
+---
+
+## Bước 3
+
+Kiểm tra:
+
+* Missing title
+* Missing description
+* Missing publish_date
+* Missing duration
+* Missing view_count
+
+---
+
+## Bước 4
+
+Thiết kế mapping:
+
+Video Metadata
+
+↓
+
+Videos Table
+
+---
+
+## Bước 5
+
+Chuẩn bị PostgreSQL Loading Pipeline.
+
+---
+
+# Tiêu chí hoàn thành Ngày 4
+
+Thành công nếu đạt được:
+
+* Hoàn thành Data Quality Check.
+* Xác nhận dữ liệu đủ điều kiện load DB.
+* Hoàn thành mapping sang schema videos.
+* Sẵn sàng triển khai PostgreSQL Loading.
+
