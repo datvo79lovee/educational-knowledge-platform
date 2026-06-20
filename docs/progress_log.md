@@ -1012,3 +1012,504 @@ Phase 4 - Knowledge Retrieval
 ⬜ Vector Database
 
 ⬜ Semantic Search
+
+
+---
+
+# Ngày 4 - Data Quality, Transformation và Silver Layer
+
+## Đã hoàn thành
+
+### 1. Data Quality Check cho Video Metadata
+
+File:
+
+```text
+src/quality/check_video_metadata.py
+```
+
+Mục đích:
+
+Đánh giá chất lượng dữ liệu raw từ YouTube Videos API trước khi chuyển sang bước transform và load vào PostgreSQL.
+
+Đã triển khai:
+
+* Đọc dữ liệu từ `data/bronze/video_metadata_raw.jsonl`.
+* Kiểm tra tổng số record metadata đã ingest.
+* Kiểm tra duplicate theo `video_id`.
+* Kiểm tra các object bắt buộc trong API response gồm `snippet`, `contentDetails` và `statistics`.
+* Kiểm tra các field cần map sang bảng `videos` gồm `title`, `description`, `publishedAt`, `duration` và `viewCount`.
+
+Kết quả:
+
+```text
+Total Records: 8021
+Duplicate Video IDs: 0
+
+Missing Snippet: 0
+Missing ContentDetails: 0
+Missing Statistics: 0
+
+Missing Title: 0
+Missing Description: 2
+Missing PublishedAt: 0
+Missing Duration: 0
+Missing ViewCount: 0
+```
+
+Dữ liệu metadata đạt chất lượng tốt, không có duplicate và đủ điều kiện để tiếp tục chuyển đổi sang Silver Layer. Hai record thiếu `description` không ảnh hưởng đến schema vì `description` là field có thể nullable.
+
+---
+
+### 2. Cross Validation giữa Playlist Bronze và Metadata Bronze
+
+File:
+
+```text
+src/quality/check_cross_validation.py
+```
+
+Mục đích:
+
+Đảm bảo toàn bộ video thu thập từ playlist ingestion đều có metadata tương ứng sau bước enrichment bằng YouTube Videos API.
+
+Đã triển khai:
+
+* Đọc danh sách video từ `data/bronze/videos_raw.jsonl`.
+* Đọc danh sách metadata từ `data/bronze/video_metadata_raw.jsonl`.
+* Trích xuất `video_id` từ playlist layer.
+* Trích xuất `id` từ metadata layer.
+* So sánh hai tập ID để phát hiện video bị thiếu metadata.
+
+Kết quả:
+
+```text
+Playlist Video Count: 8021
+Metadata Video Count: 8021
+Missing Metadata Videos: 0
+```
+
+Không có video nào bị mất trong quá trình metadata enrichment. Bronze Layer hiện có đầy đủ dữ liệu cần thiết để transform sang schema nghiệp vụ.
+
+---
+
+### 3. Xây dựng Transformation Pipeline sang Silver Layer
+
+File:
+
+```text
+src/processing/transform_video_metadata.py
+```
+
+Mục đích:
+
+Chuẩn hóa raw metadata từ Bronze Layer thành dataset sạch, có cấu trúc phù hợp với schema bảng `videos` trong PostgreSQL.
+
+Đã triển khai:
+
+* Xây dựng `load_jsonl()` để đọc raw JSONL từ Bronze Layer.
+* Xây dựng `parse_publish_date()` để chuyển `publishedAt` từ ISO datetime sang date.
+* Xây dựng `parse_view_count()` để chuyển `viewCount` từ string sang integer.
+* Xây dựng `parse_duration_to_seconds()` để chuyển ISO 8601 duration sang tổng số giây.
+* Xây dựng rule xử lý ngoại lệ `P0D` bằng cách trả về `NULL` thay vì loại bỏ record.
+* Xây dựng `transform_video_record()` để map raw response sang schema `videos`.
+* Xây dựng `write_jsonl()` để ghi dữ liệu clean ra Silver Layer.
+
+Kết quả:
+
+```text
+8021 raw records
+↓
+8021 clean records
+```
+
+Mapping chính:
+
+```text
+id → video_id
+source_id → source_id
+snippet.title → title
+snippet.description → description
+snippet.publishedAt → publish_date
+contentDetails.duration → duration_seconds
+statistics.viewCount → view_count
+```
+
+Transformation Pipeline đã tạo được dataset Silver ổn định, giữ nguyên số lượng record và chuẩn hóa các field quan trọng phục vụ database loading.
+
+---
+
+### 4. Phát hiện và xử lý dữ liệu ngoại lệ `P0D`
+
+File:
+
+```text
+src/processing/transform_video_metadata.py
+```
+
+Mục đích:
+
+Xử lý đúng trường hợp YouTube API trả về duration chưa hoàn chỉnh cho livestream hoặc video chưa finalize metadata tại thời điểm ingest.
+
+Đã triển khai:
+
+* Phát hiện một record có `contentDetails.duration = P0D`.
+* Điều tra video `pw-x4EgPU_U` với tiêu đề `Celebrating OCW's "NextGen" Platform with NPR's Anya Kamenetz`.
+* Xác định đây là trường hợp livestream, metadata tại thời điểm ingest chưa có duration thực tế.
+* Quyết định không hard-code duration và không loại bỏ record.
+* Map `P0D` thành `duration_seconds = NULL`.
+
+Kết quả:
+
+Pipeline giữ được tính trung thực của dữ liệu theo thời điểm ingest, đồng thời vẫn đảm bảo record có thể load vào PostgreSQL vì `duration_seconds` được thiết kế nullable.
+
+---
+
+### 5. Tạo Silver Dataset cho bảng `videos`
+
+File:
+
+```text
+data/silver/videos_clean.jsonl
+```
+
+Mục đích:
+
+Lưu dataset đã chuẩn hóa để làm input trực tiếp cho PostgreSQL Loading Pipeline.
+
+Đã triển khai:
+
+* Ghi mỗi clean video record thành một dòng JSON.
+* Giữ các field đúng theo schema nghiệp vụ của bảng `videos`.
+* Chuẩn hóa `publish_date`, `duration_seconds` và `view_count`.
+* Gán `source_id = 1` cho nguồn MIT OpenCourseWare hiện tại.
+
+Kết quả:
+
+```text
+Silver Records: 8021
+```
+
+Record mẫu:
+
+```json
+{
+  "video_id": "oz1iDMr5INo",
+  "source_id": 1,
+  "title": "...",
+  "description": "...",
+  "publish_date": "2026-06-16",
+  "duration_seconds": 240,
+  "view_count": 7437
+}
+```
+
+Silver dataset đã sẵn sàng để load vào PostgreSQL ở ngày tiếp theo.
+
+---
+
+### 6. Thiết kế PostgreSQL Loading Plan
+
+File:
+
+```text
+docs/postgresql_loading_plan.md
+```
+
+Mục đích:
+
+Thiết kế trước chiến lược load dữ liệu từ Silver Layer vào bảng `videos` để giảm rủi ro khi triển khai pipeline database.
+
+Đã triển khai:
+
+* Xác định input là `data/silver/videos_clean.jsonl`.
+* Mô tả schema đích của bảng `videos`.
+* Thiết kế mapping giữa Silver fields và PostgreSQL columns.
+* Định nghĩa data quality assumptions trước khi load.
+* Thiết kế loading strategy theo từng bước.
+* Thiết kế duplicate handling bằng `ON CONFLICT (video_id) DO NOTHING`.
+* Chuẩn bị validation queries sau khi load.
+
+Kết quả:
+
+Đã có tài liệu kỹ thuật đủ rõ để triển khai `src/database/load_videos.py` trong ngày 5, bao gồm strategy insert, xử lý idempotency và tiêu chí validation sau load.
+
+---
+
+### 7. Git History
+
+Đã commit:
+
+* `feat: kiểm tra video metadata đủ đáp ứng điều kiện để sang Transform`
+* `feat: xây dựng pipeline kiểm tra giữa playlist và metadata ở bronze`
+* `feat: xây dựng pipeline chuyển đổi metadata sang silver layer`
+* `docs: tài liệu thiết kế PostgreSQL Loading Plan.`
+* `docs: doc ngày 4 và kế hoạch cho ngày 5.`
+
+
+---
+
+# Những điều đã học được
+
+## Data Quality phải đứng trước Database Loading
+
+Đã hiểu:
+
+* Không nên load dữ liệu raw trực tiếp vào PostgreSQL nếu chưa kiểm tra chất lượng.
+* Cần xác nhận record count, duplicate và missing fields trước khi transform.
+* Data Quality Check giúp phát hiện sớm vấn đề ở Bronze Layer thay vì để lỗi xuất hiện ở database.
+* Một field nullable như `description` có thể thiếu mà không làm pipeline thất bại nếu schema đã thiết kế phù hợp.
+
+---
+
+## Cross Validation giúp bảo vệ tính đầy đủ của pipeline
+
+Đã hiểu:
+
+* Một pipeline enrichment có thể ghi đủ số dòng nhưng vẫn cần đối chiếu ID giữa các layer.
+* Playlist Bronze và Metadata Bronze là hai dataset raw khác nhau nhưng phải khớp về `video_id`.
+* So sánh bằng set giúp phát hiện nhanh video bị thiếu metadata.
+* Cross validation là bước quan trọng trước khi chuyển từ Bronze sang Silver.
+
+---
+
+## YouTube Metadata có thể thay đổi theo thời gian
+
+Đã hiểu:
+
+* YouTube API có thể trả về metadata tạm thời cho livestream hoặc video chưa finalize.
+* `P0D` không nhất thiết là dữ liệu sai, mà có thể là trạng thái dữ liệu tại thời điểm ingest.
+* Không nên hard-code giá trị duration dựa trên quan sát thủ công sau này.
+* Pipeline nên giữ tính reproducible bằng cách xử lý ngoại lệ theo rule rõ ràng.
+
+---
+
+## Silver Layer là lớp chuẩn hóa theo business schema
+
+Đã hiểu:
+
+* Bronze Layer lưu raw API response gần với source nhất.
+* Silver Layer chuyển raw response thành schema có thể dùng cho database và downstream processing.
+* Transformation cần chuẩn hóa cả tên field, kiểu dữ liệu và nullable rules.
+* Silver dataset phải đủ ổn định để trở thành input cho PostgreSQL Loading Pipeline.
+
+---
+
+# Vấn đề còn tồn tại
+
+Hiện tại:
+
+Dữ liệu đã được chuẩn hóa sang Silver Layer nhưng chưa được load vào PostgreSQL.
+
+Nguyên nhân:
+
+Ngày 4 tập trung vào Data Quality, Cross Validation, Transformation và thiết kế loading plan. Phần database loading cần được triển khai riêng để kiểm soát kết nối PostgreSQL, transaction, conflict handling và validation sau load.
+
+Cần thực hiện tiếp:
+
+* Tạo pipeline load dữ liệu từ `data/silver/videos_clean.jsonl`.
+* Kết nối PostgreSQL bằng cấu hình hiện có.
+* Insert dữ liệu vào bảng `videos`.
+* Triển khai `ON CONFLICT (video_id) DO NOTHING` để pipeline chạy lại an toàn.
+* Chạy validation query để xác nhận số record và duplicate trong PostgreSQL.
+
+---
+
+# Mục tiêu Ngày 5
+
+## Mục tiêu chính
+
+Load Silver Dataset vào PostgreSQL và hoàn thành bước Database Integration đầu tiên cho bảng `videos`.
+
+---
+
+## Bước 1
+
+Review tài liệu:
+
+```text
+docs/postgresql_loading_plan.md
+```
+
+Xác nhận lại input file, schema đích, mapping field, conflict handling và validation queries.
+
+---
+
+## Bước 2
+
+Tạo file:
+
+```text
+src/database/load_videos.py
+```
+
+Pipeline cần có các function chính:
+
+* `load_jsonl()`
+* `get_connection()`
+* `insert_video()`
+* `load_videos()`
+* `main()`
+
+---
+
+## Bước 3
+
+Đọc dữ liệu từ:
+
+```text
+data/silver/videos_clean.jsonl
+```
+
+Kiểm tra nhanh:
+
+* Tổng số record phải là `8021`.
+* Field bắt buộc `video_id`, `source_id` và `title` không được thiếu.
+* `duration_seconds` có thể `NULL`.
+
+---
+
+## Bước 4
+
+Kết nối PostgreSQL bằng cấu hình dự án.
+
+Kiểm tra:
+
+* Database server đang chạy.
+* Bảng `videos` đã tồn tại.
+* Bảng `sources` đã có `source_id = 1` cho MIT OpenCourseWare.
+
+---
+
+## Bước 5
+
+Insert dữ liệu vào bảng:
+
+```sql
+videos
+```
+
+Các column cần load:
+
+* `video_id`
+* `source_id`
+* `title`
+* `description`
+* `publish_date`
+* `duration_seconds`
+* `view_count`
+
+---
+
+## Bước 6
+
+Triển khai idempotent loading:
+
+```sql
+ON CONFLICT (video_id)
+DO NOTHING
+```
+
+Mục tiêu là pipeline có thể chạy lại nhiều lần mà không sinh duplicate.
+
+---
+
+## Bước 7
+
+Validation sau khi load:
+
+```sql
+SELECT COUNT(*)
+FROM videos;
+```
+
+Kỳ vọng:
+
+```text
+8021
+```
+
+Kiểm tra duplicate:
+
+```sql
+SELECT video_id, COUNT(*)
+FROM videos
+GROUP BY video_id
+HAVING COUNT(*) > 1;
+```
+
+Kỳ vọng:
+
+```text
+0 rows
+```
+
+---
+
+# Tiêu chí hoàn thành Ngày 5
+
+Thành công nếu đạt được:
+
+* Load thành công `8021` videos từ Silver Layer vào PostgreSQL.
+* Không có duplicate `video_id` trong bảng `videos`.
+* Pipeline có thể chạy lại mà không tạo dữ liệu trùng.
+* PostgreSQL phản ánh đầy đủ dữ liệu trong `data/silver/videos_clean.jsonl`.
+* Hoàn thành Database Integration đầu tiên của dự án.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Tiến độ hiện tại:
+
+Phase 1 - Foundation
+
+✅ Hoàn thành
+
+* Architecture Design
+* ERD Design
+* PostgreSQL Setup
+* Database Schema
+* GitHub Repository
+
+---
+
+Phase 2 - Ingestion
+
+✅ YouTube API Integration
+
+✅ Channel Discovery
+
+✅ Uploads Playlist Discovery
+
+✅ Playlist Pagination
+
+✅ Bronze Playlist Items Ingestion
+
+✅ Video Metadata Enrichment
+
+✅ Data Quality Check
+
+✅ Cross Validation
+
+⬜ PostgreSQL Loading
+
+---
+
+Phase 3 - Processing
+
+✅ Silver Layer
+
+🟡 Gold Layer
+
+⬜ Transcript Processing
+
+---
+
+Phase 4 - Knowledge Retrieval
+
+⬜ Embedding Pipeline
+
+⬜ Vector Database
+
+⬜ Semantic Search
