@@ -1513,3 +1513,461 @@ Phase 4 - Knowledge Retrieval
 ⬜ Vector Database
 
 ⬜ Semantic Search
+--- 
+# Ngày 5 - Database Integration
+
+## Đã hoàn thành
+
+### 1. Thiết lập kết nối PostgreSQL
+
+File:
+
+```text
+src/database/connection.py
+```
+
+Mục đích:
+
+Xây dựng module kết nối PostgreSQL dùng chung cho toàn bộ tầng Database Integration.
+
+Đã triển khai:
+
+* Tạo hàm `get_connection()`.
+* Cấu hình kết nối PostgreSQL thông qua file `.env`.
+* Kiểm thử kết nối từ Python tới PostgreSQL.
+
+Kết quả:
+
+* Kết nối PostgreSQL thành công.
+* Các module database có thể tái sử dụng chung một cơ chế kết nối.
+
+---
+
+### 2. Xây dựng Source Loading Pipeline
+
+File:
+
+```text
+src/database/load_sources.py
+```
+
+Mục đích:
+
+Đảm bảo dữ liệu nguồn tồn tại trong bảng `sources` trước khi nạp dữ liệu video.
+
+Đã triển khai:
+
+* Thiết kế seed data cho MIT OpenCourseWare.
+* Xây dựng hàm validate dữ liệu nguồn.
+* Triển khai insert vào bảng `sources`.
+* Sử dụng:
+
+```sql
+ON CONFLICT (channel_id)
+DO NOTHING
+```
+
+để hỗ trợ chạy lại pipeline nhiều lần.
+
+Kết quả:
+
+* Nạp thành công source MIT OpenCourseWare.
+* Bảng `sources` sẵn sàng phục vụ Foreign Key của bảng `videos`.
+
+---
+
+### 3. Xây dựng Video Loading Pipeline
+
+File:
+
+```text
+src/database/load_videos.py
+```
+
+Mục đích:
+
+Nạp dữ liệu từ Silver Layer vào PostgreSQL.
+
+Đã triển khai:
+
+* Đọc dữ liệu từ:
+
+```text
+data/silver/videos_clean.jsonl
+```
+
+* Tách riêng logic đọc file JSONL và logic insert database.
+* Kiểm tra tính hợp lệ của từng record.
+* Mapping dữ liệu sang schema bảng `videos`.
+* Triển khai:
+
+```sql
+ON CONFLICT (video_id)
+DO NOTHING
+```
+
+để pipeline có thể chạy lại nhiều lần mà không sinh duplicate.
+
+Kết quả:
+
+```text
+Loaded 8021 records
+```
+
+```text
+Inserted Records: 8021
+Skipped Records: 0
+Invalid Records: 0
+```
+
+Toàn bộ Silver Dataset đã được load vào PostgreSQL.
+
+---
+
+### 4. Điều tra và xử lý lỗi Foreign Key
+
+Mục đích:
+
+Khắc phục lỗi phát sinh trong quá trình load video.
+
+Đã triển khai:
+
+* Điều tra lỗi:
+
+```text
+insert or update on table "videos"
+violates foreign key constraint
+```
+
+* Phân tích quan hệ:
+
+```text
+sources
+    ↓
+videos
+```
+
+* Xác định nguyên nhân là bảng `sources` chưa có dữ liệu.
+* Thiết kế lại thứ tự pipeline:
+
+```text
+load_sources.py
+        ↓
+load_videos.py
+        ↓
+load_transcripts.py
+        ↓
+load_chunks.py
+```
+
+Kết quả:
+
+* Load video thành công.
+* Đảm bảo tính toàn vẹn dữ liệu theo Foreign Key Constraint.
+
+---
+
+### 5. Xây dựng Video Validation Pipeline
+
+File:
+
+```text
+src/database/validate_video.py
+```
+
+Mục đích:
+
+Kiểm tra chất lượng dữ liệu sau khi load vào PostgreSQL.
+
+Đã triển khai:
+
+* Kiểm tra tổng số records.
+* Kiểm tra duplicate video_id.
+* Kiểm tra missing title.
+* Kiểm tra missing publish_date.
+* Kiểm tra missing duration.
+* Kiểm tra Foreign Key Integrity.
+* Thống kê duration.
+* Thống kê view count.
+
+Kết quả:
+
+```text
+===== RECORD COUNT =====
+Total Records: 8021
+
+===== DUPLICATE CHECK =====
+PASS - No duplicate video_id found
+
+===== MISSING TITLE =====
+Missing Titles: 0
+
+===== MISSING PUBLISH DATE =====
+Missing Publish Dates: 0
+
+===== MISSING DURATION =====
+Missing Duration: 1
+
+===== FOREIGN KEY CHECK =====
+PASS - All videos have valid sources
+
+===== DURATION STATISTICS =====
+Min Duration: 3
+Max Duration: 62937
+Avg Duration: 2435.26
+
+===== VIEW COUNT STATISTICS =====
+Min Views: 0
+Max Views: 22477641
+Avg Views: 66989.09
+
+===== VALIDATION COMPLETED =====
+```
+
+---
+
+### 6. Điều tra dữ liệu ngoại lệ sau khi load
+
+Mục đích:
+
+Xác minh các giá trị bất thường trong dataset.
+
+Đã triển khai:
+
+* Điều tra record có:
+
+```text
+duration_seconds = NULL
+```
+
+* Điều tra record có:
+
+```text
+view_count = 0
+```
+
+* Truy vết tới video:
+
+```text
+Celebrating OCW's "NextGen" Platform with NPR's Anya Kamenetz
+```
+
+* Đối chiếu với dữ liệu Bronze Layer và kết quả điều tra trước đó.
+
+Kết quả:
+
+* Xác nhận đây là livestream metadata anomaly.
+* Không phải lỗi transform.
+* Không chỉnh sửa dữ liệu.
+* Giữ nguyên record để phản ánh trạng thái thực tế tại thời điểm ingest.
+
+---
+
+### 7. Git History
+
+Đã commit:
+
+* feat: thiết lập kết nối PostgreSQL cho pipeline
+* feat: pipeline nạp dữ liệu nguồn vào bảng sources
+* feat: pipeline load dữ liệu nguồn vào bảng sources
+* feat: kiểm tra validate sau khi load video
+* docs: doc ngày 5 và kế hoạch ngày 6
+
+
+---
+
+# Những điều đã học được
+
+## Database Loading phải tuân thủ thứ tự phụ thuộc
+
+Đã hiểu:
+
+* Foreign Key quyết định thứ tự load dữ liệu.
+* Không thể load videos trước khi sources tồn tại.
+* Cần thiết kế dependency giữa các pipeline database.
+
+---
+
+## Data Validation không chỉ là đếm số lượng record
+
+Đã hiểu:
+
+* Cần kiểm tra duplicate.
+* Cần kiểm tra missing values.
+* Cần kiểm tra Foreign Key Integrity.
+* Cần kiểm tra phân bố dữ liệu bằng statistics.
+
+---
+
+## Data Anomaly không đồng nghĩa với Data Error
+
+Đã hiểu:
+
+* Giá trị bất thường cần được điều tra trước khi xử lý.
+* Dữ liệu livestream có thể thay đổi theo thời gian.
+* Một số anomaly phản ánh thực tế nghiệp vụ thay vì lỗi hệ thống.
+
+---
+
+## Merge Commit và Git History
+
+Đã hiểu:
+
+* Merge commit xuất hiện khi local branch và remote branch khác lịch sử.
+* `git pull` mặc định sử dụng merge strategy.
+* Có thể sử dụng:
+
+```bash
+git pull --rebase origin main
+```
+
+để giữ lịch sử commit gọn hơn.
+
+---
+
+# Vấn đề còn tồn tại
+
+Hiện tại:
+
+Pipeline transcript chưa được triển khai.
+
+Nguyên nhân:
+
+* Chưa xây dựng module thu thập transcript.
+* Chưa có Bronze Layer cho transcript.
+* Chưa có quality check cho transcript.
+
+Cần thực hiện tiếp:
+
+* Nghiên cứu thư viện transcript phù hợp.
+* Thiết kế transcript schema.
+* Xây dựng transcript ingestion pipeline.
+* Kiểm thử transcript trên một tập video nhỏ trước khi mở rộng toàn bộ dataset.
+
+---
+
+# Mục tiêu Ngày 6
+
+## Mục tiêu chính
+
+Khởi động Transcript Pipeline và xác định chiến lược thu thập transcript cho toàn bộ dataset.
+
+---
+
+## Bước 1
+
+Tạo:
+
+```text
+src/ingestion/fetch_transcripts.py
+```
+
+---
+
+## Bước 2
+
+Thử nghiệm lấy transcript của một video đơn lẻ.
+
+---
+
+## Bước 3
+
+Phân tích cấu trúc dữ liệu transcript trả về.
+
+---
+
+## Bước 4
+
+Thiết kế Bronze Transcript Schema.
+
+Ví dụ:
+
+```text
+data/bronze/transcripts_raw.jsonl
+```
+
+---
+
+## Bước 5
+
+Thu transcript thử nghiệm cho khoảng:
+
+```text
+50 - 100 videos
+```
+
+---
+
+## Bước 6
+
+Đánh giá tỷ lệ video có transcript và không có transcript.
+
+---
+
+# Tiêu chí hoàn thành Ngày 6
+
+Thành công nếu đạt được:
+
+* Xây dựng được Transcript Ingestion POC.
+* Thu transcript thành công cho tập video mẫu.
+* Xác định được cấu trúc Bronze Transcript Layer.
+* Hiểu rõ các trường dữ liệu transcript.
+* Có cơ sở để triển khai Transcript Quality Check trong ngày tiếp theo.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Tiến độ hiện tại:
+
+Phase 1 - Foundation
+
+✅ Hoàn thành
+
+* Architecture Design
+* ERD Design
+* PostgreSQL Setup
+* Database Schema
+* GitHub Repository
+
+---
+
+Phase 2 - Ingestion
+
+✅ YouTube API Integration
+
+✅ Channel Discovery
+
+✅ Uploads Playlist Discovery
+
+✅ Playlist Pagination
+
+✅ Bronze Playlist Items Ingestion
+
+✅ Video Metadata Enrichment
+
+✅ Data Quality Check
+
+✅ Cross Validation
+
+✅ PostgreSQL Loading
+
+---
+
+Phase 3 - Processing
+
+✅ Silver Layer
+
+🟡 Gold Layer
+
+⬜ Transcript Processing
+
+---
+
+Phase 4 - Knowledge Retrieval
+
+⬜ Embedding Pipeline
+
+⬜ Vector Database
+
+⬜ Semantic Search
