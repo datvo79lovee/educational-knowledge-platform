@@ -1971,3 +1971,450 @@ Phase 4 - Knowledge Retrieval
 ⬜ Vector Database
 
 ⬜ Semantic Search
+---
+# Ngày 6 - Transcript Collection Pipeline
+
+## Đã hoàn thành
+
+### 1. Nghiên cứu YouTube Transcript API
+
+File:
+
+```text
+src/ingestion/fetch_transcripts.py
+```
+
+Mục đích:
+
+Đánh giá khả năng thu thập transcript từ YouTube để phục vụ Knowledge Processing Pipeline.
+
+Đã triển khai:
+
+* Nghiên cứu thư viện `youtube-transcript-api`.
+* Thử nghiệm lấy transcript của một video đơn lẻ.
+* Phân tích cấu trúc dữ liệu trả về.
+* Xác định metadata có thể khai thác.
+
+Kết quả:
+
+* API hoạt động ổn định với video của MIT OpenCourseWare.
+* Transcript trả về gồm:
+
+  * language
+  * language_code
+  * is_generated
+  * segments
+* Mỗi segment bao gồm:
+
+  * text
+  * start
+  * duration
+* Xác nhận phần lớn transcript của MIT là human-created caption, phù hợp cho NLP, Chunking và RAG.
+
+---
+
+### 2. Thiết kế Bronze Transcript Schema
+
+Mục đích:
+
+Thiết kế định dạng lưu trữ transcript tại Bronze Layer nhằm giữ nguyên dữ liệu gốc từ YouTube.
+
+Đã triển khai:
+
+Thiết kế schema gồm:
+
+```text
+video_id
+language
+language_code
+is_generated
+segments
+```
+
+Trong đó:
+
+* `segments` giữ nguyên toàn bộ transcript theo từng đoạn.
+* Mỗi đoạn gồm:
+
+  * text
+  * start
+  * duration
+
+Kết quả:
+
+* Bronze Transcript Layer phản ánh đầy đủ dữ liệu gốc từ YouTube.
+* Sẵn sàng cho bước Cleaning và Chunking.
+
+---
+
+### 3. Xây dựng Transcript Fetch Module
+
+File:
+
+```text
+src/ingestion/fetch_transcripts.py
+```
+
+Mục đích:
+
+Xây dựng module thu thập transcript có thể tái sử dụng cho toàn bộ pipeline.
+
+Đã triển khai:
+
+* Xây dựng hàm lấy transcript cho một video.
+* Xây dựng hàm xử lý theo batch.
+* Chuẩn hóa dữ liệu trả về.
+* Bổ sung Exception Handling cho các trường hợp:
+
+  * Không có transcript.
+  * Không đúng ngôn ngữ.
+  * IP Block.
+  * Các lỗi phát sinh khác.
+
+Kết quả:
+
+* Module có thể tái sử dụng trong Transcript Pipeline.
+* Đảm bảo pipeline không dừng khi gặp lỗi của một video đơn lẻ.
+
+---
+
+### 4. Kiểm thử Transcript Pipeline
+
+File:
+
+```text
+src/test/
+```
+
+Mục đích:
+
+Đánh giá khả năng hoạt động của Transcript API trước khi chạy trên toàn bộ dataset.
+
+Đã triển khai:
+
+* Kiểm thử một video đơn lẻ.
+* Kiểm thử batch 5 video.
+* Kiểm thử coverage trên 50 video.
+
+Kết quả:
+
+```text
+Videos Tested : 50
+Success       : 48
+Failed        : 2
+Success Rate  : 96%
+```
+
+Điều tra các trường hợp thất bại:
+
+* Một video chỉ có transcript tiếng Đức.
+* Một số video phát sinh giới hạn từ YouTube Transcript API.
+
+---
+
+### 5. Xây dựng Bronze Transcript Loading Pipeline
+
+File:
+
+```text
+src/database/load_transcripts.py
+```
+
+Mục đích:
+
+Thu thập transcript từ PostgreSQL và lưu trực tiếp xuống Bronze Layer.
+
+Đã triển khai:
+
+* Đọc danh sách `video_id` từ bảng `videos`.
+* Thu transcript từng video.
+* Ghi trực tiếp vào:
+
+```text
+data/bronze/transcripts_raw.jsonl
+```
+
+* Ghi theo từng record ngay sau khi thu thành công.
+
+Kết quả:
+
+* Transcript được lưu liên tục trong quá trình chạy.
+* Không mất dữ liệu nếu pipeline dừng giữa chừng.
+
+---
+
+### 6. Xây dựng Resume & Checkpoint Mechanism
+
+Mục đích:
+
+Cho phép pipeline tiếp tục từ điểm dừng thay vì chạy lại từ đầu.
+
+Đã triển khai:
+
+* Đọc các `video_id` đã xử lý từ Bronze Layer.
+* Skip các transcript đã tồn tại.
+* Chỉ xử lý các video chưa được thu.
+
+Kết quả:
+
+* Pipeline hỗ trợ Resume.
+* Có thể chạy nhiều phiên liên tiếp mà không sinh dữ liệu trùng lặp.
+
+---
+
+### 7. Xây dựng Runtime Control & Fault Tolerance
+
+Mục đích:
+
+Tăng khả năng vận hành pipeline trên tập dữ liệu lớn.
+
+Đã triển khai:
+
+* Giới hạn thời gian chạy bằng tham số:
+
+```text
+--max-runtime-minutes
+```
+
+* Thêm Random Delay giữa các request:
+
+```text
+--min-delay
+--max-delay
+```
+
+* Phát hiện và xử lý:
+
+```text
+RequestBlocked / IPBlocked
+```
+
+* Dừng pipeline an toàn khi gặp IP Block.
+
+Kết quả:
+
+Pipeline có khả năng:
+
+* Resume.
+* Checkpoint.
+* Fault Tolerance.
+* Graceful Stop.
+* Runtime Control.
+
+---
+
+### 8. Thu thập Transcript Dataset
+
+Mục đích:
+
+Đánh giá khả năng thu transcript trên tập dữ liệu thực tế.
+
+Kết quả hiện tại:
+
+```text
+Total Collected : 290 transcripts
+```
+
+Pipeline tự động:
+
+* Skip transcript đã có.
+* Thu transcript mới.
+* Dừng khi:
+
+  * Đạt Runtime giới hạn.
+  * Hoặc gặp IP Block.
+
+Đánh giá:
+
+290 transcript là tập dữ liệu đủ lớn để triển khai các bước tiếp theo gồm:
+
+* Transcript Cleaning.
+* Chunking.
+* Embedding.
+* Semantic Search.
+
+---
+
+### 9. Git History
+
+Đã commit:
+
+* feat: bổ sung thư viện youtube-transcript-api
+* feat: xây dựng module thu thập transcript từ YouTube
+* feat: xây dựng pipeline thu thập transcript và lưu Bronze Layer
+* feat: bổ sung kiểm thử và kiểm tra chất lượng transcript
+* docs: doc ngày 6 và kế hoạch ngày 7
+---
+
+# Những điều đã học được
+
+## Transcript Pipeline cần hỗ trợ Resume
+
+Đã hiểu:
+
+* Pipeline thu thập dữ liệu lớn không nên chạy lại từ đầu.
+* Checkpoint giúp tiết kiệm thời gian và tránh dữ liệu trùng lặp.
+* Resume là cơ chế quan trọng của Data Pipeline.
+
+---
+
+## API bên thứ ba luôn có giới hạn
+
+Đã hiểu:
+
+* YouTube Transcript API có thể giới hạn theo IP.
+* Cần thiết kế Fault Tolerance thay vì giả định API luôn khả dụng.
+* Runtime Control và Graceful Stop giúp pipeline vận hành ổn định hơn.
+
+---
+
+## Bronze Layer nên lưu dữ liệu gốc
+
+Đã hiểu:
+
+* Bronze chỉ lưu dữ liệu nguyên bản.
+* Cleaning và Transformation sẽ được thực hiện ở các tầng sau.
+* Giữ nguyên transcript gốc giúp dễ dàng truy vết và tái xử lý.
+
+---
+
+## Quy mô dữ liệu cần phù hợp mục tiêu dự án
+
+Đã hiểu:
+
+* Không cần thu toàn bộ transcript để chứng minh Semantic Search.
+* Một tập transcript đủ lớn có thể xác thực toàn bộ pipeline downstream.
+* Cần cân bằng giữa quy mô dữ liệu và giá trị kỹ thuật của dự án.
+
+---
+
+# Vấn đề còn tồn tại
+
+Hiện tại:
+
+* Một số video không có transcript tiếng Anh.
+* YouTube áp dụng IP Rate Limiting khi chạy trong thời gian dài.
+* Chưa triển khai Transcript Cleaning và Chunking Pipeline.
+
+---
+
+# Mục tiêu Ngày 7
+
+## Mục tiêu chính
+
+Khởi động Knowledge Processing Pipeline bằng cách xây dựng Transcript Cleaning và Chunking Pipeline.
+
+---
+
+## Bước 1
+
+Thiết kế chiến lược làm sạch transcript.
+
+---
+
+## Bước 2
+
+Xây dựng Transcript Cleaning Pipeline.
+
+---
+
+## Bước 3
+
+Thiết kế thuật toán Chunking theo token hoặc số ký tự.
+
+---
+
+## Bước 4
+
+Xây dựng Chunk Generation Pipeline.
+
+---
+
+## Bước 5
+
+Thiết kế Bronze → Silver Transcript Transformation.
+
+---
+
+## Bước 6
+
+Kiểm thử chất lượng chunk và chuẩn bị cho Embedding Pipeline.
+
+---
+
+# Tiêu chí hoàn thành Ngày 7
+
+Thành công nếu đạt được:
+
+* Hoàn thành Transcript Cleaning Pipeline.
+* Hoàn thành Chunk Generation Pipeline.
+* Sinh được Chunk Dataset phục vụ Embedding.
+* Xác định chiến lược Chunking tối ưu cho Semantic Search.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Tiến độ hiện tại:
+
+Phase 1 - Foundation
+
+✅ Hoàn thành
+
+* Kiến trúc hệ thống
+* ERD
+* PostgreSQL Schema
+* Thiết kế Medallion Architecture
+
+---
+
+Phase 2 - Ingestion
+
+✅ Hoàn thành
+
+* Channel Discovery
+* Uploads Playlist Discovery
+* Playlist Video Collection
+* Metadata Enrichment
+
+---
+
+Phase 3 - Processing
+
+✅ Hoàn thành
+
+* Data Quality Validation
+* Cross Validation
+* Video Transformation
+* Silver Layer Generation
+
+---
+
+Phase 4 - Database Integration
+
+✅ Hoàn thành
+
+* PostgreSQL Connection
+* Source Loading
+* Video Loading
+* Database Validation
+
+---
+
+Phase 5 - Knowledge Processing
+
+🟨 Đang thực hiện
+
+* ✅ Transcript Collection
+* ⬜ Transcript Cleaning
+* ⬜ Chunking
+
+---
+
+Phase 6 - Knowledge Retrieval
+
+⬜ Chưa bắt đầu
+
+* Embedding Pipeline
+* Vector Database
+* Semantic Search
