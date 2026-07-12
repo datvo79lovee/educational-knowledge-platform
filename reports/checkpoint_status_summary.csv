@@ -1,0 +1,6 @@
+﻿status,historical_record_count,latest_video_count
+fetch_failed,2,1
+ip_blocked,2,1
+no_transcript,5,5
+success,290,290
+transcripts_disabled,5,5
