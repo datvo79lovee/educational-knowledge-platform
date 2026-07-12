@@ -2418,3 +2418,373 @@ Phase 6 - Knowledge Retrieval
 * Embedding Pipeline
 * Vector Database
 * Semantic Search
+
+---
+
+# Ngày 7 - Data Foundation Audit và PostgreSQL Transcript Loading
+
+## Thay đổi so với kế hoạch ban đầu
+
+Kế hoạch trước đó dự kiến bắt đầu Transcript Cleaning và Chunking. Kế hoạch này
+được tạm dừng vì phạm vi của 290 transcript chưa được xác định và dữ liệu
+transcript chưa được nạp vào PostgreSQL.
+
+Quyết định trong ngày:
+
+* Không tiếp tục chunking khi data foundation chưa được audit.
+* Không crawl lại toàn bộ channel.
+* Kiểm tra, nạp và xác minh 290 transcript hiện có trước.
+* Phân tích corpus và khôi phục playlist trước khi mở rộng dữ liệu.
+
+---
+
+## Đã hoàn thành
+
+### 1. Ghi nhận trạng thái dữ liệu hiện tại
+
+File:
+
+```text
+docs/CURRENT_STATUS.md
+```
+
+Mục đích:
+
+Phân biệt rõ dữ liệu đã có trong Bronze JSONL, dữ liệu đã nạp vào PostgreSQL và
+trạng thái lịch sử trong checkpoint.
+
+Kết quả:
+
+* Sources trong PostgreSQL: 1
+* Videos trong PostgreSQL: 8.021
+* Transcript thành công trong Bronze JSONL: 290
+* Tổng số dòng checkpoint: 304
+* Số video duy nhất trong checkpoint: 302
+
+---
+
+### 2. Xây dựng loader transcript cho PostgreSQL
+
+File:
+
+```text
+scripts/load_transcripts_to_postgresql.py
+```
+
+Mục đích:
+
+Kiểm tra và nạp dữ liệu từ Bronze transcript JSONL vào bảng `transcripts` mà
+không tạo bản ghi trùng khi chạy lại.
+
+Đã triển khai:
+
+* Kiểm tra JSON không hợp lệ.
+* Kiểm tra thiếu và trùng `video_id`.
+* Kiểm tra toàn bộ `video_id` tồn tại trong bảng `videos`.
+* Ghép `segments[].text` thành `raw_text`.
+* Map `language_code` sang cột `language` hiện tại.
+* Map `fetched_at` sang `retrieved_at`.
+* Hỗ trợ dry-run và rollback trước khi commit.
+* Bỏ qua video đã có transcript khi chạy lại.
+
+Kết quả:
+
+```text
+Input Records    : 290
+Existing Before : 0
+Inserted        : 290
+Database After  : 290
+```
+
+Chạy lại loader xác nhận:
+
+```text
+Already Existing : 290
+Inserted         : 0
+```
+
+---
+
+### 3. Xuất báo cáo JOIN video và transcript
+
+File:
+
+```text
+scripts/export_video_transcript_summary.py
+reports/video_transcript_summary.csv
+```
+
+Mục đích:
+
+Xác minh transcript đã nạp có thể JOIN đầy đủ với metadata video.
+
+Kết quả:
+
+* Transcript trong PostgreSQL: 290
+* Dòng JOIN được xuất: 290
+* Transcript rỗng: 0
+* Ngôn ngữ đã lưu: `en` = 290
+
+---
+
+### 4. Audit metadata, transcript và checkpoint
+
+File:
+
+```text
+scripts/audit_corpus.py
+reports/video_summary.csv
+reports/transcript_summary.csv
+reports/checkpoint_status_summary.csv
+docs/CORPUS_AUDIT_REPORT.md
+```
+
+Mục đích:
+
+Đánh giá chất lượng kỹ thuật và mức độ bao phủ của 290 transcript trước khi tiếp
+tục phát triển downstream pipeline.
+
+Kết quả:
+
+* 290 transcript JOIN đầy đủ với video.
+* Transcript rỗng: 0
+* Video transcript thiếu description: 1
+* Độ dài transcript: 439 đến 101.387 ký tự
+* Độ dài trung vị: 27.212,5 ký tự
+* Transcript chỉ phủ khoảng 3,62% toàn bộ catalog.
+* 61 transcript có độ dài dưới 5.000 ký tự và cần kiểm tra nội dung.
+
+Checkpoint là append-only. Trạng thái mới nhất theo 302 video:
+
+```text
+success              : 290
+no_transcript        : 5
+transcripts_disabled : 5
+fetch_failed         : 1
+ip_blocked           : 1
+```
+
+---
+
+### 5. Báo cáo quá trình nạp transcript
+
+File:
+
+```text
+docs/TRANSCRIPT_LOAD_REPORT.md
+```
+
+Mục đích:
+
+Ghi lại nguồn dữ liệu, bước kiểm tra, field mapping, kết quả load và những trường
+chưa được schema hiện tại biểu diễn.
+
+Kết quả:
+
+Không thay đổi schema. Các trường `is_generated`, segment count, segment timing,
+tên ngôn ngữ đầy đủ và content hash vẫn được giữ trong Bronze JSONL.
+
+---
+
+### 6. Phân tách phạm vi commit của Ngày 7
+
+Code:
+
+```text
+scripts/load_transcripts_to_postgresql.py
+scripts/export_video_transcript_summary.py
+scripts/audit_corpus.py
+```
+
+Tài liệu:
+
+```text
+docs/CURRENT_STATUS.md
+docs/TRANSCRIPT_LOAD_REPORT.md
+docs/CORPUS_AUDIT_REPORT.md
+docs/progress_log.md
+```
+
+Báo cáo dữ liệu:
+
+```text
+reports/video_summary.csv
+reports/transcript_summary.csv
+reports/checkpoint_status_summary.csv
+reports/video_transcript_summary.csv
+```
+
+Các script và báo cáo CSV đã được commit riêng. Các file CSV có kích thước nhỏ,
+không chứa `raw_text` đầy đủ và là snapshot có thể dùng để kiểm tra lại kết luận
+trong tài liệu.
+
+Không đưa vào commit này nếu chưa review riêng:
+
+```text
+README.md
+docs/project_plan.md
+docs/docs/transcripts_plan.md
+src/database/load_transcripts.py
+notebooks/
+src/test/
+src/quality/check.py
+src/__init__.py
+```
+
+Các file trên là thay đổi có sẵn hoặc thuộc phạm vi khác, không nên trộn vào commit
+audit và PostgreSQL loading.
+
+---
+
+### 7. Git History
+
+Đã commit:
+
+* `feat: add transcript loading and corpus audit scripts`
+* `data: add transcript and corpus audit reports`
+
+Commit tài liệu chưa được tạo. Các file tài liệu sẽ được stage và commit riêng sau
+khi hoàn tất cập nhật `progress_log.md`.
+
+---
+
+# Những điều đã học được
+
+## Số dòng checkpoint không phải số video
+
+Đã hiểu:
+
+* Checkpoint append-only có thể chứa nhiều dòng cho cùng một `video_id`.
+* Tổng số dòng lịch sử là 304 nhưng chỉ đại diện cho 302 video.
+* Báo cáo trạng thái hiện tại phải dùng trạng thái cuối cùng của từng video.
+
+---
+
+## Có transcript không đồng nghĩa corpus có phạm vi rõ ràng
+
+Đã hiểu:
+
+* 290 transcript hợp lệ về kỹ thuật nhưng chỉ phủ 3,62% channel.
+* Chưa có playlist mapping nên chưa biết chúng thuộc course nào.
+* Không nên bắt đầu chunking trước khi xác định corpus mục tiêu.
+
+---
+
+## Loader cần có dry-run và kiểm tra sau commit
+
+Đã hiểu:
+
+* Dry-run giúp kiểm tra transaction trước khi ghi dữ liệu.
+* Foreign key cần được xác minh trước khi insert.
+* Chạy lại loader phải không tạo dữ liệu trùng.
+* Số dòng sau commit phải được kiểm tra bằng JOIN thực tế.
+
+---
+
+# Vấn đề còn tồn tại
+
+Hiện tại:
+
+* Chưa có quan hệ giữa video và playlist.
+* Chưa phân loại 290 transcript theo course và domain.
+* Có 61 transcript dưới 5.000 ký tự chưa được đánh giá.
+* Có 1 video transcript thiếu description.
+* Database chưa có unique constraint cho `transcripts.video_id`.
+* Schema chưa lưu `is_generated`, segment metadata và content hash.
+
+Không sửa schema ngay. Các giới hạn này phải được xem xét sau khi xác định phạm vi
+corpus.
+
+---
+
+# Mục tiêu Ngày 8
+
+## Mục tiêu chính
+
+Phân tích title và description của 290 video để xác định course, domain và các
+video rời rạc trước khi crawl playlist metadata.
+
+---
+
+## Bước 1
+
+Phân tích pattern trong title và description.
+
+---
+
+## Bước 2
+
+Gom nhóm video theo course hoặc chuỗi bài giảng có thể nhận diện từ metadata.
+
+---
+
+## Bước 3
+
+Gom nhóm theo domain kiến thức ở mức tổng quát.
+
+---
+
+## Bước 4
+
+Kiểm tra 61 transcript dưới 5.000 ký tự.
+
+---
+
+## Bước 5
+
+Xuất:
+
+```text
+reports/transcript_distribution.csv
+reports/course_distribution.csv
+```
+
+---
+
+# Tiêu chí hoàn thành Ngày 8
+
+Thành công nếu đạt được:
+
+* Mỗi transcript có trạng thái phân loại rõ ràng hoặc được đánh dấu chưa xác định.
+* Có thống kê transcript theo course và domain.
+* Xác định được tỷ lệ video rời rạc.
+* Có kết luận riêng cho nhóm transcript dưới 5.000 ký tự.
+* Có cơ sở để thiết kế playlist mapping ở bước tiếp theo.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Phase 1 - Foundation
+
+✅ Hoàn thành
+
+---
+
+Phase 2 - Metadata và Transcript Ingestion
+
+✅ Hoàn thành cho corpus hiện tại
+
+---
+
+Phase 3 - Data Foundation Audit
+
+✅ Hoàn thành
+
+---
+
+Phase 4 - Corpus Analysis và Playlist Mapping
+
+🟨 Đang thực hiện
+
+---
+
+Phase 5 - Transcript Cleaning và Chunking
+
+⬜ Tạm dừng đến khi xác định corpus
+
+---
+
+Phase 6 - Embedding và Semantic Search
+
+⬜ Chưa bắt đầu
