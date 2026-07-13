@@ -1,3 +1,4 @@
 psycopg2-binary
 python-dotenv
 youtube-transcript-api
+google-api-python-client

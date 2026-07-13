@@ -1,0 +1,136 @@
+﻿course_code,course_name,course_confidence,transcript_count
+unresolved,unresolved,unresolved,32
+RES.6-012,Introduction to Probability,high,11
+15.071,The Analytics Edge,high,8
+8.01,Classical Mechanics,high,6
+8.06,Quantum Physics III,high,6
+5.111,Principles of Chemical Science,high,5
+6.004,Computation Structures,high,5
+15.031J,"Energy Decisions, Markets, and Policies",high,4
+18.01SC,Single Variable Calculus,high,4
+18.06SC,Linear Algebra,high,4
+6.0001,Introduction to Computer Science and Programming in Python,high,4
+6.042J,Mathematics for Computer Science,high,4
+7.012,Introduction to Biology,high,4
+8.04,Quantum Physics I,high,4
+8.13,"14 Experimental Physics I & II ""Junior Lab""",high,4
+9.04,Sensory Systems,high,4
+RES.10-S95,Physics of COVID-19 Transmission,high,4
+14.01,Principles of Microeconomics,high,3
+14.12,Economic Applications of Game Theory,high,3
+18.01,Single Variable Calculus,high,3
+18.02SC,Multivariable Calculus,high,3
+18.085,Computational Science and Engineering I,high,3
+2.57,Nano-to-Micro Transport Processes,high,3
+3.020,Thermodynamics of Materials,high,3
+3.091,Introduction to Solid-State Chemistry,high,3
+5.08J,Biological Chemistry II,high,3
+6.849,"Geometric Folding Algorithms: Linkages, Origami, Polyhedra",high,3
+CMS.608,Game Design,high,3
+CMS.611J,Creating Video Games,high,3
+RES.9-003,"Brains, Minds and Machines Summer Course",high,3
+14.13,Psychology and Economics,high,2
+14.271,Industrial Organization I,high,2
+14.41,Public Finance and Public Policy,high,2
+15.393,Nuts and Bolts of New Ventures,high,2
+16.842,Fundamentals of Systems Engineering,high,2
+18.03SC,Differential Equations,high,2
+18.100A,Real Analysis,high,2
+18.100B,Real Analysis,high,2
+18.156,Projection Theory,high,2
+2.71,Optics,high,2
+20.219,Becoming the Next Bill Nye: Writing and Hosting the Educational Show,high,2
+21M.355,Musical Improvisation,high,2
+22.033,Nuclear Systems Design Project,high,2
+24.900,Introduction to Linguistics,high,2
+24.912,Introduction to Black Studies,high,2
+3.320,Atomistic Computer Modeling of Materials,high,2
+5.112,Principles of Chemical Science,high,2
+5.61,Physical Chemistry,high,2
+6.001,Structure and Interpretation of Computer Programs,high,2
+6.006,Introduction to Algorithms,high,2
+6.013,"Electromagnetics and Applications, Fall 2",high,2
+6.034,Artificial Intelligence,high,2
+6.046J,/ 18.410J Introduction to Algorithms (SMA 5503),high,2
+6.1200J,Mathematics for Computer Science,high,2
+6.450,Principles of Digital Communications I,high,2
+6.832,Underactuated Robotics,high,2
+8.20,"Introduction to Special Relativity, January",high,2
+8.701,Introduction to Nuclear and Particle Physics,high,2
+8.821,String Theory and Holographic Duality,high,2
+9.35,,high,2
+RES.18-009,Learn Differential Equations: Up Close with Gilbert Strang and Cleve Moler,high,2
+RES.6.007,Signals and Systems,high,2
+RES.8-007,Cosmic Origin of the Chemical Elements,high,2
+1.258J,Public Transportation Systems,high,1
+11.601,Introduction to Environmental Policy and Planning,high,1
+14.01SC,Principles of Microeconomics,high,1
+14.771,Development Economics,high,1
+14.772,Development Economics: Macroeconomics,high,1
+15.371,/10.807/2.907 Innovation Teams,high,1
+15.390,New Enterprises,high,1
+16.412J,Cognitive Robotics,high,1
+16.687,Private Pilot Ground School,high,1
+18.02,Multivariable Calculus,high,1
+18.03,Differential Equations,high,1
+18.102,Introduction to Functional Analysis,high,1
+18.642,Topics in Mathematics with Applications in Finance,high,1
+18.821,Project Laboratory in Mathematics,high,1
+2.003SC,Engineering Dynamics,high,1
+2.830J,"Control of Manufacturing Processes, S08",high,1
+2.997,Direct Solar/Thermal To Electrical Energy Conversion Technologies,high,1
+21G.107,Chinese I (Streamlined),high,1
+21G.503,Japanese III,high,1
+21L.011,The Film Experience,high,1
+22.67J,Principles of Plasma Diagnostics,high,1
+24.908,Creole Language and Caribbean Identities,high,1
+3.054,"Cellular Solids: Structure, Properties and Applications",high,1
+3.091SC,Introduction to Solid State Chemistry,high,1
+3.60,,high,1
+4.125,Architecture Studio: Building in Landscap,high,1
+5.07SC,Biological Chemistry,high,1
+5.310,Laboratory Chemistry,high,1
+5.60,Thermodynamics & Kinetics,high,1
+5.80,Small-Molecule Spectroscopy and Dynamics,high,1
+6.0002,Introduction to Computational Thinking and Data Science,high,1
+6.002,Circuits and Electronics,high,1
+6.003,Signals and Systems,high,1
+6.00SC,Introduction to Computer Science and Programming,high,1
+6.041,Probabilistic Systems Analysis and Applied Probability,high,1
+6.100L,Introduction to CS and Programming using Python,high,1
+6.172,Performance Engineering of Software Systems,high,1
+6.262,Discrete Stochastic Processes,high,1
+6.622,Power Electronics,high,1
+6.774,Physics of Microfabrication: Front End Processing,high,1
+6.7960,Deep Learning,high,1
+6.801,Machine Vision,high,1
+6.811,Principles and Practices of Assistive Technology,high,1
+6.868J,The Society of Mind,high,1
+7.013,Introductory Biology,high,1
+7.016,Introductory Biology,high,1
+8.03SC,Physics III: Vibrations and Waves,high,1
+8.224,Exploring Black Holes,high,1
+8.286,The Early Universe,high,1
+8.323,Relativistic Quantum Field Theory I,high,1
+8.333,Statistical Mechanics I: Statistical Mechanics of Particles,high,1
+8.334,Statistical Mechanics II: Statistical Physics of Fields,high,1
+8.591J,Systems Biology,high,1
+8.962,General Relativity,high,1
+9.00SC,Introduction to Psychology,high,1
+9.01,Neuroscience and Behavior,high,1
+9.20,Animal Behavior,high,1
+ESD.932,Engineering Ethics,high,1
+HFH.101,Indian Institutes of Technology Joint Entrance Exam Preparation,high,1
+HST.512,Genomic Medicine,high,1
+MAS.771,Autism Theory and Technology,high,1
+RES.10-001,Making Science and Engineering Pictures: A Practical Guide to Presenting Your Work,high,1
+RES.15-003,Shaping the Future of Work (15.662x),high,1
+RES.16-001,Lean Enterprise en Espanol,high,1
+RES.2-006,Girls Who Build Cameras,high,1
+RES.21G,"505 Kanji Learning Any Time, Any Place for Japanese V",high,1
+RES.3-002,Collaborative Design and Creative Expression with Arduino Microcontrollers,high,1
+RES.3-003,Learn to Build Your Own Videogame with the Unity Game Engine and Microsoft Kinect,high,1
+RES.3-004,Visualizing Materials Science,high,1
+RES.6-008,"Digital Signal Processing, 1975",high,1
+SP.775,D-Lab Energy,high,1
+STS.042J,"/ 8.225J Einstein, Oppenheimer, Feynman: Physics in the 20th Century",high,1
