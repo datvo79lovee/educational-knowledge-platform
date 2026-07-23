@@ -1,124 +1,84 @@
-# Educational Knowledge Platform
+# Educational Knowledge Platform — Project Plan
 
-## Project Overview
+## Goal
 
-Xây dựng hệ thống Data Engineering thu thập, xử lý và tìm kiếm nội dung giáo dục từ YouTube.
+Build a data engineering pipeline that collects educational content from MIT OpenCourseWare and makes it searchable through semantic retrieval.
 
-Nguồn dữ liệu ban đầu:
+## Architecture
 
-- MIT OpenCourseWare
+```text
+YouTube Data API
+  -> Bronze video and metadata JSONL
+  -> validation and deduplication
+  -> Silver video metadata
+  -> PostgreSQL
+  -> transcript acquisition and checkpointing
+  -> Bronze transcript JSONL
+  -> Silver cleaned transcripts
+  -> semantic chunks
+  -> embeddings and vector database
+  -> Semantic Search API
+```
 
-Mục tiêu cuối cùng:
+## Phase 1 — Foundation
 
-- Thu thập video metadata
-- Thu thập transcript
-- Xây dựng Data Lake theo Medallion Architecture
-- Sinh embedding
-- Lưu vector vào Vector Database
-- Hỗ trợ semantic search
+- [x] PostgreSQL setup and connection
+- [x] Schema and ERD design
+- [x] Project structure and documentation
 
----
+## Phase 2 — Video Metadata Ingestion
 
-# Architecture
-
-YouTube API
-
-↓
-
-Bronze Layer
-
-↓
-
-Silver Layer
-
-↓
-
-Gold Layer
-
-↓
-
-Embedding Pipeline
-
-↓
-
-Vector Database
-
----
-
-# Development Roadmap
-
-## Phase 1 - Foundation
-
-### Database
-
-- [x] PostgreSQL setup
-- [x] DataGrip connection
-- [x] Schema design
-
-### Documentation
-
-- [x] Architecture Diagram
-- [x] ERD Diagram
-
----
-
-## Phase 2 - Ingestion
-
-### YouTube API
-
-- [x] API connection
-- [x] Channel discovery
-- [x] Uploads playlist discovery
+- [x] YouTube Data API integration
+- [x] Channel and uploads playlist discovery
 - [x] Playlist pagination
+- [x] Collect 8,021 playlist video records
+- [x] Retrieve 8,021 raw video metadata records
+- [x] Validate, deduplicate, and normalize metadata
+- [x] Produce 8,021 Silver video records
+- [x] Load curated sources and videos into PostgreSQL
+- [x] Validate the PostgreSQL load
 
-### Bronze Layer
+## Phase 3 — Transcript Ingestion
 
-- [x] Playlist items ingestion
-- [ ] Video metadata ingestion
-- [ ] Transcript ingestion
+- [x] Build a resumable transcript ingestion pipeline
+- [x] Add append-only status checkpointing
+- [x] Classify permanent, retryable, and blocking failures
+- [x] Collect 290 transcripts for the MVP corpus
+- [x] Reconcile successful payloads with checkpoint status
+- [x] Freeze the MIT 6.0001 Fall 2016 target manifest with 38 videos
+- [x] Collect all 38 target transcripts, including 34 new Bronze payloads
+- [x] Validate 324 unique Bronze payloads with a PostgreSQL dry run
+- [ ] Load the 34 new target transcripts into PostgreSQL
+- [ ] Verify the committed PostgreSQL load and target-corpus coverage
 
----
+## Phase 4 — Knowledge Processing
 
-## Phase 3 - Data Processing
+- [ ] Define the Silver transcript schema for the MIT 6.0001 corpus
+- [ ] Clean and normalize transcript text
+- [ ] Produce Silver transcript records
+- [ ] Generate semantic chunks
+- [ ] Validate chunk quality and lineage
 
-### Silver Layer
+## Phase 5 — Knowledge Retrieval
 
-- [ ] Data cleaning
-- [ ] Deduplication
-- [ ] Validation
+- [ ] Generate embeddings
+- [ ] Load embeddings into a vector database
+- [ ] Build the Semantic Search API
+- [ ] Evaluate retrieval quality
 
-### Gold Layer
+## Current Status
 
-- [ ] Topic classification
-- [ ] Course aggregation
-- [ ] Analytics datasets
+Metadata ingestion is complete. Bronze contains 324 unique transcript payloads.
+The MIT 6.0001 Fall 2016 target corpus has complete transcript coverage at 38/38:
+4 payloads existed before targeted acquisition and 34 were newly collected.
 
----
+A PostgreSQL dry run validated all 324 payloads. PostgreSQL still contains 290
+transcripts, and the loader is expected to insert exactly 34 new rows. The next
+step is to perform and verify that committed load before designing the Silver
+transcript schema.
 
-## Phase 4 - Knowledge Retrieval
+## State Ownership
 
-### Embedding
-
-- [ ] Chunk generation
-- [ ] Embedding generation
-
-### Vector Database
-
-- [ ] Vector storage
-- [ ] Semantic search
-
----
-
-# Current Status
-
-Phase 2 - Ingestion
-
-Completed:
-
-- YouTube API integration
-- Playlist pagination
-- Bronze ingestion
-
-Next milestone:
-
-- Video metadata ingestion using videos().list()
+- `data/bronze/transcripts_raw.jsonl` is the source of truth for successful transcript payloads.
+- `data/bronze/transcripts_checkpoint.jsonl` is the source of truth for the latest processing status.
+- Pipeline startup reconciles both sources and warns when a success checkpoint has no matching payload or a payload has no matching success checkpoint.

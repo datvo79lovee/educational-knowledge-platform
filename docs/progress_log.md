@@ -2445,7 +2445,7 @@ Quyết định trong ngày:
 File:
 
 ```text
-docs/CURRENT_STATUS.md
+docs/status/CURRENT_STATUS.md
 ```
 
 Mục đích:
@@ -2468,7 +2468,7 @@ Kết quả:
 File:
 
 ```text
-scripts/load_transcripts_to_postgresql.py
+scripts/transcript_loading/load_transcripts_to_postgresql.py
 ```
 
 Mục đích:
@@ -2510,8 +2510,8 @@ Inserted         : 0
 File:
 
 ```text
-scripts/export_video_transcript_summary.py
-reports/video_transcript_summary.csv
+scripts/data_audit/export_video_transcript_summary.py
+reports/01_data_audit/video_transcript_summary.csv
 ```
 
 Mục đích:
@@ -2532,11 +2532,11 @@ Kết quả:
 File:
 
 ```text
-scripts/audit_corpus.py
-reports/video_summary.csv
-reports/transcript_summary.csv
-reports/checkpoint_status_summary.csv
-docs/CORPUS_AUDIT_REPORT.md
+scripts/data_audit/audit_corpus.py
+reports/01_data_audit/video_summary.csv
+reports/01_data_audit/transcript_summary.csv
+reports/01_data_audit/checkpoint_status_summary.csv
+docs/reports/01_data_audit/CORPUS_AUDIT_REPORT.md
 ```
 
 Mục đích:
@@ -2571,7 +2571,7 @@ ip_blocked           : 1
 File:
 
 ```text
-docs/TRANSCRIPT_LOAD_REPORT.md
+docs/reports/01_data_audit/TRANSCRIPT_LOAD_REPORT.md
 ```
 
 Mục đích:
@@ -2591,27 +2591,27 @@ tên ngôn ngữ đầy đủ và content hash vẫn được giữ trong Bronze
 Code:
 
 ```text
-scripts/load_transcripts_to_postgresql.py
-scripts/export_video_transcript_summary.py
-scripts/audit_corpus.py
+scripts/transcript_loading/load_transcripts_to_postgresql.py
+scripts/data_audit/export_video_transcript_summary.py
+scripts/data_audit/audit_corpus.py
 ```
 
 Tài liệu:
 
 ```text
-docs/CURRENT_STATUS.md
-docs/TRANSCRIPT_LOAD_REPORT.md
-docs/CORPUS_AUDIT_REPORT.md
+docs/status/CURRENT_STATUS.md
+docs/reports/01_data_audit/TRANSCRIPT_LOAD_REPORT.md
+docs/reports/01_data_audit/CORPUS_AUDIT_REPORT.md
 docs/progress_log.md
 ```
 
 Báo cáo dữ liệu:
 
 ```text
-reports/video_summary.csv
-reports/transcript_summary.csv
-reports/checkpoint_status_summary.csv
-reports/video_transcript_summary.csv
+reports/01_data_audit/video_summary.csv
+reports/01_data_audit/transcript_summary.csv
+reports/01_data_audit/checkpoint_status_summary.csv
+reports/01_data_audit/video_transcript_summary.csv
 ```
 
 Các script và báo cáo CSV đã được commit riêng. Các file CSV có kích thước nhỏ,
@@ -2735,8 +2735,8 @@ Kiểm tra 61 transcript dưới 5.000 ký tự.
 Xuất:
 
 ```text
-reports/transcript_distribution.csv
-reports/course_distribution.csv
+reports/02_corpus_analysis/transcript_distribution.csv
+reports/02_corpus_analysis/course_distribution.csv
 ```
 
 ---
@@ -2786,5 +2786,1114 @@ Phase 5 - Transcript Cleaning và Chunking
 ---
 
 Phase 6 - Embedding và Semantic Search
+
+⬜ Chưa bắt đầu
+
+---
+
+# Ngày 8 - Corpus Course và Domain Analysis
+
+## Đã hoàn thành
+
+### 1. Xây dựng script phân tích corpus
+
+File:
+
+```text
+scripts/corpus_analysis/analyze_corpus.py
+```
+
+Mục đích:
+
+Phân tích 290 transcript theo course, domain và độ dài bằng metadata hiện có mà
+không ghi ngược kết quả vào PostgreSQL.
+
+Đã triển khai:
+
+* Nhận diện mã course từ title và description.
+* Yêu cầu bằng chứng `MIT` rõ ràng trước khi nhận một chuỗi là course code.
+* Gắn trạng thái `unresolved` khi metadata không đủ.
+* Phân loại domain bằng mã khoa và từ khóa.
+* Đánh dấu mức độ ưu tiên kiểm tra cho transcript dưới 5.000 ký tự.
+* Xuất bằng chứng và rule phân loại theo từng transcript.
+
+---
+
+### 2. Phân tích phân bố course
+
+File:
+
+```text
+reports/02_corpus_analysis/transcript_classification.csv
+reports/02_corpus_analysis/course_distribution.csv
+```
+
+Kết quả:
+
+* Tổng transcript: 290
+* Nhận diện được course code: 258
+* Chưa nhận diện được course code: 32
+* Số course code đã nhận diện: 134
+* Course chỉ có 1 transcript: 72
+* Course có ít nhất 4 transcript: 16
+* Course lớn nhất: `RES.6-012`, có 11 transcript
+
+Kết luận:
+
+Corpus phân tán trên nhiều course. Không có course nào chiếm tỷ trọng đủ lớn để
+coi 290 transcript là một corpus course tập trung.
+
+---
+
+### 3. Phân tích phân bố domain
+
+File:
+
+```text
+reports/02_corpus_analysis/transcript_distribution.csv
+```
+
+Kết quả:
+
+```text
+computer_science_ai_data           : 46
+mathematics_statistics             : 45
+physics                            : 44
+unresolved                         : 42
+engineering                        : 38
+economics_business_management      : 33
+biology_medicine_neuroscience      : 24
+education_communication_media      : 8
+humanities_social_science          : 8
+architecture_urban_studies         : 2
+```
+
+Domain là phân loại heuristic nội bộ, không phải taxonomy chính thức của MIT.
+
+---
+
+### 4. Kiểm tra transcript ngắn
+
+File:
+
+```text
+reports/02_corpus_analysis/short_transcript_review.csv
+```
+
+Kết quả:
+
+* Transcript dưới 5.000 ký tự: 61
+* Duration: 41–547 giây
+* Duration trung bình: 241,69 giây
+* `likely_valid_short_video`: 61
+* `possible_incomplete`: 0
+
+Chưa có bằng chứng kỹ thuật cho thấy 61 transcript này bị cắt. Không loại bỏ chúng.
+
+---
+
+### 5. Hoàn thành báo cáo phân tích corpus
+
+File:
+
+```text
+docs/reports/02_corpus_analysis/CORPUS_ANALYSIS_REPORT.md
+docs/status/CURRENT_STATUS.md
+```
+
+Kết quả:
+
+Ghi lại phương pháp, kết quả, false positive đã loại, giới hạn của heuristic và
+quyết định chuyển sang playlist mapping.
+
+---
+
+# Những điều đã học được
+
+## Regex có thể tạo false positive
+
+Đã hiểu:
+
+* Chuỗi giống course code không đồng nghĩa là course code.
+* `fall-2004`, `DD.2.1`, `COVID-19` và `HS-002` từng bị nhận nhầm.
+* Domain `mit.edu` trong URL không được dùng như bằng chứng tiền tố `MIT`.
+* Khi không đủ bằng chứng cần giữ `unresolved` thay vì ép nhãn.
+
+---
+
+## Corpus size không phản ánh corpus coherence
+
+Đã hiểu:
+
+* 290 transcript đủ để chạy thử pipeline kỹ thuật.
+* 290 transcript không tạo thành corpus tập trung khi trải trên 134 course.
+* 72 course chỉ có một transcript cho thấy sampling bị phân tán.
+* Cần đo coverage theo playlist/course trước khi semantic evaluation.
+
+---
+
+## Transcript ngắn không đồng nghĩa transcript lỗi
+
+Đã hiểu:
+
+* Độ dài transcript phải được xem cùng duration video.
+* 61 transcript ngắn đều thuộc video dưới 10 phút.
+* Không được xóa dữ liệu chỉ dựa trên ngưỡng ký tự.
+
+---
+
+# Vấn đề còn tồn tại
+
+Hiện tại:
+
+* 32 transcript chưa nhận diện được course.
+* 42 transcript chưa nhận diện được domain.
+* Chưa biết tổng số video của từng course.
+* Chưa có quan hệ video–playlist.
+* Một video có thể nằm trong nhiều playlist nhưng báo cáo hiện chưa biểu diễn được.
+* Joint course có thể chỉ giữ mã course đầu tiên.
+
+---
+
+# Mục tiêu Ngày 9
+
+## Mục tiêu chính
+
+Khôi phục quan hệ giữa 290 video transcript và playlist mà không tải lại transcript
+hoặc metadata video.
+
+---
+
+## Bước 1
+
+Thu thập danh sách playlist của MIT OpenCourseWare.
+
+---
+
+## Bước 2
+
+Thu thập playlist items và chỉ giữ các trường cần thiết cho mapping.
+
+---
+
+## Bước 3
+
+Tạo:
+
+```text
+playlists.csv
+video_playlist.csv
+```
+
+---
+
+## Bước 4
+
+JOIN mapping với 290 video transcript.
+
+---
+
+## Bước 5
+
+Đo coverage theo playlist và kiểm tra 32 course unresolved, 42 domain unresolved.
+
+---
+
+# Tiêu chí hoàn thành Ngày 9
+
+Thành công nếu đạt được:
+
+* Có danh sách playlist và playlist items hợp lệ.
+* Biểu diễn được quan hệ nhiều–nhiều giữa video và playlist.
+* Biết bao nhiêu trong 290 video nằm trong ít nhất một playlist.
+* Không tải lại transcript.
+* Không crawl lại toàn bộ channel metadata.
+* Có báo cáo coverage để quyết định corpus mục tiêu.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Phase 1 - Foundation
+
+✅ Hoàn thành
+
+---
+
+Phase 2 - Metadata và Transcript Ingestion
+
+✅ Hoàn thành cho corpus hiện tại
+
+---
+
+Phase 3 - Data Foundation Audit
+
+✅ Hoàn thành
+
+---
+
+Phase 4 - Corpus Analysis
+
+✅ Hoàn thành bước phân tích metadata
+
+---
+
+Phase 5 - Playlist Mapping
+
+🟨 Bước tiếp theo
+
+---
+
+Phase 6 - Transcript Cleaning và Chunking
+
+⬜ Tạm dừng đến khi xác định corpus
+
+---
+
+Phase 7 - Embedding và Semantic Search
+
+⬜ Chưa bắt đầu
+
+---
+
+# Ngày 9 - Playlist Mapping
+
+## Đã hoàn thành
+
+### 1. Tổ chức lại report theo milestone
+
+File:
+
+```text
+reports/README.md
+reports/01_data_audit/
+reports/02_corpus_analysis/
+reports/03_playlist_mapping/
+```
+
+Mục đích:
+
+Tách báo cáo theo từng bước để dễ theo dõi nguồn gốc, script tạo dữ liệu và quyết
+định tương ứng.
+
+---
+
+### 2. Xây dựng playlist mapping pipeline
+
+File:
+
+```text
+scripts/playlist_mapping/map_playlists.py
+```
+
+Đã triển khai:
+
+* Thu public playlists bằng pagination.
+* Thu playlist items bằng pagination.
+* Chỉ giữ mapping liên quan đến 290 video transcript.
+* Loại uploads playlist khỏi phân tích course.
+* Checkpoint sau từng playlist để hỗ trợ resume.
+* Deduplicate theo cặp `video_id + playlist_id`.
+* Không tải lại transcript hoặc video metadata.
+
+---
+
+### 3. Hoàn thành mapping và kiểm tra coverage
+
+File:
+
+```text
+reports/03_playlist_mapping/playlists.csv
+reports/03_playlist_mapping/video_playlist.csv
+reports/03_playlist_mapping/playlist_coverage.csv
+reports/03_playlist_mapping/playlist_distribution.csv
+```
+
+Kết quả:
+
+```text
+Public curated playlists : 361
+Video-playlist rows       : 284
+Mapped transcript videos  : 283
+Unmapped videos           : 7
+Videos in >1 playlist     : 1
+Duplicate mapping pairs   : 0
+```
+
+---
+
+### 4. Bổ sung course và domain từ playlist title
+
+Kết quả:
+
+* Course unresolved trước playlist: 32
+* Course unresolved sau playlist fallback: 25
+* Domain unresolved trước playlist: 42
+* Domain unresolved sau playlist fallback: 38
+
+Playlist chỉ được dùng làm fallback khi metadata đang unresolved và các playlist
+có nhãn thống nhất. Không ghi đè course/domain đã có.
+
+---
+
+### 5. Hoàn thành báo cáo playlist mapping
+
+File:
+
+```text
+docs/reports/03_playlist_mapping/PLAYLIST_MAPPING_REPORT.md
+docs/status/CURRENT_STATUS.md
+```
+
+Kết luận:
+
+Corpus hiện tại có coverage playlist cao về membership nhưng coverage thấp trong
+từng course. Không cần crawl lại toàn bộ channel; cần chọn corpus mục tiêu trước.
+
+---
+
+# Những điều đã học được
+
+## Playlist mapping là quan hệ nhiều–nhiều
+
+Đã hiểu:
+
+* Một video có thể nằm trong nhiều playlist.
+* Mapping cần bảng nối hoặc file quan hệ riêng.
+* Không nên lưu một `playlist_id` duy nhất trực tiếp trong video.
+
+---
+
+## Có playlist không đồng nghĩa xác định được course
+
+Đã hiểu:
+
+* 31/32 video course-unresolved có playlist membership.
+* Chỉ 7 video có playlist title đủ rõ để bổ sung course code.
+* Playlist title không chuẩn phải giữ unresolved thay vì ép nhãn.
+
+---
+
+## Playlist coverage xác nhận corpus sampling bị phân tán
+
+Đã hiểu:
+
+* Playlist lớn nhất có 266 items nhưng corpus chỉ có 11 transcript match.
+* 283 video có playlist không có nghĩa các course đã đủ coverage.
+* Corpus selection phải xảy ra trước targeted crawl.
+
+---
+
+# Vấn đề còn tồn tại
+
+* 7 video không có public playlist mapping.
+* 25 video vẫn chưa xác định course.
+* 38 video vẫn chưa xác định domain.
+* Chưa chọn course hoặc domain mục tiêu.
+* Chưa đặt ngưỡng coverage tối thiểu cho corpus.
+* Chưa quyết định crawl bổ sung playlist nào.
+
+---
+
+# Mục tiêu Ngày 10
+
+## Mục tiêu chính
+
+Ra quyết định phạm vi corpus dựa trên playlist mapping, course distribution và mục
+tiêu semantic search.
+
+---
+
+## Bước 1
+
+Chọn một hoặc một nhóm course/domain mục tiêu.
+
+---
+
+## Bước 2
+
+Tính coverage transcript trên tổng số item của playlist được chọn.
+
+---
+
+## Bước 3
+
+Lập danh sách video còn thiếu transcript trong playlist mục tiêu.
+
+---
+
+## Bước 4
+
+Quyết định giữ corpus hiện tại hay targeted crawl.
+
+---
+
+## Bước 5
+
+Tạo:
+
+```text
+docs/CORPUS_SCOPE.md
+reports/04_scope_decision/
+```
+
+---
+
+# Tiêu chí hoàn thành Ngày 10
+
+* Có corpus mục tiêu được mô tả rõ.
+* Có playlist/course nằm trong scope.
+* Có coverage hiện tại và coverage mục tiêu.
+* Có danh sách video cần crawl bổ sung nếu thiếu.
+* Không quay lại crawl toàn bộ channel.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Phase 1 - Foundation
+
+✅ Hoàn thành
+
+---
+
+Phase 2 - Metadata và Transcript Ingestion
+
+✅ Hoàn thành cho corpus hiện tại
+
+---
+
+Phase 3 - Data Foundation Audit
+
+✅ Hoàn thành
+
+---
+
+Phase 4 - Corpus Analysis
+
+✅ Hoàn thành
+
+---
+
+Phase 5 - Playlist Mapping
+
+✅ Hoàn thành
+
+---
+
+Phase 6 - Scope Decision
+
+🟨 Bước tiếp theo
+
+---
+
+Phase 7 - Transcript Cleaning và Chunking
+
+⬜ Tạm dừng đến khi xác định corpus
+
+---
+
+Phase 8 - Embedding và Semantic Search
+
+⬜ Chưa bắt đầu
+
+---
+
+# Ngày 10 - Corpus Scope Decision và Project Reorganization
+
+## Đã hoàn thành
+
+### 1. Chọn corpus mục tiêu
+
+Quyết định:
+
+```text
+MIT 6.0001 Introduction to Computer Science and Programming in Python
+Fall 2016
+Playlist ID: PLUl4u3cNGP63WbdFxL8giv4yhgdMGaZNA
+Playlist items: 38
+Current transcripts: 4
+Initial gap: 34
+```
+
+Lý do:
+
+* Phạm vi course rõ ràng.
+* Người phát triển có kiến thức Python để manual review.
+* Quy mô phù hợp cho MVP và evaluation.
+* Không cần crawl lại toàn bộ channel.
+
+File quyết định:
+
+```text
+docs/decisions/CORPUS_SCOPE.md
+```
+
+---
+
+### 2. Lập kế hoạch triển khai MIT 6.0001
+
+File:
+
+```text
+docs/plans/MIT_60001_IMPLEMENTATION_PLAN.md
+```
+
+Kế hoạch gồm:
+
+* Target inventory và gap report.
+* Targeted transcript acquisition.
+* PostgreSQL reconciliation.
+* Transcript cleaning.
+* Chunking experiment.
+* Embedding và vector index.
+* Retrieval API có citation.
+* Evaluation chống hallucination.
+
+---
+
+### 3. Tổ chức lại scripts
+
+```text
+scripts/
+├── transcript_loading/
+├── data_audit/
+├── corpus_analysis/
+├── playlist_mapping/
+└── target_corpus/
+```
+
+Mỗi folder là Python package và chỉ chứa script thuộc đúng chức năng.
+
+---
+
+### 4. Tổ chức lại docs
+
+```text
+docs/
+├── README.md
+├── status/
+├── decisions/
+├── plans/
+└── reports/
+    ├── 01_data_audit/
+    ├── 02_corpus_analysis/
+    └── 03_playlist_mapping/
+```
+
+Các tài liệu lịch sử như architecture, project plan và progress log vẫn ở vị trí
+cũ để tránh trộn thay đổi chưa review.
+
+---
+
+### 5. Chuẩn bị report folders cho bước tiếp theo
+
+```text
+reports/04_scope_decision/
+reports/05_target_corpus/
+```
+
+Folder có README mô tả output dự kiến. Chưa tạo CSV giả trước khi inventory chạy.
+
+---
+
+# Những điều đã học được
+
+## Scope phải được điều khiển bằng manifest
+
+Đã hiểu:
+
+* Không cần xóa 286 transcript ngoài scope.
+* Target manifest quyết định dữ liệu nào được clean, chunk và embedding.
+* Giữ raw source chung tránh tạo nhiều bản sao transcript.
+
+---
+
+## Evaluation cần dựa trên nguồn và khả năng từ chối
+
+Đã hiểu:
+
+* Kiến thức Python giúp manual review nhưng không thay thế test set.
+* Câu trả lời cần citation video và timestamp.
+* Câu hỏi ngoài scope phải được dùng để đo abstention.
+* Không tuyên bố hệ thống là trợ lý Python tổng quát.
+
+---
+
+# Vấn đề còn tồn tại
+
+* Chưa có inventory chi tiết của đủ 38 playlist items.
+* Chưa xác định video nào trong 34 gap thực sự có transcript.
+* Chưa targeted crawl.
+* Chưa quyết định cách giữ segment timing sau PostgreSQL migration.
+* Chưa có evaluation dataset.
+
+---
+
+# Mục tiêu Ngày 11
+
+## Mục tiêu chính
+
+Tạo target inventory, gap report và manifest cho đúng 38 video MIT 6.0001 trước
+khi gọi transcript API.
+
+---
+
+# Tiêu chí hoàn thành Ngày 11
+
+* Có đúng 38 video ID duy nhất theo playlist position.
+* Xác nhận 4 transcript hiện có.
+* Có danh sách video cần fetch và video đã có trạng thái cuối.
+* Không đưa video ngoài playlist vào target manifest.
+* Chưa fetch transcript trước khi gap report được kiểm tra.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Phase 1 - Data Foundation và Audit
+
+✅ Hoàn thành
+
+---
+
+Phase 2 - Corpus Analysis và Playlist Mapping
+
+✅ Hoàn thành
+
+---
+
+Phase 3 - Scope Decision
+
+✅ MIT 6.0001 Fall 2016
+
+---
+
+Phase 4 - Target Inventory và Acquisition
+
+🟨 Bước tiếp theo
+
+---
+
+Phase 5 - Cleaning, Chunking và Indexing
+
+⬜ Chưa bắt đầu
+
+---
+
+Phase 6 - Retrieval và Evaluation
+
+⬜ Chưa bắt đầu
+
+---
+
+# Ngày 11 - MIT 6.0001 Target Inventory
+
+## Đã hoàn thành
+
+### 1. Xây dựng target inventory script
+
+File:
+
+```text
+scripts/target_corpus/build_target_inventory.py
+```
+
+Đã triển khai:
+
+* Lấy playlist items bằng YouTube Data API.
+* Validate đúng 38 items và 38 video ID duy nhất.
+* Validate position liên tục từ 0 đến 37.
+* Đối chiếu metadata PostgreSQL.
+* Đối chiếu transcript Bronze JSONL và PostgreSQL.
+* Đọc trạng thái checkpoint mới nhất theo video.
+* Phân loại fetch candidate và trường hợp cần manual review.
+* Bảo vệ manifest v1 khỏi ghi đè khi playlist thay đổi.
+
+Script không gọi transcript API.
+
+---
+
+### 2. Tạo inventory, gap report và manifest
+
+File:
+
+```text
+reports/04_scope_decision/target_playlist_inventory.csv
+reports/04_scope_decision/target_gap_report.csv
+reports/04_scope_decision/target_manifest.csv
+```
+
+Kết quả:
+
+```text
+Playlist items      : 38
+Unique video IDs    : 38
+Positions           : 0..37
+Already available   : 4
+Not attempted       : 34
+Fetch candidates    : 34
+Manual review       : 0
+```
+
+---
+
+### 3. Version target manifest
+
+```text
+scope_version: mit_60001_fall_2016_v1
+SHA-256: f8f9108a3dc910219e2e915e83519c7054afc9c2783714b94ecdc145c150fda4
+```
+
+Khi playlist khác manifest hiện có, script dừng và yêu cầu scope version mới thay
+vì ghi đè v1.
+
+---
+
+### 4. Hoàn thành báo cáo inventory
+
+File:
+
+```text
+docs/reports/04_scope_decision/TARGET_INVENTORY_REPORT.md
+docs/status/CURRENT_STATUS.md
+```
+
+Kết luận:
+
+34 video gap đều là `not_attempted`. Không có video target nào đã mang trạng thái
+`no_transcript`, `transcripts_disabled` hoặc lỗi retryable trong checkpoint.
+
+---
+
+# Những điều đã học được
+
+## Gap không đồng nghĩa failure
+
+Đã hiểu:
+
+* 34 video thiếu chưa từng được transcript pipeline xử lý.
+* Không được báo cáo chúng là transcript fail.
+* Transcript availability chỉ biết sau targeted acquisition.
+
+---
+
+## Manifest cần bất biến
+
+Đã hiểu:
+
+* Playlist công khai có thể thay đổi theo thời gian.
+* Manifest version bảo vệ tính tái lập của corpus và evaluation.
+* Thay đổi scope phải tạo manifest version mới.
+
+---
+
+# Vấn đề còn tồn tại
+
+* Chưa biết bao nhiêu trong 34 video cung cấp transcript tiếng Anh.
+* Chưa xây dựng target-only transcript queue.
+* Chưa chạy targeted acquisition.
+* Chưa reconcile kết quả acquisition vào PostgreSQL.
+
+---
+
+# Mục tiêu Ngày 12
+
+## Mục tiêu chính
+
+Xây dựng targeted transcript acquisition chỉ đọc 34 fetch candidates trong
+manifest MIT 6.0001 v1.
+
+---
+
+# Tiêu chí hoàn thành Ngày 12
+
+* Pipeline từ chối video ngoài manifest.
+* Hỗ trợ checkpoint, resume, delay và stop-on-block.
+* Không fetch lại 4 transcript đã có.
+* Mỗi video có trạng thái rõ ràng sau lần chạy.
+* Có acquisition status và coverage report.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Phase 1 - Data Foundation, Corpus Analysis và Scope
+
+✅ Hoàn thành
+
+---
+
+Phase 2 - Target Inventory
+
+✅ Hoàn thành
+
+---
+
+Phase 3 - Targeted Transcript Acquisition
+
+🟨 Bước tiếp theo
+
+---
+
+Phase 4 - Cleaning, Chunking và Indexing
+
+⬜ Chưa bắt đầu
+
+---
+
+Phase 5 - Retrieval và Evaluation
+
+⬜ Chưa bắt đầu
+
+---
+
+# Ngày 12 - Targeted Transcript Crawler Build
+
+## Đã hoàn thành
+
+### 1. Xây dựng target-only transcript crawler
+
+File:
+
+```text
+scripts/target_corpus/fetch_target_transcripts.py
+```
+
+Đã triển khai:
+
+* Validate manifest v1 gồm 38 video.
+* Chỉ đọc 34 reviewed fetch candidates từ gap report.
+* Từ chối video ngoài manifest.
+* Từ chối video không phải fetch candidate.
+* Mặc định planning mode, cần `--execute` để gọi API.
+* Bỏ qua payload đã tồn tại.
+* Hỗ trợ limit, delay, runtime limit và failure threshold.
+* Dừng khi gặp IP block, request block hoặc rate limit.
+* Ghi checkpoint kèm scope version và pipeline name.
+* Tạo acquisition status và summary report.
+
+---
+
+### 2. Kiểm tra planning queue
+
+Kết quả:
+
+```text
+Manifest videos     : 38
+Reviewed candidates : 34
+Queued videos       : 34
+Payload available   : 4
+Not attempted       : 34
+Transcript requests : 0
+```
+
+---
+
+### 3. Kiểm tra scope guard
+
+* ID ngoài manifest bị từ chối.
+* Video đã có transcript bị từ chối vì không phải fetch candidate.
+* Cả hai guard đều dừng trước transcript request.
+
+---
+
+### 4. Tạo baseline report
+
+File:
+
+```text
+reports/05_target_corpus/acquisition_status.csv
+reports/05_target_corpus/acquisition_summary.csv
+docs/reports/05_target_corpus/TARGET_ACQUISITION_BASELINE.md
+```
+
+---
+
+# Vấn đề còn tồn tại
+
+* Chưa chạy transcript API trên target queue.
+* Chưa biết transcript availability thực tế của 34 video.
+* Chưa kiểm tra payload mới và checkpoint sau request thật.
+
+---
+
+# Mục tiêu Ngày 13
+
+Chạy thử tối đa 3 target videos với delay 20–60 giây, sau đó kiểm tra Bronze,
+checkpoint và acquisition report trước khi quyết định chạy phần còn lại.
+
+---
+
+# Tiêu chí hoàn thành Ngày 13
+
+* Không fetch video ngoài manifest.
+* Không fetch lại 4 payload hiện có.
+* Mỗi request tạo payload hoặc checkpoint status rõ ràng.
+* Pipeline dừng an toàn nếu bị block.
+* Chưa chạy toàn bộ queue nếu test nhỏ chưa được review.
+
+---
+
+# Ngày 13 - MIT 6.0001 Targeted Transcript Acquisition
+
+## Đã hoàn thành
+
+### 1. Chạy target-only transcript crawler
+
+Đã chạy crawler với `--execute` trên queue thuộc manifest:
+
+```text
+scope_version: mit_60001_fall_2016_v1
+Target videos: 38
+Payload có sẵn trước acquisition: 4
+Payload mới thu thập: 34
+```
+
+Crawler không mở rộng ra ngoài manifest và không fetch lại bốn payload đã tồn tại.
+
+---
+
+### 2. Kiểm tra kết quả acquisition
+
+Nguồn kiểm tra:
+
+```text
+data/bronze/transcripts_raw.jsonl
+data/bronze/transcripts_checkpoint.jsonl
+reports/05_target_corpus/acquisition_status.csv
+reports/05_target_corpus/acquisition_summary.csv
+```
+
+Kết quả:
+
+```text
+Bronze payload total       : 324
+Bronze unique video IDs    : 324
+Target payloads            : 38/38
+Target success checkpoints : 38/38
+Not attempted              : 0
+Permanently unavailable    : 0
+Retryable failures         : 0
+Manual review              : 0
+```
+
+Target corpus MIT 6.0001 đã đạt transcript coverage 100% theo manifest v1.
+
+---
+
+### 3. Validate PostgreSQL loader bằng dry-run
+
+Đã chạy:
+
+```powershell
+python -X utf8 scripts/transcript_loading/load_transcripts_to_postgresql.py
+```
+
+Kết quả:
+
+```text
+Mode             : DRY RUN
+Input records    : 324
+Already existing : 290
+Inserted         : 34
+Before count     : 290
+After count      : 324
+```
+
+Transaction đã rollback. PostgreSQL vẫn có 290 transcript; chưa có thay đổi dữ liệu
+được lưu.
+
+---
+
+### 4. Phạm vi commit đề xuất
+
+Nên tạo checkpoint Git tại đây trước khi load PostgreSQL. Tách theo loại thay đổi:
+
+```text
+feat: add MIT 6.0001 target transcript acquisition pipeline
+data: add MIT 6.0001 target corpus acquisition reports
+docs: document completed MIT 6.0001 transcript acquisition
+```
+
+Không commit `data/bronze/` vì đây là dữ liệu raw cục bộ và đã nằm trong
+`.gitignore`. Không đưa `notebooks/`, `src/test/`, `src/quality/check.py` hoặc các
+thay đổi ngoài target corpus vào cùng commit nếu chưa review riêng.
+
+---
+
+# Những điều đã học được
+
+## Acquisition hoàn thành chưa đồng nghĩa PostgreSQL đã được cập nhật
+
+Đã hiểu:
+
+* Bronze là source of truth của payload vừa crawl.
+* PostgreSQL vẫn giữ 290 transcript cho đến khi chạy loader với `--commit`.
+* Dry-run chỉ validate và mô phỏng transaction, sau đó rollback.
+* Phải kiểm tra count và JOIN sau khi commit trước khi chuyển sang Silver.
+
+---
+
+# Vấn đề còn tồn tại
+
+* 34 transcript mới chưa được lưu vào PostgreSQL.
+* Chưa chạy truy vấn xác nhận 38/38 target video có transcript sau database load.
+* Chưa thiết kế schema và quy tắc làm sạch Silver transcript.
+
+---
+
+# Mục tiêu Ngày 14
+
+## Mục tiêu chính
+
+Load 34 transcript mới vào PostgreSQL, xác minh target coverage 38/38 bằng JOIN,
+sau đó đóng mốc Transcript Ingestion.
+
+---
+
+# Tiêu chí hoàn thành Ngày 14
+
+* Loader commit chèn đúng 34 dòng và tổng bảng `transcripts` đạt 324.
+* Chạy lại loader ở dry-run cho kết quả `Inserted: 0`.
+* JOIN manifest, `videos` và `transcripts` trả về đủ 38 target videos.
+* Không có `raw_text` rỗng và mọi target transcript có language hợp lệ.
+* Có báo cáo PostgreSQL load và truy vấn kiểm chứng.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Phase 1 - Data Foundation, Corpus Analysis và Scope
+
+✅ Hoàn thành
+
+---
+
+Phase 2 - Target Inventory
+
+✅ Hoàn thành
+
+---
+
+Phase 3 - Targeted Transcript Acquisition
+
+✅ Hoàn thành
+
+---
+
+Phase 4 - PostgreSQL Load và Validation
+
+🟨 Bước tiếp theo
+
+---
+
+Phase 5 - Cleaning, Chunking và Indexing
+
+⬜ Chưa bắt đầu
+
+---
+
+Phase 6 - Retrieval và Evaluation
 
 ⬜ Chưa bắt đầu
