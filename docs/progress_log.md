@@ -3897,3 +3897,166 @@ Phase 5 - Cleaning, Chunking và Indexing
 Phase 6 - Retrieval và Evaluation
 
 ⬜ Chưa bắt đầu
+
+---
+
+# Ngày 14 - PostgreSQL Load và Target Validation
+
+## Đã hoàn thành
+
+### 1. Load transcript vào PostgreSQL
+
+Đã chạy loader với `--commit`:
+
+```powershell
+python -X utf8 scripts/transcript_loading/load_transcripts_to_postgresql.py --commit
+```
+
+Kết quả:
+
+```text
+Input records    : 324
+Already existing : 290
+Inserted         : 34
+Before count     : 290
+After count      : 324
+```
+
+34 transcript mới đã được lưu. Tổng bảng `transcripts` tăng từ 290 lên 324.
+
+---
+
+### 2. Kiểm tra idempotency
+
+Loader được chạy lại không có `--commit`. Không có bản ghi mới cần chèn và
+transaction được rollback.
+
+Kết luận: chạy lại loader không tạo transcript trùng theo `video_id`.
+
+---
+
+### 3. Kiểm tra JOIN target corpus
+
+Đã JOIN target manifest với `videos` và `transcripts` bằng kết nối read-only:
+
+```text
+Total PostgreSQL transcripts : 324
+Target JOIN rows             : 38
+Target unique videos         : 38
+Missing video metadata       : 0
+Missing target transcripts   : 0
+Duplicate target transcripts : 0
+Empty raw_text               : 0
+Empty language               : 0
+```
+
+Transcript length:
+
+```text
+Minimum : 653
+Maximum : 49.645
+Average : 13.243
+```
+
+Độ dài ngắn nhất không được xem tự động là lỗi vì transcript vẫn có nội dung.
+
+---
+
+### 4. Tạo validator và báo cáo
+
+File:
+
+```text
+scripts/transcript_loading/validate_target_postgresql.py
+reports/06_transcript_load_validation/validation_summary.csv
+reports/06_transcript_load_validation/target_transcript_validation.csv
+docs/reports/06_transcript_load_validation/POSTGRESQL_TARGET_LOAD_REPORT.md
+```
+
+Validator đọc video ID từ manifest, dùng transaction PostgreSQL read-only và
+không xuất `raw_text` vào CSV.
+
+Kết quả:
+
+```text
+validation_status: passed
+```
+
+---
+
+# Những điều đã học được
+
+## Validation cần kiểm tra coverage, không chỉ kiểm tra tổng count
+
+Đã hiểu:
+
+* Tổng 324 dòng không tự chứng minh target corpus đủ 38 video.
+* Cần JOIN theo manifest để phát hiện video target bị thiếu.
+* Cần kiểm tra duplicate, `raw_text`, `language` và tính idempotent.
+* CSV validation không cần chứa nội dung transcript đầy đủ.
+
+---
+
+# Vấn đề còn tồn tại
+
+* Schema hiện tại chưa lưu segment timing, `is_generated` và content hash.
+* Chưa định nghĩa Silver transcript schema.
+* Chưa xác định cleaning rules cho code, toán tử và whitespace.
+* Chưa tạo semantic chunks.
+
+---
+
+# Mục tiêu Ngày 15
+
+## Mục tiêu chính
+
+Thiết kế Silver transcript contract cho MIT 6.0001 trước khi viết cleaning
+pipeline.
+
+---
+
+# Tiêu chí hoàn thành Ngày 15
+
+* Xác định field bắt buộc của Silver transcript.
+* Quyết định cách giữ segment timing và `is_generated`.
+* Định nghĩa cleaning version và content hash.
+* Phân biệt normalization an toàn với sửa nội dung bằng phỏng đoán.
+* Có sample validation trên một nhóm transcript trước khi xử lý đủ 38 video.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Phase 1 - Data Foundation, Corpus Analysis và Scope
+
+✅ Hoàn thành
+
+---
+
+Phase 2 - Target Inventory
+
+✅ Hoàn thành
+
+---
+
+Phase 3 - Targeted Transcript Acquisition
+
+✅ Hoàn thành
+
+---
+
+Phase 4 - PostgreSQL Load và Validation
+
+✅ Hoàn thành
+
+---
+
+Phase 5 - Silver Transcript Design và Cleaning
+
+🟨 Bước tiếp theo
+
+---
+
+Phase 6 - Chunking, Retrieval và Evaluation
+
+⬜ Chưa bắt đầu

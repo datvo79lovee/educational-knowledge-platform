@@ -24,7 +24,8 @@ reports/
 ├── 02_corpus_analysis/
 ├── 03_playlist_mapping/
 ├── 04_scope_decision/
-└── 05_target_corpus/
+├── 05_target_corpus/
+└── 06_transcript_load_validation/
 ```
 
 - `reports/01_data_audit/`: load PostgreSQL và audit data foundation.
@@ -32,6 +33,8 @@ reports/
 - `reports/03_playlist_mapping/`: khôi phục quan hệ video–playlist.
 - `reports/04_scope_decision/`: target inventory, gap report và manifest MIT 6.0001.
 - `reports/05_target_corpus/`: baseline và kết quả targeted transcript acquisition.
+- `reports/06_transcript_load_validation/`: load PostgreSQL và xác minh coverage
+  `38/38` của target corpus.
 
 ## 5. Kiến trúc và database
 

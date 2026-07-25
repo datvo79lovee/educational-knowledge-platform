@@ -48,8 +48,8 @@ YouTube Data API
 - [x] Freeze the MIT 6.0001 Fall 2016 target manifest with 38 videos
 - [x] Collect all 38 target transcripts, including 34 new Bronze payloads
 - [x] Validate 324 unique Bronze payloads with a PostgreSQL dry run
-- [ ] Load the 34 new target transcripts into PostgreSQL
-- [ ] Verify the committed PostgreSQL load and target-corpus coverage
+- [x] Load the 34 new target transcripts into PostgreSQL
+- [x] Verify the committed PostgreSQL load and target-corpus coverage
 
 ## Phase 4 — Knowledge Processing
 
@@ -72,10 +72,13 @@ Metadata ingestion is complete. Bronze contains 324 unique transcript payloads.
 The MIT 6.0001 Fall 2016 target corpus has complete transcript coverage at 38/38:
 4 payloads existed before targeted acquisition and 34 were newly collected.
 
-A PostgreSQL dry run validated all 324 payloads. PostgreSQL still contains 290
-transcripts, and the loader is expected to insert exactly 34 new rows. The next
-step is to perform and verify that committed load before designing the Silver
-transcript schema.
+PostgreSQL contains 324 transcripts after inserting 34 new rows. A read-only
+validation confirmed 38/38 target videos, no missing metadata or transcripts, no
+duplicate target rows, and no empty `raw_text` or `language` values.
+
+Transcript ingestion and PostgreSQL reconciliation are complete for target
+manifest v1. The next step is to define the Silver transcript schema and cleaning
+rules before generating chunks.
 
 ## State Ownership
 
