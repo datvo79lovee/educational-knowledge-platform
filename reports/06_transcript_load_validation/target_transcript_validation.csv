@@ -1,0 +1,39 @@
+﻿scope_version,playlist_position,video_id,manifest_title,postgres_title,publish_date,language,transcript_length,retrieved_at
+mit_60001_fall_2016_v1,0,nykOeWgQcHM,1. What is Computation?,1. What is Computation?,2019-07-31,en,34898,2026-07-23 20:51:20.056333
+mit_60001_fall_2016_v1,1,Y6J8I056Ffw,Shell vs. Editor,Shell vs. Editor,2017-02-15,en,1145,2026-07-23 20:52:05.737019
+mit_60001_fall_2016_v1,2,F-_PKUUM-qY,Python vs. Math,Python vs. Math,2017-02-15,en,1141,2026-07-23 20:53:06.999237
+mit_60001_fall_2016_v1,3,EFCdr_43qmU,Bindings,Bindings,2017-02-15,en,1181,2026-07-23 20:56:58.752055
+mit_60001_fall_2016_v1,4,0jljZRnHwOI,2. Branching and Iteration,2. Branching and Iteration,2017-02-15,en,33709,2026-07-23 20:57:34.508426
+mit_60001_fall_2016_v1,5,w4uxYDPsjbw,Strings,Strings,2017-02-15,en,653,2026-07-23 20:58:29.382815
+mit_60001_fall_2016_v1,6,lniF6ys2CIk,Comparisons,Comparisons,2017-02-15,en,961,2026-07-23 20:59:30.365544
+mit_60001_fall_2016_v1,7,jjbWNcIjmzc,Branching,Branching,2017-02-15,en,835,2026-07-23 21:00:20.079458
+mit_60001_fall_2016_v1,8,P-0w8xWcnDQ,While Loops,While Loops,2017-02-15,en,1423,2026-07-23 21:01:12.236138
+mit_60001_fall_2016_v1,9,mrvBnZIEsZY,For Loops,For Loops,2017-02-15,en,1383,2026-07-23 21:01:37.341048
+mit_60001_fall_2016_v1,10,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection","3. String Manipulation, Guess and Check, Approximations, Bisection",2017-02-15,en,34694,2026-07-23 21:02:17.859803
+mit_60001_fall_2016_v1,11,-jjUoTiaSHw,String Manipulations,String Manipulations,2017-02-15,en,2071,2026-06-26 15:50:49.310090
+mit_60001_fall_2016_v1,12,4WtaFLayz_w,For Loops With Strings,For Loops With Strings,2017-02-15,en,3286,2026-07-23 21:02:49.408291
+mit_60001_fall_2016_v1,13,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions","4. Decomposition, Abstraction, and Functions",2017-02-15,en,33931,2026-07-23 21:03:30.856610
+mit_60001_fall_2016_v1,14,4gPwo38MNss,Function Calls,Function Calls,2017-02-15,en,1938,2026-07-23 21:04:22.545106
+mit_60001_fall_2016_v1,15,QaOHeMnpnmU,Functions as Arguments,Functions as Arguments,2017-02-15,en,1983,2026-07-23 21:05:17.993311
+mit_60001_fall_2016_v1,16,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning","5. Tuples, Lists, Aliasing, Mutability, and Cloning",2017-02-15,en,33000,2026-07-23 21:05:41.583906
+mit_60001_fall_2016_v1,17,ncpb4wIsQu8,Tuples,Tuples,2017-02-15,en,2092,2026-07-23 21:06:41.618989
+mit_60001_fall_2016_v1,18,zYVWQpCitKQ,Simple Lists,Simple Lists,2017-02-15,en,2050,2026-07-23 21:07:40.076767
+mit_60001_fall_2016_v1,19,SrkqbLOQcEo,List Operations,List Operations,2017-02-15,en,1898,2026-07-23 21:08:14.645488
+mit_60001_fall_2016_v1,20,FKp-6sojt9A,List Aliasing/Mutation,List Aliasing/Mutation,2017-02-15,en,1234,2026-07-23 21:09:03.798216
+mit_60001_fall_2016_v1,21,WPSeyjX1-4s,6. Recursion and Dictionaries,6. Recursion and Dictionaries,2017-02-15,en,46041,2026-07-23 21:09:44.521753
+mit_60001_fall_2016_v1,22,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions","7. Testing, Debugging, Exceptions, and Assertions",2017-02-15,en,33854,2026-07-23 21:10:19.410428
+mit_60001_fall_2016_v1,23,5McjE8e5gIg,Black Box and Glass Box Testing,Black Box and Glass Box Testing,2017-02-15,en,1316,2026-07-23 21:10:56.762193
+mit_60001_fall_2016_v1,24,-wz4iU2V-Yo,Errors,Errors,2017-02-15,en,903,2026-06-26 16:32:07.248808
+mit_60001_fall_2016_v1,25,0Whyfs88TYE,Exceptions,Exceptions,2017-02-15,en,2271,2026-07-23 21:11:49.303741
+mit_60001_fall_2016_v1,26,-DP1i2ZU9gk,8. Object Oriented Programming,8. Object Oriented Programming,2017-02-15,en,33151,2026-06-25 16:15:39.234292
+mit_60001_fall_2016_v1,27,vqn_yk5aFcI,Class Definition,Class Definition,2017-02-15,en,672,2026-07-23 21:12:40.994425
+mit_60001_fall_2016_v1,28,2__KumJsGXc,Class Instance,Class Instance,2017-02-15,en,1809,2026-07-23 21:13:02.500861
+mit_60001_fall_2016_v1,29,goalLDamePE,Methods,Methods,2017-02-15,en,1091,2026-07-23 21:13:27.212791
+mit_60001_fall_2016_v1,30,_ax4eNMI9Dw,Method Call,Method Call,2017-02-15,en,1359,2026-06-26 17:09:51.769405
+mit_60001_fall_2016_v1,31,qq7I2MQNrtU,Special Methods,Special Methods,2017-02-15,en,1624,2026-07-23 21:13:54.678592
+mit_60001_fall_2016_v1,32,FlGjISF3l78,9. Python Classes and Inheritance,9. Python Classes and Inheritance,2017-02-15,en,38845,2026-07-23 21:14:44.740896
+mit_60001_fall_2016_v1,33,C_pgH5QhIZ8,Getters and Setters,Getters and Setters,2017-02-15,en,1481,2026-07-23 21:15:34.576963
+mit_60001_fall_2016_v1,34,8s0d87sjy1A,Subclass,Subclass,2017-02-15,en,2185,2026-07-23 21:16:27.987554
+mit_60001_fall_2016_v1,35,o9nW0uBqvEo,"10. Understanding Program Efficiency, Part 1","10. Understanding Program Efficiency, Part 1",2017-02-15,en,49645,2026-07-23 21:17:03.828706
+mit_60001_fall_2016_v1,36,7lQXYl_L28w,"11. Understanding Program Efficiency, Part 2","11. Understanding Program Efficiency, Part 2",2017-02-15,en,46313,2026-07-23 21:18:02.331002
+mit_60001_fall_2016_v1,37,6LOwPhPDwVc,12. Searching and Sorting,12. Searching and Sorting,2017-02-15,en,45178,2026-07-23 21:18:25.669817

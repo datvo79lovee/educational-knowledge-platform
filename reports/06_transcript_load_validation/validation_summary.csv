@@ -1,0 +1,16 @@
+﻿metric,value
+scope_version,mit_60001_fall_2016_v1
+expected_total_transcripts,324
+actual_total_transcripts,324
+expected_target_videos,38
+joined_target_rows,38
+unique_target_transcripts,38
+missing_video_metadata,0
+missing_target_transcripts,0
+duplicate_target_transcripts,0
+empty_target_raw_text,0
+empty_target_language,0
+minimum_transcript_length,653
+maximum_transcript_length,49645
+average_transcript_length,13243
+validation_status,passed
