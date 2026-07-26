@@ -1,0 +1,2 @@
+﻿scope_version,cleaning_version,selection,expected_record_count,record_count,unique_video_id_count,total_segment_count,output_sha256,validation_status
+mit_60001_fall_2016_v1,mit_60001_clean_v1,all_target_manifest_records,38,38,38,12518,50d559529bedc33715b13312c5e4b7def80ac808521b53699a14465e084a8ecb,passed

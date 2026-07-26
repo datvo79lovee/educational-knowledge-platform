@@ -1,0 +1,10 @@
+﻿scope_version,level,field_name,expected_type,observed_types,total_records,present_count,missing_count,empty_count,invalid_type_count,status
+mit_60001_fall_2016_v1,payload,video_id,string,string,38,38,0,0,0,passed
+mit_60001_fall_2016_v1,payload,language_code,string,string,38,38,0,0,0,passed
+mit_60001_fall_2016_v1,payload,language,string,string,38,38,0,0,0,passed
+mit_60001_fall_2016_v1,payload,is_generated,boolean,boolean,38,38,0,0,0,passed
+mit_60001_fall_2016_v1,payload,segments,array,array,38,38,0,0,0,passed
+mit_60001_fall_2016_v1,payload,fetched_at,string,string,38,38,0,0,0,passed
+mit_60001_fall_2016_v1,segment,text,string,string,12518,12518,0,0,0,passed
+mit_60001_fall_2016_v1,segment,start,number,number,12518,12518,0,0,0,passed
+mit_60001_fall_2016_v1,segment,duration,number,number,12518,12518,0,0,0,passed

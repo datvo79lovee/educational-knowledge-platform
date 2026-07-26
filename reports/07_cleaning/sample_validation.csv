@@ -1,0 +1,6 @@
+﻿scope_version,cleaning_version,playlist_position,video_id,title,language_code,language_name,is_generated,segment_count,transcript_length,schema_valid,manifest_metadata_valid,bronze_text_equal,timing_equal,source_hash_valid,content_hash_valid,invariant_valid,in_process_rebuild_deterministic,validation_status,error_count
+mit_60001_fall_2016_v1,mit_60001_clean_v1,0,nykOeWgQcHM,1. What is Computation?,en,English - CC (English),False,887,34898,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,5,w4uxYDPsjbw,Strings,en,English - CC,False,17,653,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,32,FlGjISF3l78,9. Python Classes and Inheritance,en,English - CC,False,924,38845,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,35,o9nW0uBqvEo,"10. Understanding Program Efficiency, Part 1",en,English - CC,False,1262,49645,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,37,6LOwPhPDwVc,12. Searching and Sorting,en,English - CC,False,1198,45178,True,True,True,True,True,True,True,True,passed,0

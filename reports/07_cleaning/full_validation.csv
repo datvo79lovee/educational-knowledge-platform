@@ -1,0 +1,39 @@
+﻿scope_version,cleaning_version,playlist_position,video_id,title,language_code,language_name,is_generated,segment_count,transcript_length,schema_valid,manifest_metadata_valid,bronze_text_equal,timing_equal,source_hash_valid,content_hash_valid,invariant_valid,in_process_rebuild_deterministic,validation_status,error_count
+mit_60001_fall_2016_v1,mit_60001_clean_v1,0,nykOeWgQcHM,1. What is Computation?,en,English - CC (English),False,887,34898,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,1,Y6J8I056Ffw,Shell vs. Editor,en,English - CC,False,28,1145,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,2,F-_PKUUM-qY,Python vs. Math,en,English - CC,False,27,1141,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,3,EFCdr_43qmU,Bindings,en,English - CC,False,30,1181,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,4,0jljZRnHwOI,2. Branching and Iteration,en,English - CC,False,847,33709,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,5,w4uxYDPsjbw,Strings,en,English - CC,False,17,653,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,6,lniF6ys2CIk,Comparisons,en,English - CC,False,25,961,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,7,jjbWNcIjmzc,Branching,en,English - CC,False,21,835,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,8,P-0w8xWcnDQ,While Loops,en,English - CC,False,36,1423,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,9,mrvBnZIEsZY,For Loops,en,English - CC,False,37,1383,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,10,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",en,English - CC,False,856,34694,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,11,-jjUoTiaSHw,String Manipulations,en,English - CC,False,53,2071,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,12,4WtaFLayz_w,For Loops With Strings,en,English - CC,False,86,3286,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,13,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",en,English - CC,False,824,33931,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,14,4gPwo38MNss,Function Calls,en,English - CC,False,49,1938,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,15,QaOHeMnpnmU,Functions as Arguments,en,English - CC,False,56,1983,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,16,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",en,English - CC,False,818,33000,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,17,ncpb4wIsQu8,Tuples,en,English - CC,False,52,2092,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,18,zYVWQpCitKQ,Simple Lists,en,English - CC,False,49,2050,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,19,SrkqbLOQcEo,List Operations,en,English - CC,False,51,1898,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,20,FKp-6sojt9A,List Aliasing/Mutation,en,English - CC,False,32,1234,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,21,WPSeyjX1-4s,6. Recursion and Dictionaries,en,English - CC,False,1071,46041,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,22,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",en,English - CC,False,838,33854,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,23,5McjE8e5gIg,Black Box and Glass Box Testing,en,English - CC,False,33,1316,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,24,-wz4iU2V-Yo,Errors,en,English - CC,False,23,903,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,25,0Whyfs88TYE,Exceptions,en,English - CC,False,57,2271,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,26,-DP1i2ZU9gk,8. Object Oriented Programming,en,English - CC,False,813,33151,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,27,vqn_yk5aFcI,Class Definition,en,English - CC,False,16,672,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,28,2__KumJsGXc,Class Instance,en,English - CC,False,46,1809,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,29,goalLDamePE,Methods,en,English - CC,False,26,1091,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,30,_ax4eNMI9Dw,Method Call,en,English - CC,False,34,1359,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,31,qq7I2MQNrtU,Special Methods,en,English - CC,False,44,1624,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,32,FlGjISF3l78,9. Python Classes and Inheritance,en,English - CC,False,924,38845,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,33,C_pgH5QhIZ8,Getters and Setters,en,English - CC,False,35,1481,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,34,8s0d87sjy1A,Subclass,en,English - CC,False,57,2185,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,35,o9nW0uBqvEo,"10. Understanding Program Efficiency, Part 1",en,English - CC,False,1262,49645,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,36,7lQXYl_L28w,"11. Understanding Program Efficiency, Part 2",en,English - CC,False,1160,46313,True,True,True,True,True,True,True,True,passed,0
+mit_60001_fall_2016_v1,mit_60001_clean_v1,37,6LOwPhPDwVc,12. Searching and Sorting,en,English - CC,False,1198,45178,True,True,True,True,True,True,True,True,passed,0
