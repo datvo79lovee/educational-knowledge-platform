@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-07-25
+2026-07-26
 
 ## Corpus mục tiêu
 
@@ -94,31 +94,42 @@ Validation status: `passed`.
   `reports/06_transcript_load_validation/validation_summary.csv`
 - Target transcript detail:
   `reports/06_transcript_load_validation/target_transcript_validation.csv`
+- Silver transcript generated output:
+  `data/silver/mit_60001/transcripts_clean.jsonl`
+- Silver full validation:
+  `reports/07_cleaning/full_validation.csv`
+- Silver cleaning summary:
+  `reports/07_cleaning/cleaning_summary.csv`
 
 Không lưu `raw_text` đầy đủ trong folder `reports/`.
 
-## Vấn đề chưa xử lý
+## Silver transcript cleaning
 
-Schema PostgreSQL hiện chưa lưu:
+Silver v1 đã được build theo policy lossless `mit_60001_clean_v1`:
 
-- segment timing;
-- `is_generated`;
-- segment count;
-- content hash;
-- cleaning version.
+- Silver records: 38/38;
+- unique video IDs: 38;
+- playlist positions: 0–37;
+- total segments: 12.518;
+- record validation failures: 0;
+- full output SHA-256:
+  `50d559529bedc33715b13312c5e4b7def80ac808521b53699a14465e084a8ecb`.
 
-Các field này vẫn còn trong Bronze payload khi nguồn cung cấp có dữ liệu tương ứng.
-Phải quyết định Silver transcript contract trước khi cleaning và chunking.
+Silver giữ nguyên từng segment text, timing, language và `is_generated` từ Bronze.
+Nó bổ sung lineage, `content_sha256`, `cleaning_version` và transcript text dẫn xuất.
+Full build được chạy lại ở Python process thứ hai và tạo byte giống nhau.
+
+PostgreSQL vẫn không lưu segment timing, `is_generated`, segment count, content hash
+hoặc cleaning version. Đây là chủ ý hiện tại: Silver JSONL là nguồn cho chunking và
+citation, còn PostgreSQL giữ normalized transcript và JOIN metadata.
 
 ## Bước tiếp theo
 
-Thiết kế Silver transcript schema cho đúng 38 target videos:
+Thiết kế chunking experiment trên Silver v1 trước khi tạo Gold chunks:
 
-1. Xác định field và kiểu dữ liệu bắt buộc.
-2. Giữ lineage tới Bronze payload và target manifest.
-3. Giữ segment timing để citation có thể mở đúng thời điểm video.
-4. Định nghĩa normalization an toàn cho text và code.
-5. Tạo `content_hash` và `cleaning_version`.
-6. Test trên một sample nhỏ trước khi xử lý đủ corpus.
+1. Chốt Gold chunk contract và lineage từ Silver segment range.
+2. Định nghĩa semantic boundary, token guardrail và fixed-token baseline.
+3. Tạo tập câu hỏi đánh giá retrieval trước khi chọn configuration.
+4. So sánh ít nhất ba cấu hình trên cùng evaluation set.
 
-Chưa tạo chunk, embedding hoặc vector index trong bước hiện tại.
+Chưa tạo Gold chunk, embedding, vector index hoặc retrieval API.

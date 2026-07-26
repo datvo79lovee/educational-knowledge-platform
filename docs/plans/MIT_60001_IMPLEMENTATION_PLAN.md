@@ -129,19 +129,40 @@ Không drop table. Migration phải tương thích dữ liệu 324 transcript hi
 
 ## Phase 4 — Transcript cleaning
 
-### Yêu cầu
+Trạng thái: hoàn thành ngày 2026-07-26.
+
+### Cách triển khai
 
 - Giữ nguyên Bronze payload.
-- Chuẩn hóa whitespace và segment rỗng.
+- Áp dụng `mit_60001_clean_v1`: lossless, không chuẩn hóa whitespace, không xóa
+  segment và không sửa transcript.
 - Không tự sửa code, toán tử hoặc indentation bằng phỏng đoán.
 - Giữ `start`, `duration`, language và `is_generated`.
 - Tạo `content_hash` và `cleaning_version`.
+- Dùng một shared builder cho sample và full build; kiểm tra rebuild trong process
+  và chạy full build lại ở process khác để so sánh SHA-256.
 
-### Output dự kiến
+### Output
 
 ```text
 data/silver/mit_60001/transcripts_clean.jsonl
+scripts/cleaning/silver_builder.py
+scripts/cleaning/build_silver_full.py
+reports/07_cleaning/full_validation.csv
 reports/07_cleaning/cleaning_summary.csv
+docs/reports/07_cleaning/SILVER_FULL_BUILD_REPORT.md
+```
+
+### Kết quả
+
+```text
+Silver records: 38/38
+Unique video IDs: 38
+Playlist positions: 0..37
+Segments: 12,518
+Failed record validations: 0
+Full output SHA-256: 50d559529bedc33715b13312c5e4b7def80ac808521b53699a14465e084a8ecb
+Cross-process byte comparison: passed
 ```
 
 ## Phase 5 — Chunking experiment
@@ -262,8 +283,8 @@ Không dùng một LLM khác làm nguồn đánh giá duy nhất.
 3. Targeted transcript fetch
 4. Reconcile và load PostgreSQL
 5. Schema/segment decision
-6. Cleaning
-7. Chunking experiment
+6. Cleaning (hoàn thành)
+7. Chunking experiment (bước kế tiếp)
 8. Embedding/index
 9. Retrieval API
 10. Evaluation
@@ -272,5 +293,5 @@ Không dùng một LLM khác làm nguồn đánh giá duy nhất.
 ## Việc chưa làm
 
 - Chưa thay đổi schema.
-- Chưa cleaning, chunking hoặc embedding.
+- Chưa chunking hoặc embedding.
 - Chưa chọn embedding model hoặc vector database.

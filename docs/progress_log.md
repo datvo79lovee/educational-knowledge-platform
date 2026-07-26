@@ -4060,3 +4060,124 @@ Phase 5 - Silver Transcript Design và Cleaning
 Phase 6 - Chunking, Retrieval và Evaluation
 
 ⬜ Chưa bắt đầu
+
+---
+
+# Ngày 15 - Silver Transcript Cleaning
+
+## Đã hoàn thành
+
+### 1. Audit Bronze và quyết định storage
+
+Đã audit 38 target Bronze payload trước khi cleaning. Kết quả có 12.518 segment,
+không có segment rỗng hoặc timing sai thứ tự; 9.048 segment có internal newline và
+1.450 adjacent pair có timing overlap.
+
+Đã chọn Silver JSONL làm nguồn segment cho chunking/citation. PostgreSQL giữ
+normalized transcript và video metadata, không migration schema trong bước này.
+
+### 2. Silver contract và lossless cleaning policy
+
+Đã chốt:
+
+```text
+schema_version: silver_transcript_v1
+cleaning_version: mit_60001_clean_v1
+scope_version: mit_60001_fall_2016_v1
+```
+
+V1 không sửa `segments[].text`, không strip/collapse whitespace, không decode HTML,
+không xóa caption cue, không deduplicate và không sửa timing. Silver chỉ ánh xạ
+field, thêm manifest metadata, lineage, hash và transcript text dẫn xuất.
+
+### 3. Sample và full validation
+
+Sample năm video pass JSON Schema, text/timing equality, source/content hash và
+independent rebuild. Sau đó full builder dùng cùng core để xử lý đủ 38 video.
+
+```text
+Silver records: 38/38
+Unique video IDs: 38
+Positions: 0..37
+Total segments: 12,518
+Failed validations: 0
+Full output SHA-256: 50d559529bedc33715b13312c5e4b7def80ac808521b53699a14465e084a8ecb
+Cross-process deterministic: passed
+```
+
+### 4. Output và tài liệu
+
+```text
+data/silver/mit_60001/transcripts_clean.jsonl
+reports/07_cleaning/full_validation.csv
+reports/07_cleaning/cleaning_summary.csv
+docs/reports/07_cleaning/DAILY_REPORT_2026-07-26.md
+docs/reports/07_cleaning/SILVER_FULL_BUILD_REPORT.md
+```
+
+Silver JSONL là generated data đã gitignore; các report không chứa transcript text.
+
+---
+
+# Những điều đã học được
+
+* Cleaning lossless và semantic chunking là hai bước khác nhau. Silver không được
+  sửa text để phục vụ thuật toán chunking.
+* Determinism cần được kiểm tra bằng hai lần build độc lập; serialize cùng một
+  object trong bộ nhớ chỉ kiểm tra một phần nhỏ hơn.
+* Report validation cần dùng kết quả có cấu trúc thay vì suy luận từ wording của
+  error message.
+
+---
+
+# Vấn đề còn tồn tại
+
+* Chưa có Gold chunk contract.
+* Chưa chọn token guardrail, semantic boundary strategy hoặc fixed-token baseline.
+* Chưa có evaluation set để chọn cấu hình chunking.
+* Chưa tạo embedding, vector index, retrieval API hoặc evaluation pipeline.
+
+---
+
+# Mục tiêu milestone kế tiếp
+
+Thiết kế chunking experiment trên Silver v1: Gold chunk schema, lineage, semantic
+boundary, token guardrail, baseline và evaluation criteria trước khi generate chunk.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Phase 1 - Data Foundation, Corpus Analysis và Scope
+
+✅ Hoàn thành
+
+---
+
+Phase 2 - Target Inventory
+
+✅ Hoàn thành
+
+---
+
+Phase 3 - Targeted Transcript Acquisition
+
+✅ Hoàn thành
+
+---
+
+Phase 4 - PostgreSQL Load và Validation
+
+✅ Hoàn thành
+
+---
+
+Phase 5 - Silver Transcript Design và Cleaning
+
+✅ Hoàn thành
+
+---
+
+Phase 6 - Chunking, Retrieval và Evaluation
+
+⬜ Chưa bắt đầu

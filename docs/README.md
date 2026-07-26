@@ -25,7 +25,8 @@ reports/
 ├── 03_playlist_mapping/
 ├── 04_scope_decision/
 ├── 05_target_corpus/
-└── 06_transcript_load_validation/
+├── 06_transcript_load_validation/
+└── 07_cleaning/
 ```
 
 - `reports/01_data_audit/`: load PostgreSQL và audit data foundation.
@@ -35,6 +36,8 @@ reports/
 - `reports/05_target_corpus/`: baseline và kết quả targeted transcript acquisition.
 - `reports/06_transcript_load_validation/`: load PostgreSQL và xác minh coverage
   `38/38` của target corpus.
+- `reports/07_cleaning/`: Bronze audit, Silver contract/policy, sample validation
+  và full Silver build lossless.
 
 ## 5. Kiến trúc và database
 
