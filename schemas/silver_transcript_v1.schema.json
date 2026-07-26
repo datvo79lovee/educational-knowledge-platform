@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/silver_transcript_v1.schema.json",
+  "title": "MIT 6.0001 Silver Transcript v1",
+  "description": "Machine-readable contract for one cleaned target transcript.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scope_version",
+    "cleaning_version",
+    "playlist_id",
+    "playlist_position",
+    "video_id",
+    "title",
+    "language_code",
+    "language_name",
+    "is_generated",
+    "fetched_at",
+    "segment_count",
+    "transcript_text",
+    "transcript_length",
+    "content_sha256",
+    "lineage",
+    "segments"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "silver_transcript_v1"
+    },
+    "scope_version": {
+      "const": "mit_60001_fall_2016_v1"
+    },
+    "cleaning_version": {
+      "const": "mit_60001_clean_v1"
+    },
+    "playlist_id": {
+      "const": "PLUl4u3cNGP63WbdFxL8giv4yhgdMGaZNA"
+    },
+    "playlist_position": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 37
+    },
+    "video_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "language_code": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20
+    },
+    "language_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "is_generated": {
+      "type": "boolean"
+    },
+    "fetched_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "segment_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "transcript_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "transcript_length": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "content_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bronze_file",
+        "manifest_file",
+        "source_payload_sha256"
+      ],
+      "properties": {
+        "bronze_file": {
+          "const": "data/bronze/transcripts_raw.jsonl"
+        },
+        "manifest_file": {
+          "const": "reports/04_scope_decision/target_manifest.csv"
+        },
+        "source_payload_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "segments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/segment"
+      }
+    }
+  },
+  "$defs": {
+    "segment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "segment_index",
+        "source_segment_index",
+        "text",
+        "start_second",
+        "duration_second"
+      ],
+      "properties": {
+        "segment_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source_segment_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "start_second": {
+          "type": "number",
+          "minimum": 0
+        },
+        "duration_second": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      }
+    }
+  }
+}
