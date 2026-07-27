@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-07-26
+2026-07-27
 
 ## Corpus mục tiêu
 
@@ -100,6 +100,12 @@ Validation status: `passed`.
   `reports/07_cleaning/full_validation.csv`
 - Silver cleaning summary:
   `reports/07_cleaning/cleaning_summary.csv`
+- Gold sample validation:
+  `reports/08_chunking/sample_chunk_validation.csv`
+- Gold sample cross-process validation:
+  `reports/08_chunking/sample_chunk_cross_process_validation.csv`
+- Gold sample generated output:
+  `data/gold/mit_60001/samples/`
 
 Không lưu `raw_text` đầy đủ trong folder `reports/`.
 
@@ -125,11 +131,13 @@ citation, còn PostgreSQL giữ normalized transcript và JOIN metadata.
 
 ## Bước tiếp theo
 
-Thiết kế chunking experiment trên Silver v1 trước khi tạo Gold chunks:
+Chunking experiment đã có Gold contract, ba configuration và sample validation.
+Chưa có evidence để chọn configuration hoặc chạy full Gold build.
 
-1. Chốt Gold chunk contract và lineage từ Silver segment range.
-2. Định nghĩa semantic boundary, token guardrail và fixed-token baseline.
-3. Tạo tập câu hỏi đánh giá retrieval trước khi chọn configuration.
-4. So sánh ít nhất ba cấu hình trên cùng evaluation set.
+1. Soạn 40–60 evaluation questions theo template và review với kiến thức Python.
+2. Chuyển các câu đủ evidence sang `approved`, gồm video ID và time range.
+3. Chạy retrieval comparison ba configuration bằng cùng question set.
+4. Chọn configuration dựa trên Recall@k, MRR, citation correctness và review.
+5. Chỉ sau đó mới build Gold 38 video cho configuration được duyệt.
 
-Chưa tạo Gold chunk, embedding, vector index hoặc retrieval API.
+Đã tạo Gold sample; chưa tạo Gold full corpus, embedding, vector index hoặc retrieval API.

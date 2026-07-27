@@ -167,6 +167,8 @@ Cross-process byte comparison: passed
 
 ## Phase 5 — Chunking experiment
 
+Trạng thái: đang triển khai từ ngày 2026-07-27.
+
 Không chọn kích thước chunk chỉ theo cảm tính. Cần thử ít nhất ba cấu hình trên cùng
 một tập câu hỏi và so sánh retrieval.
 
@@ -187,7 +189,24 @@ content_hash
 Các cấu hình cần thay đổi kích thước và overlap nhưng phải giữ ranh giới thời gian
 đủ chính xác để citation mở đúng đoạn video.
 
-### Output dự kiến
+### Output hiện có
+
+```text
+docs/design/GOLD_CHUNK_CONTRACT.md
+docs/design/CHUNKING_EXPERIMENT.md
+docs/design/CHUNKING_EVALUATION_CONTRACT.md
+schemas/gold_chunk_v1.schema.json
+schemas/chunking_evaluation_question_v1.schema.json
+scripts/chunking/build_chunk_samples.py
+reports/08_chunking/sample_chunk_validation.csv
+reports/08_chunking/sample_chunk_cross_process_validation.csv
+```
+
+Sample năm video đã pass schema, source coverage, timing/lineage validation và
+cross-process determinism cho cả ba configuration. Chưa có evaluation question
+`approved`; vì vậy chưa chọn configuration và chưa chạy full Gold build.
+
+### Output sau khi evaluation được duyệt
 
 ```text
 data/gold/mit_60001/chunks.jsonl

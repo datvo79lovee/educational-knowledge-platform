@@ -26,7 +26,8 @@ reports/
 ├── 04_scope_decision/
 ├── 05_target_corpus/
 ├── 06_transcript_load_validation/
-└── 07_cleaning/
+├── 07_cleaning/
+└── 08_chunking/
 ```
 
 - `reports/01_data_audit/`: load PostgreSQL và audit data foundation.
@@ -38,6 +39,8 @@ reports/
   `38/38` của target corpus.
 - `reports/07_cleaning/`: Bronze audit, Silver contract/policy, sample validation
   và full Silver build lossless.
+- `reports/08_chunking/`: Gold contract, chunking experiment design, evaluation
+  template và sample validation của ba configuration.
 
 ## 5. Kiến trúc và database
 

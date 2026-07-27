@@ -4181,3 +4181,75 @@ Phase 5 - Silver Transcript Design và Cleaning
 Phase 6 - Chunking, Retrieval và Evaluation
 
 ⬜ Chưa bắt đầu
+
+---
+
+# Ngày 16 - Chunking Experiment Design và Sample Validation
+
+## Đã hoàn thành
+
+* Audit code chunking cũ: `src/processing/chunking.py` là file rỗng, không tái sử dụng.
+* Chốt Gold contract/schema với lineage tới Silver range, lossless chunk text và citation timing.
+* Chốt ba configuration: fixed-token baseline, semantic cosine 240 và semantic cosine 192 có overlap.
+* Chọn MiniLM cho sample iteration, pin encoder revision `1110a243fdf4706b3f48f1d95db1a4f5529b4d41`.
+* Tạo evaluation contract/template trống; chỉ human-approved question mới là ground truth.
+* Build và validate năm video sample cho cả ba configuration.
+
+```text
+Fixed baseline chunks: 178
+Semantic 240 chunks: 285
+Semantic 192 + overlap chunks: 350
+Source coverage: complete cho cả ba
+Schema errors: 0
+Cross-process deterministic: passed cho cả ba
+```
+
+## Vấn đề còn tồn tại
+
+* Evaluation template chưa có question `approved`.
+* Chưa có retrieval metrics để chọn configuration.
+* Chưa build Gold đầy đủ 38 video.
+* Chưa tạo embedding, vector index hoặc retrieval API.
+
+## Mục tiêu milestone kế tiếp
+
+Soạn/review evaluation questions có video ID và timestamp evidence, sau đó chạy
+retrieval comparison trước khi duyệt full Gold build.
+
+---
+
+# Trạng thái tổng thể dự án
+
+Phase 1 - Data Foundation, Corpus Analysis và Scope
+
+✅ Hoàn thành
+
+---
+
+Phase 2 - Target Inventory
+
+✅ Hoàn thành
+
+---
+
+Phase 3 - Targeted Transcript Acquisition
+
+✅ Hoàn thành
+
+---
+
+Phase 4 - PostgreSQL Load và Validation
+
+✅ Hoàn thành
+
+---
+
+Phase 5 - Silver Transcript Design và Cleaning
+
+✅ Hoàn thành
+
+---
+
+Phase 6 - Chunking, Retrieval và Evaluation
+
+🟨 Chunking sample đã pass; evaluation và full Gold chưa bắt đầu
