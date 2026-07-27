@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/chunking_evaluation_question_v1.schema.json",
+  "title": "MIT 6.0001 Chunking Evaluation Question v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["question_id", "scope_version", "question", "category", "answerable", "expected_answer_points", "relevant_video_ids", "relevant_time_ranges", "review_status", "reviewer", "review_notes"],
+  "properties": {
+    "question_id": {"type": "string", "pattern": "^mit60001-q-[0-9]{3}$"},
+    "scope_version": {"const": "mit_60001_fall_2016_v1"},
+    "question": {"type": "string", "minLength": 5},
+    "category": {"enum": ["factual", "concept_explanation", "code_behavior", "multi_chunk", "confusable", "out_of_scope"]},
+    "answerable": {"type": "boolean"},
+    "expected_answer_points": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "relevant_video_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "relevant_time_ranges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["video_id", "start_second", "end_second"],
+        "properties": {
+          "video_id": {"type": "string", "minLength": 1},
+          "start_second": {"type": "number", "minimum": 0},
+          "end_second": {"type": "number", "exclusiveMinimum": 0}
+        }
+      }
+    },
+    "review_status": {"enum": ["draft", "reviewed", "approved", "rejected"]},
+    "reviewer": {"type": "string", "minLength": 1},
+    "review_notes": {"type": "string"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"answerable": {"const": true}}},
+      "then": {"properties": {"expected_answer_points": {"minItems": 1}, "relevant_video_ids": {"minItems": 1}, "relevant_time_ranges": {"minItems": 1}}},
+      "else": {"properties": {"expected_answer_points": {"maxItems": 0}, "relevant_video_ids": {"maxItems": 0}, "relevant_time_ranges": {"maxItems": 0}}}
+    }
+  ]
+}

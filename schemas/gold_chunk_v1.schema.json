@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/gold_chunk_v1.schema.json",
+  "title": "MIT 6.0001 Gold Chunk v1",
+  "description": "A retrieval chunk derived from one Silver transcript.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "scope_version", "silver_schema_version",
+    "silver_cleaning_version", "chunking_version", "chunking_config_id",
+    "chunk_id", "playlist_id", "playlist_position", "video_id", "title",
+    "chunk_index", "source_segment_start_index", "source_segment_end_index",
+    "source_segment_count", "chunk_text", "chunk_length", "start_second",
+    "end_second", "content_sha256", "lineage"
+  ],
+  "properties": {
+    "schema_version": {"const": "gold_chunk_v1"},
+    "scope_version": {"const": "mit_60001_fall_2016_v1"},
+    "silver_schema_version": {"const": "silver_transcript_v1"},
+    "silver_cleaning_version": {"const": "mit_60001_clean_v1"},
+    "chunking_version": {"const": "mit_60001_chunk_v1"},
+    "chunking_config_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{2,79}$"},
+    "chunk_id": {"type": "string", "minLength": 5},
+    "playlist_id": {"const": "PLUl4u3cNGP63WbdFxL8giv4yhgdMGaZNA"},
+    "playlist_position": {"type": "integer", "minimum": 0, "maximum": 37},
+    "video_id": {"type": "string", "minLength": 1, "maxLength": 50},
+    "title": {"type": "string", "minLength": 1},
+    "chunk_index": {"type": "integer", "minimum": 0},
+    "source_segment_start_index": {"type": "integer", "minimum": 0},
+    "source_segment_end_index": {"type": "integer", "minimum": 0},
+    "source_segment_count": {"type": "integer", "minimum": 1},
+    "chunk_text": {"type": "string", "minLength": 1},
+    "chunk_length": {"type": "integer", "minimum": 1},
+    "start_second": {"type": "number", "minimum": 0},
+    "end_second": {"type": "number", "exclusiveMinimum": 0},
+    "content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["silver_file", "silver_content_sha256"],
+      "properties": {
+        "silver_file": {"const": "data/silver/mit_60001/transcripts_clean.jsonl"},
+        "silver_content_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    }
+  }
+}
