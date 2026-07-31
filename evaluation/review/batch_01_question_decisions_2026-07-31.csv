@@ -1,0 +1,15 @@
+question_id,question_decision,selected_candidate_ranks,next_action,decision_source
+mit60001-q-001,accept,"[1,2,3,5]",create_candidate_ground_truth_draft,batch_01_review_vi_with_decision.xlsx
+mit60001-q-002,accept,"[1,4]",create_candidate_ground_truth_draft,batch_01_review_vi_with_decision.xlsx
+mit60001-q-003,accept,"[1]",canonicalize_from_v2_rank_1,human_final_approval_2026-07-31
+mit60001-q-004,accept,"[3]",canonicalize_from_v2_rank_3,human_final_approval_2026-07-31
+mit60001-q-005,accept,"[additional_source_expansion_segments_105_116]",canonicalize_from_additional_source_evidence,human_final_approval_2026-07-31
+mit60001-q-006,accept,"[1]",create_candidate_ground_truth_draft,batch_01_review_vi_with_decision.xlsx
+mit60001-q-007,accept,"[1]",create_candidate_ground_truth_draft,batch_01_review_vi_with_decision.xlsx
+mit60001-q-008,accept,"[1,2]",create_candidate_ground_truth_draft,batch_01_review_vi_with_decision.xlsx
+mit60001-q-009,accept,"[4]",create_candidate_ground_truth_draft,batch_01_review_vi_with_decision.xlsx
+mit60001-q-010,accept,"[5]",create_candidate_ground_truth_draft,batch_01_review_vi_with_decision.xlsx
+mit60001-q-011,needs_more_evidence,[],regenerate_candidates_for_recursion_iteration_comparison,batch_01_review_vi_with_decision.xlsx
+mit60001-q-012,out_of_scope,[],keep_answerable_false,batch_01_review_vi_with_decision.xlsx
+mit60001-q-013,out_of_scope,[],keep_answerable_false,batch_01_review_vi_with_decision.xlsx
+mit60001-q-014,accept,"[5]",create_candidate_ground_truth_draft,batch_01_review_vi_with_decision.xlsx

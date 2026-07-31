@@ -1,0 +1,1308 @@
+﻿question_id,candidate_rank,video_id,title,source_segment_start_index,source_segment_end_index,start_second,end_second,start_transcript_text,end_transcript_text,transcript_excerpt,cosine_score,candidate_status,review_instruction
+mit60001-q-001,1,nykOeWgQcHM,1. What is Computation?,99,110,250.841,281.65,"And the last thing,
+and I think this","I feel like the things we're
+going learn in this class","And the last thing,
+and I think this
+is what makes this
+class really great,
+is we teach you how
+to solve problems.
+And we do that
+through the psets.
+That's really how I feel
+the roadmap of this course
+looks like.
+And underlying all of
+these is just practice.
+You have to just type some
+stuff away and code a lot.
+And you'll succeed in
+this course, I think.
+OK.
+So what are the things we're
+going to learn in this class?
+I feel like the things we're
+going learn in this class",0.443482,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-001,2,nykOeWgQcHM,1. What is Computation?,48,60,129.21,162.967,It's true.,"was talking about something
+that suddenly I remembered,","It's true.
+This is a really
+fast-paced course,
+and we ramp up really quickly.
+We do want to position you
+to succeed in this course.
+As I was writing
+this, I was trying
+to think about when
+I was first starting
+to program what helped
+me get through my very
+first programming course.
+And this is really a good list.
+The first thing was I just
+read the psets as soon
+as they came out, made sure that
+the terminology just sunk in.
+And then, during
+lectures, if the lecturer
+was talking about something
+that suddenly I remembered,",0.433597,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-001,3,6LOwPhPDwVc,12. Searching and Sorting,1183,1194,2870.01,2899.67,"And especially we want you to
+start thinking recursively.","will end when I'm done--""","And especially we want you to
+start thinking recursively.
+We want you to think about
+how do I take a hard problem,
+break it up into simpler
+versions of the same problem,
+and then construct the solution.
+And that shows up
+lots of places.
+Right?
+Recursion is in all sorts
+of wonderful places.
+So just to give you an example,
+I could say to you recursively,
+""This lecture will
+end when I'm done
+talking about this
+lecture, which
+will end when I'm done talking
+about this lecture, which
+will end when I'm done--""",0.404508,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-001,4,nykOeWgQcHM,1. What is Computation?,111,123,281.65,313.69,"can be divided into basically
+three different sections.","There's some control
+flow to programs.","can be divided into basically
+three different sections.
+The first one is related to
+these first two items here.
+It's really about
+learning how to program.
+Learning how to
+program, part of it
+is figuring out what
+objects to create.
+You'll learn about these later.
+How do you represent knowledge
+with data structures?
+That's sort of the
+broad term for that.
+And then, as you're
+writing programs,
+you need to-- programs
+aren't just linear.
+Sometimes programs jump around.
+They make decisions.
+There's some control
+flow to programs.",0.383035,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-001,5,nykOeWgQcHM,1. What is Computation?,87,98,219.743,250.841,but don't be afraid.,is programming skills.,"but don't be afraid.
+Great.
+So this is pretty much a
+roadmap of all of 6.0001 or 600
+as I've just explained it.
+There's three big things we
+want to get out of this course.
+The first thing is the
+knowledge of concepts,
+which is pretty much true of
+any class that you'll take.
+The class will teach you
+something through lectures.
+Exams will test
+how much you know.
+This is a class in programming.
+The other thing we want
+you to get out of it
+is programming skills.",0.376311,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-002,1,nykOeWgQcHM,1. What is Computation?,48,60,129.21,162.967,It's true.,"was talking about something
+that suddenly I remembered,","It's true.
+This is a really
+fast-paced course,
+and we ramp up really quickly.
+We do want to position you
+to succeed in this course.
+As I was writing
+this, I was trying
+to think about when
+I was first starting
+to program what helped
+me get through my very
+first programming course.
+And this is really a good list.
+The first thing was I just
+read the psets as soon
+as they came out, made sure that
+the terminology just sunk in.
+And then, during
+lectures, if the lecturer
+was talking about something
+that suddenly I remembered,",0.603772,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-002,2,nykOeWgQcHM,1. What is Computation?,87,98,219.743,250.841,but don't be afraid.,is programming skills.,"but don't be afraid.
+Great.
+So this is pretty much a
+roadmap of all of 6.0001 or 600
+as I've just explained it.
+There's three big things we
+want to get out of this course.
+The first thing is the
+knowledge of concepts,
+which is pretty much true of
+any class that you'll take.
+The class will teach you
+something through lectures.
+Exams will test
+how much you know.
+This is a class in programming.
+The other thing we want
+you to get out of it
+is programming skills.",0.570673,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-002,3,nykOeWgQcHM,1. What is Computation?,124,134,313.69,348.82,"That's what the second
+line is going to be about.","that's well organized,
+modular, easy to understand.","That's what the second
+line is going to be about.
+The second big
+part of this course
+is a little bit more
+abstract, and it
+deals with how do you write
+good code, good style,
+code that's readable.
+When you write code, you
+want to write it such
+that-- you're in big company,
+other people will read it,
+other people will
+use it, so it has
+to be readable and
+understandable by others.
+To that end, you
+need to write code
+that's well organized,
+modular, easy to understand.",0.561493,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-002,4,nykOeWgQcHM,1. What is Computation?,61,73,162.967,189.34,"oh, I saw that word in the pset
+and I didn't know what it was.","Download the code
+before lecture.","oh, I saw that word in the pset
+and I didn't know what it was.
+Well, hey, now I
+know what it is.
+Right?
+So just give it a read.
+You don't need to start it.
+If you're new to programming, I
+think the key word is practice.
+It's like math or reading.
+The more you practice,
+the better you get at it.
+You're not going to
+absorb programming
+by watching me write programs
+because I already know how
+to program.
+You guys need to practice.
+Download the code
+before lecture.",0.539328,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-002,5,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",70,79,212.985,245.55,"So this is where functions
+will come into play in today's","if you need it for
+a future class,","So this is where functions
+will come into play in today's
+lecture-- will help you out.
+So if you want to be
+considered a good programmer,
+a good programming style would
+be to not necessarily add
+lots and lots of lines
+of code, but really
+to add more functionality
+to your programs.
+So how many different things--
+how many different features--
+can your program do, rather
+than how long can your code be.
+And that'll help you
+later on look at your code
+if you need it for
+a future class,",0.507631,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-003,1,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",629,639,1857.41,1890.53,"The first one is probably
+the most typical,","so they don't interfere
+with each other at all.","The first one is probably
+the most typical,
+and this is when you
+define a function.
+And it's using a
+variable named x
+in this case that's also
+defined outside of the function.
+And that doesn't matter
+because of the idea of scopes.
+So inside the global scope,
+you can have variables x.
+When you're inside
+a different scope,
+you can have whatever
+variable names you want.
+And when you're
+inside that scope,
+Python's going to use
+those variable names,
+so they don't interfere
+with each other at all.",0.832742,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-003,2,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",684,696,2030.96,2072.199,outside of your function.,"in one of the assignments--
+it was actually developed","outside of your function.
+And that sort of defeats
+the purpose of functions
+and using them in writing
+these coherent modules that
+are separate.
+That said, it might sometimes be
+useful to use global variables,
+as you'll see in a
+couple lectures from now.
+OK cool.
+So let's go on to the
+last scope example.
+OK this slide is here,
+and notice I've bolded,
+underlined, and italicized
+the Python Tutor,
+because I find it
+extremely helpful.
+So the Python Tutor--
+as I've mentioned
+in one of the assignments--
+it was actually developed",0.67194,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-003,3,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",382,393,1100.26,1139.57,"take what values and
+which scope you're in.","yet, because I haven't
+called the function yet.","take what values and
+which scope you're in.
+So here we go.
+When the program
+first starts, we're
+creating this global scope.
+It's the main program scope.
+In the main program
+scope, the first thing
+that Python is going
+to see is this part
+here-- def f of x and
+then some stuff inside.
+This tells Python I
+have a function named x,
+but I don't care what's
+inside the code yet.
+I don't care what's inside
+the function definition
+yet, because I haven't
+called the function yet.",0.670157,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-003,4,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",326,336,928.7,972.17,"call itself will be
+replaced by that value.","OK I'm in the main program
+but I see a function call.","call itself will be
+replaced by that value.
+OK so let's look at an example.
+I'm going to introduce
+the idea of scope now.
+And scope just means-- is
+another word for environment.
+So if I told you that you
+could think of functions
+as little mini-programs,
+the scope of a function
+is going to be a completely
+separate environment
+than the environment
+of the main program.
+So as soon as you
+make a function call,
+behind the scenes
+what Python says is,
+OK I'm in the main program
+but I see a function call.",0.64288,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-003,5,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",672,683,1990.58,2030.96,and then tried to reassign it.,"and then modify a
+variable that's defined","and then tried to reassign it.
+And that's actually
+not allowed in Python.
+There is a way around it
+using global variables.
+But it's actually frowned
+upon to use global variables,
+though global variables
+are part of the readings
+for this lecture.
+And the reason why
+it's not a great idea
+to use global variables is
+because global variables
+sort of give you this
+loophole around scopes,
+so it allows you to write code
+that can become very messy.
+So using global variables,
+you can be inside a function
+and then modify a
+variable that's defined",0.621956,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-004,1,0jljZRnHwOI,2. Branching and Iteration,490,499,1536.59,1561.798,"I do want to make
+one point, though.","because it doesn't
+make sense to be","I do want to make
+one point, though.
+So sometimes, you might forget
+to do the double equals sign
+when you are checking for
+equality, and that's OK.
+If you just use one
+equals sign, Python's
+going to give you an error.
+And it's going to
+say syntax error,
+and it's going to
+highlight this line.
+And then you're going to know
+that there's a mistake there.
+And you should be
+using equality,
+because it doesn't
+make sense to be",0.695375,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-004,2,0jljZRnHwOI,2. Branching and Iteration,468,478,1445.64,1489.49,"You always enter one, and
+you enter the first one","So in this particular example,
+we have one if statement here,","You always enter one, and
+you enter the first one
+that evaluates to true.
+So notice that we denoted
+code blocks using indentation.
+And that's actually
+one of the things
+that I really like about Python.
+It sort of forces you to
+write pretty code and nice
+looking code and just
+code that's very readable.
+And that forces you to indent
+everything that's a code block.
+So you can easily see sort of
+where the flow of control is
+and where decision making
+points are and things like that.
+So in this particular example,
+we have one if statement here,",0.571352,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-004,3,0jljZRnHwOI,2. Branching and Iteration,282,294,884.41,912.03,"So the single equals
+sign is an assignment.","not equal to the value
+of the variable j?","So the single equals
+sign is an assignment.
+So you're taking a
+value, and you're
+assigning it to a variable.
+But when you're doing
+the double equals sign,
+this is the test for equality.
+Is the value of
+variable i the same
+as the value of the variable j?
+And that's, again,
+also going to give you
+a Boolean either true or false.
+And you can also test for
+inequality with the exclamation
+equal.
+So that means, is the
+value of the variable i
+not equal to the value
+of the variable j?",0.567746,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-004,4,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",349,359,1053.61,1088.75,"if we re-assign-- if we try
+to do this line right here,","We haven't created a
+new object in memory.","if we re-assign-- if we try
+to do this line right here,
+we've had an error.
+But this is actually
+allowed with lists.
+So when you execute
+that line, Python
+is going to look at
+that middle element,
+and it's going to change
+its value from a 1 to a 5.
+And that's just due to the
+mutability nature of the list.
+So notice that this list
+variable, this variable l,
+which originally
+pointed to this list,
+points to the exact same list.
+We haven't created a
+new object in memory.",0.559436,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-004,5,nykOeWgQcHM,1. What is Computation?,820,830,2362.9,2390.77,able to solve for x.,"And that's going
+to be a variable.","able to solve for x.
+That means always in programming
+the right-hand side is
+going to be an expression.
+It's something that's going
+to be evaluated to a value.
+And the left-hand side
+is always a variable.
+It's going to be an assignment.
+The equal sign is
+not like in math
+where you can have a lot
+of things to the left
+and a lot of things to the
+right of the equal sign.
+There's only one thing to
+the left of the equal sign.
+And that's going
+to be a variable.",0.555563,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-005,1,WPSeyjX1-4s,6. Recursion and Dictionaries,199,209,558.97,587.69,"Recursive definition that
+reduces a problem to a simpler","wanted to solve this recursively
+what would the base case be?","Recursive definition that
+reduces a problem to a simpler
+version of the same problem.
+OK, let's look at
+another example.
+Classic problem in recursion
+is to compute factorial,
+right? n factorial,
+or n bang if you
+like, n exclamation point
+is n times n minus 1,
+all the way down to 1.
+So it's the product of
+all the integers from 1
+up to n assuming n is
+a positive integer.
+So we can ask the
+same question if I
+wanted to solve this recursively
+what would the base case be?",0.581729,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-005,2,WPSeyjX1-4s,6. Recursion and Dictionaries,291,300,819.28,850.74,"So it unwinds it down to
+a base case and it stops.","in computing fact of something,
+that reduces to returning n","So it unwinds it down to
+a base case and it stops.
+A couple of observations, notice
+how each recursive call creates
+its own frame, and
+as a consequence,
+there's no confusion about
+which value of n I'm using.
+Also notice, in the other
+frames, n was not changed.
+We did not mutate it.
+So we're literally
+creating a local scope
+for that recursive call,
+which is exactly what we want.
+Also notice how there was
+a sense of flow of control
+in computing fact of something,
+that reduces to returning n",0.537337,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-005,3,WPSeyjX1-4s,6. Recursion and Dictionaries,109,120,308.1,334.17,"when I get to something
+I can solve directly.","For loops, while
+loops, they naturally","when I get to something
+I can solve directly.
+And so what we're going to do
+is avoid infinite recursion
+by ensuring that we have
+at least one or more base
+cases that are easy to solve.
+And then the basic
+idea is I just
+want to solve the same
+problem on some simpler
+input with the idea
+of using that solution
+to solve the larger problem.
+OK, let's look at an
+example, and to set
+the stage I'm going to go back
+to something you've been doing,
+iterative algorithms.
+For loops, while
+loops, they naturally",0.533957,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-005,4,WPSeyjX1-4s,6. Recursion and Dictionaries,46,55,136.5,165.336,"leads to lots of really
+bad computer science jokes,","as we're going to
+see in a second,","leads to lots of really
+bad computer science jokes,
+actually all computer
+science jokes are bad,
+but these are particularly bad.
+So let's start with the obvious
+question, what is recursion?
+If you go to the ultimate
+source of knowledge, Wikipedia,
+you get something that
+says, in essence, recursion
+is the process of repeating
+items in a self-similar way.
+Well that's really
+helpful, right?
+But we're going to see that
+idea because recursion,
+as we're going to
+see in a second,",0.530147,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-005,5,WPSeyjX1-4s,6. Recursion and Dictionaries,86,97,247.72,278.22,"And the idea of
+recursion is, I want","where a program, a
+definition of function,","And the idea of
+recursion is, I want
+to take a problem I'm trying
+to solve and say, how could I
+reduce it to a simpler
+version of the same problem,
+plus some things
+I know how to do?
+And then that
+simpler version, I'm
+going to reduce
+it again and keep
+doing that until I get
+down to a simple case
+that I can solve directly.
+That is how we're going to
+think about designing solutions
+to problems.
+Semantically, this is typically
+going to lead to the case
+where a program, a
+definition of function,",0.525955,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-006,1,o9nW0uBqvEo,"10. Understanding Program Efficiency, Part 1",220,230,557.75,590.49,"Write the code, run a bunch
+of test case, run a timer,","And that could be used to
+give us a sense of efficiency.","Write the code, run a bunch
+of test case, run a timer,
+use that to try and come up with
+a way of estimating efficiency.
+We'll see some
+challenges with that.
+Slightly more abstractly,
+we could count operations.
+We could say here are the set
+of fundamental operations--
+mathematical operations,
+comparisons, setting values,
+retrieving values.
+And simply say how many
+of those operations
+do I use in my
+algorithm as a function
+of the size of the input?
+And that could be used to
+give us a sense of efficiency.",0.662861,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-006,2,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",394,406,1308.87,1345.2,"to write slightly more
+interesting programs.","So we're going to look
+at three algorithms, all","to write slightly more
+interesting programs.
+And now we have loops,
+for and while loops
+to add interesting and
+more complicated programs.
+So with these, the second
+part of this lecture
+is going to be looking at
+three different algorithms.
+That's the sort of
+computer science part
+of this class, Introduction
+to Computer Science
+and Programming using Python.
+Don't let the word
+algorithm scare you.
+They're not that complicated.
+You just have to sort of
+think a little bit about them.
+And you'll be able to get them.
+So we're going to look
+at three algorithms, all",0.649578,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-006,3,o9nW0uBqvEo,"10. Understanding Program Efficiency, Part 1",196,209,495.23,529.562,"The first one is even if
+I've decided on an algorithm,","Using divide and conquer
+versus straightforward search.","The first one is even if
+I've decided on an algorithm,
+there are lots of ways
+to implement that.
+A while loop and a for loop
+might have slightly different
+behavior.
+I could choose to do it
+with temporary variables
+or using direct substitution.
+There's lots of little choices.
+So an algorithm
+could be implemented
+many different ways.
+How do I measure the actual
+efficiency of the algorithm?
+Second one is I might,
+for a given problem,
+have different
+choices of algorithm.
+A recursive solution
+versus an iterative one.
+Using divide and conquer
+versus straightforward search.",0.629582,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-006,4,7lQXYl_L28w,"11. Understanding Program Efficiency, Part 2",48,58,128.58,158.4,"of as the backwards
+or reverse direction.","we talked about
+orders of growth.","of as the backwards
+or reverse direction.
+How does a choice in algorithm
+design impact efficiency
+of the algorithm?
+And really, what
+we want you to do
+is to begin to recognize
+standard patterns,
+that, if you make a
+particular choice,
+this fits in a class of
+algorithms you've seen before.
+And I know, in essence, how
+much time-- what the cost is
+going to be as I do that.
+All right, so just to recap,
+as it says on the top,
+we talked about
+orders of growth.",0.620663,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-006,5,o9nW0uBqvEo,"10. Understanding Program Efficiency, Part 1",157,170,405.69,438.7,to solve those problems.,"or in terms of space,
+meaning how much storage","to solve those problems.
+So I want to suggest
+to you while sometimes
+simple solutions are great,
+they are the easy ones to rate--
+too write.
+Sorry.
+At times, you need to
+be more sophisticated.
+Therefore, we want
+to reason about
+how do we measure
+efficiency and how do we
+relate algorithm design
+choices to the cost that's
+going to be associated with it?
+OK.
+Even when we do that,
+we've got a choice to make.
+Because we could talk about
+both efficiency in terms of time
+or in terms of space,
+meaning how much storage",0.563112,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-007,1,nykOeWgQcHM,1. What is Computation?,761,772,2181.39,2223.0,"And the name is going to
+be something that you pick.","In this case, I assigned
+the float 3.14159","And the name is going to
+be something that you pick.
+And it should be a
+descriptive name.
+And when you save
+the value to a name,
+you're going to be able
+to access that value later
+on in your program.
+And that's very useful.
+To save a value to a variable
+name, you use the equal sign.
+And the equal sign
+is an assignment.
+It assigns the
+right-hand side, which
+is a value, to the
+left-hand side, which
+is going to be a variable name.
+In this case, I assigned
+the float 3.14159",0.549137,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-007,2,0jljZRnHwOI,2. Branching and Iteration,48,57,149.86,177.7,space t-h-e-r-e.,"Python is going to say, oh,
+I know what the value is,","space t-h-e-r-e.
+And Python knows it's a
+string object, because we're
+enclosing it in quotations.
+They can be either double
+quotes or single quotes,
+but as long as you're
+consistent, it doesn't matter.
+And this object, we're binding
+it to this variable named hi.
+And we're using that using
+the equals sign, which
+is the assignment operator.
+So from now on, whenever we
+refer to this variable hi,
+Python is going to say, oh,
+I know what the value is,",0.489891,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-007,3,WPSeyjX1-4s,6. Recursion and Dictionaries,230,238,646.64,675.99,"So when I read that in or I
+evaluate that in Python, it","So it creates a new
+frame, a new environment,","So when I read that in or I
+evaluate that in Python, it
+creates a definition that binds
+the name fact to some code,
+just all of that stuff
+over here plus the name
+for the formal parameter, hasn't
+done anything with it yet.
+And then I'm going to
+evaluate print a fact of 4.
+Print needs a value, so it has
+to get the value of fact of 4,
+and we know what that does.
+It looks up fact, there it
+is, it's procedure definition.
+So it creates a new
+frame, a new environment,",0.476377,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-007,4,nykOeWgQcHM,1. What is Computation?,831,841,2390.77,2431.18,"An equal sign stands
+for an assignment.","Next line, radius
+is equal to 2.2.","An equal sign stands
+for an assignment.
+Once we've created expressions,
+and we have these assignments,
+you can rebind variable
+names using new assignment
+statements.
+Let's look at an
+example for that.
+Let's say this is our memory.
+Let's type back in the example
+with finding the radius.
+Let's say, pi is equal to 3.14.
+In memory, we're going to
+create this value 3.14.
+We're going to bind it
+to the variable named pi.
+Next line, radius
+is equal to 2.2.",0.474835,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-007,5,WPSeyjX1-4s,6. Recursion and Dictionaries,239,248,675.99,706.23,"it calls that procedure,
+and inside that frame","So in that case, go to the
+else statement and says,","it calls that procedure,
+and inside that frame
+the formal parameter for fact
+is bound to the value passed in.
+So n is bound to 4.
+That frame is scoped
+by this global frame
+meaning it's going to inherit
+things in the global frame.
+And what does it do?
+It says, inside of this frame
+evaluate the body of fact.
+OK, so it says as n equal to 1?
+Nope, it's not, it's 4.
+So in that case, go to the
+else statement and says,",0.473363,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-008,1,nykOeWgQcHM,1. What is Computation?,853,862,2468.31,2506.77,"Now, let's say we rebind
+radius to be something else.","But we've lost
+the handle for it.","Now, let's say we rebind
+radius to be something else.
+Radius i is bound
+to the value 2.2.
+But when we do this line, radius
+is equal to radius plus 1,
+we're going to take
+away the binding to 2.2.
+We're going to do
+this calculation.
+The new value is 3.2.
+And we're going to rebind that
+value to that same variable.
+In memory, notice
+we're still going
+to have this value,
+2.2, floating around.
+But we've lost
+the handle for it.",0.55723,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-008,2,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",204,214,661.98,696.34,"And what I mean by this is
+that an actual string object,","So now I can access the object
+""hello"" using this variable s.","And what I mean by this is
+that an actual string object,
+once it's created,
+cannot be modified.
+This might not mean
+anything right now.
+But let me just draw
+a little something.
+Let's say I have this
+string, s is equal to hello.
+Remember, in the
+first lecture, we
+drew a diagram
+sort of like this.
+This is my memory.
+I have this object ""hello.""
+And this object, ""hello"" is
+bound to this variable s.
+So now I can access the object
+""hello"" using this variable s.",0.48072,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-008,3,FlGjISF3l78,9. Python Classes and Inheritance,371,381,1097.65,1140.27,"And then, this new name is equal
+to this empty string here, OK?","have to put in parameters for
+everything other than self, OK?","And then, this new name is equal
+to this empty string here, OK?
+We haven't seen this before.
+But this is called
+a default argument.
+And you can use the
+function in one of two ways.
+The first way is
+so we can create
+a new instance of an Animal
+type object with this line
+here, a = Animal(3).
+And then we can
+say a.set_name().
+So this calls the setter
+method to set the name.
+And notice, we've
+always said that you
+have to put in parameters for
+everything other than self, OK?",0.458454,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-008,4,FlGjISF3l78,9. Python Classes and Inheritance,785,793,2361.09,2399.66,"OK, so r1 is going to be a
+new rabbit that we create.",I'm going to increment the tag.,"OK, so r1 is going to be a
+new rabbit that we create.
+Initially, what happens is, when
+I first create this new rabbit,
+it's going to access the
+class variable, which,
+it's current value is 1.
+So when I create the
+rabbit ID-- the rabbit ID,
+r1.rid-- this is going
+to get the value 1.
+And according to
+the code, after I
+set the rabbit ID
+to whatever tag is,
+I'm going to increment the tag.",0.455404,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-008,5,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",225,235,664.534,697.39,"And each time I'm going
+to create a new object","So if t is going to be this
+tuple element right here,","And each time I'm going
+to create a new object
+and reassign it to
+this variable nums.
+And each time
+through the loop, I'm
+looking at what the
+previous value of nums was.
+So what was my previous tuple?
+And I'm going to add it
+with this singleton tuple.
+So it's a tuple of one
+character or one element.
+This element being
+t at position zero.
+So you have to sort of
+wrap your mind around
+how this is working.
+So if t is going to be this
+tuple element right here,",0.435368,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-009,1,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",732,743,2171.79,2208.33,"and we're going to add
+every variable that we have.","So I'm making x be a variable
+inside my global scope","and we're going to add
+every variable that we have.
+And then when we
+reach a function call,
+we're going to do
+something about that.
+So the first thing
+in the global scope
+is this function definition.
+Again in my global scope,
+I just have g as some code
+because I have
+not called it yet.
+I only go inside a function
+when I make a function call.
+So g contains some code.
+So we're done with
+75% of that code.
+Next line is x is equal to 3.
+So I'm making x be a variable
+inside my global scope",0.586553,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-009,2,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",684,696,2030.96,2072.199,outside of your function.,"in one of the assignments--
+it was actually developed","outside of your function.
+And that sort of defeats
+the purpose of functions
+and using them in writing
+these coherent modules that
+are separate.
+That said, it might sometimes be
+useful to use global variables,
+as you'll see in a
+couple lectures from now.
+OK cool.
+So let's go on to the
+last scope example.
+OK this slide is here,
+and notice I've bolded,
+underlined, and italicized
+the Python Tutor,
+because I find it
+extremely helpful.
+So the Python Tutor--
+as I've mentioned
+in one of the assignments--
+it was actually developed",0.57209,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-009,3,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",539,548,1585.55,1613.79,"So we have three function
+definitions here-- func_a,","Again I don't care
+what's in the code","So we have three function
+definitions here-- func_a,
+func_b, and func_c.
+And then I have three lines of
+code here in my main program.
+So I have one called a
+func_a, one called a func_b,
+and one call to func_c.
+Let's trace through, just
+like in the previous example,
+and see what exactly happens.
+First thing I create
+is my global scope.
+And I have three
+function definitions.
+Again I don't care
+what's in the code",0.545875,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-009,4,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",629,639,1857.41,1890.53,"The first one is probably
+the most typical,","so they don't interfere
+with each other at all.","The first one is probably
+the most typical,
+and this is when you
+define a function.
+And it's using a
+variable named x
+in this case that's also
+defined outside of the function.
+And that doesn't matter
+because of the idea of scopes.
+So inside the global scope,
+you can have variables x.
+When you're inside
+a different scope,
+you can have whatever
+variable names you want.
+And when you're
+inside that scope,
+Python's going to use
+those variable names,
+so they don't interfere
+with each other at all.",0.543396,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-009,5,-DP1i2ZU9gk,8. Object Oriented Programming,326,337,919.39,956.67,just like any other function.,"We don't have a
+specific instance","just like any other function.
+These last two
+parameters are x and y,
+which are going to represent how
+you create a coordinate object.
+So you give it a value
+for the x-coordinate
+and you give it a value
+for the y-coordinate.
+The self, however, is
+a little bit trickier.
+So the self is going
+to be a parameter when
+you define this
+class that represents
+a particular instance
+of the class.
+So we're defining
+this coordinate object
+in sort of a general way, right?
+We don't have a
+specific instance",0.537722,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-010,1,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",613,624,1864.16,1898.78,"And since it's a mutable
+object, this list,","If you're mutating a list,
+if you're doing operations","And since it's a mutable
+object, this list,
+you can have more
+than one variable
+that points to the exact
+same object in memory.
+And if you have more
+than one variable that
+points to the same
+object in memory,
+if that object in
+memory is changed, then
+when you access it through
+any one of these variables,
+they're all going to give
+you the changed object value.
+So the key phrase
+to keep in mind
+when you're dealing
+with lists is
+what side effects could happen?
+If you're mutating a list,
+if you're doing operations",0.549322,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-010,2,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",338,348,1023.462,1053.61,"The one difference,
+and that's what","When we were dealing with
+tuples or with strings,","The one difference,
+and that's what
+we're going to focus on
+for the rest of this class,
+is that lists are
+mutable objects.
+So what does that
+mean internally?
+Internally, that means
+let's say we have a list l,
+and we assign it-- sorry.
+Let's say we have a variable l
+that's going to point to a list
+with three elements,
+2, 1, and 3.
+OK.
+They're all-- each
+element is an integer.
+When we were dealing with
+tuples or with strings,",0.505938,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-010,3,WPSeyjX1-4s,6. Recursion and Dictionaries,23,34,76.29,105.507,"And that led to both some nice
+power and some opportunities","Today we're going to take
+a different direction","And that led to both some nice
+power and some opportunities
+for challenges.
+And, in particular, she showed
+you things like aliasing,
+where you could have two names
+pointing to the same list
+structure, and
+because of that, you
+could change the
+contents of one,
+it would change the appearance
+of the contents of the other,
+and that leads to
+some nice challenges.
+So the side effects
+of mutability
+are one of the things you're
+going to see, both as a plus
+and minus, as we go
+through the course.
+Today we're going to take
+a different direction",0.479803,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-010,4,FlGjISF3l78,9. Python Classes and Inheritance,916,923,2819.81,2839.45,"So every single type
+of object that you","All right, thanks, everyone.","So every single type
+of object that you
+create of this particular
+type that you create-- sorry,
+every object instance
+of a particular type
+is going to have the
+exact same data attributes
+and the exact same methods, OK?
+So this really comes back
+to the idea of decomposition
+and abstraction in programming.
+All right, thanks, everyone.",0.417322,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-010,5,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",292,303,879.146,922.18,"Yay, it worked.","And the difference
+being that they're","Yay, it worked.
+So that's tuples.
+And remeber or recall-- keep
+in mind, tuples were immutable.
+Now we're going to look at
+a very, very similar data
+structure to tuples
+called lists,
+except that instead of
+lists being immutable,
+lists are going to
+be mutable objects.
+So much like lists,
+they're going
+to contain elements of any
+type or objects of any type.
+You denote them with--
+you denote a list
+with square brackets
+instead of parentheses.
+And the difference
+being that they're",0.407976,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-011,1,6LOwPhPDwVc,12. Searching and Sorting,1183,1194,2870.01,2899.67,"And especially we want you to
+start thinking recursively.","will end when I'm done--""","And especially we want you to
+start thinking recursively.
+We want you to think about
+how do I take a hard problem,
+break it up into simpler
+versions of the same problem,
+and then construct the solution.
+And that shows up
+lots of places.
+Right?
+Recursion is in all sorts
+of wonderful places.
+So just to give you an example,
+I could say to you recursively,
+""This lecture will
+end when I'm done
+talking about this
+lecture, which
+will end when I'm done talking
+about this lecture, which
+will end when I'm done--""",0.641944,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-011,2,6LOwPhPDwVc,12. Searching and Sorting,1195,1197,2899.67,2903.75,All right.,Good luck on the exam.,"All right.
+You don't like
+infinite recursion.
+Good luck on the exam.",0.620757,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-011,3,WPSeyjX1-4s,6. Recursion and Dictionaries,109,120,308.1,334.17,"when I get to something
+I can solve directly.","For loops, while
+loops, they naturally","when I get to something
+I can solve directly.
+And so what we're going to do
+is avoid infinite recursion
+by ensuring that we have
+at least one or more base
+cases that are easy to solve.
+And then the basic
+idea is I just
+want to solve the same
+problem on some simpler
+input with the idea
+of using that solution
+to solve the larger problem.
+OK, let's look at an
+example, and to set
+the stage I'm going to go back
+to something you've been doing,
+iterative algorithms.
+For loops, while
+loops, they naturally",0.618127,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-011,4,WPSeyjX1-4s,6. Recursion and Dictionaries,86,97,247.72,278.22,"And the idea of
+recursion is, I want","where a program, a
+definition of function,","And the idea of
+recursion is, I want
+to take a problem I'm trying
+to solve and say, how could I
+reduce it to a simpler
+version of the same problem,
+plus some things
+I know how to do?
+And then that
+simpler version, I'm
+going to reduce
+it again and keep
+doing that until I get
+down to a simple case
+that I can solve directly.
+That is how we're going to
+think about designing solutions
+to problems.
+Semantically, this is typically
+going to lead to the case
+where a program, a
+definition of function,",0.610917,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-011,5,6LOwPhPDwVc,12. Searching and Sorting,1110,1122,2691.15,2722.79,"of data and things that operate
+on them in a nice, elegant way.","to master the art of
+computational problem solving.","of data and things that operate
+on them in a nice, elegant way.
+And we just spent
+a week and a half
+talking about
+classes of algorithms
+and their complexity.
+If you step up a level, what we
+hope you've gotten out of this
+are a couple of things.
+You've begun to learn
+computational modes
+of thinking.
+How do I tackle a problem
+and divide and conquer?
+How do I think about
+recursion as a tool
+in dealing with something?
+You've begun to-- begun, I will
+use that word deliberately--
+to master the art of
+computational problem solving.",0.589449,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-012,,,,,,,,,,,,not_applicable_out_of_scope,Do not attach corpus evidence.
+mit60001-q-013,,,,,,,,,,,,not_applicable_out_of_scope,Do not attach corpus evidence.
+mit60001-q-014,1,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",601,612,1821.173,1864.16,"is the second one, and so on.","going to be pointing
+to the list in memory.","is the second one, and so on.
+So lists are mutable.
+We've said that so many
+times this lecture.
+But what exactly does that mean?
+What implications
+does that have?
+Once again, this next part
+of the lecture, Python tutor.
+Just paste all the code
+in and go step by step
+to see exactly what's happening.
+So lists are mutable.
+As you have variable
+names-- so for example,
+L is equal to some
+list-- that L is
+going to be pointing
+to the list in memory.",0.641524,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-014,2,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",338,348,1023.462,1053.61,"The one difference,
+and that's what","When we were dealing with
+tuples or with strings,","The one difference,
+and that's what
+we're going to focus on
+for the rest of this class,
+is that lists are
+mutable objects.
+So what does that
+mean internally?
+Internally, that means
+let's say we have a list l,
+and we assign it-- sorry.
+Let's say we have a variable l
+that's going to point to a list
+with three elements,
+2, 1, and 3.
+OK.
+They're all-- each
+element is an integer.
+When we were dealing with
+tuples or with strings,",0.637082,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-014,3,-DP1i2ZU9gk,8. Object Oriented Programming,104,114,288.59,323.26,"Let's bring it a little closer
+to home by looking at a list.",object once it's created?,"Let's bring it a little closer
+to home by looking at a list.
+So we have this data
+type of list, right?
+We've worked with lists before.
+The list with elements 1, 2, 3,
+and 4 is a very specific object
+that is of type list.
+Again, we think about it
+in terms of two things.
+One is what is the data
+representation of the list?
+So behind the scenes how
+does Python see lists?
+And the second is, how do
+you interact with lists?
+So what are ways that
+you can manipulate a list
+object once it's created?",0.607184,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-014,4,-DP1i2ZU9gk,8. Object Oriented Programming,28,42,91.0,127.52,"So for example, every one of
+these is a different object.",OK.,"So for example, every one of
+these is a different object.
+For example, this
+is the number 1,234.
+It's a specific object
+that is of type integer.
+The number 5 is a different
+object that's of type integer
+and so on.
+We've seen floats.
+We've seen strings.
+We've seen lists.
+Lists and dictionaries are
+more complicated objects.
+Object types.
+Sorry.
+But every object has a
+type, some sort of way
+that it's represented
+in Python and some ways
+that we can interact with them.
+OK.",0.595905,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-014,5,WPSeyjX1-4s,6. Recursion and Dictionaries,883,894,2418.67,2451.17,"They are simply stored
+arbitrarily by the Python",got seven minutes to go here.,"They are simply stored
+arbitrarily by the Python
+as it puts them in.
+So if I compare these two, lists
+or ordered sequences indexed
+by integers, I look them
+up by integer index,
+and the indices have to have
+an order as a consequence.
+Dictionaries are this
+nice generalization,
+arbitrarily match
+keys to values.
+I simply look up one
+item by looking up things
+under the appropriate key.
+All I require is that the
+keys have to be immutable.
+OK, I want to do
+two last things I've
+got seven minutes to go here.",0.580205,candidate_requires_human_source_review,Read source before accepting any video/time range.

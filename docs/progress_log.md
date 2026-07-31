@@ -4253,3 +4253,83 @@ Phase 5 - Silver Transcript Design và Cleaning
 Phase 6 - Chunking, Retrieval và Evaluation
 
 🟨 Chunking sample đã pass; evaluation và full Gold chưa bắt đầu
+
+---
+
+# Ngày 17 - Batch 01 Evaluation Source Review và Canonicalization
+
+## Đã hoàn thành
+
+### 1. Human source review và decision ledger
+
+Batch 01 được review theo source candidates có transcript excerpt. Kết quả final
+canonical là 13 record `approved`: 11 answerable và hai câu out-of-scope. q-011
+chưa được canonicalize do evidence so sánh recursion/iteration chưa được duyệt.
+
+### 2. Rewrite và source candidate v2
+
+q-003 được rewrite sang variable names across scopes; q-004 được rewrite để phân
+biệt assignment `=` với equality `==`. Locator chạy lại và tạo candidate v2 gồm 62
+dòng. File v2 là source candidate hiện hành; candidate cũ được giữ để audit.
+
+q-005 dùng source expansion Silver segments 105–116 (`WPSeyjX1-4s`,
+294.720–325.870), được human final approve. q-011 có source expansion nhưng chưa
+được approve.
+
+### 3. Canonical evaluation subset và validation
+
+Đã tạo `evaluation/mit_60001/evaluation_questions.jsonl`:
+
+```text
+Canonical records : 13
+Approved          : 13
+Answerable        : 11
+Out of scope      : 2
+Duplicate IDs     : 0
+```
+
+Mỗi answerable record có expected answer points, video ID và exact time range.
+Validation read-only pass parse JSONL, contract fields/conditions, time-range order,
+v2 evidence ranges, q-005 source expansion và q-011 exclusion.
+
+## Vấn đề còn tồn tại
+
+* q-011 chưa có evidence so sánh recursion và iteration được duyệt.
+* Batch 01 mới có 13 approved records, chưa đạt mục tiêu 40–60 câu.
+* Chưa có retrieval comparison, lựa chọn Gold configuration hoặc Gold full corpus.
+* Chưa xây embedding/index, Hybrid Search, Cross-Encoder, LLM runtime hoặc Search API.
+
+## Mục tiêu milestone kế tiếp
+
+Mở rộng evaluation set lên 40–60 approved questions, xử lý q-011, rồi chạy retrieval
+comparison ba configuration bằng cùng approved question set trước khi duyệt Gold full.
+
+## Trạng thái tổng thể dự án
+
+Phase 1 - Data Foundation, Corpus Analysis và Scope
+
+✅ Hoàn thành
+
+---
+
+Phase 2 - Target Inventory, Acquisition, PostgreSQL và Silver
+
+✅ Hoàn thành
+
+---
+
+Phase 3 - Chunking Sample
+
+✅ Sample ba configuration đã pass; Gold full chưa build
+
+---
+
+Phase 4 - Evaluation
+
+🟨 Batch 01 có 13 approved records; cần đạt 40–60 câu trước retrieval comparison
+
+---
+
+Phase 5 - Retrieval và Runtime
+
+⬜ Chưa bắt đầu

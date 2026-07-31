@@ -203,8 +203,9 @@ reports/08_chunking/sample_chunk_cross_process_validation.csv
 ```
 
 Sample năm video đã pass schema, source coverage, timing/lineage validation và
-cross-process determinism cho cả ba configuration. Chưa có evaluation question
-`approved`; vì vậy chưa chọn configuration và chưa chạy full Gold build.
+cross-process determinism cho cả ba configuration. Batch 01 hiện có 13 record
+canonical `approved` (11 answerable, hai out-of-scope), nhưng chưa đạt tập 40–60 câu
+để so sánh retrieval; vì vậy chưa chọn configuration và chưa chạy full Gold build.
 
 ### Output sau khi evaluation được duyệt
 

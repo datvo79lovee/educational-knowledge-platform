@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-07-27
+2026-07-31
 
 ## Corpus mục tiêu
 
@@ -106,6 +106,10 @@ Validation status: `passed`.
   `reports/08_chunking/sample_chunk_cross_process_validation.csv`
 - Gold sample generated output:
   `data/gold/mit_60001/samples/`
+- Canonical Batch 01 evaluation subset:
+  `evaluation/mit_60001/evaluation_questions.jsonl`
+- Current Batch 01 source candidates:
+  `evaluation/review/batch_01_source_candidates_with_transcript_2026-07-31_v2.csv`
 
 Không lưu `raw_text` đầy đủ trong folder `reports/`.
 
@@ -132,12 +136,16 @@ citation, còn PostgreSQL giữ normalized transcript và JOIN metadata.
 ## Bước tiếp theo
 
 Chunking experiment đã có Gold contract, ba configuration và sample validation.
-Chưa có evidence để chọn configuration hoặc chạy full Gold build.
+Batch 01 hiện có 13 canonical record `approved`: 11 câu answerable với evidence từ
+source-candidate v2 hoặc source expansion đã được human review, và hai câu
+out-of-scope. q-011 vẫn chưa có canonical record vì cần evidence so sánh rõ hơn.
+Batch này chưa đủ 40–60 câu để chọn configuration hoặc chạy full Gold build.
 
-1. Soạn 40–60 evaluation questions theo template và review với kiến thức Python.
-2. Chuyển các câu đủ evidence sang `approved`, gồm video ID và time range.
-3. Chạy retrieval comparison ba configuration bằng cùng question set.
-4. Chọn configuration dựa trên Recall@k, MRR, citation correctness và review.
-5. Chỉ sau đó mới build Gold 38 video cho configuration được duyệt.
+1. Review source/evidence còn thiếu cho q-011; mở rộng batch để đạt 40–60 câu theo
+   template.
+2. Chạy retrieval comparison ba configuration bằng cùng question set `approved`
+   sau khi có số câu được duyệt đủ cho milestone.
+3. Chọn configuration dựa trên Recall@k, MRR, citation correctness và review.
+4. Chỉ sau đó mới build Gold 38 video cho configuration được duyệt.
 
 Đã tạo Gold sample; chưa tạo Gold full corpus, embedding, vector index hoặc retrieval API.
