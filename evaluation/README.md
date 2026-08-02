@@ -1,39 +1,48 @@
-# Evaluation question review workflow
+# Evaluation workspace
 
-## Vai trò file
+## Nhìn nhanh
 
-- `templates/mit_60001_evaluation_questions_template.csv`: file để nhập và review.
-- `drafts/`: candidate chưa kiểm source; không dùng cho evaluation.
-- `mit_60001/evaluation_questions.jsonl`: canonical dataset đã parse và validate.
-  Hiện có 13 record `approved` của Batch 01 (11 answerable, 2 out-of-scope);
-  chỉ record `approved` được dùng để chọn chunking configuration hoặc tính retrieval
-  metrics.
-
-CSV không phải JSON Schema input trực tiếp. Các cột array phải chứa JSON compact
-trong cell, như quy định tại `docs/design/CHUNKING_EVALUATION_CONTRACT.md`.
-
-## Checklist trước khi chuyển một câu thành approved
-
-1. `question_id` chưa xuất hiện trong dataset.
-2. Question là tiếng Anh và thuộc đúng category.
-3. Với answerable question: đọc source, ghi expected answer points, relevant video ID
-   và exact time range; không dùng title hoặc kiến thức Python chung làm evidence.
-4. Với out-of-scope question: `answerable=false` và ba field evidence là `[]`.
-5. Reviewer thay `unassigned` bằng định danh người review và ghi review notes.
-6. Kiểm tra `end_second > start_second`, video ID khớp giữa time range và evidence list.
-7. Chỉ sau bảy bước trên mới đặt `review_status=approved`.
-
-LLM evidence review là bước hỗ trợ sau retrieval, không thay thế checklist này. Nó chỉ
-trả `accept` hoặc `reject`; Answer Points do LLM tạo chỉ là candidate và chỉ được tạo
-sau `accept`. Xem `docs/design/RETRIEVAL_EVIDENCE_REVIEW_CONTRACT.md`.
-
-## Trạng thái review
+`evaluation/` chỉ chứa artifact phục vụ xây dựng và kiểm tra benchmark MIT 6.0001.
+Mỗi batch được tách riêng để candidate, quyết định human review và ghi chú không
+lẫn vào nhau.
 
 ```text
-draft     : candidate chưa được kiểm source
-reviewed  : đã kiểm một phần nhưng chưa đủ evidence
-approved  : đủ evidence, được phép dùng evaluation
-rejected  : không phù hợp hoặc không có evidence rõ
+evaluation/
+├── mit_60001/                         # Canonical approved dataset
+├── templates/                         # Template/schema-facing review input
+├── drafts/                            # Question draft, chưa có source evidence
+├── coverage/                          # Coverage Matrix theo concept
+└── review/
+    ├── batch_01/
+    │   ├── candidates/                # Candidate retrieval lịch sử và v2 hiện hành
+    │   ├── decisions/                 # Human decision CSV/XLSX
+    │   └── BATCH_01_*.md              # Review notes và additional evidence
+    └── batch_02/
+        ├── candidates/                # Candidate package có transcript context
+        ├── decisions/                 # Human decision workbook
+        └── BATCH_02_CONTENT_REVIEW.md # Decision record có thể audit
 ```
 
-Không dùng `draft` hoặc `reviewed` để chọn chunking configuration.
+## Artifact hiện hành
+
+| Mục đích | File |
+| --- | --- |
+| Canonical approved subset | `mit_60001/evaluation_questions.jsonl` |
+| Batch 01 current source candidates | `review/batch_01/candidates/batch_01_source_candidates_with_transcript_2026-07-31_v2.csv` |
+| Batch 01 human decisions | `review/batch_01/decisions/batch_01_review_vi_with_decision.xlsx` |
+| Batch 02 candidate package | `review/batch_02/candidates/batch_02_source_candidates_with_transcript_2026-08-01.csv` |
+| Batch 02 human decisions | `review/batch_02/decisions/batch_02_source_candidates_review_vi_translated.xlsx` |
+| Coverage Matrix | `coverage/MIT_60001_COVERAGE_MATRIX.md` |
+
+## Quy tắc trạng thái
+
+- `drafts/` là candidate chưa kiểm source; không dùng cho evaluation hoặc metrics.
+- Chỉ record `approved` trong `mit_60001/evaluation_questions.jsonl` được dùng
+  để chọn configuration hoặc tính retrieval metrics.
+- Candidate CSV và workbook human review là artifact review, không phải canonical
+  evidence. Không tự chuyển candidate rank thành Ground Truth.
+- Workbook human review phải được lưu trong `review/<batch>/decisions/`; Markdown
+  và report chỉ tham chiếu path bên trong project.
+
+Chi tiết contract: `docs/design/CHUNKING_EVALUATION_CONTRACT.md` và
+`docs/design/RETRIEVAL_EVIDENCE_REVIEW_CONTRACT.md`.

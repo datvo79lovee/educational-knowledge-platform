@@ -43,7 +43,7 @@ Review này chỉ xác nhận câu hỏi phù hợp về nội dung dự kiến.
 `draft`: chưa có expected answer points, video ID hoặc timestamp evidence. Không
 được dùng batch này để tính retrieval metrics cho đến khi source review hoàn tất.
 
-Source candidate locator sẽ tạo `batch_01_source_candidates_with_transcript.csv`. Đây chỉ là danh
+Source candidate locator sẽ tạo `candidates/batch_01_source_candidates_with_transcript.csv`. Đây chỉ là danh
 sách đoạn cần đọc, không phải citation hoặc evidence đã được chấp nhận. File có
 `start_transcript_text`, `end_transcript_text` và `transcript_excerpt` đúng theo
 source segment range/timestamp để human reviewer đọc context. Vì có raw transcript
@@ -51,7 +51,7 @@ excerpt, file này là review artifact; không được đặt trong folder `rep
 
 ## Quyết định source review ngày 2026-07-31
 
-Nguồn quyết định: `C:\Users\MSI\Downloads\batch_01_review_vi_with_decision.xlsx`.
+Nguồn quyết định: `decisions/batch_01_review_vi_with_decision.xlsx`.
 Quyết định dưới đây tách question-level action khỏi candidate-level relevance.
 
 | Question ID | Question decision | Hành động |
@@ -79,9 +79,9 @@ evaluation contract.
 ## Candidate file hiện hành sau quyết định
 
 File candidate hiện hành cho review tiếp theo là
-`evaluation/review/batch_01_source_candidates_with_transcript_2026-07-31_v2.csv`.
+`evaluation/review/batch_01/candidates/batch_01_source_candidates_with_transcript_2026-07-31_v2.csv`.
 Nó được tạo lại từ draft sau khi rewrite q-003 và q-004; file
-`batch_01_source_candidates_with_transcript_2026-07-31.csv` được giữ nguyên để
+`candidates/batch_01_source_candidates_with_transcript_2026-07-31.csv` được giữ nguyên để
 audit và không dùng để review wording mới của hai câu đó.
 
 q-005 và q-011 có thêm source expansion thủ công trong

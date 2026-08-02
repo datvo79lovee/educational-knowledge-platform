@@ -4333,3 +4333,65 @@ Phase 4 - Evaluation
 Phase 5 - Retrieval và Runtime
 
 ⬜ Chưa bắt đầu
+
+---
+
+# Ngày 18 - Batch 02 Draft Coverage, Candidate Package và Decision Record
+
+## Đã hoàn thành
+
+### 1. Batch 02 coverage-balanced draft
+
+Tạo 30 draft `mit60001-q-015` đến `mit60001-q-044` và tạo Coverage Matrix.
+Sau human feedback, sáu wording được thay để bổ sung Strings, Dictionaries, List
+indexing, Searching và Sorting; q-028 assertion failure và q-032 unhandled
+exception được giữ nguyên. Batch 02 vẫn đúng phân bổ category: factual 6,
+concept_explanation 5, code_behavior 7, multi_chunk 5, confusable 4 và
+out_of_scope 3.
+
+### 2. Candidate evidence package
+
+`scripts/evaluation/locate_draft_evidence.py` được mở rộng bằng `--draft-file`
+để dùng lại locator cho Batch 02 mà không đổi default Batch 01. Package
+`evaluation/review/batch_02/candidates/batch_02_source_candidates_with_transcript_2026-08-01.csv`
+có 138 dòng: 27 answerable draft × Top 5 (135) và ba out-of-scope (3).
+
+Validation đã kiểm tra ID/rank, score order, target video, segment range,
+timestamp và transcript excerpt khớp Silver. Package chỉ là candidate evidence,
+không phải Ground Truth.
+
+### 3. Human candidate decision record
+
+Đã đọc workbook `evaluation/review/batch_02/decisions/batch_02_source_candidates_review_vi_translated.xlsx`
+và lưu record có thể audit trong `evaluation/review/batch_02/BATCH_02_CONTENT_REVIEW.md`.
+Sau chuẩn hóa case, workbook có 43 candidate `Được duyệt`, 36 `Mơ hồ` và 56
+`Sai`; 23/27 câu answerable có ít nhất một candidate được duyệt. q-015, q-020,
+q-025 và q-032 chưa có candidate được duyệt.
+
+q-042 đến q-044 giữ out-of-scope theo draft/candidate status. Cột
+`review_decision` của ba dòng này chứa literal `43`, không thuộc giá trị review
+hợp lệ, nên không được dùng làm decision.
+
+### 4. Tổ chức lại evaluation workspace
+
+Đã nhóm artifact review theo `evaluation/review/batch_01/` và
+`evaluation/review/batch_02/`, tách `candidates/` khỏi `decisions/`. Hai workbook
+human review được copy vào `decisions/` trong project. Coverage Matrix chuyển vào
+`evaluation/coverage/`. Markdown chỉ tham chiếu path bên trong project, không còn
+tham chiếu thư mục ngoài workspace.
+
+## Ranh giới chưa làm
+
+* Không tạo Answer Points.
+* Không đổi Batch 02 draft sang canonical JSONL hoặc `approved`.
+* Không tự chọn final source range khi một question có nhiều candidate
+  `Được duyệt`.
+* Không chạy Hybrid Search, Cross-Encoder, LLM runtime hoặc retrieval metrics.
+
+## Bước tiếp theo
+
+Theo quyết định user ngày 2026-08-03, không quay lại vòng tạo candidate package
+rồi human review cho Batch 02. Canonicalization chỉ có thể bắt đầu sau khi có
+chỉ dẫn chọn final range cho những question có nhiều candidate được duyệt; q-015,
+q-020, q-025 và q-032 cũng cần quyết định xử lý riêng mà không suy diễn từ
+candidate hiện có.

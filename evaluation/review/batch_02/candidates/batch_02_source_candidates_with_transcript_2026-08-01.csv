@@ -1,0 +1,3095 @@
+﻿question_id,candidate_rank,video_id,title,source_segment_start_index,source_segment_end_index,start_second,end_second,start_transcript_text,end_transcript_text,transcript_excerpt,cosine_score,candidate_status,review_instruction
+mit60001-q-015,1,nykOeWgQcHM,1. What is Computation?,621,631,1743.076,1782.749,"And on the left-hand
+side here in the editor,","you can add the number
+to another number,","And on the left-hand
+side here in the editor,
+you write more lines and
+more complicated programs.
+Now we're going to start
+talking about Python.
+And in Python, we're going
+to come back to this,
+everything is an object.
+And Python programs
+manipulate these data objects.
+All objects in Python
+are going to have a type.
+And the type is going to tell
+Python the kinds of operations
+that you can do
+on these objects.
+If an object is the
+number five, for example,
+you can add the number
+to another number,",0.369108,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-015,2,nykOeWgQcHM,1. What is Computation?,124,134,313.69,348.82,"That's what the second
+line is going to be about.","that's well organized,
+modular, easy to understand.","That's what the second
+line is going to be about.
+The second big
+part of this course
+is a little bit more
+abstract, and it
+deals with how do you write
+good code, good style,
+code that's readable.
+When you write code, you
+want to write it such
+that-- you're in big company,
+other people will read it,
+other people will
+use it, so it has
+to be readable and
+understandable by others.
+To that end, you
+need to write code
+that's well organized,
+modular, easy to understand.",0.355209,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-015,3,-DP1i2ZU9gk,8. Object Oriented Programming,179,191,494.81,530.75,"able to write code that's a lot
+more reusable and a lot easier","And then you had
+to worry about just","able to write code that's a lot
+more reusable and a lot easier
+to read in the future.
+OK.
+So just like when we
+talked about functions,
+we're going to sort
+of separate the code
+that we talk about today into
+code where you implement a data
+type and code where you use
+an object that you create.
+OK?
+So remember when we
+talked about functions,
+you were thinking about it in
+terms of writing a function,
+so you had to worry
+about the details of how
+you implement a function.
+And then you had
+to worry about just",0.338137,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-015,4,nykOeWgQcHM,1. What is Computation?,610,620,1713.82,1743.076,"If you've done
+problem set 0, you'll",testing something out.,"If you've done
+problem set 0, you'll
+see that you can type
+commands directly
+in the shell here, which is
+the part on the right where
+I did some really
+simple things, 2 plus 4.
+Or you can type commands up in
+here, on the left-hand side,
+and then run your program.
+Notice that, well, we'll
+talk about this-- I
+won't talk about this now.
+But these are-- on the
+right-hand side, typically,
+you write very simple
+commands just if you're
+testing something out.",0.336179,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-015,5,nykOeWgQcHM,1. What is Computation?,712,725,2021.412,2057.17,"If you want to
+print something out,",to form these expressions.,"If you want to
+print something out,
+you have to use the print
+statement like that.
+In this case, this is actually
+going to print this number
+five to the console.
+That's basically what it says.
+It just tells you it's an
+interaction within the shell
+only.
+It's not interacting
+with anyone else.
+And if you don't
+have any ""Out,"" that
+means it got printed
+out to the console.
+All right.
+We talked a little
+bit about objects.
+Once you have objects, you can
+combine objects and operators
+to form these expressions.",0.33087,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-016,1,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",798,809,2357.32,2400.97,"So if you run the
+function, and you give it","the function's going to
+immediately terminate.","So if you run the
+function, and you give it
+a list that is empty,
+this becomes false,
+so the assert is
+false, and we're
+going to print out an assertion
+error, no grades data.
+If the assert is false, the
+function does not continue.
+It stops right there.
+Why does it behave this way?
+Well, assertions are
+great to make sure
+that preconditions and
+post-conditions on functions
+are exactly as you expect.
+So as soon as an
+assert becomes false,
+the function's going to
+immediately terminate.",0.66674,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-016,2,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",774,786,2268.8,2317.36,"are these things
+called assertions.",Here's an example.,"are these things
+called assertions.
+And assertions are good example
+of defensive programming.
+In that, you have
+assert statements
+at the beginning of
+functions, typically.
+Or at the end of functions.
+And assert statements
+are used to make sure
+that the assumptions
+on computations
+are exactly what the
+function expects them to be.
+So if we have a
+function that says
+it's supposed to take in
+an integer greater than 0,
+then the assert
+statement will assert
+that the function takes in an
+integer that's greater than 0.
+Here's an example.",0.606259,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-016,3,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",821,832,2432.15,2475.864,"assert being false
+a lot earlier.","are being held as the
+values are being passed in.","assert being false
+a lot earlier.
+So it'll be a lot
+easier to figure out
+where the bug came from.
+And you won't have to
+trace back so many steps.
+So this is basically
+what I said,
+you really want to spot the bugs
+as soon as they're introduced.
+And exceptions are good
+if you want to raise them
+when the user supplies
+bad data input,
+but assertions are
+used to make sure
+that the types and other-- the
+types of inputs to functions,
+maybe other conditions
+on inputs to functions,
+are being held as the
+values are being passed in.",0.579168,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-016,4,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",167,178,375.98,412.23,"So this is pairs
+of input and output","At that point, you do
+regression testing.","So this is pairs
+of input and output
+for what you expect
+the program to do.
+Once you have your test cases
+and a piece of code that runs,
+you can start doing tests.
+So there's three general classes
+of tests that you can do.
+The first is called
+unit testing.
+And if you've written functions,
+unit testings-- testing just
+makes sure that, for example,
+each function runs according
+to the specifications.
+So you do this multiple times.
+As you're testing each
+function, you might find a bug.
+At that point, you do
+regression testing.",0.519874,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-016,5,nykOeWgQcHM,1. What is Computation?,426,437,1138.1,1176.8,"It's going to say, is
+this particular value","where you might
+skip an instruction,","It's going to say, is
+this particular value
+greater or equal to or the same
+as this other particular value?
+That's a test, an
+example of a test.
+And the test is going to
+either return true or false.
+And depending on the
+result of that test,
+you might either go to
+the next instruction,
+or you might set
+the program counter
+to go all the way back to
+the beginning, and so on.
+You're not just
+linearly stepping
+through all the instructions.
+There might be some
+control flow involved,
+where you might
+skip an instruction,",0.508085,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-017,1,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",595,607,1667.834,1704.87,"Like if you want to print,
+oh, the program finished,","That's not actually
+a very good idea.","Like if you want to print,
+oh, the program finished,
+or if you want to close a
+file, or something like that.
+So.
+We've encountered errors.
+We've caught them.
+What else can we do with
+errors-- with exceptions.
+Three other things.
+So one is if we've
+caught an error,
+we can just fail silently.
+What this means is,
+you've caught an error,
+and you just substitute whatever
+erroneous value the user gave
+you for some other value.
+That's not actually
+a very good idea.",0.531605,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-017,2,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",582,594,1624.21,1667.834,talk about them anyway.,"And it's usually used
+to clean up code.","talk about them anyway.
+So you could have an else block.
+And an else block is
+going to get executed
+when the code in the
+try block finished
+without raising an error.
+And you can also
+have a finally block,
+which is always executed.
+If the code in the try block
+finished without an error,
+if you raised an
+exception, if you raised
+a different kind of exception,
+if you went through the else,
+in any of these cases,
+whatever's in the finally block
+is always going to get executed.
+And it's usually used
+to clean up code.",0.521182,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-017,3,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",490,503,1310.26,1353.7,of some unexpected condition.,"In Python, you can actually
+have handlers for exceptions.","of some unexpected condition.
+And when that happens
+you get an exception.
+So the error is
+called an exception.
+And it's called an exception
+because it was an exception
+to what was expected.
+To what the program expected.
+So all of these errors
+that I've talked
+about in the previous
+slides are actually
+examples of exceptions.
+And there are actually
+many other types
+of exceptions, which you'll
+see as you go on in this course
+and also in 60002.
+So how do we deal
+with these exceptions?
+In Python, you can actually
+have handlers for exceptions.",0.519147,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-017,4,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",642,654,1799.8,1842.452,"So this is how you create
+control flow in your programs","like ""user entered a negative
+number"" or something like that.","So this is how you create
+control flow in your programs
+with exceptions.
+So in Python, signaling
+an error condition
+means raising your
+own exception.
+So so far we've just seen
+the programs crashing,
+which means they
+raise an exception
+and then you deal with them.
+But in this last case, you're
+raising your own exception.
+As a way to use that exception
+later on in the code.
+So in Python, you raise
+your own exception
+using this raise keyword
+and then an exception.
+And then some sort
+of description,
+like ""user entered a negative
+number"" or something like that.",0.5146,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-017,5,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",537,548,1461.39,1510.09,"it's going to give
+a value error.","So bug in user input is nicer
+than this whole lot here.","it's going to give
+a value error.
+Now if I run the same
+piece of code with
+try-- with a try except block.
+I run it, if I give it
+regular numbers, it's fine.
+But if I'm being a cheeky
+user, and I say three,
+automatically this would
+have raised the value error
+in the previous
+version of the program.
+But in this version
+of the program,
+the programmer
+handled the exception
+or caught the
+exception, and printed
+out this nicer looking message.
+So bug in user input is nicer
+than this whole lot here.",0.488865,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-018,1,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",216,227,508.13,541.32,"do, the greater the likelihood
+that your program is correct.","with some test cases that hit
+upon all of the possible paths","do, the greater the likelihood
+that your program is correct.
+But there's actually two more
+rigorous ways to do testing.
+And one is black box
+testing and the other one
+is glass box testing.
+In black box testing,
+you're assuming
+you have the specifications
+to a function.
+So that's the docstring.
+All you're looking at is
+the docstring and coming
+up with some test
+cases based on that.
+In glass box testing,
+you have the code
+itself and you're
+trying to come up
+with some test cases that hit
+upon all of the possible paths",0.529267,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-018,2,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",241,252,577.18,613.72,"The test cases that you come
+up with for this function","So the important thing
+about black box testing","The test cases that you come
+up with for this function
+are going to be
+exactly the same.
+Right?
+No matter what the
+implementation.
+So for this particular
+function, here's a sample set.
+We check the boundary,
+we check perfect squares,
+we can check some number
+that's less than 1,
+we can check maybe irrationals,
+and then you do extreme tests.
+So when either epsilon is
+really large or epsilon
+is really small, or x is really
+large or x is really small,
+and all the possible
+combinations of those.
+So the important thing
+about black box testing",0.508393,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-018,3,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",228,240,541.32,577.18,through the code.,"that can use bisection
+method, it doesn't matter.","through the code.
+All right.
+Let's look at an example
+for black box testing.
+I'm finding the square root of
+x to some close enough value
+given by this epsilon.
+And the idea here,
+notice I don't actually
+give you how this
+function's implemented.
+The idea is that you're
+just figuring out test cases
+based on the specification.
+And the great thing
+about black box testing
+is that whoever implements
+this function can implement it
+in whatever way they wish, they
+can use approximation method,
+that can use bisection
+method, it doesn't matter.",0.43826,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-018,4,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",167,178,375.98,412.23,"So this is pairs
+of input and output","At that point, you do
+regression testing.","So this is pairs
+of input and output
+for what you expect
+the program to do.
+Once you have your test cases
+and a piece of code that runs,
+you can start doing tests.
+So there's three general classes
+of tests that you can do.
+The first is called
+unit testing.
+And if you've written functions,
+unit testings-- testing just
+makes sure that, for example,
+each function runs according
+to the specifications.
+So you do this multiple times.
+As you're testing each
+function, you might find a bug.
+At that point, you do
+regression testing.",0.417772,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-018,5,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",0,12,0.79,44.1,"The following content is
+provided under a Creative","So before we begin, let's start
+with an analogy to sort of come","The following content is
+provided under a Creative
+Commons license.
+Your support will help
+MIT OpenCourseWare
+continue to offer high quality
+educational resources for free.
+To make a donation, or
+view additional materials
+from hundreds of MIT courses,
+visit MIT OpenCourseWare
+at ocw.mit.edu
+PROFESSOR: All right, everyone.
+Good afternoon.
+Let's get started.
+So today's lecture will be on
+testing, debugging, and then
+exceptions and assertions.
+So before we begin, let's start
+with an analogy to sort of come",0.374166,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-019,1,6LOwPhPDwVc,12. Searching and Sorting,38,49,113.6,142.04,"And we saw simple things
+like exhaustive enumeration.","and I want to know how do I
+find a particular student,","And we saw simple things
+like exhaustive enumeration.
+We'd go through all
+the possibilities.
+We saw our first version
+of bisection search
+there, where you would
+do approximations.
+Newton-Raphson-- these are all
+examples of a search algorithm
+where the collection
+is implicit.
+So all the numbers between some
+point that some other point.
+More common is a
+search algorithm
+where the collection
+is explicit.
+I don't know.
+For example, I've got all
+the data records of students
+and I want to know how do I
+find a particular student,",0.66331,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-019,2,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",743,752,2356.04,2394.58,"0, 1, 2, 3, 4, and so on?","So we have our
+original search space.","0, 1, 2, 3, 4, and so on?
+So with guess and check,
+it would have taken me
+76 guesses to get to the number,
+whereas, with this bisection
+search, that I just
+did, it only took me 6.
+Isn't that cool?
+So that means that the
+larger the space actually
+is, that I need to
+search, the better it
+is to use bisection search,
+this bisection search method.
+So that's basically what
+I'm illustrating here.
+So we have our
+original search space.",0.623509,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-019,3,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",753,763,2394.58,2434.741,"We're going to choose a
+guess halfway, eliminate",and the high boundary was 100.,"We're going to choose a
+guess halfway, eliminate
+half of the guesses.
+Then we're going look in
+the remaining interval,
+eliminate half the guesses,
+and so on and so on.
+So then this is the code
+for bisection search.
+Also looks intimidating,
+but it's not so bad.
+So we're initializing a
+bunch of stuff up here.
+The most important couple
+of things we're initializing
+are, first of all, this high
+and this low boundaries.
+So with the guessing game,
+the low boundary was 0,
+and the high boundary was 100.",0.612701,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-019,4,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",407,418,1345.2,1375.94,"in the context of solving
+one problem, which","let's say you can guess a
+starting value for a solution.","in the context of solving
+one problem, which
+is finding the cube root.
+The first algorithm
+is guess and check,
+then we're going to look at
+an approximation algorithm,
+and then a bisection search.
+So the first is the
+guess and check method.
+You might have done this,
+in math, in high school.
+The guess and check method
+is also sometimes called
+exhaustive enumeration.
+And you'll see why.
+So given a problem, let's say,
+find the cube root of a number,
+let's say you can guess a
+starting value for a solution.",0.60714,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-019,5,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",775,785,2464.25,2502.55,"Well, when we're doing
+by bisection search,","to epsilon-- as long as my
+guess is not good enough,","Well, when we're doing
+by bisection search,
+here, we don't care about that.
+We're just going to do
+floating point division,
+because we want decimal numbers.
+So I have a low boundary
+and a high boundary.
+And I figured out
+my halfway point.
+Then I have this
+while loop here.
+A while loop is similar to the
+approximation method, where,
+as long as I don't have a
+guest that's good enough--
+so this, depicted by
+this greater or equal
+to epsilon-- as long as my
+guess is not good enough,",0.541003,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-020,1,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",27,38,81.31,116.93,"So we're going to see a
+couple of more operations","And we can do all of these
+operations on string objects,","So we're going to see a
+couple of more operations
+that you can do on strings
+and string objects.
+And then we're going
+to talk about three
+different algorithms,
+a guess and check
+algorithm, an
+approximate solution
+algorithm, and a bisection
+method algorithm.
+So let's dive right in.
+We'll talk a little bit
+about strings, first.
+So strings, we thought of them
+as sequences of characters,
+case sensitive, as we saw in
+programs we wrote last lecture.
+And strings are objects.
+And we can do all of these
+operations on string objects,",0.617735,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-020,2,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",13,26,46.54,81.31,"Last time, we talked about
+strings as a new object type,","Today, we're going to talk a
+little bit more about strings.","Last time, we talked about
+strings as a new object type,
+as sequences of characters.
+And then we introduced
+two new concepts
+that allowed us to
+write slightly more
+complicated programs.
+So we introduced branching, with
+these keywords, if, elif, else.
+And branching allowed
+us to write programs
+that, us, as programmers,
+could introduce decisions
+into our programs.
+And then we introduced two
+different kinds of loops,
+while loops and for loops.
+And those also added a
+little bit of complexity
+to our programs.
+Today, we're going to talk a
+little bit more about strings.",0.580987,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-020,3,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",11,21,44.63,78.92,"Quick, quick recap of
+what we did last time.","that you can implement the
+different implementations","Quick, quick recap of
+what we did last time.
+So last time we did a little
+bit more string manipulations,
+and then we saw how you can
+use for loops over strings
+directly.
+So instead of having for
+loops that iterate over
+range-- so 0, 1, 2,
+3, 4, and so on--
+you saw that it was more
+powerful to sometimes use
+for loops that iterate over
+string objects directly.
+So that was the first
+half of the lecture.
+In the second half, we started
+looking at different ways
+that you can implement the
+different implementations",0.573718,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-020,4,0jljZRnHwOI,2. Branching and Iteration,26,37,82.0,116.53,"So we saw integers,
+floats, and Booleans.","So strings are a
+new object type.","So we saw integers,
+floats, and Booleans.
+And then we did a couple of
+simple operations with them.
+Today, we're going to
+look at a different--
+a new type of object
+called a string.
+And then we're
+going to introduce
+some more powerful things
+in our programming toolbox.
+So we're going to look at how
+to branch within a program,
+and how to make things-- how
+to make the computer repeat
+certain tasks
+within our program.
+All right.
+So let's begin by
+looking at strings.
+So strings are a
+new object type.",0.553344,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-020,5,-DP1i2ZU9gk,8. Object Oriented Programming,652,662,1947.72,1981.97,"to customize your classes which
+can add some cool functionality","this is going to
+tell Python when","to customize your classes which
+can add some cool functionality
+to them.
+So these special
+operators are going
+to be things like
+addition, subtraction,
+using the equal equal sign,
+greater than, less than,
+length and so on and so on.
+So just like str,
+if you implement
+any of these in your classes,
+this is going to tell Python.
+So for example, if we've
+implemented this underscore,
+underscore, add, underscore,
+underscore in our class,
+this is going to
+tell Python when",0.50606,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-021,1,0jljZRnHwOI,2. Branching and Iteration,332,341,1030.329,1060.99,"to motivate why we would want
+to do branching in our code.","So one way to think about
+it is all I wanted to do","to motivate why we would want
+to do branching in our code.
+And I think after this lecture,
+you'll be able to sort of code
+up this algorithm that
+I'm going to explain.
+So most of us see MIT as a maze.
+I first did when I came here.
+When I first came
+here, obviously, I
+signed up for the free
+food mailing list.
+And MIT, being a maze, I
+had no idea where to go,
+what the shortest
+path was to free food.
+So one way to think about
+it is all I wanted to do",0.508193,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-021,2,0jljZRnHwOI,2. Branching and Iteration,320,331,990.62,1030.329,"So that's just going to compare
+them, lexicographically.","I'm going to go through
+sort of a little example","So that's just going to compare
+them, lexicographically.
+So does it come first
+in the alphabet?
+So we can even test that out.
+We can say, is a greater than b?
+And it's false.
+So b comes later in
+the alphabet than a.
+OK.
+So now we have ways
+to do the tests.
+So we can add some branching
+to our programming toolbox
+now that we have
+ways to do tests.
+This is a map of MIT.
+I'm going to go through
+sort of a little example",0.499523,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-021,3,FlGjISF3l78,9. Python Classes and Inheritance,883,894,2721.43,2753.53,"to the second parent
+of second rabbit","So if, instead of
+comparing the IDs in here,","to the second parent
+of second rabbit
+or getting the
+combinations of those two.
+So that's what these
+two Booleans are doing.
+So these are going
+to tell me-- these
+are going to be Boolean
+values, either True or False.
+And I'm going to
+return either they
+have the same
+parents of that type
+or the same parents
+criss-crossed, OK?
+So here, notice
+that I'm actually
+comparing the IDs of the
+rabbits as opposed to the Rabbit
+objects directly, OK?
+So if, instead of
+comparing the IDs in here,",0.453299,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-021,4,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",266,276,654.36,678.97,"going through three times, four
+times, five times, and so on.","For for loops, make sure
+you have a test case where","going through three times, four
+times, five times, and so on.
+Right?
+Which could be a
+very, very big test.
+So instead there are
+actually some guidelines
+for when you're dealing with
+loops and things like that.
+So for branches, when you're
+doing glass box testing,
+it's important-- you
+should just exercise
+all of the parts
+of the conditional.
+So make sure you
+have a test case that
+goes through each part
+of the conditional.
+For for loops, make sure
+you have a test case where",0.445645,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-021,5,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",288,300,717.89,753.45,"So a path complete
+test set means",Minus 1.,"So a path complete
+test set means
+that you want to
+have a test that
+goes through each one
+of these branches.
+So if x is less than
+minus 1, well, minus 2
+is less than minus 1.
+So that's good.
+And otherwise, which means pick
+a number greater than minus 1.
+So 2.
+So 2 and minus 2
+are path complete.
+Yield path complete-- yields
+a path complete test suite.
+But notice that while we've
+hit upon every possible path
+through this code, we've
+actually missed a test case.
+Minus 1.",0.440835,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-022,1,WPSeyjX1-4s,6. Recursion and Dictionaries,862,872,2368.54,2394.254,"The values could be lists, they
+could be other data structures,","need to be immutable,
+which also makes sense.","The values could be lists, they
+could be other data structures,
+they could even be
+other dictionaries.
+They can be anything,
+which is great.
+The keys, the first part of it
+are a little more structure.
+They need to be unique.
+Well duh, that make sense.
+If I have that same key in
+two places in the dictionary,
+when I go to look
+it up, how am I
+going to know which one I want?
+So it needs to be
+unique, and they also
+need to be immutable,
+which also makes sense.",0.730924,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-022,2,WPSeyjX1-4s,6. Recursion and Dictionaries,852,861,2338.21,2368.54,"in a dictionary, because it
+returns this set of keys,","with different people,
+that's perfectly fine.","in a dictionary, because it
+returns this set of keys,
+and I can test to see
+something's in there.
+I can similarly get
+all of the values
+if I wanted to look at them,
+giving us out two iterables.
+Here are the key things to keep
+in mind about dictionaries.
+The values can be anything,
+any type, mutable, immutable.
+They could be duplicates.
+That'd actually makes sense,
+I could have the same value
+associated, for example,
+the same grade associated
+with different people,
+that's perfectly fine.",0.706213,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-022,3,7lQXYl_L28w,"11. Understanding Program Efficiency, Part 2",1147,1159,2926.03,2952.358,"A dictionary actually
+uses a clever indexing","So we'll see you
+all on Wednesday.","A dictionary actually
+uses a clever indexing
+scheme called a hash.
+But in the worst case,
+this is going to be linear.
+So you see a trade-off.
+For dictionaries,
+I get more power.
+I get more flexibility.
+But it comes as a cost.
+And so these,
+basically, are what
+let me reason on
+top of the things
+I've been doing to
+figure out complexity.
+And next time, we'll do
+the last piece of this
+when we look at sorting.
+So we'll see you
+all on Wednesday.",0.654451,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-022,4,7lQXYl_L28w,"11. Understanding Program Efficiency, Part 2",1137,1146,2901.4,2926.03,"It gave me a power in
+terms of storing them.","It's a slight misstatement,
+as we'll see later on.","It gave me a power in
+terms of storing them.
+But as a consequence, some
+of the costs then go up.
+For a list, indexing, going
+to a particular point,
+I just go to that
+spot and retrieve it.
+Indexing into a
+dictionary, I have
+to find that point in the
+dictionary that has the key
+and get the value back.
+So that's going to be
+linear, because I have to,
+in principle, walk
+all the way down it.
+It's a slight misstatement,
+as we'll see later on.",0.644264,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-022,5,WPSeyjX1-4s,6. Recursion and Dictionaries,883,894,2418.67,2451.17,"They are simply stored
+arbitrarily by the Python",got seven minutes to go here.,"They are simply stored
+arbitrarily by the Python
+as it puts them in.
+So if I compare these two, lists
+or ordered sequences indexed
+by integers, I look them
+up by integer index,
+and the indices have to have
+an order as a consequence.
+Dictionaries are this
+nice generalization,
+arbitrarily match
+keys to values.
+I simply look up one
+item by looking up things
+under the appropriate key.
+All I require is that the
+keys have to be immutable.
+OK, I want to do
+two last things I've
+got seven minutes to go here.",0.590031,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-023,1,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",116,130,246.92,277.98,That's the reality.,Right?,"That's the reality.
+OK.
+So today's lecture will go
+over some tips and tricks
+and debugging and how you can
+help make your life easier
+when you're writing
+programs so you don't end up
+like this little girl here.
+Disappointed beyond belief.
+All right.
+So at the heart of
+it all is really
+starting with a defensive
+programming attitude.
+OK.
+And this comes back to
+the idea of decomposition
+and abstraction that we talked
+about when we started-- when we
+did the lecture on functions.
+Right?",0.633887,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-023,2,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",0,13,0.79,46.544,"The following content is
+provided under a Creative",functions in our programs.,"The following content is
+provided under a Creative
+Commons license.
+Your support will help
+MIT OpenCourseWare
+continue to offer high quality
+educational resources for free.
+To make a donation or
+view additional materials
+from hundreds of MIT courses,
+visit MIT OpenCourseWare
+at ocw.mit.edu.
+PROFESSOR: Quick, quick recap
+of what we did last time.
+So last time we introduced
+this idea of decomposition
+and abstraction.
+And we started putting
+that into our programs.
+And these were sort of
+high level concepts,
+and we achieved them using
+these concrete things called
+functions in our programs.",0.563353,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-023,3,6LOwPhPDwVc,12. Searching and Sorting,1099,1109,2665.1,2691.15,"There are ways of
+thinking about problems.","to modularize systems,
+to capture combinations","There are ways of
+thinking about problems.
+We've given you abstraction, the
+idea of capture a computation,
+bury it in a procedure.
+You now have a contract.
+You don't need to know what
+happens inside the procedure
+as long as it delivers the
+answer it says it would.
+Or another way of saying
+it, you can delegate it
+to somebody and trust
+that you're going
+to get what you like out of it.
+We've seen classes and
+methods as a wonderful way
+to modularize systems,
+to capture combinations",0.562135,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-023,4,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",179,190,517.97,548.63,"Benefit of this is it
+keeps your code organized",but that's later.,"Benefit of this is it
+keeps your code organized
+and it keeps your code coherent.
+So functions are going to be
+used to achieve decomposition
+and to create
+structure in our code.
+We're going to see functions
+today in this lecture,
+and in a few weeks, you're
+going to actually see--
+when we talk about object
+oriented programming-- how
+you can achieve
+decomposition with classes.
+And with classes you can
+create your own object types
+like adding some floats.
+You can create your own object
+types for whatever you want,
+but that's later.",0.559095,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-023,5,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",80,93,245.55,280.32,"and it'll help others if they
+want to look at your code",Quick show of hands.,"and it'll help others if they
+want to look at your code
+later on if they find it useful.
+So today we're introducing
+this idea of functions.
+And functions are
+mechanisms to achieve
+decomposition and abstraction.
+So these are two
+key words here that
+are going to pop up
+in today's lecture
+and also in future lectures.
+So before I introduce
+decomposition and abstraction
+in the context of
+functions, let's
+first take a look at just
+sort of a real-life example.
+So let's take a projector.
+I'm using one right now.
+Quick show of hands.",0.549002,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-024,1,7lQXYl_L28w,"11. Understanding Program Efficiency, Part 2",1147,1159,2926.03,2952.358,"A dictionary actually
+uses a clever indexing","So we'll see you
+all on Wednesday.","A dictionary actually
+uses a clever indexing
+scheme called a hash.
+But in the worst case,
+this is going to be linear.
+So you see a trade-off.
+For dictionaries,
+I get more power.
+I get more flexibility.
+But it comes as a cost.
+And so these,
+basically, are what
+let me reason on
+top of the things
+I've been doing to
+figure out complexity.
+And next time, we'll do
+the last piece of this
+when we look at sorting.
+So we'll see you
+all on Wednesday.",0.677922,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-024,2,WPSeyjX1-4s,6. Recursion and Dictionaries,790,801,2157.2,2188.21,"And we're going to
+index just by the name","and the string b, followed
+by a comma which separates it","And we're going to
+index just by the name
+or the label as we go into it.
+So let me show
+you some examples.
+First of all, to create a
+dictionary I use curly braces,
+open closed curly brace,
+so an empty dictionary
+would be simply that call.
+If I want to create
+an actual dictionary,
+before I insert
+things into it, I
+use a little bit of
+a funky notation.
+It is a key or a label,
+a colon, and then
+a value, in this
+case the string Ana
+and the string b, followed
+by a comma which separates it",0.55764,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-024,3,WPSeyjX1-4s,6. Recursion and Dictionaries,852,861,2338.21,2368.54,"in a dictionary, because it
+returns this set of keys,","with different people,
+that's perfectly fine.","in a dictionary, because it
+returns this set of keys,
+and I can test to see
+something's in there.
+I can similarly get
+all of the values
+if I wanted to look at them,
+giving us out two iterables.
+Here are the key things to keep
+in mind about dictionaries.
+The values can be anything,
+any type, mutable, immutable.
+They could be duplicates.
+That'd actually makes sense,
+I could have the same value
+associated, for example,
+the same grade associated
+with different people,
+that's perfectly fine.",0.528921,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-024,4,WPSeyjX1-4s,6. Recursion and Dictionaries,811,819,2218.12,2247.01,"So if that's my key, I can
+say, what's John's grade,","we can add entries just
+like we would do with lists.","So if that's my key, I can
+say, what's John's grade,
+notice the call, it's grades,
+which is in my dictionary,
+open close square brackets,
+with the label John.
+And what it does, it goes in and
+finds that in the dictionary,
+returns the value
+associated with it.
+If I ask for something
+not in the dictionary,
+it's going to give
+me a key error.
+Other things we can
+do with dictionaries,
+we can add entries just
+like we would do with lists.",0.520466,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-024,5,WPSeyjX1-4s,6. Recursion and Dictionaries,862,872,2368.54,2394.254,"The values could be lists, they
+could be other data structures,","need to be immutable,
+which also makes sense.","The values could be lists, they
+could be other data structures,
+they could even be
+other dictionaries.
+They can be anything,
+which is great.
+The keys, the first part of it
+are a little more structure.
+They need to be unique.
+Well duh, that make sense.
+If I have that same key in
+two places in the dictionary,
+when I go to look
+it up, how am I
+going to know which one I want?
+So it needs to be
+unique, and they also
+need to be immutable,
+which also makes sense.",0.496731,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-025,1,FlGjISF3l78,9. Python Classes and Inheritance,26,37,81.02,114.219,"about object-oriented
+programming and classes.","OK, so the first
+few slides are going","about object-oriented
+programming and classes.
+We're going to see
+a few more examples.
+And we're going to talk about
+a few other nuances of classes,
+talk about information
+hiding and class variables.
+And in the second
+half of the lecture,
+we're going to talk about
+the idea of inheritance.
+So we're going to use
+object-oriented programming
+to simulate how real life works.
+So in real life, you
+have inheritance.
+And in object-oriented
+programming,
+you can also simulate that.
+OK, so the first
+few slides are going",0.695415,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-025,2,FlGjISF3l78,9. Python Classes and Inheritance,548,558,1648.84,1679.06,and so on and so on.,"Do my parents know
+how to do that, right?","and so on and so on.
+So you can have multiple
+levels of inheritance.
+What happens when you
+create an object that
+is of type something that's
+been-- of a type that's
+the child class of a child
+class of a child class, right?
+What happens when you call
+a method on that object?
+Well, Python's are going
+to say, does a method with
+that name exist in my
+current class definition?
+And if so, use that.
+But if not, then,
+look to my parents.
+Do my parents know
+how to do that, right?",0.554496,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-025,3,FlGjISF3l78,9. Python Classes and Inheritance,0,11,0.79,47.907,"The following content is
+provided under a Creative","we saw-- we were
+introduced to this idea","The following content is
+provided under a Creative
+Commons license.
+Your support will help
+MIT OpenCourseWare
+continue to offer high-quality
+educational resources for free.
+To make a donation or
+view additional materials
+from hundreds of MIT courses,
+visit MIT OpenCourseWare
+at ocw.mit.edu.
+ANA BELL: All right,
+everyone, let's get started.
+So today is going to
+be the second lecture
+on object-oriented programming.
+So just a quick recap of
+last time-- on Monday,
+we saw-- we were
+introduced to this idea",0.544108,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-025,4,FlGjISF3l78,9. Python Classes and Inheritance,114,127,336.74,372.44,"Every Coordinate object is
+going to have an x value and a y","So, so far, the
+examples that we've seen","Every Coordinate object is
+going to have an x value and a y
+value.
+But the x and y values
+among different instances
+are going to vary, OK?
+So that's the difference
+between defining a class
+and looking at a particular
+instance of a class.
+So instances have the
+structure of the class.
+So for a coordinate,
+all instances
+have an x value and a y value.
+But the actual values
+are going to vary
+between the different instances.
+OK, so ultimately,
+why do we want
+to use object-oriented
+programming?
+So, so far, the
+examples that we've seen",0.540903,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-025,5,-DP1i2ZU9gk,8. Object Oriented Programming,0,13,0.79,46.55,"The following content is
+provided under a Creative","I think this is a fairly
+tough concept to grasp.","The following content is
+provided under a Creative
+Commons license.
+Your support will help
+MIT OpenCourseWare
+continue to offer high quality
+educational resources for free.
+To make a donation or
+view additional materials
+from hundreds of MIT courses,
+visit MIT OpenCourseWare
+at ocw.mit.edu.
+PROFESSOR: All right everyone.
+Let's get started.
+So today's lecture and
+Wednesday's lecture,
+we're going to talk
+about this thing called
+object oriented programming.
+And if you haven't
+programmed before,
+I think this is a fairly
+tough concept to grasp.",0.535926,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-026,1,-DP1i2ZU9gk,8. Object Oriented Programming,115,127,323.26,362.32,"So behind the scenes
+you have a list, L,","So it's just essentially
+going to be a chain,","So behind the scenes
+you have a list, L,
+which is going to be made up
+of essentially two things.
+One is going to be the
+value at specific index.
+OK?
+So at index 0, it has
+the value 1, right,
+because it's the first
+element in the list.
+And the second thing
+that represents a list
+is going to be this second
+part, which is a pointer.
+And internally this
+pointer is going
+to tell Python
+where is the memory
+location in the computer where
+you can access the element
+index 1.
+So it's just essentially
+going to be a chain,",0.64623,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-026,2,o9nW0uBqvEo,"10. Understanding Program Efficiency, Part 1",1068,1080,2610.61,2641.72,"We know the address there for
+the i-th element of this list.","Because now, as I
+loop through it,","We know the address there for
+the i-th element of this list.
+But inside of here, we don't
+store the actual value.
+We store a pointer to
+where it is in memory.
+Just what these
+things are indicating.
+So they can be arbitrary size.
+But again, I can get to any
+element in constant time, which
+is exactly what I want.
+So that's great.
+OK.
+Now, suppose I tell you
+that the list is sorted.
+It's in increasing order.
+I can be more clever
+about my algorithm.
+Because now, as I
+loop through it,",0.595733,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-026,3,-DP1i2ZU9gk,8. Object Oriented Programming,128,138,362.32,394.41,"going from one
+index to the other.","You can index into a list, you
+can add two lists together,","going from one
+index to the other.
+And at the next memory location
+you have the value at index 1,
+and then you have
+another pointer
+that takes you to the
+location in memory
+where the index 2 is located.
+And in index 2 you
+have the value and then
+the next pointer,
+and so on and so on.
+So this is how Python
+internally represents a list.
+OK?
+How you manipulate lists,
+we've done this a lot, right?
+You can index into a list, you
+can add two lists together,",0.578118,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-026,4,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",448,459,1367.54,1405.67,So notice L1 has been mutated.,"or whatever you want
+to-- whatever index","So notice L1 has been mutated.
+So that's adding
+things to lists.
+We can also delete
+things from lists.
+We don't just want to
+keep adding to our lists,
+because then they
+become very, very big.
+So let's see how we can delete
+some items from our list.
+There's a few ways.
+First one being can
+use this del function.
+And this says
+delete from the list
+L the element at this index.
+So you give it
+the index 0, 1, 2,
+or whatever you want
+to-- whatever index",0.56579,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-026,5,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",315,324,957.542,988.25,"So it's going to say, this is
+an integer, this is a string,",and add one to it.,"So it's going to say, this is
+an integer, this is a string,
+this is an integer,
+this is a list.
+It's not going to say how many
+elements are in this list.
+It's just going to look at the
+outer-- the shell of elements.
+Indexing and slicing
+works the same way.
+So l at position 0
+gives you the value 2.
+You can index into a list,
+and then do something
+with the value
+that you get back.
+So l at position 2 says--
+that's this value there
+and add one to it.",0.532685,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-027,1,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",292,303,961.62,1000.48,"So that's sort of an
+illustration of a for loop","because I needed
+some motivation.","So that's sort of an
+illustration of a for loop
+over a sequence of characters.
+So char is going to be
+a loop variable, still.
+And the loop variable,
+instead of iterating over
+a set of numbers, it's going
+to iterate over every character
+in s, directly.
+And char is going
+to be a character.
+It's going to be a letter.
+So here's a more
+complicated example.
+I wrote this code a
+couple of years ago.
+And it was my attempt at
+creating robot cheerleaders ,
+because I needed
+some motivation.",0.720468,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-027,2,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",325,334,1061.48,1096.74,"So that's pretty much what
+that code's supposed to do.","And second, it uses indexing.","So that's pretty much what
+that code's supposed to do.
+And you can write it using
+what we've learned so far.
+Now let's go through
+it a little bit.
+And I'm going to show
+you just how easy it
+is to convert this code using
+a for loop over characters.
+Right now, what it does is
+it asks the user for input,
+so a word and a number.
+And then it does this
+thing, here, right?
+First, it uses a while loop.
+And second, it uses indexing.",0.651456,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-027,3,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",202,214,601.0,636.54,"before it can-- before
+it actually can work.","Well, we're doing the
+same sort of thing here.","before it can-- before
+it actually can work.
+All right.
+So given a tuple
+that looks like that,
+what's the function going to do?
+It's first creating
+two empty tuple.
+One is called nums and
+one is called words.
+And then there's a for loop.
+And notice here the for loop
+is going to iterate over
+every element inside the tuple.
+Remember in strings when we
+were able to use for loops that
+iterated over the characters
+directly as opposed
+to over the indices?
+Well, we're doing the
+same sort of thing here.",0.570112,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-027,4,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",274,282,901.59,928.89,"or a char is equal to ""u,""
+print ""There is an i or a u.""","s, if s, at position index, is
+an ""i"" or s at position index","or a char is equal to ""u,""
+print ""There is an i or a u.""
+It sounds weird, but
+you could probably
+tell what I was
+trying to do here.
+Whereas up here,
+it's a little more
+complicated to tell
+what I'm doing.
+You have to sort of think
+about it a little bit.
+For some index in
+this range of numbers,
+0 through the
+length of the string
+s, if s, at position index, is
+an ""i"" or s at position index",0.565335,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-027,5,4WtaFLayz_w,For Loops With Strings,22,33,70.64,107.69,and then we're going to break.,"going to look at I, which is
+the first character in s2.","and then we're going to break.
+OK.
+Great we have some
+good competition here.
+So let's see.
+The outer for loop
+is first going
+to go through the
+letter M. So this
+is-- so first it's going
+to look at M, right.
+For char in s1, the first
+character in s1 is an M.
+Then we're entering inside
+this other for loop.
+For char 2 in s2.
+So I'm going to
+say for this M, I'm
+going to look at I, which is
+the first character in s2.",0.561473,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-028,1,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",798,809,2357.32,2400.97,"So if you run the
+function, and you give it","the function's going to
+immediately terminate.","So if you run the
+function, and you give it
+a list that is empty,
+this becomes false,
+so the assert is
+false, and we're
+going to print out an assertion
+error, no grades data.
+If the assert is false, the
+function does not continue.
+It stops right there.
+Why does it behave this way?
+Well, assertions are
+great to make sure
+that preconditions and
+post-conditions on functions
+are exactly as you expect.
+So as soon as an
+assert becomes false,
+the function's going to
+immediately terminate.",0.659634,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-028,2,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",821,832,2432.15,2475.864,"assert being false
+a lot earlier.","are being held as the
+values are being passed in.","assert being false
+a lot earlier.
+So it'll be a lot
+easier to figure out
+where the bug came from.
+And you won't have to
+trace back so many steps.
+So this is basically
+what I said,
+you really want to spot the bugs
+as soon as they're introduced.
+And exceptions are good
+if you want to raise them
+when the user supplies
+bad data input,
+but assertions are
+used to make sure
+that the types and other-- the
+types of inputs to functions,
+maybe other conditions
+on inputs to functions,
+are being held as the
+values are being passed in.",0.606033,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-028,3,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",774,786,2268.8,2317.36,"are these things
+called assertions.",Here's an example.,"are these things
+called assertions.
+And assertions are good example
+of defensive programming.
+In that, you have
+assert statements
+at the beginning of
+functions, typically.
+Or at the end of functions.
+And assert statements
+are used to make sure
+that the assumptions
+on computations
+are exactly what the
+function expects them to be.
+So if we have a
+function that says
+it's supposed to take in
+an integer greater than 0,
+then the assert
+statement will assert
+that the function takes in an
+integer that's greater than 0.
+Here's an example.",0.565843,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-028,4,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",537,548,1461.39,1510.09,"it's going to give
+a value error.","So bug in user input is nicer
+than this whole lot here.","it's going to give
+a value error.
+Now if I run the same
+piece of code with
+try-- with a try except block.
+I run it, if I give it
+regular numbers, it's fine.
+But if I'm being a cheeky
+user, and I say three,
+automatically this would
+have raised the value error
+in the previous
+version of the program.
+But in this version
+of the program,
+the programmer
+handled the exception
+or caught the
+exception, and printed
+out this nicer looking message.
+So bug in user input is nicer
+than this whole lot here.",0.539669,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-028,5,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",144,153,313.36,342.2,"Does the output that the program
+give match what you expected?","you want to set yourself up
+for easy testing and debugging.","Does the output that the program
+give match what you expected?
+If it does, great, you're done.
+But if it doesn't, you have
+to go to this debugging step.
+And the debugging step
+is the hardest part.
+And it's really just figuring
+out why the program crashed,
+or why the program didn't
+give you the answer that you
+expected it to give.
+So as I mentioned, the
+most important thing
+is to do defensive
+programming and to that end,
+you want to set yourself up
+for easy testing and debugging.",0.516837,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-029,1,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",300,312,851.7,887.9,"as the function is expecting--
+in this case, only one","And it's this return statement--
+that's what we call it.","as the function is expecting--
+in this case, only one
+parameter.
+So what's inside
+the function body?
+You can put anything
+inside the function body.
+You remember,
+think of a function
+as sort of a small procedure
+or a little mini-program
+that does something.
+So you can do anything
+inside the function
+that you can do in the regular
+program-- print things,
+do mathematical
+operations, and so on.
+The last line is the most
+important part of the function
+though.
+And it's this return statement--
+that's what we call it.",0.650215,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-029,2,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",313,325,887.9,928.7,"So it's a line of code
+that starts with return,","going to get back that
+value, and the function","So it's a line of code
+that starts with return,
+which is a keyword.
+And then it's going
+to be some value.
+Notice this is an
+expression here--
+i%2 == 0 is an expression
+that's going to evaluate to some
+value.
+And as long as this
+part is something
+that evaluates some value,
+it can be anything you want.
+And this line here return
+something tells Python, OK
+after you have finished
+executing everything
+inside the function, what
+value should I return?
+And whoever called
+the function is
+going to get back that
+value, and the function",0.646133,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-029,3,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",425,436,1236.86,1269.23,"and we got a parameter
+back from the function.",You don't have to do this.,"and we got a parameter
+back from the function.
+As soon as the function
+returns something,
+the scope that you were in
+for the function gets erased.
+You forget about every variable
+that was created in there,
+delete that scope, and
+you're back to wherever
+you started calling it.
+One warning though.
+So what happens if there's
+no return statement?
+I said that every function
+has to return something.
+If you don't explicitly
+put a return statement,
+Python is going to
+add one for you.
+You don't have to do this.",0.576518,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-029,4,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",326,336,928.7,972.17,"call itself will be
+replaced by that value.","OK I'm in the main program
+but I see a function call.","call itself will be
+replaced by that value.
+OK so let's look at an example.
+I'm going to introduce
+the idea of scope now.
+And scope just means-- is
+another word for environment.
+So if I told you that you
+could think of functions
+as little mini-programs,
+the scope of a function
+is going to be a completely
+separate environment
+than the environment
+of the main program.
+So as soon as you
+make a function call,
+behind the scenes
+what Python says is,
+OK I'm in the main program
+but I see a function call.",0.57275,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-029,5,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",414,424,1203.66,1236.86,"So we're still inside
+the function call f,","And that's how we pass
+parameters into the function,","So we're still inside
+the function call f,
+so x gets the value 4.
+We're printing this and
+then we're returning x.
+So in the scope of
+f, x is equal to 4,
+so we're returning
+that value back
+to whoever called it,
+which was this function
+call within the global scope.
+So this part right here-- f
+of x, which was the function
+call-- gets replaced with 4.
+So inside the main
+program, z is equal to 4.
+And that's how we pass
+parameters into the function,",0.571284,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-030,1,-DP1i2ZU9gk,8. Object Oriented Programming,338,350,956.67,998.73,"yet because we haven't
+created an object yet.","It can be named
+anything you want,","yet because we haven't
+created an object yet.
+But this self is
+going to be sort
+of a placeholder for
+any sort of instance
+when you create the object.
+So in the definition
+of the class,
+whenever you want to
+refer to attributes
+that belong to an instance,
+you have to use self dot.
+So this dot notation.
+And the dot is going to say
+look for a data attribute
+x that belongs to this class.
+So for methods that
+belong to the class,
+the first parameter is
+always going to be self.
+It can be named
+anything you want,",0.65711,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-030,2,-DP1i2ZU9gk,8. Object Oriented Programming,326,337,919.39,956.67,just like any other function.,"We don't have a
+specific instance","just like any other function.
+These last two
+parameters are x and y,
+which are going to represent how
+you create a coordinate object.
+So you give it a value
+for the x-coordinate
+and you give it a value
+for the y-coordinate.
+The self, however, is
+a little bit trickier.
+So the self is going
+to be a parameter when
+you define this
+class that represents
+a particular instance
+of the class.
+So we're defining
+this coordinate object
+in sort of a general way, right?
+We don't have a
+specific instance",0.587495,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-030,3,-DP1i2ZU9gk,8. Object Oriented Programming,290,302,822.66,849.63,can interact with the object.,"And just to be clear,
+these are going","can interact with the object.
+So in a list, for
+example, we've said
+that you can append an item
+to the end of the list,
+we can sort a list,
+things like that.
+So when you're defining
+methods, you're
+defining ways that people can
+interact with your object.
+So for example, for
+a coordinate object,
+we can say that we can take
+the distance between two
+coordinate points.
+OK?
+And that's going to be a
+way that you can interact
+with two coordinate points.
+And just to be clear,
+these are going",0.564926,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-030,4,WPSeyjX1-4s,6. Recursion and Dictionaries,98,108,278.22,308.1,"will refer to
+itself in its body.","a way of stopping that
+unwinding of the problems,","will refer to
+itself in its body.
+It will call itself
+inside its body.
+Now, if you remember your
+high school geometry teacher,
+she probably would wrap your
+knuckles, which you're not
+allowed to do, because
+in things like geometry
+you can't define something
+in terms of itself, right?
+That's not allowed.
+In recursion, this is OK.
+Our definition of a procedure
+can in its body call itself,
+so long as I have what
+I call a base case,
+a way of stopping that
+unwinding of the problems,",0.547601,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-030,5,FlGjISF3l78,9. Python Classes and Inheritance,79,90,225.61,261.959,"to name a coordinate-- we wanted
+to create a Coordinate object.","So whenever we access
+data attributes,","to name a coordinate-- we wanted
+to create a Coordinate object.
+And the type of this
+object was therefore
+going to be a coordinate.
+We defined the class in the
+sort of general way, OK?
+So we needed a way to
+be able to access data
+attributes of any instance.
+So we use this
+self variable, OK?
+And the self variable
+we used to refer
+to any instance-- to the data
+attributes of any instance
+in a general way
+without actually
+having a particular
+instance in mind, OK?
+So whenever we access
+data attributes,",0.533871,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-031,1,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",511,521,1555.05,1588.759,"as functions that
+operate on the list.",The list got mutated.,"as functions that
+operate on the list.
+Except that what these functions
+do is they take in the list,
+and they modify it.
+But as functions, they
+obviously return something
+back to whoever called them.
+And oftentimes, they're going
+to return the value none.
+So for example, if you are
+going to do L.remove 2,
+and you print that out, that
+might print out none for you.
+So you can't just assign the
+value of this to a variable
+and expect it to be
+the mutated list.
+The list got mutated.",0.648244,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-031,2,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",666,679,2000.09,2038.86,"So all of his
+nicknames or aliases","from the Python
+tutor, which is just","So all of his
+nicknames or aliases
+will refer to the
+same person object
+with these changed attributes.
+Does that makes sense?
+OK.
+So that sort of idea
+arises in lists.
+So a list is like
+a person object
+whose value-- whose attributes
+can change, for example.
+And as they change, all
+of the different aliases
+for this object will point
+to this changed object.
+So let's see a few examples.
+I apologize if this
+is a little small,
+but this I basically
+copied and pasted
+from the Python
+tutor, which is just",0.646207,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-031,3,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",522,534,1588.759,1620.84,"The list that got
+mutated is the list","So much like when we cast
+a float to an integer,","The list that got
+mutated is the list
+that was passed into to here.
+We're going look at one
+example in a few slides that's
+going to show this.
+OK.
+Another thing that we can do,
+and this is often useful when
+you're working with
+data, is to convert lists
+to strings and then
+strings to lists.
+Sometimes it might be useful
+to work with strings as opposed
+to a list and vice versa.
+So this first line here,
+list s takes in a string
+and casts it to a list.
+So much like when we cast
+a float to an integer,",0.60951,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-031,4,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",613,624,1864.16,1898.78,"And since it's a mutable
+object, this list,","If you're mutating a list,
+if you're doing operations","And since it's a mutable
+object, this list,
+you can have more
+than one variable
+that points to the exact
+same object in memory.
+And if you have more
+than one variable that
+points to the same
+object in memory,
+if that object in
+memory is changed, then
+when you access it through
+any one of these variables,
+they're all going to give
+you the changed object value.
+So the key phrase
+to keep in mind
+when you're dealing
+with lists is
+what side effects could happen?
+If you're mutating a list,
+if you're doing operations",0.564512,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-031,5,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",695,706,2071.15,2112.92,It contains three elements.,"That's the side effect
+of lists mutable.","It contains three elements.
+Hot is equal to warm.
+It means I'm creating
+an alias for this list.
+And the alias is going to
+be with this variable hot.
+So notice warm and hot point
+to the exact same object.
+So on line 8 when I append
+this string pink to my object,
+since both of
+these two variables
+point to the exact
+same object, if I'm
+trying to access this object
+through either variable,
+they're both going to
+print out the same thing.
+And that's the side effect.
+That's the side effect
+of lists mutable.",0.548929,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-032,1,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",490,503,1310.26,1353.7,of some unexpected condition.,"In Python, you can actually
+have handlers for exceptions.","of some unexpected condition.
+And when that happens
+you get an exception.
+So the error is
+called an exception.
+And it's called an exception
+because it was an exception
+to what was expected.
+To what the program expected.
+So all of these errors
+that I've talked
+about in the previous
+slides are actually
+examples of exceptions.
+And there are actually
+many other types
+of exceptions, which you'll
+see as you go on in this course
+and also in 60002.
+So how do we deal
+with these exceptions?
+In Python, you can actually
+have handlers for exceptions.",0.528167,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-032,2,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",582,594,1624.21,1667.834,talk about them anyway.,"And it's usually used
+to clean up code.","talk about them anyway.
+So you could have an else block.
+And an else block is
+going to get executed
+when the code in the
+try block finished
+without raising an error.
+And you can also
+have a finally block,
+which is always executed.
+If the code in the try block
+finished without an error,
+if you raised an
+exception, if you raised
+a different kind of exception,
+if you went through the else,
+in any of these cases,
+whatever's in the finally block
+is always going to get executed.
+And it's usually used
+to clean up code.",0.496734,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-032,3,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",537,548,1461.39,1510.09,"it's going to give
+a value error.","So bug in user input is nicer
+than this whole lot here.","it's going to give
+a value error.
+Now if I run the same
+piece of code with
+try-- with a try except block.
+I run it, if I give it
+regular numbers, it's fine.
+But if I'm being a cheeky
+user, and I say three,
+automatically this would
+have raised the value error
+in the previous
+version of the program.
+But in this version
+of the program,
+the programmer
+handled the exception
+or caught the
+exception, and printed
+out this nicer looking message.
+So bug in user input is nicer
+than this whole lot here.",0.47349,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-032,4,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",642,654,1799.8,1842.452,"So this is how you create
+control flow in your programs","like ""user entered a negative
+number"" or something like that.","So this is how you create
+control flow in your programs
+with exceptions.
+So in Python, signaling
+an error condition
+means raising your
+own exception.
+So so far we've just seen
+the programs crashing,
+which means they
+raise an exception
+and then you deal with them.
+But in this last case, you're
+raising your own exception.
+As a way to use that exception
+later on in the code.
+So in Python, you raise
+your own exception
+using this raise keyword
+and then an exception.
+And then some sort
+of description,
+like ""user entered a negative
+number"" or something like that.",0.452111,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-032,5,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",595,607,1667.834,1704.87,"Like if you want to print,
+oh, the program finished,","That's not actually
+a very good idea.","Like if you want to print,
+oh, the program finished,
+or if you want to close a
+file, or something like that.
+So.
+We've encountered errors.
+We've caught them.
+What else can we do with
+errors-- with exceptions.
+Three other things.
+So one is if we've
+caught an error,
+we can just fail silently.
+What this means is,
+you've caught an error,
+and you just substitute whatever
+erroneous value the user gave
+you for some other value.
+That's not actually
+a very good idea.",0.399316,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-033,1,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",0,13,0.79,46.544,"The following content is
+provided under a Creative",functions in our programs.,"The following content is
+provided under a Creative
+Commons license.
+Your support will help
+MIT OpenCourseWare
+continue to offer high quality
+educational resources for free.
+To make a donation or
+view additional materials
+from hundreds of MIT courses,
+visit MIT OpenCourseWare
+at ocw.mit.edu.
+PROFESSOR: Quick, quick recap
+of what we did last time.
+So last time we introduced
+this idea of decomposition
+and abstraction.
+And we started putting
+that into our programs.
+And these were sort of
+high level concepts,
+and we achieved them using
+these concrete things called
+functions in our programs.",0.684226,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-033,2,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",116,130,246.92,277.98,That's the reality.,Right?,"That's the reality.
+OK.
+So today's lecture will go
+over some tips and tricks
+and debugging and how you can
+help make your life easier
+when you're writing
+programs so you don't end up
+like this little girl here.
+Disappointed beyond belief.
+All right.
+So at the heart of
+it all is really
+starting with a defensive
+programming attitude.
+OK.
+And this comes back to
+the idea of decomposition
+and abstraction that we talked
+about when we started-- when we
+did the lecture on functions.
+Right?",0.674589,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-033,3,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",191,201,548.63,576.79,"OK so decomposition is creating
+structure in your code.",or a docstring.,"OK so decomposition is creating
+structure in your code.
+And abstraction is the idea
+of suppressing details.
+So in the projector example,
+remember, abstraction
+was you didn't need to know
+exactly how the projector
+worked in order to use it.
+And it's going to be the
+same idea in programming.
+So once you write a piece of
+code that does a little task,
+you don't need to rewrite
+that piece of code many times.
+You've written it
+once, and you write
+this thing called a function
+specification for it,
+or a docstring.",0.636659,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-033,4,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",179,190,517.97,548.63,"Benefit of this is it
+keeps your code organized",but that's later.,"Benefit of this is it
+keeps your code organized
+and it keeps your code coherent.
+So functions are going to be
+used to achieve decomposition
+and to create
+structure in our code.
+We're going to see functions
+today in this lecture,
+and in a few weeks, you're
+going to actually see--
+when we talk about object
+oriented programming-- how
+you can achieve
+decomposition with classes.
+And with classes you can
+create your own object types
+like adding some floats.
+You can create your own object
+types for whatever you want,
+but that's later.",0.610137,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-033,5,MjbuarJ7SE0,"4. Decomposition, Abstraction, and Functions",80,93,245.55,280.32,"and it'll help others if they
+want to look at your code",Quick show of hands.,"and it'll help others if they
+want to look at your code
+later on if they find it useful.
+So today we're introducing
+this idea of functions.
+And functions are
+mechanisms to achieve
+decomposition and abstraction.
+So these are two
+key words here that
+are going to pop up
+in today's lecture
+and also in future lectures.
+So before I introduce
+decomposition and abstraction
+in the context of
+functions, let's
+first take a look at just
+sort of a real-life example.
+So let's take a projector.
+I'm using one right now.
+Quick show of hands.",0.599795,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-034,1,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",396,406,1030.27,1068.71,"to pinpoint a line, or a set
+of lines, or maybe a function",as well.,"to pinpoint a line, or a set
+of lines, or maybe a function
+that that's giving
+you the bad results.
+So the general debugging steps
+is to study the program code.
+Don't ask what is wrong,
+because that's actually
+part of the testing.
+So your test cases would have
+figured out what's wrong.
+The debugging process
+is figuring out
+how the result took place.
+And since programming is--
+programming and debugging
+is, sort of, is a science, you
+can use the scientific method
+as well.",0.595284,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-034,2,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",339,349,874.56,904.09,"So they were literally doing
+debugging in this computer.","and in order to achieve that,
+you have to do the debugging.","So they were literally doing
+debugging in this computer.
+Right.
+All right.
+So you won't be doing
+that sort of debugging.
+You'll be doing a virtual kind
+of debugging in your programs.
+Which, again, is not that fun.
+But you still have to do it.
+So debugging, as you might have
+noticed so far in your problem
+sets, has a bit of a
+steep learning curve.
+And obviously your goal is
+to have a bug free program,
+and in order to achieve that,
+you have to do the debugging.",0.515087,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-034,3,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",144,153,313.36,342.2,"Does the output that the program
+give match what you expected?","you want to set yourself up
+for easy testing and debugging.","Does the output that the program
+give match what you expected?
+If it does, great, you're done.
+But if it doesn't, you have
+to go to this debugging step.
+And the debugging step
+is the hardest part.
+And it's really just figuring
+out why the program crashed,
+or why the program didn't
+give you the answer that you
+expected it to give.
+So as I mentioned, the
+most important thing
+is to do defensive
+programming and to that end,
+you want to set yourself up
+for easy testing and debugging.",0.479712,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-034,4,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",479,489,1264.41,1310.26,"it won't hurt to just
+make a quick copy of it.","Maybe it encountered
+an error because","it won't hurt to just
+make a quick copy of it.
+Document maybe what worked
+and what didn't in that copy.
+And then make another copy, and
+then you can modify your code.
+So that's sort of a
+high level introduction
+to testing and debugging.
+The rest of the class will
+be on the error messages,
+or on errors that you
+will get in your programs.
+So when your functions--
+when you run functions,
+or when you run your
+program, at some point,
+the program execution
+is going to stop.
+Maybe it encountered
+an error because",0.47076,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-034,5,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",595,607,1667.834,1704.87,"Like if you want to print,
+oh, the program finished,","That's not actually
+a very good idea.","Like if you want to print,
+oh, the program finished,
+or if you want to close a
+file, or something like that.
+So.
+We've encountered errors.
+We've caught them.
+What else can we do with
+errors-- with exceptions.
+Three other things.
+So one is if we've
+caught an error,
+we can just fail silently.
+What this means is,
+you've caught an error,
+and you just substitute whatever
+erroneous value the user gave
+you for some other value.
+That's not actually
+a very good idea.",0.467597,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-035,1,WPSeyjX1-4s,6. Recursion and Dictionaries,23,34,76.29,105.507,"And that led to both some nice
+power and some opportunities","Today we're going to take
+a different direction","And that led to both some nice
+power and some opportunities
+for challenges.
+And, in particular, she showed
+you things like aliasing,
+where you could have two names
+pointing to the same list
+structure, and
+because of that, you
+could change the
+contents of one,
+it would change the appearance
+of the contents of the other,
+and that leads to
+some nice challenges.
+So the side effects
+of mutability
+are one of the things you're
+going to see, both as a plus
+and minus, as we go
+through the course.
+Today we're going to take
+a different direction",0.477683,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-035,2,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",666,679,2000.09,2038.86,"So all of his
+nicknames or aliases","from the Python
+tutor, which is just","So all of his
+nicknames or aliases
+will refer to the
+same person object
+with these changed attributes.
+Does that makes sense?
+OK.
+So that sort of idea
+arises in lists.
+So a list is like
+a person object
+whose value-- whose attributes
+can change, for example.
+And as they change, all
+of the different aliases
+for this object will point
+to this changed object.
+So let's see a few examples.
+I apologize if this
+is a little small,
+but this I basically
+copied and pasted
+from the Python
+tutor, which is just",0.460123,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-035,3,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",522,534,1588.759,1620.84,"The list that got
+mutated is the list","So much like when we cast
+a float to an integer,","The list that got
+mutated is the list
+that was passed into to here.
+We're going look at one
+example in a few slides that's
+going to show this.
+OK.
+Another thing that we can do,
+and this is often useful when
+you're working with
+data, is to convert lists
+to strings and then
+strings to lists.
+Sometimes it might be useful
+to work with strings as opposed
+to a list and vice versa.
+So this first line here,
+list s takes in a string
+and casts it to a list.
+So much like when we cast
+a float to an integer,",0.447112,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-035,4,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",511,521,1555.05,1588.759,"as functions that
+operate on the list.",The list got mutated.,"as functions that
+operate on the list.
+Except that what these functions
+do is they take in the list,
+and they modify it.
+But as functions, they
+obviously return something
+back to whoever called them.
+And oftentimes, they're going
+to return the value none.
+So for example, if you are
+going to do L.remove 2,
+and you print that out, that
+might print out none for you.
+So you can't just assign the
+value of this to a variable
+and expect it to be
+the mutated list.
+The list got mutated.",0.416509,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-035,5,RvRKT-jXvko,"5. Tuples, Lists, Aliasing, Mutability, and Cloning",695,706,2071.15,2112.92,It contains three elements.,"That's the side effect
+of lists mutable.","It contains three elements.
+Hot is equal to warm.
+It means I'm creating
+an alias for this list.
+And the alias is going to
+be with this variable hot.
+So notice warm and hot point
+to the exact same object.
+So on line 8 when I append
+this string pink to my object,
+since both of
+these two variables
+point to the exact
+same object, if I'm
+trying to access this object
+through either variable,
+they're both going to
+print out the same thing.
+And that's the side effect.
+That's the side effect
+of lists mutable.",0.384917,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-036,1,-DP1i2ZU9gk,8. Object Oriented Programming,204,218,565.6,609.43,"to interact with the object
+and what data this object","that has the type, the
+name of your class.","to interact with the object
+and what data this object
+is going to have.
+So for example,
+someone wrote code
+that implements a
+list class, right,
+and we don't actually
+know how that was done.
+But we can find out.
+So creating the class is
+implementing the class
+and figuring out data
+representation and ways
+to interact with the class.
+Once that's done, you
+can then use your class.
+And you use the
+class by creating
+new instances of the class.
+So when you create
+a new instance,
+you essentially
+create a new object
+that has the type, the
+name of your class.",0.643946,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-036,2,FlGjISF3l78,9. Python Classes and Inheritance,38,50,114.219,152.74,"to be a little bit of recap just
+to make sure that everyone's","What is the object, OK?","to be a little bit of recap just
+to make sure that everyone's
+on the same page
+before I introduce
+a couple of new concepts
+related to classes.
+So recall that when--
+in the last lecture,
+we talked about
+writing code from two
+different perspectives, right?
+The first was from someone who
+wanted to implement a class.
+So implementing the class meant
+defining your own object type.
+So you defined the object type
+when you defined the class.
+And then you decided what
+data attributes you wanted
+to define in your object.
+So what data makes
+up the object?
+What is the object, OK?",0.631561,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-036,3,-DP1i2ZU9gk,8. Object Oriented Programming,230,240,641.26,682.804,"are going to define your
+own types of objects.","So the way we do that is
+we have to define a class.","are going to define your
+own types of objects.
+So for today's
+lecture we're going
+to look at code
+that's going to be
+in the context of a
+coordinate object.
+And a coordinate
+object is essentially
+going to be an object
+that's going to define
+a point in an xy plane.
+So x, y is going to be a
+coordinate in a 2D plane.
+So we're going to
+write code that's
+going to allow us to
+define that kind of object.
+So the way we do that is
+we have to define a class.",0.618596,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-036,4,-DP1i2ZU9gk,8. Object Oriented Programming,266,277,749.95,789.22,"are going to be ways that we
+can interact with the object.","So for our coordinate
+example, it's","are going to be ways that we
+can interact with the object.
+The fact that they
+belong to the class
+means that the data and the
+procedures that we write
+are only going to work with
+an object of this type.
+OK.
+If you try to use any of
+the data or the procedures
+with an object of
+a different type,
+you're going to get an
+error because these data
+and these attributes will
+belong to this particular class.
+So the data attributes is,
+what is the object, right?
+What is the data that
+makes up the object?
+So for our coordinate
+example, it's",0.604128,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-036,5,FlGjISF3l78,9. Python Classes and Inheritance,177,185,529.7,554.39,"by maybe printing to the
+screen or something like that.",else in the parentheses.,"by maybe printing to the
+screen or something like that.
+OK, this slide's also a recap
+of how to create a class just
+to make sure everyone's on
+the same page before we go on.
+So we defined a class
+using this class keyword.
+And we said, class,
+the name of the class.
+So now we're going to create
+a more abstract Animal class.
+We're going to see,
+in the second half
+of the lecture, what it
+means to put something
+else in the parentheses.",0.588628,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-037,1,7lQXYl_L28w,"11. Understanding Program Efficiency, Part 2",196,205,493.21,518.325,"And that's another trick
+called binary search","You're going to have to look
+at every element in the list","And that's another trick
+called binary search
+or, again, it's a version
+of bisection search.
+Suppose I give you a list,
+a list of numbers, integers.
+And I want to know if
+a particular element is
+in that list.
+We saw, last time, you could
+just walk down the list, just
+iterate through the entire list
+looking to see if it's there.
+In the worst case, which
+is what we worry about,
+it's going to be linear.
+You're going to have to look
+at every element in the list",0.652432,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-037,2,SE4P7IVCunE,"3. String Manipulation, Guess and Check, Approximations, Bisection",743,752,2356.04,2394.58,"0, 1, 2, 3, 4, and so on?","So we have our
+original search space.","0, 1, 2, 3, 4, and so on?
+So with guess and check,
+it would have taken me
+76 guesses to get to the number,
+whereas, with this bisection
+search, that I just
+did, it only took me 6.
+Isn't that cool?
+So that means that the
+larger the space actually
+is, that I need to
+search, the better it
+is to use bisection search,
+this bisection search method.
+So that's basically what
+I'm illustrating here.
+So we have our
+original search space.",0.561858,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-037,3,7lQXYl_L28w,"11. Understanding Program Efficiency, Part 2",185,195,467.304,493.21,"All right, a little more
+interesting-- not a little,","but especially, to show you how
+we can reason about the growth.","All right, a little more
+interesting-- not a little,
+a lot more interesting--
+are algorithms
+that are logarithmic
+in their complexity.
+So they're going to
+grow with the logarithm
+of the size of the input.
+You saw an example much
+earlier in the term when Ana
+showed you bisection search.
+It was searching for a number
+with a particular property.
+I want to show you
+another example,
+both to let you recognize
+the form of the algorithm,
+but especially, to show you how
+we can reason about the growth.",0.53667,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-037,4,6LOwPhPDwVc,12. Searching and Sorting,75,86,196.38,222.87,"The worst case
+behavior is linear.",Right?,"The worst case
+behavior is linear.
+In the worst case, the
+element's not in the list.
+I got to look at everything.
+So it's going to be linear
+in terms of complexity.
+And then we looked
+at bisection search,
+where we said the list
+needs to be sorted.
+But if it is, we can actually
+be much more efficient
+because we can take advantage
+of the sorting to cut down
+the size of the problem.
+And I'll remind you
+about both of those.
+There was our simple
+little linear search.
+Right?",0.535784,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-037,5,6LOwPhPDwVc,12. Searching and Sorting,38,49,113.6,142.04,"And we saw simple things
+like exhaustive enumeration.","and I want to know how do I
+find a particular student,","And we saw simple things
+like exhaustive enumeration.
+We'd go through all
+the possibilities.
+We saw our first version
+of bisection search
+there, where you would
+do approximations.
+Newton-Raphson-- these are all
+examples of a search algorithm
+where the collection
+is implicit.
+So all the numbers between some
+point that some other point.
+More common is a
+search algorithm
+where the collection
+is explicit.
+I don't know.
+For example, I've got all
+the data records of students
+and I want to know how do I
+find a particular student,",0.532258,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-038,1,o9nW0uBqvEo,"10. Understanding Program Efficiency, Part 1",972,981,2375.83,2401.78,"Imagine I'll have
+an unsorted list.","As soon as I find it, I'm
+going to send-- sorry--","Imagine I'll have
+an unsorted list.
+Arbitrary order.
+Here's another way of
+doing the linear search.
+Looks a little bit faster.
+I'm going to set a flag
+initially to false.
+And then I'm going
+to loop for i from 0
+up to the length of L.
+I'm going to use that
+to index into the list, pull
+out each element of the list
+in turn, and check to see is
+it the thing I'm looking for.
+As soon as I find it, I'm
+going to send-- sorry--",0.551643,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-038,2,7lQXYl_L28w,"11. Understanding Program Efficiency, Part 2",196,205,493.21,518.325,"And that's another trick
+called binary search","You're going to have to look
+at every element in the list","And that's another trick
+called binary search
+or, again, it's a version
+of bisection search.
+Suppose I give you a list,
+a list of numbers, integers.
+And I want to know if
+a particular element is
+in that list.
+We saw, last time, you could
+just walk down the list, just
+iterate through the entire list
+looking to see if it's there.
+In the worst case, which
+is what we worry about,
+it's going to be linear.
+You're going to have to look
+at every element in the list",0.532091,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-038,3,6LOwPhPDwVc,12. Searching and Sorting,75,86,196.38,222.87,"The worst case
+behavior is linear.",Right?,"The worst case
+behavior is linear.
+In the worst case, the
+element's not in the list.
+I got to look at everything.
+So it's going to be linear
+in terms of complexity.
+And then we looked
+at bisection search,
+where we said the list
+needs to be sorted.
+But if it is, we can actually
+be much more efficient
+because we can take advantage
+of the sorting to cut down
+the size of the problem.
+And I'll remind you
+about both of those.
+There was our simple
+little linear search.
+Right?",0.524354,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-038,4,o9nW0uBqvEo,"10. Understanding Program Efficiency, Part 1",1102,1114,2692.742,2721.37,"I want you to hold
+on to that idea,",to get to the last example.,"I want you to hold
+on to that idea,
+because we're going to come
+back to the sorted list
+next week to see
+that there actually
+are much more efficient ways
+to use the fact that a list is
+sorted to do the search.
+But both of these versions
+same order growth, order n.
+OK.
+So lurching through a
+list-- right, sorry--
+searching through
+a list in sequence
+is linear because of that loop.
+There are other things
+that have a similar flavor.
+And I'm going to
+do these quickly
+to get to the last example.",0.524126,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-038,5,6LOwPhPDwVc,12. Searching and Sorting,63,74,169.487,196.38,"Now you've already seen
+some of this, right?","What we saw is that the
+expected-- sorry, not expected.","Now you've already seen
+some of this, right?
+We did search where we said,
+we can do linear search.
+Brute force.
+Just walk down the list
+looking at everything
+till we either find the
+thing we're looking for
+or we get to the
+end of the list.
+Sometimes also called
+British Museum algorithm
+or exhaustive enumeration.
+I go through
+everything in the list.
+Nice news is, the list
+doesn't have to be sorted.
+It could be just
+in arbitrary order.
+What we saw is that the
+expected-- sorry, not expected.",0.515957,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-039,1,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",216,227,508.13,541.32,"do, the greater the likelihood
+that your program is correct.","with some test cases that hit
+upon all of the possible paths","do, the greater the likelihood
+that your program is correct.
+But there's actually two more
+rigorous ways to do testing.
+And one is black box
+testing and the other one
+is glass box testing.
+In black box testing,
+you're assuming
+you have the specifications
+to a function.
+So that's the docstring.
+All you're looking at is
+the docstring and coming
+up with some test
+cases based on that.
+In glass box testing,
+you have the code
+itself and you're
+trying to come up
+with some test cases that hit
+upon all of the possible paths",0.588504,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-039,2,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",253,265,613.72,654.36,"is that you are doing you are
+creating the test cases based","going through once,
+going through twice,","is that you are doing you are
+creating the test cases based
+on the specifications only.
+Glass box testing, you're
+using the code itself
+to guide your test cases.
+So if you have a piece
+of code and you come up
+with a test case that goes
+through every single possible
+combination of input-- of
+every single possible path
+through the code, then that test
+set is called path complete.
+The problem with this is
+when you encounter loops,
+for example.
+Every single possible
+path through a loop
+is maybe the code not going
+through the loop at all,
+going through once,
+going through twice,",0.535824,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-039,3,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",241,252,577.18,613.72,"The test cases that you come
+up with for this function","So the important thing
+about black box testing","The test cases that you come
+up with for this function
+are going to be
+exactly the same.
+Right?
+No matter what the
+implementation.
+So for this particular
+function, here's a sample set.
+We check the boundary,
+we check perfect squares,
+we can check some number
+that's less than 1,
+we can check maybe irrationals,
+and then you do extreme tests.
+So when either epsilon is
+really large or epsilon
+is really small, or x is really
+large or x is really small,
+and all the possible
+combinations of those.
+So the important thing
+about black box testing",0.490638,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-039,4,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",266,276,654.36,678.97,"going through three times, four
+times, five times, and so on.","For for loops, make sure
+you have a test case where","going through three times, four
+times, five times, and so on.
+Right?
+Which could be a
+very, very big test.
+So instead there are
+actually some guidelines
+for when you're dealing with
+loops and things like that.
+So for branches, when you're
+doing glass box testing,
+it's important-- you
+should just exercise
+all of the parts
+of the conditional.
+So make sure you
+have a test case that
+goes through each part
+of the conditional.
+For for loops, make sure
+you have a test case where",0.488732,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-039,5,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",301,314,753.45,793.38,"So this code incorrectly
+classifies minus 1",The history of debugging.,"So this code incorrectly
+classifies minus 1
+as returning minus
+1, which is wrong.
+So for glass box
+testing, in addition to
+making sure you're going
+through all the possible paths
+through the code,
+you also want to make
+sure you hit upon any
+boundary condition.
+So in this case, for
+branches, minus 1
+is a boundary condition.
+So you've created a test suite,
+you've tested your program,
+chances are you found a bug.
+What do you do now?
+All right.
+Quick sort of detour into
+a little bit of history.
+The history of debugging.",0.460989,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-040,1,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",798,809,2357.32,2400.97,"So if you run the
+function, and you give it","the function's going to
+immediately terminate.","So if you run the
+function, and you give it
+a list that is empty,
+this becomes false,
+so the assert is
+false, and we're
+going to print out an assertion
+error, no grades data.
+If the assert is false, the
+function does not continue.
+It stops right there.
+Why does it behave this way?
+Well, assertions are
+great to make sure
+that preconditions and
+post-conditions on functions
+are exactly as you expect.
+So as soon as an
+assert becomes false,
+the function's going to
+immediately terminate.",0.552652,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-040,2,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",821,832,2432.15,2475.864,"assert being false
+a lot earlier.","are being held as the
+values are being passed in.","assert being false
+a lot earlier.
+So it'll be a lot
+easier to figure out
+where the bug came from.
+And you won't have to
+trace back so many steps.
+So this is basically
+what I said,
+you really want to spot the bugs
+as soon as they're introduced.
+And exceptions are good
+if you want to raise them
+when the user supplies
+bad data input,
+but assertions are
+used to make sure
+that the types and other-- the
+types of inputs to functions,
+maybe other conditions
+on inputs to functions,
+are being held as the
+values are being passed in.",0.537628,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-040,3,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",537,548,1461.39,1510.09,"it's going to give
+a value error.","So bug in user input is nicer
+than this whole lot here.","it's going to give
+a value error.
+Now if I run the same
+piece of code with
+try-- with a try except block.
+I run it, if I give it
+regular numbers, it's fine.
+But if I'm being a cheeky
+user, and I say three,
+automatically this would
+have raised the value error
+in the previous
+version of the program.
+But in this version
+of the program,
+the programmer
+handled the exception
+or caught the
+exception, and printed
+out this nicer looking message.
+So bug in user input is nicer
+than this whole lot here.",0.43729,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-040,4,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",787,797,2317.36,2357.32,"This is the same average
+function we've seen before.","represents what do you print out
+if the assertion does not hold.","This is the same average
+function we've seen before.
+Here, instead of
+using exceptions,
+we're going to use
+an assert statement.
+And the assert statement we're
+putting right at the front.
+At the beginning of
+the function, sorry.
+And the key word is assert.
+The next part of the assert
+is what the function expects.
+So we expect that the length
+of grades is not equal to 0.
+So has to be greater than 0.
+And then we have a
+string here, which
+represents what do you print out
+if the assertion does not hold.",0.431128,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-040,5,9H6muyZjms0,"7. Testing, Debugging, Exceptions, and Assertions",490,503,1310.26,1353.7,of some unexpected condition.,"In Python, you can actually
+have handlers for exceptions.","of some unexpected condition.
+And when that happens
+you get an exception.
+So the error is
+called an exception.
+And it's called an exception
+because it was an exception
+to what was expected.
+To what the program expected.
+So all of these errors
+that I've talked
+about in the previous
+slides are actually
+examples of exceptions.
+And there are actually
+many other types
+of exceptions, which you'll
+see as you go on in this course
+and also in 60002.
+So how do we deal
+with these exceptions?
+In Python, you can actually
+have handlers for exceptions.",0.40993,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-041,1,vqn_yk5aFcI,Class Definition,0,12,0.79,38.02,"The following content is
+provided under a Creative",OK.,"The following content is
+provided under a Creative
+Commons license.
+Your support will help
+MIT OpenCourseWare
+continue to offer high quality
+educational resources for free.
+To make a donation or
+view additional materials
+from hundreds of MIT courses,
+visit MIT OpenCourseWare
+at ocw.mit.edu.
+PROFESSOR: So, which
+of the following
+is a good and valid definition
+for a class representing a car?
+OK, most of the people
+I think have gotten it,
+which is the red, which
+says class car object,
+and that's perfect.
+OK.",0.534551,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-041,2,FlGjISF3l78,9. Python Classes and Inheritance,177,185,529.7,554.39,"by maybe printing to the
+screen or something like that.",else in the parentheses.,"by maybe printing to the
+screen or something like that.
+OK, this slide's also a recap
+of how to create a class just
+to make sure everyone's on
+the same page before we go on.
+So we defined a class
+using this class keyword.
+And we said, class,
+the name of the class.
+So now we're going to create
+a more abstract Animal class.
+We're going to see,
+in the second half
+of the lecture, what it
+means to put something
+else in the parentheses.",0.528109,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-041,3,FlGjISF3l78,9. Python Classes and Inheritance,65,78,187.98,225.61,"Once you created
+instances of objects,","In this case, we
+decided we wanted","Once you created
+instances of objects,
+you were able to do
+operations on them.
+So you were able to see
+what methods whoever
+implemented the class added.
+And then, you can
+use those methods
+in order to do operations
+with your instances.
+So just looking at the
+coordinate example we
+saw last time, a little
+bit more in detail
+about what that meant--
+so we had a class
+definition of an object
+type, which included deciding
+what the class name was.
+And the class name
+basically told
+Python what type of an
+object this was, OK?
+In this case, we
+decided we wanted",0.518247,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-041,4,2__KumJsGXc,Class Instance,0,12,0.79,40.2,"The following content is
+provided under a Creative","and then two
+parameters-- w and d.","The following content is
+provided under a Creative
+Commons license.
+Your support will help
+MIT OpenCourseWare
+continue to offer high quality
+educational resources for free.
+To make a donation or
+view additional materials
+from hundreds of MIT courses,
+visit MIT OpenCourseWare
+at ocw.mit.edu.
+PROFESSOR: We have
+this definition
+for the class object.
+I've created the init for you.
+And here I'm giving
+it ""self,"" which
+is the first thing that
+you have to give it,
+and then two
+parameters-- w and d.",0.514755,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-041,5,-DP1i2ZU9gk,8. Object Oriented Programming,204,218,565.6,609.43,"to interact with the object
+and what data this object","that has the type, the
+name of your class.","to interact with the object
+and what data this object
+is going to have.
+So for example,
+someone wrote code
+that implements a
+list class, right,
+and we don't actually
+know how that was done.
+But we can find out.
+So creating the class is
+implementing the class
+and figuring out data
+representation and ways
+to interact with the class.
+Once that's done, you
+can then use your class.
+And you use the
+class by creating
+new instances of the class.
+So when you create
+a new instance,
+you essentially
+create a new object
+that has the type, the
+name of your class.",0.502792,candidate_requires_human_source_review,Read source before accepting any video/time range.
+mit60001-q-042,,,,,,,,,,,,not_applicable_out_of_scope,Do not attach corpus evidence.
+mit60001-q-043,,,,,,,,,,,,not_applicable_out_of_scope,Do not attach corpus evidence.
+mit60001-q-044,,,,,,,,,,,,not_applicable_out_of_scope,Do not attach corpus evidence.

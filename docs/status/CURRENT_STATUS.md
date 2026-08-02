@@ -109,7 +109,19 @@ Validation status: `passed`.
 - Canonical Batch 01 evaluation subset:
   `evaluation/mit_60001/evaluation_questions.jsonl`
 - Current Batch 01 source candidates:
-  `evaluation/review/batch_01_source_candidates_with_transcript_2026-07-31_v2.csv`
+  `evaluation/review/batch_01/candidates/batch_01_source_candidates_with_transcript_2026-07-31_v2.csv`
+- Batch 01 human decision workbook:
+  `evaluation/review/batch_01/decisions/batch_01_review_vi_with_decision.xlsx`
+- Batch 02 draft questions:
+  `evaluation/drafts/mit_60001_question_drafts_batch_02.csv`
+- Batch 02 candidate package:
+  `evaluation/review/batch_02/candidates/batch_02_source_candidates_with_transcript_2026-08-01.csv`
+- Batch 02 candidate decision record:
+  `evaluation/review/batch_02/BATCH_02_CONTENT_REVIEW.md`
+- Batch 02 human decision workbook:
+  `evaluation/review/batch_02/decisions/batch_02_source_candidates_review_vi_translated.xlsx`
+- MIT 6.0001 coverage matrix:
+  `evaluation/coverage/MIT_60001_COVERAGE_MATRIX.md`
 
 Không lưu `raw_text` đầy đủ trong folder `reports/`.
 
@@ -134,6 +146,19 @@ hoặc cleaning version. Đây là chủ ý hiện tại: Silver JSONL là ngu�
 citation, còn PostgreSQL giữ normalized transcript và JOIN metadata.
 
 ## Bước tiếp theo
+
+### Batch 02 candidate decision status
+
+Batch 02 có 30 draft: 27 answerable và ba out-of-scope. Candidate package có
+138 dòng đã validation; human decision workbook đánh dấu ít nhất một candidate
+`Được duyệt` cho 23/27 câu answerable. q-015, q-020, q-025 và q-032 chưa có
+candidate được duyệt. Batch 02 chưa có canonical record, expected answer points
+hoặc retrieval metrics. Xem `evaluation/review/batch_02/BATCH_02_CONTENT_REVIEW.md`.
+
+Theo workbook, một question có thể có nhiều candidate được duyệt nhưng không có
+danh sách final selected ranks ở question level. Vì vậy không tự canonicalize
+hoặc tự chọn range. Batch 02 không quay lại vòng tạo candidate package rồi human
+review lần nữa theo quyết định user ngày 2026-08-03.
 
 Chunking experiment đã có Gold contract, ba configuration và sample validation.
 Batch 01 hiện có 13 canonical record `approved`: 11 câu answerable với evidence từ
