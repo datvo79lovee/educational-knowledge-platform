@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-07-31
+2026-08-10
 
 ## Corpus mục tiêu
 
@@ -106,7 +106,7 @@ Validation status: `passed`.
   `reports/08_chunking/sample_chunk_cross_process_validation.csv`
 - Gold sample generated output:
   `data/gold/mit_60001/samples/`
-- Canonical Batch 01 evaluation subset:
+- Canonical MIT 6.0001 evaluation dataset:
   `evaluation/mit_60001/evaluation_questions.jsonl`
 - Current Batch 01 source candidates:
   `evaluation/review/batch_01/candidates/batch_01_source_candidates_with_transcript_2026-07-31_v2.csv`
@@ -124,6 +124,10 @@ Validation status: `passed`.
   `evaluation/review/batch_02/decisions/batch_02_source_candidates_review_benchmark.xlsx`
 - Batch 02 final evidence selection manifest:
   `evaluation/review/batch_02/decisions/batch_02_final_evidence_selection_2026-08-03.csv`
+- Batch 02 candidate Answer Points workbook:
+  `evaluation/review/batch_02/answer_points/batch_02_candidate_answer_points_review_2026-08-10.xlsx`
+- Batch 02 reviewed Answer Points workbook:
+  `evaluation/review/batch_02/answer_points/batch_02_candidate_answer_points_review_2026-08-10_reviewed.xlsx`
 - MIT 6.0001 coverage matrix:
   `evaluation/coverage/MIT_60001_COVERAGE_MATRIX.md`
 
@@ -151,38 +155,40 @@ citation, còn PostgreSQL giữ normalized transcript và JOIN metadata.
 
 ## Bước tiếp theo
 
-### Batch 02 candidate decision status
+### Evaluation canonical status
 
-Batch 02 có 30 draft: 27 answerable và ba out-of-scope. Candidate package có
-138 dòng. Workbook evidence-role và selection manifest đã chọn evidence cho 23/27
-câu answerable: 23 Primary và 15 Supporting, tổng 38 range. q-015, q-020, q-025
-và q-032 không có Primary nên giữ `unresolved_no_primary`; q-042 đến q-044 giữ
-`out_of_scope` với evidence rỗng.
+Batch 02 có 30 draft: 27 answerable và ba out-of-scope. Final evidence selection
+đã chọn 23 Primary và 15 Supporting range cho 23 câu answerable. Candidate Answer
+Points package gồm 22 record `candidate_ready`, một record
+`blocked_evidence_not_entailing` là q-028 và ba record `out_of_scope`.
 
-Validation cross-file đã đối chiếu manifest với draft, candidate package và
-workbook: mọi range được chọn khớp candidate/video/time/segment, có decision
-`Được duyệt`, và có time/segment range hợp lệ. Có một cảnh báo cấu trúc chỉ ở ba
-dòng out-of-scope trong workbook: `candidate_rank` và `review_decision` là `43`
-trong khi candidate package là `not_applicable_out_of_scope`. Ba dòng này không
-được chọn làm evidence và không ảnh hưởng 23 câu answerable.
+Human Answer Points review ngày 2026-08-10 có 19 quyết định `Accept`, một
+`Rewrite` cho q-038 và ba `Reject` cho q-024, q-028, q-036. q-042 đến q-044 giữ
+Answer Points/evidence rỗng và chưa có quyết định canonical. Validation xác nhận
+workbook reviewed chỉ thay đổi các cột review, không thay question, candidate
+Answer Points, evidence hoặc Machine Data.
 
-Selection manifest không phải canonical dataset: Batch 02 chưa có canonical
-record, expected answer points, `review_status=approved` hoặc retrieval metrics.
-Theo quyết định user ngày 2026-08-03, Batch 02 không quay lại vòng tạo candidate
-package rồi human review lần nữa.
+20 câu Batch 02 đạt review đã được canonicalize với `review_status=approved`,
+reviewer `human_batch_02_2026-08-10`, expected Answer Points và exact evidence
+range. Canonical dataset hiện có 33 record `approved`: 31 answerable và hai
+out-of-scope. Không có duplicate question ID; mọi answerable record có Answer
+Points, video ID và time range hợp lệ.
 
-Chunking experiment đã có Gold contract, ba configuration và sample validation.
-Batch 01 hiện có 13 canonical record `approved`: 11 câu answerable với evidence từ
-source-candidate v2 hoặc source expansion đã được human review, và hai câu
-out-of-scope. q-011 vẫn chưa có canonical record vì cần evidence so sánh rõ hơn.
-Batch này chưa đủ 40–60 câu để chọn configuration hoặc chạy full Gold build.
+Coverage chưa hoàn tất. Batch 01 q-011 vẫn chưa canonical. Batch 02 còn bốn câu
+`unresolved_no_primary` là q-015, q-020, q-025, q-032; ba câu bị Reject ở bước
+Answer Points là q-024, q-028, q-036; q-042 đến q-044 là out-of-scope chưa có
+quyết định canonical. Dataset còn thiếu ít nhất bảy record approved để đạt ngưỡng
+tối thiểu 40 câu.
 
-1. Chỉ khi có phê duyệt rõ, tạo candidate Answer Points và canonicalize 23 câu
-   Batch 02 đã có Primary; không suy diễn Answer Points từ candidate rank.
-2. Quyết định evidence hoặc xử lý riêng q-015, q-020, q-025, q-032; tiếp tục giữ
-   ba câu q-042 đến q-044 là out-of-scope.
-3. Review source/evidence còn thiếu cho q-011 và mở rộng benchmark lên 40–60 câu
-   `approved` trước retrieval comparison.
+Chunking experiment đã có Gold contract, ba configuration và sample validation,
+nhưng chưa đủ benchmark 40–60 câu để chạy retrieval comparison và chọn
+configuration.
+
+1. Review evidence hoặc rewrite riêng q-011, q-015, q-020, q-024, q-025, q-028,
+   q-032 và q-036; không tự phục hồi câu đã Reject nếu chưa có evidence mới.
+2. Quyết định có canonicalize q-042 đến q-044 làm out-of-scope controls hay không.
+3. Mở rộng canonical dataset lên 40–60 record `approved`, đồng thời giữ Coverage
+   Matrix đồng bộ.
 4. Chạy retrieval comparison ba configuration bằng cùng question set `approved`,
    sau đó mới chọn configuration và build Gold 38 video.
 

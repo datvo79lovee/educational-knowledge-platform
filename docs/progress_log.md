@@ -4443,3 +4443,75 @@ nào từ ba dòng này được chọn, và manifest giữ đúng out-of-scope 
 Chờ phê duyệt rõ trước khi tạo candidate Answer Points cho 23 câu có Primary và
 canonicalize chúng. Bốn câu chưa có Primary cần evidence hoặc quyết định riêng;
 q-042 đến q-044 tiếp tục giữ out-of-scope.
+
+---
+
+# Ngày 20 - Batch 02 Answer Points Review và Canonicalization
+
+## Đã hoàn thành
+
+### 1. Candidate Answer Points package
+
+Đã tạo workbook
+`evaluation/review/batch_02/answer_points/batch_02_candidate_answer_points_review_2026-08-10.xlsx`
+từ final evidence selection. Package có 26 record: 22 `candidate_ready`, q-028
+`blocked_evidence_not_entailing` và ba câu q-042 đến q-044 `out_of_scope`.
+q-015, q-020, q-025 và q-032 không có Primary nên không được đưa vào package.
+
+Candidate Answer Points chỉ dùng nội dung được selected transcript hỗ trợ. q-028
+không được tạo Answer Points vì evidence đã chọn chỉ nói về debugging unexpected
+output, không nói assertion failure.
+
+### 2. Human Answer Points review
+
+Workbook reviewed được lưu tại
+`evaluation/review/batch_02/answer_points/batch_02_candidate_answer_points_review_2026-08-10_reviewed.xlsx`.
+Kết quả có 19 `Accept`, ba `Reject` và một `Rewrite`; ba out-of-scope để trống.
+
+Các câu bị Reject là q-024, q-028 và q-036 vì selected evidence không trả lời đủ
+question intent. q-038 được Rewrite thành hai Answer Points bám selected evidence
+về sorted-input requirement của bisection search và linear search.
+
+Validation xác nhận 23/23 câu answerable trong workbook có quyết định hợp lệ, các
+câu Reject có reviewer note, q-038 có bản EN/VI đầy đủ và phần question/evidence/
+Machine Data không bị thay đổi so với workbook gốc.
+
+### 3. Canonical Batch 02 subset
+
+Đã thêm 20 record Batch 02 đạt review vào
+`evaluation/mit_60001/evaluation_questions.jsonl`: 19 record dùng candidate Answer
+Points được Accept và q-038 dùng reviewer Answer Points đã Rewrite. Tất cả record
+mới có `review_status=approved`, reviewer `human_batch_02_2026-08-10`, relevant
+video IDs và exact selected time ranges.
+
+Canonical dataset sau khi cập nhật:
+
+```text
+Total approved records : 33
+Answerable approved    : 31
+Out-of-scope approved  : 2
+Batch 01 records       : 13
+Batch 02 records       : 20
+Duplicate IDs          : 0
+Validation errors      : 0
+```
+
+Coverage Matrix đã được cập nhật để tách Batch 02 approved khỏi các câu chưa
+canonical.
+
+## Ranh giới chưa làm
+
+* Không canonicalize q-024, q-028, q-036 do human decision `Reject`.
+* Không xử lý q-015, q-020, q-025, q-032 vì chưa có Primary evidence.
+* Không canonicalize q-042 đến q-044 vì chưa có quyết định canonical cho các câu
+  out-of-scope này.
+* q-011 của Batch 01 vẫn chưa có canonical record.
+* Chưa chạy retrieval comparison, build Gold full, Hybrid Search, Cross-Encoder,
+  LLM runtime hoặc Search API.
+
+## Bước tiếp theo
+
+Benchmark hiện có 33 record approved và còn thiếu ít nhất bảy record để đạt ngưỡng
+tối thiểu 40. Cần xử lý evidence/rewrite cho các câu chưa canonical hoặc bổ sung
+câu mới có coverage phù hợp, sau đó mới chạy retrieval comparison ba chunking
+configuration và chọn configuration cho Gold full.
