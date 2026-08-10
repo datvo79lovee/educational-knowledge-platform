@@ -6,6 +6,10 @@
 - Candidate package: `evaluation/review/batch_02/candidates/batch_02_source_candidates_with_transcript_2026-08-01.csv`.
 - Human decision workbook:
   `evaluation/review/batch_02/decisions/batch_02_source_candidates_review_vi_translated.xlsx`.
+- Evidence-role decision workbook:
+  `evaluation/review/batch_02/decisions/batch_02_source_candidates_review_benchmark.xlsx`.
+- Final evidence selection manifest:
+  `evaluation/review/batch_02/decisions/batch_02_final_evidence_selection_2026-08-03.csv`.
 - Record này chỉ ghi nhận candidate-level decision từ workbook. Nó không tạo
   expected answer points, không đổi `review_status` của draft và không thêm
   record vào canonical JSONL.
@@ -62,14 +66,28 @@ trong candidate package; `43` không được diễn giải là một decision r
 | q-025 | rank 2: `Mơ hồ`; các rank khác: `Sai` | rank 2 chỉ đúng về cấu trúc inheritance. |
 | q-032 | rank 1: `Mơ hồ`; ranks 2–5: `Sai` | rank 1 chỉ nêu definition/handler, chưa nói hậu quả khi không có handler. |
 
-## Ranh giới sau review
+## Final evidence selection
 
-`Được duyệt` trong workbook có nghĩa candidate transcript có thể được chọn làm
-evidence. Một question có thể có nhiều candidate được duyệt. Workbook không
-ghi một danh sách final selected ranks ở question level, vì vậy record này không
-tự chọn một range hoặc tự đưa toàn bộ range được duyệt vào canonical dataset.
+Workbook evidence-role đã chỉ định một Primary cho mỗi trong 23 câu answerable
+và 15 Supporting range bổ sung. Selection manifest chỉ chọn Primary cùng
+Supporting; Redundant, Weak và Rejected không được đưa vào evidence selection.
+Manifest có 30 dòng: 23 `selected`, bốn `unresolved_no_primary` (q-015, q-020,
+q-025, q-032) và ba `out_of_scope` (q-042 đến q-044). Tổng số range được chọn
+là 38.
+
+Validation cross-file đã xác nhận mọi range trong manifest khớp candidate
+package về candidate rank, video ID, segment và time range; mọi Primary/
+Supporting đều có `review_decision=Được duyệt`. Ba dòng out-of-scope vẫn có
+literal `43` ở `candidate_rank` và `review_decision` trong workbook evidence-role;
+chúng không có evidence selected và không được diễn giải là decision.
+
+## Ranh giới sau selection
+
+Selection manifest chỉ định range cho evidence review tiếp theo. Nó không tạo
+expected answer points, không đổi `review_status` của draft và không tự đưa bất
+kỳ record nào vào canonical dataset.
 
 Theo quyết định của user ngày 2026-08-03, Batch 02 không quay lại vòng tạo
 candidate package rồi human review lần nữa. Mọi canonicalization sau này phải
-dùng chính candidate decision đã ghi nhận ở đây và vẫn tuân thủ evaluation
-contract.
+dùng selection manifest này, có candidate Answer Points được duyệt rõ và vẫn
+tuân thủ evaluation contract.

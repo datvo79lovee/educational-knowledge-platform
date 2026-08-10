@@ -118,8 +118,12 @@ Validation status: `passed`.
   `evaluation/review/batch_02/candidates/batch_02_source_candidates_with_transcript_2026-08-01.csv`
 - Batch 02 candidate decision record:
   `evaluation/review/batch_02/BATCH_02_CONTENT_REVIEW.md`
-- Batch 02 human decision workbook:
+- Batch 02 candidate-level decision workbook:
   `evaluation/review/batch_02/decisions/batch_02_source_candidates_review_vi_translated.xlsx`
+- Batch 02 evidence-role decision workbook:
+  `evaluation/review/batch_02/decisions/batch_02_source_candidates_review_benchmark.xlsx`
+- Batch 02 final evidence selection manifest:
+  `evaluation/review/batch_02/decisions/batch_02_final_evidence_selection_2026-08-03.csv`
 - MIT 6.0001 coverage matrix:
   `evaluation/coverage/MIT_60001_COVERAGE_MATRIX.md`
 
@@ -150,15 +154,22 @@ citation, còn PostgreSQL giữ normalized transcript và JOIN metadata.
 ### Batch 02 candidate decision status
 
 Batch 02 có 30 draft: 27 answerable và ba out-of-scope. Candidate package có
-138 dòng đã validation; human decision workbook đánh dấu ít nhất một candidate
-`Được duyệt` cho 23/27 câu answerable. q-015, q-020, q-025 và q-032 chưa có
-candidate được duyệt. Batch 02 chưa có canonical record, expected answer points
-hoặc retrieval metrics. Xem `evaluation/review/batch_02/BATCH_02_CONTENT_REVIEW.md`.
+138 dòng. Workbook evidence-role và selection manifest đã chọn evidence cho 23/27
+câu answerable: 23 Primary và 15 Supporting, tổng 38 range. q-015, q-020, q-025
+và q-032 không có Primary nên giữ `unresolved_no_primary`; q-042 đến q-044 giữ
+`out_of_scope` với evidence rỗng.
 
-Theo workbook, một question có thể có nhiều candidate được duyệt nhưng không có
-danh sách final selected ranks ở question level. Vì vậy không tự canonicalize
-hoặc tự chọn range. Batch 02 không quay lại vòng tạo candidate package rồi human
-review lần nữa theo quyết định user ngày 2026-08-03.
+Validation cross-file đã đối chiếu manifest với draft, candidate package và
+workbook: mọi range được chọn khớp candidate/video/time/segment, có decision
+`Được duyệt`, và có time/segment range hợp lệ. Có một cảnh báo cấu trúc chỉ ở ba
+dòng out-of-scope trong workbook: `candidate_rank` và `review_decision` là `43`
+trong khi candidate package là `not_applicable_out_of_scope`. Ba dòng này không
+được chọn làm evidence và không ảnh hưởng 23 câu answerable.
+
+Selection manifest không phải canonical dataset: Batch 02 chưa có canonical
+record, expected answer points, `review_status=approved` hoặc retrieval metrics.
+Theo quyết định user ngày 2026-08-03, Batch 02 không quay lại vòng tạo candidate
+package rồi human review lần nữa.
 
 Chunking experiment đã có Gold contract, ba configuration và sample validation.
 Batch 01 hiện có 13 canonical record `approved`: 11 câu answerable với evidence từ
@@ -166,11 +177,13 @@ source-candidate v2 hoặc source expansion đã được human review, và hai 
 out-of-scope. q-011 vẫn chưa có canonical record vì cần evidence so sánh rõ hơn.
 Batch này chưa đủ 40–60 câu để chọn configuration hoặc chạy full Gold build.
 
-1. Review source/evidence còn thiếu cho q-011; mở rộng batch để đạt 40–60 câu theo
-   template.
-2. Chạy retrieval comparison ba configuration bằng cùng question set `approved`
-   sau khi có số câu được duyệt đủ cho milestone.
-3. Chọn configuration dựa trên Recall@k, MRR, citation correctness và review.
-4. Chỉ sau đó mới build Gold 38 video cho configuration được duyệt.
+1. Chỉ khi có phê duyệt rõ, tạo candidate Answer Points và canonicalize 23 câu
+   Batch 02 đã có Primary; không suy diễn Answer Points từ candidate rank.
+2. Quyết định evidence hoặc xử lý riêng q-015, q-020, q-025, q-032; tiếp tục giữ
+   ba câu q-042 đến q-044 là out-of-scope.
+3. Review source/evidence còn thiếu cho q-011 và mở rộng benchmark lên 40–60 câu
+   `approved` trước retrieval comparison.
+4. Chạy retrieval comparison ba configuration bằng cùng question set `approved`,
+   sau đó mới chọn configuration và build Gold 38 video.
 
 Đã tạo Gold sample; chưa tạo Gold full corpus, embedding, vector index hoặc retrieval API.

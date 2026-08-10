@@ -4395,3 +4395,51 @@ rồi human review cho Batch 02. Canonicalization chỉ có thể bắt đầu s
 chỉ dẫn chọn final range cho những question có nhiều candidate được duyệt; q-015,
 q-020, q-025 và q-032 cũng cần quyết định xử lý riêng mà không suy diễn từ
 candidate hiện có.
+
+---
+
+# Ngày 19 - Batch 02 Evidence Selection và Validation
+
+## Đã hoàn thành
+
+### 1. Human evidence-role selection
+
+Workbook `evaluation/review/batch_02/decisions/batch_02_source_candidates_review_benchmark.xlsx`
+đã ghi vai trò evidence cho toàn bộ 138 dòng review: 23 `Primary`, 15
+`Supporting`, 5 `Redundant`, 36 `Weak` và 59 `Rejected`. Mỗi trong 23 câu
+answerable có evidence sẵn sàng có đúng một `Primary`; `Supporting` chỉ giữ lại
+khi cần thêm range.
+
+### 2. Final evidence selection manifest
+
+Đã tạo
+`evaluation/review/batch_02/decisions/batch_02_final_evidence_selection_2026-08-03.csv`.
+Manifest có 30 dòng: 23 `selected`, bốn `unresolved_no_primary` (q-015, q-020,
+q-025, q-032) và ba `out_of_scope` (q-042 đến q-044). Nó ghi rõ Primary,
+Supporting, candidate rank, video ID, source segment và time range; tổng là 38
+range được chọn.
+
+### 3. Cross-file validation
+
+Đã đối chiếu draft, candidate package, workbook evidence-role và manifest. Mọi
+range được chọn khớp candidate/video/time/segment, có decision `Được duyệt`, có
+time range `end_second > start_second` và segment range hợp lệ. Không có duplicate
+question ID hoặc duplicate selected rank trong một question.
+
+Ba dòng q-042 đến q-044 trong workbook evidence-role có `candidate_rank` và
+`review_decision` bằng literal `43`, trong khi candidate package đánh dấu
+`not_applicable_out_of_scope`. Đây là cảnh báo cấu trúc workbook; không có range
+nào từ ba dòng này được chọn, và manifest giữ đúng out-of-scope với evidence rỗng.
+
+## Ranh giới chưa làm
+
+* Không tạo candidate Answer Points.
+* Không đổi Batch 02 draft sang canonical JSONL, `approved` hoặc Ground Truth.
+* Không xử lý hoặc thay evidence cho q-015, q-020, q-025, q-032.
+* Không chạy Hybrid Search, Cross-Encoder, LLM runtime hoặc retrieval metrics.
+
+## Bước tiếp theo
+
+Chờ phê duyệt rõ trước khi tạo candidate Answer Points cho 23 câu có Primary và
+canonicalize chúng. Bốn câu chưa có Primary cần evidence hoặc quyết định riêng;
+q-042 đến q-044 tiếp tục giữ out-of-scope.

@@ -19,7 +19,7 @@ evaluation/
     │   └── BATCH_01_*.md              # Review notes và additional evidence
     └── batch_02/
         ├── candidates/                # Candidate package có transcript context
-        ├── decisions/                 # Human decision workbook
+        ├── decisions/                 # Human workbook và selection manifest
         └── BATCH_02_CONTENT_REVIEW.md # Decision record có thể audit
 ```
 
@@ -31,7 +31,9 @@ evaluation/
 | Batch 01 current source candidates | `review/batch_01/candidates/batch_01_source_candidates_with_transcript_2026-07-31_v2.csv` |
 | Batch 01 human decisions | `review/batch_01/decisions/batch_01_review_vi_with_decision.xlsx` |
 | Batch 02 candidate package | `review/batch_02/candidates/batch_02_source_candidates_with_transcript_2026-08-01.csv` |
-| Batch 02 human decisions | `review/batch_02/decisions/batch_02_source_candidates_review_vi_translated.xlsx` |
+| Batch 02 candidate-level decisions | `review/batch_02/decisions/batch_02_source_candidates_review_vi_translated.xlsx` |
+| Batch 02 evidence-role decisions | `review/batch_02/decisions/batch_02_source_candidates_review_benchmark.xlsx` |
+| Batch 02 final evidence selection | `review/batch_02/decisions/batch_02_final_evidence_selection_2026-08-03.csv` |
 | Coverage Matrix | `coverage/MIT_60001_COVERAGE_MATRIX.md` |
 
 ## Quy tắc trạng thái
@@ -41,6 +43,8 @@ evaluation/
   để chọn configuration hoặc tính retrieval metrics.
 - Candidate CSV và workbook human review là artifact review, không phải canonical
   evidence. Không tự chuyển candidate rank thành Ground Truth.
+- Selection manifest chỉ ghi Primary và Supporting range mà reviewer đã chọn. Nó
+  chưa có Answer Points, không đổi review status và không tự tạo canonical record.
 - Workbook human review phải được lưu trong `review/<batch>/decisions/`; Markdown
   và report chỉ tham chiếu path bên trong project.
 
