@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-08-10
+2026-08-11
 
 ## Corpus mục tiêu
 
@@ -128,6 +128,8 @@ Validation status: `passed`.
   `evaluation/review/batch_02/answer_points/batch_02_candidate_answer_points_review_2026-08-10.xlsx`
 - Batch 02 reviewed Answer Points workbook:
   `evaluation/review/batch_02/answer_points/batch_02_candidate_answer_points_review_2026-08-10_reviewed.xlsx`
+- Batch 02 completion review workbook:
+  `evaluation/review/batch_02/completion/batch_02_completion_review_2026-08-11_reviewed.xlsx`
 - MIT 6.0001 coverage matrix:
   `evaluation/coverage/MIT_60001_COVERAGE_MATRIX.md`
 
@@ -163,33 +165,32 @@ Points package gồm 22 record `candidate_ready`, một record
 `blocked_evidence_not_entailing` là q-028 và ba record `out_of_scope`.
 
 Human Answer Points review ngày 2026-08-10 có 19 quyết định `Accept`, một
-`Rewrite` cho q-038 và ba `Reject` cho q-024, q-028, q-036. q-042 đến q-044 giữ
-Answer Points/evidence rỗng và chưa có quyết định canonical. Validation xác nhận
-workbook reviewed chỉ thay đổi các cột review, không thay question, candidate
-Answer Points, evidence hoặc Machine Data.
+`Rewrite` cho q-038 và ba `Reject` cho q-024, q-028, q-036. Completion review ngày
+2026-08-11 xử lý bốn câu trước đó `unresolved_no_primary` và ba out-of-scope:
+q-015, q-025, q-032, q-042, q-043 và q-044 được `Accept`; q-020 được `Rewrite`
+để giới hạn intent vào `len`, indexing và slicing. Sáu evidence range của bốn câu
+answerable đã được đối chiếu lại với Silver transcript.
 
-20 câu Batch 02 đạt review đã được canonicalize với `review_status=approved`,
-reviewer `human_batch_02_2026-08-10`, expected Answer Points và exact evidence
-range. Canonical dataset hiện có 33 record `approved`: 31 answerable và hai
-out-of-scope. Không có duplicate question ID; mọi answerable record có Answer
-Points, video ID và time range hợp lệ.
+27 câu Batch 02 đã được canonicalize với `review_status=approved`. Canonical dataset
+hiện có 40 record `approved`: 35 answerable và năm out-of-scope; Batch 01 đóng góp
+13 record, Batch 02 đóng góp 27 record. Không có duplicate question ID; mọi
+answerable record có Answer Points, video ID và time range hợp lệ; mọi out-of-scope
+record giữ Answer Points và evidence rỗng.
 
-Coverage chưa hoàn tất. Batch 01 q-011 vẫn chưa canonical. Batch 02 còn bốn câu
-`unresolved_no_primary` là q-015, q-020, q-025, q-032; ba câu bị Reject ở bước
-Answer Points là q-024, q-028, q-036; q-042 đến q-044 là out-of-scope chưa có
-quyết định canonical. Dataset còn thiếu ít nhất bảy record approved để đạt ngưỡng
-tối thiểu 40 câu.
+Benchmark đã đạt ngưỡng tối thiểu 40 câu trong mục tiêu 40–60. Các draft chưa
+canonical còn q-011 của Batch 01 và ba câu Batch 02 bị human review `Reject` là
+q-024, q-028, q-036. Không tự phục hồi các câu này nếu chưa có evidence hoặc quyết
+định human review mới.
 
-Chunking experiment đã có Gold contract, ba configuration và sample validation,
-nhưng chưa đủ benchmark 40–60 câu để chạy retrieval comparison và chọn
-configuration.
+Chunking experiment đã có Gold contract, ba configuration, sample validation và
+đủ 40 canonical questions để chuyển sang retrieval comparison.
 
-1. Review evidence hoặc rewrite riêng q-011, q-015, q-020, q-024, q-025, q-028,
-   q-032 và q-036; không tự phục hồi câu đã Reject nếu chưa có evidence mới.
-2. Quyết định có canonicalize q-042 đến q-044 làm out-of-scope controls hay không.
-3. Mở rộng canonical dataset lên 40–60 record `approved`, đồng thời giữ Coverage
-   Matrix đồng bộ.
-4. Chạy retrieval comparison ba configuration bằng cùng question set `approved`,
-   sau đó mới chọn configuration và build Gold 38 video.
+1. Chốt input benchmark từ 40 record `approved` và chạy retrieval comparison cho
+   ba chunking configuration bằng cùng question set.
+2. Đối chiếu retrieval metrics và evidence review contract trước khi chọn
+   configuration.
+3. Sau khi chọn configuration, build Gold full cho 38 video.
+4. q-011, q-024, q-028 và q-036 chỉ được mở lại khi có evidence hoặc quyết định
+   human review mới; không chặn retrieval comparison hiện tại.
 
 Đã tạo Gold sample; chưa tạo Gold full corpus, embedding, vector index hoặc retrieval API.

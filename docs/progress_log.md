@@ -4515,3 +4515,65 @@ Benchmark hiện có 33 record approved và còn thiếu ít nhất bảy record
 tối thiểu 40. Cần xử lý evidence/rewrite cho các câu chưa canonical hoặc bổ sung
 câu mới có coverage phù hợp, sau đó mới chạy retrieval comparison ba chunking
 configuration và chọn configuration cho Gold full.
+
+---
+
+# Ngày 21 - Batch 02 Completion Review và đạt ngưỡng 40 câu
+
+## Đã hoàn thành
+
+### 1. Completion evidence package
+
+Đã tạo workbook
+`evaluation/review/batch_02/completion/batch_02_completion_review_2026-08-11_reviewed.xlsx`
+cho bảy câu chưa canonical. Bốn câu answerable q-015, q-020, q-025 và q-032 có
+candidate Answer Points cùng sáu evidence range được tìm lại từ full Silver; ba câu
+q-042 đến q-044 giữ vai trò out-of-scope với Answer Points và evidence rỗng.
+
+q-020 được đề xuất rewrite từ câu hỏi rộng về string operations thành câu hỏi giới
+hạn vào `len`, indexing và slicing. Hai evidence range của q-020 lần lượt hỗ trợ
+`len`/indexing và slicing.
+
+### 2. Human completion review
+
+Human review có sáu quyết định `Accept` và một `Rewrite`. q-015, q-025, q-032,
+q-042, q-043 và q-044 được Accept. q-020 được Rewrite với đầy đủ question EN/VI,
+Answer Points EN/VI và reviewer note giải thích việc thu hẹp intent.
+
+Validation workbook xác nhận 7/7 câu có quyết định hợp lệ, sáu evidence range khớp
+Silver transcript, các out-of-scope payload vẫn rỗng và không có lỗi công thức.
+
+### 3. Canonicalization và coverage
+
+Đã thêm bảy record vào `evaluation/mit_60001/evaluation_questions.jsonl` với
+reviewer `human_batch_02_2026-08-11`: bốn answerable record có Answer Points và
+exact evidence range, ba out-of-scope record không gắn corpus evidence.
+
+Canonical dataset sau khi cập nhật:
+
+```text
+Total approved records : 40
+Answerable approved    : 35
+Out-of-scope approved  : 5
+Batch 01 records       : 13
+Batch 02 records       : 27
+Duplicate IDs          : 0
+Validation errors      : 0
+```
+
+Coverage Matrix đã chuyển q-015, q-020, q-025, q-032 và q-042 đến q-044 sang
+approved. Benchmark đã đạt ngưỡng tối thiểu 40 câu trong mục tiêu 40–60.
+
+## Ranh giới chưa làm
+
+* Không canonicalize q-024, q-028 và q-036 do human decision `Reject`.
+* q-011 của Batch 01 vẫn chưa có canonical record.
+* Chưa chạy retrieval comparison hoặc chọn chunking configuration.
+* Chưa build Gold full, embedding, vector index, Hybrid Search, Cross-Encoder,
+  LLM runtime hoặc Search API.
+
+## Bước tiếp theo
+
+Dùng cùng 40 record `approved` để chạy retrieval comparison cho ba chunking
+configuration đã chốt. Sau khi đối chiếu metrics và evidence review contract mới
+chọn configuration để build Gold full cho 38 video.
