@@ -4686,3 +4686,92 @@ validation reports được giữ để audit.
 Thiết kế embedding/index từ canonical Gold full. Khóa model revision, dimension,
 normalization, batch policy, canonical input hash và index output hash trước khi chạy
 Hybrid Search hoặc Cross-Encoder.
+
+---
+
+# Ngày 23 - Canonical Embedding Index và Production Retrieval Validation
+
+## Đã hoàn thành
+
+### 1. Kiểm tra đầu vào và quyết định index MVP
+
+Canonical Gold được kiểm lại trước khi encode: SHA-256
+`c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432`, 861 record,
+861 unique chunk ID, 38 video, chỉ có configuration `semantic_cosine_wp240_v1` và
+không có `chunk_text` rỗng.
+
+Index MVP dùng `sentence-transformers/all-MiniLM-L6-v2`, revision
+`1110a243fdf4706b3f48f1d95db1a4f5529b4d41`, 384 chiều, float32, L2-normalized và
+exact cosine qua NumPy. Đây là production baseline v1 trên corpus 861 chunks, không
+phải tuyên bố model tốt nhất cho mọi corpus.
+
+### 2. Build canonical embedding/index
+
+Đã thêm `scripts/embedding/build_mit_60001_index.py`. Builder khóa canonical input
+hash, scope, count, selected config, model revision và dimension trước khi encode.
+Generated output nằm tại `data/indexes/mit_60001/` và bị gitignore.
+
+Kết quả:
+
+```text
+Index run ID       : mit60001_index_558e4d6e873847dd
+Chunks             : 861
+Unique chunk IDs   : 861
+Videos             : 38
+Embedding shape    : 861 x 384
+Embedding dtype    : float32
+Minimum norm       : 0,999999881
+Maximum norm       : 1,000000119
+Non-finite values  : 0
+Zero-norm vectors  : 0
+Norm violations    : 0
+Embeddings SHA-256 : 3cf94fd32adf78e1e294d5562910f0d7144744a4c310de30f74f0084c80e56a7
+Metadata SHA-256   : 376faf54d90b6c4a30dc562aeba2127cbdd2953c243cd341bc288068dce4c7d7
+Index content hash : 6e78f39257b7cc5defebd6740aab2dc1a4c202165b073f7a740ee5a5d7c46805
+Validation status  : passed
+```
+
+Manifest schema khóa model/revision, dimension, normalization, paths, counts, runtime
+versions, input/output hashes và vector validation invariants.
+
+### 3. Cross-process và production retrieval validation
+
+`scripts/embedding/verify_index_cross_process.py` rebuild index trong hai Python
+processes độc lập với cùng timestamp đã khóa. `embeddings.npy`, `metadata.jsonl`,
+manifest và validation CSV có SHA-256 giống nhau giữa hai lần chạy.
+
+`scripts/embedding/evaluate_index_retrieval.py` truy vấn production index bằng đúng
+35 canonical answerable questions và 57 Ground Truth ranges. Năm out-of-scope
+questions không tham gia Recall/MRR.
+
+Kết quả:
+
+| Metric | Production index |
+| --- | ---: |
+| MRR | 0,573585434 |
+| Recall@1 | 0,371428571 |
+| Recall@3 | 0,742857143 |
+| Recall@5 | 0,857142857 |
+| Recall@10 | 0,914285714 |
+
+Toàn bộ metrics khớp selected-config dense baseline. Top 10 chunk IDs khớp 35/35
+câu và Top 10 scores khớp 35/35 câu. Retrieval detail, comparison và run manifest
+byte-identical qua hai Python processes.
+
+### 4. Tài liệu trạng thái
+
+Đã cập nhật `docs/status/CURRENT_STATUS.md`, implementation plan, schema README và
+`reports/09_embedding/README.md` để ghi nhận Phase 6 hoàn thành.
+
+## Ranh giới chưa làm
+
+* Chưa xây lexical retrieval hoặc Hybrid Search.
+* Chưa đánh giá hoặc tích hợp Cross-Encoder reranking.
+* Chưa xây LLM accept/reject runtime, grounded answer generation hoặc Search API.
+* Chưa đánh giá answer groundedness hoặc abstention accuracy end-to-end.
+* Không đưa 286 transcript ngoài target vào index.
+
+## Bước tiếp theo
+
+Xây Hybrid Search trên cùng canonical Gold corpus và đánh giá bằng cùng 35 answerable
+questions trước khi thêm Cross-Encoder hoặc Search API.

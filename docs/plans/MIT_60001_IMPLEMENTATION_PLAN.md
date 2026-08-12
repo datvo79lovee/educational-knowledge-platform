@@ -238,15 +238,53 @@ data/gold/mit_60001/chunks.jsonl
 
 ## Phase 6 — Embedding và vector index
 
-### Việc cần làm
+Trạng thái: hoàn thành ngày 2026-08-12.
 
-- Chọn embedding model có version cố định.
-- Lưu model name, dimension và thời điểm tạo index.
-- Tạo collection/index riêng cho MIT 6.0001.
-- Hỗ trợ rebuild từ Gold chunks.
-- Không trộn 286 transcript ngoài scope vào index MVP.
+### Quyết định đã triển khai
 
-## Phase 7 — Retrieval và Search API
+- Model `sentence-transformers/all-MiniLM-L6-v2`, revision
+  `1110a243fdf4706b3f48f1d95db1a4f5529b4d41`.
+- Exact local index `numpy_exact_cosine_v1`, float32, 384 chiều và L2-normalized.
+- Index chỉ chứa 861 canonical Gold chunks của 38 MIT 6.0001 video.
+- Generated vectors/metadata nằm tại `data/indexes/mit_60001/` và bị gitignore.
+- Manifest khóa model/runtime, thời điểm build, canonical input hash, thứ tự chunk ID,
+  embeddings hash, metadata hash và combined index content hash.
+- Builder hỗ trợ rebuild trực tiếp từ canonical Gold và dừng khi scope, count, hash,
+  model revision, dimension hoặc vector invariants không đúng.
+
+### Output hiện có
+
+```text
+scripts/embedding/build_mit_60001_index.py
+scripts/embedding/verify_index_cross_process.py
+scripts/embedding/evaluate_index_retrieval.py
+scripts/embedding/verify_index_retrieval_cross_process.py
+schemas/embedding_index_manifest_v1.schema.json
+reports/09_embedding/embedding_index_manifest.json
+reports/09_embedding/embedding_index_validation.csv
+reports/09_embedding/embedding_index_cross_process_validation.csv
+reports/09_embedding/production_index_retrieval_results.csv
+reports/09_embedding/production_index_retrieval_comparison.csv
+reports/09_embedding/production_index_retrieval_manifest.json
+reports/09_embedding/production_index_retrieval_cross_process_validation.csv
+```
+
+Index build pass với 861 unique chunk IDs, 38 video, shape `861 x 384`, không có
+NaN/Infinity, zero-norm hoặc norm violation. Bốn index artifact byte-identical qua
+hai Python processes.
+
+Production-index retrieval dùng 35 answerable questions và 57 Ground Truth ranges.
+Toàn bộ metrics và Top 10 IDs/scores của 35/35 câu khớp dense baseline đã khóa.
+Ba retrieval artifact byte-identical qua hai Python processes.
+
+## Phase 7 — Retrieval, reranking và Search API
+
+### Việc cần làm trước API
+
+- Xây lexical retrieval và Hybrid Search trên cùng canonical Gold index.
+- Đánh giá Hybrid Search bằng cùng 35 answerable questions và Ground Truth hiện có.
+- Chỉ thêm Cross-Encoder khi có comparison artifact với dense/Hybrid baseline.
+- Khóa Top 3 evidence và chính sách accept/reject trước grounded answer generation.
 
 API tối thiểu:
 
@@ -276,9 +314,13 @@ Nếu có answer generation, câu trả lời phải:
 
 ## Phase 8 — Evaluation chống hallucination
 
+Trạng thái: canonical question set và dense retrieval metrics đã hoàn thành; chưa
+đánh giá answer groundedness hoặc abstention accuracy end-to-end.
+
 ### Bộ câu hỏi
 
-Tạo khoảng 40–60 câu hỏi gồm:
+Canonical dataset hiện có 40 câu `approved`: 35 answerable và năm out-of-scope.
+Batch 01 đóng góp 13 record, Batch 02 đóng góp 27 record. Bộ câu hỏi phủ các nhóm:
 
 - factual retrieval;
 - giải thích khái niệm;
@@ -326,14 +368,16 @@ Không dùng một LLM khác làm nguồn đánh giá duy nhất.
 4. Reconcile và load PostgreSQL
 5. Schema/segment decision
 6. Cleaning (hoàn thành)
-7. Chunking experiment (bước kế tiếp)
-8. Embedding/index
-9. Retrieval API
-10. Evaluation
+7. Chunking experiment (hoàn thành)
+8. Embedding/index (hoàn thành)
+9. Hybrid Search và Cross-Encoder evaluation (bước kế tiếp)
+10. Retrieval/Search API
+11. Grounded answer evaluation
 ```
 
 ## Việc chưa làm
 
-- Chưa thay đổi schema.
-- Chưa chunking hoặc embedding.
-- Chưa chọn embedding model hoặc vector database.
+- Chưa thay đổi PostgreSQL schema để lưu vector; MVP đang dùng exact local index.
+- Chưa xây lexical retrieval, Hybrid Search hoặc Cross-Encoder reranking.
+- Chưa xây LLM accept/reject runtime, grounded answer generation hoặc Search API.
+- Chưa đánh giá answer groundedness và abstention accuracy end-to-end.

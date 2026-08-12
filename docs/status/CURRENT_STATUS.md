@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-08-11
+2026-08-12
 
 ## Corpus mục tiêu
 
@@ -126,6 +126,18 @@ Validation status: `passed`.
   `reports/08_chunking/canonical_gold_validation.csv`
 - Canonical Gold cross-process validation:
   `reports/08_chunking/canonical_gold_cross_process_validation.csv`
+- MIT 6.0001 embedding index generated output:
+  `data/indexes/mit_60001/`
+- Embedding index manifest:
+  `reports/09_embedding/embedding_index_manifest.json`
+- Embedding index validation:
+  `reports/09_embedding/embedding_index_validation.csv`
+- Embedding index cross-process validation:
+  `reports/09_embedding/embedding_index_cross_process_validation.csv`
+- Production-index retrieval comparison:
+  `reports/09_embedding/production_index_retrieval_comparison.csv`
+- Production-index retrieval cross-process validation:
+  `reports/09_embedding/production_index_retrieval_cross_process_validation.csv`
 - Canonical MIT 6.0001 evaluation dataset:
   `evaluation/mit_60001/evaluation_questions.jsonl`
 - Current Batch 01 source candidates:
@@ -236,12 +248,41 @@ Schema, lineage, source text/timing/hash, chunk ID/index, duplicate và coverage
 validation đều pass. Canonical output, manifest và validation report byte-identical
 qua hai Python processes.
 
-1. Thiết kế và build embedding/index từ canonical Gold full.
-2. Khóa embedding model revision, dimension, normalization, input/output hash và
-   rebuild validation.
-3. Sau khi index pass, triển khai Hybrid Search và Cross-Encoder evaluation.
-4. q-011, q-024, q-028 và q-036 chỉ được mở lại khi có evidence hoặc quyết định
-   human review mới; không chặn retrieval comparison hiện tại.
+Embedding/index Phase 6 đã hoàn thành từ canonical Gold full:
 
-Canonical Gold full đã hoàn thành; chưa tạo embedding, vector index, Hybrid Search,
-Cross-Encoder, LLM runtime hoặc retrieval API.
+```text
+Index run ID       : mit60001_index_558e4d6e873847dd
+Backend            : numpy_exact_cosine_v1
+Model              : sentence-transformers/all-MiniLM-L6-v2
+Model revision     : 1110a243fdf4706b3f48f1d95db1a4f5529b4d41
+Chunks / videos    : 861 / 38
+Embedding shape    : 861 x 384
+Embedding dtype    : float32
+Normalization      : L2
+Index content hash : 6e78f39257b7cc5defebd6740aab2dc1a4c202165b073f7a740ee5a5d7c46805
+Validation errors  : 0
+Cross-process      : passed
+```
+
+Production-index retrieval dùng đúng 35 canonical answerable questions và 57 Ground
+Truth ranges. Kết quả khớp dense baseline của selected configuration ở toàn bộ metrics,
+Top 10 chunk IDs 35/35 và Top 10 scores 35/35:
+
+| Metric | Kết quả |
+| --- | ---: |
+| MRR | 0,573585434 |
+| Recall@1 | 0,371428571 |
+| Recall@3 | 0,742857143 |
+| Recall@5 | 0,857142857 |
+| Recall@10 | 0,914285714 |
+
+Retrieval detail, comparison và run manifest byte-identical qua hai Python processes.
+
+1. Thiết kế và đánh giá Hybrid Search trên cùng 35 answerable questions.
+2. Sau khi Hybrid Search pass, đánh giá Cross-Encoder reranking trước khi tích hợp API.
+3. Chỉ sau retrieval/reranking validation mới xây Search API và grounded answer runtime.
+4. q-011, q-024, q-028 và q-036 chỉ được mở lại khi có evidence hoặc quyết định
+   human review mới; không chặn retrieval work hiện tại.
+
+Canonical Gold full và embedding/index đã hoàn thành; chưa xây Hybrid Search,
+Cross-Encoder, LLM runtime hoặc Search API.
