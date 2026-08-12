@@ -106,6 +106,26 @@ Validation status: `passed`.
   `reports/08_chunking/sample_chunk_cross_process_validation.csv`
 - Gold sample generated output:
   `data/gold/mit_60001/samples/`
+- Full-corpus chunk candidate validation:
+  `reports/08_chunking/full_chunk_validation.csv`
+- Full-corpus chunk candidate cross-process validation:
+  `reports/08_chunking/full_chunk_cross_process_validation.csv`
+- Dense retrieval comparison:
+  `reports/08_chunking/chunking_comparison.csv`
+- Dense retrieval detail:
+  `reports/08_chunking/chunking_retrieval_results.csv`
+- Chunking human review cuối cùng:
+  `evaluation/review/chunking/mit_60001_chunking_citation_review_2026-08-11_reaudited.xlsx`
+- Chunking configuration decision:
+  `evaluation/review/chunking/mit_60001_chunking_configuration_decision_2026-08-12.csv`
+- Canonical Gold full generated output:
+  `data/gold/mit_60001/chunks.jsonl`
+- Canonical Gold manifest:
+  `reports/08_chunking/canonical_gold_manifest.json`
+- Canonical Gold validation:
+  `reports/08_chunking/canonical_gold_validation.csv`
+- Canonical Gold cross-process validation:
+  `reports/08_chunking/canonical_gold_cross_process_validation.csv`
 - Canonical MIT 6.0001 evaluation dataset:
   `evaluation/mit_60001/evaluation_questions.jsonl`
 - Current Batch 01 source candidates:
@@ -182,15 +202,46 @@ canonical còn q-011 của Batch 01 và ba câu Batch 02 bị human review `Reje
 q-024, q-028, q-036. Không tự phục hồi các câu này nếu chưa có evidence hoặc quyết
 định human review mới.
 
-Chunking experiment đã có Gold contract, ba configuration, sample validation và
-đủ 40 canonical questions để chuyển sang retrieval comparison.
+Chunking experiment đã build đủ ba full-corpus candidate cho 38 video và pass
+schema, source coverage, timing/lineage, duplicate và cross-process determinism.
+Dense retrieval comparison dùng 35 câu answerable và loại năm câu out-of-scope.
 
-1. Chốt input benchmark từ 40 record `approved` và chạy retrieval comparison cho
-   ba chunking configuration bằng cùng question set.
-2. Đối chiếu retrieval metrics và evidence review contract trước khi chọn
-   configuration.
-3. Sau khi chọn configuration, build Gold full cho 38 video.
+Human citation review cuối cùng dùng workbook reaudited. Kết quả theo configuration:
+
+```text
+fixed_wp240_o48_v1              : Correct 28, Incorrect 1, Good boundary 4, preferred 4
+semantic_cosine_wp240_v1        : Correct 28, Incorrect 0, Good boundary 24, preferred 16
+semantic_cosine_wp192_o32_v1    : Correct 25, Incorrect 0, Good boundary 20, preferred 14
+Tie                             : 1
+```
+
+User đã approve `semantic_cosine_wp240_v1` ngày 2026-08-12. Raw deterministic
+`chunking_comparison.csv` không bị sửa; decision CSV riêng là nguồn audit cho human
+review và configuration được chọn.
+
+Canonical Gold full đã được build byte-identical từ selected candidate:
+
+```text
+Output             : data/gold/mit_60001/chunks.jsonl
+Configuration      : semantic_cosine_wp240_v1
+Chunks             : 861
+Videos             : 38/38
+Silver coverage    : 12.518/12.518 segments
+SHA-256            : c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432
+Validation errors  : 0
+Cross-process      : passed
+```
+
+Schema, lineage, source text/timing/hash, chunk ID/index, duplicate và coverage
+validation đều pass. Canonical output, manifest và validation report byte-identical
+qua hai Python processes.
+
+1. Thiết kế và build embedding/index từ canonical Gold full.
+2. Khóa embedding model revision, dimension, normalization, input/output hash và
+   rebuild validation.
+3. Sau khi index pass, triển khai Hybrid Search và Cross-Encoder evaluation.
 4. q-011, q-024, q-028 và q-036 chỉ được mở lại khi có evidence hoặc quyết định
    human review mới; không chặn retrieval comparison hiện tại.
 
-Đã tạo Gold sample; chưa tạo Gold full corpus, embedding, vector index hoặc retrieval API.
+Canonical Gold full đã hoàn thành; chưa tạo embedding, vector index, Hybrid Search,
+Cross-Encoder, LLM runtime hoặc retrieval API.

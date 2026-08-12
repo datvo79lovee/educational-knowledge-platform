@@ -4577,3 +4577,112 @@ approved. Benchmark đã đạt ngưỡng tối thiểu 40 câu trong mục tiê
 Dùng cùng 40 record `approved` để chạy retrieval comparison cho ba chunking
 configuration đã chốt. Sau khi đối chiếu metrics và evidence review contract mới
 chọn configuration để build Gold full cho 38 video.
+
+---
+
+# Ngày 22 - Full Chunking Retrieval Comparison và Configuration Decision
+
+## Đã hoàn thành
+
+### 1. Full-corpus chunk candidates
+
+Đã build ba candidate configuration trên đủ 38 MIT 6.0001 video từ 12.518 Silver
+segments:
+
+```text
+fixed_wp240_o48_v1              : 548 chunks
+semantic_cosine_wp240_v1        : 861 chunks
+semantic_cosine_wp192_o32_v1    : 1.056 chunks
+```
+
+Cả ba pass schema validation, 38-video/source-segment coverage, timing/lineage,
+duplicate check, non-tail undersize check và cross-process byte determinism. Sample
+baseline hash không thay đổi.
+
+### 2. Dense retrieval comparison
+
+Dense cosine retrieval dùng `sentence-transformers/all-MiniLM-L6-v2`, revision
+`1110a243fdf4706b3f48f1d95db1a4f5529b4d41`, cho cùng 35 canonical question
+`approved`, `answerable=true`. Năm câu out-of-scope không tham gia metrics. Ground
+Truth relevance dùng cùng video và giao nhau theo Silver source-segment interval.
+
+Kết quả chính:
+
+| Configuration | MRR | Recall@1 | Recall@3 | Recall@5 | Recall@10 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `fixed_wp240_o48_v1` | 0,6503 | 0,4857 | 0,7429 | 0,8571 | 0,9714 |
+| `semantic_cosine_wp240_v1` | 0,5736 | 0,3714 | 0,7429 | 0,8571 | 0,9143 |
+| `semantic_cosine_wp192_o32_v1` | 0,5930 | 0,4286 | 0,7429 | 0,9143 | 0,9714 |
+
+Retrieval detail, comparison và run manifest byte-identical qua hai Python process.
+Manifest khóa evaluation/Silver/chunk hashes, model revision, normalization, relevance
+rule và ranking tie-break.
+
+### 3. Human citation review, re-audit và quyết định
+
+Human review cuối cùng nằm tại
+`evaluation/review/chunking/mit_60001_chunking_citation_review_2026-08-11_reaudited.xlsx`.
+Re-audit đủ 35 câu ghi nhận:
+
+| Configuration | Correct | Partial | Incorrect | Boundary Good | Preferred |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `fixed_wp240_o48_v1` | 28 | 6 | 1 | 4 | 4 |
+| `semantic_cosine_wp240_v1` | 28 | 7 | 0 | 24 | 16 |
+| `semantic_cosine_wp192_o32_v1` | 25 | 10 | 0 | 20 | 14 |
+
+Có một câu `Tie`. Validation xác nhận 35 unique question ID, cùng question set giữa
+ba configuration, không thiếu decision, không có giá trị ngoài review contract,
+không có lỗi công thức và `Final_decision` khớp ba sheet nguồn.
+
+User approve `semantic_cosine_wp240_v1` ngày 2026-08-12. Quyết định được lưu tại
+`evaluation/review/chunking/mit_60001_chunking_configuration_decision_2026-08-12.csv`.
+Artifact ghi retrieval run ID, hash workbook reaudited, automatic metrics, human
+counts và selected status cho cả ba configuration.
+
+Raw `reports/08_chunking/chunking_comparison.csv` không bị sửa tay vì đây là output
+deterministic đã khóa bằng cross-process hash. Decision CSV là nguồn audit cho trạng
+thái human review và configuration được chọn.
+
+### 4. Canonical Gold full
+
+Đã promote selected candidate thành
+`data/gold/mit_60001/chunks.jsonl` bằng
+`scripts/chunking/promote_selected_config.py`. Promotion đọc winner trực tiếp từ
+decision CSV, kiểm tra hash workbook reaudited, full validation và full cross-process
+report trước khi ghi canonical output.
+
+Kết quả:
+
+```text
+Configuration      : semantic_cosine_wp240_v1
+Chunks             : 861
+Videos             : 38/38
+Silver coverage    : 12.518/12.518 segments
+Coverage missing   : 0
+Coverage extra     : 0
+Duplicate IDs      : 0
+Schema errors      : 0
+Validation errors  : 0
+SHA-256            : c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432
+```
+
+Canonical output byte-identical với selected candidate. Validator kiểm lại schema,
+selected config ID, Silver metadata, source range/count, lossless chunk text, timing,
+lineage, content hash, chunk ID/index continuity và full segment coverage.
+
+`scripts/chunking/verify_canonical_gold_cross_process.py` chạy promotion trong hai
+Python processes. Canonical JSONL, manifest và validation CSV có SHA-256 giống nhau
+giữa hai lần chạy. Canonical JSONL là generated data bị gitignore; manifest và hai
+validation reports được giữ để audit.
+
+## Ranh giới chưa làm
+
+* Chưa tạo embedding hoặc vector index.
+* Chưa xây Hybrid Search, Cross-Encoder, LLM runtime hoặc Search API.
+* Chưa đánh giá answer groundedness hoặc abstention accuracy end-to-end.
+
+## Bước tiếp theo
+
+Thiết kế embedding/index từ canonical Gold full. Khóa model revision, dimension,
+normalization, batch policy, canonical input hash và index output hash trước khi chạy
+Hybrid Search hoặc Cross-Encoder.

@@ -1,4 +1,4 @@
-"""Build và validate Gold chunk sample cho ba configuration đã chốt."""
+"""Build và validate Gold chunk sample hoặc full-corpus experiment."""
 
 import argparse
 import csv
@@ -23,7 +23,10 @@ if str(PROJECT_ROOT) not in sys.path:
 SILVER_FILE = Path("data/silver/mit_60001/transcripts_clean.jsonl")
 GOLD_SCHEMA_FILE = Path("schemas/gold_chunk_v1.schema.json")
 REPORT_DIRECTORY = Path("reports/08_chunking")
-OUTPUT_DIRECTORY = Path("data/gold/mit_60001/samples")
+SAMPLE_OUTPUT_DIRECTORY = Path("data/gold/mit_60001/samples")
+FULL_OUTPUT_DIRECTORY = Path("data/gold/mit_60001/experiments")
+SAMPLE_REPORT = REPORT_DIRECTORY / "sample_chunk_validation.csv"
+FULL_REPORT = REPORT_DIRECTORY / "full_chunk_validation.csv"
 SAMPLE_VIDEO_IDS = {"nykOeWgQcHM", "w4uxYDPsjbw", "FlGjISF3l78", "o9nW0uBqvEo", "6LOwPhPDwVc"}
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 MODEL_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
@@ -86,13 +89,20 @@ def end_second(segment: dict) -> float:
     return float(Decimal(str(segment["start_second"])) + Decimal(str(segment["duration_second"])))
 
 
-def load_sample_records() -> list[dict]:
-    """Đọc đúng năm Silver record sample theo playlist order."""
+def load_records(mode: str) -> list[dict]:
+    """Đọc Silver record theo mode và giữ playlist order."""
 
     records = [json.loads(line) for line in SILVER_FILE.read_text(encoding="utf-8").splitlines()]
-    selected = [record for record in records if record["video_id"] in SAMPLE_VIDEO_IDS]
-    if len(selected) != len(SAMPLE_VIDEO_IDS):
-        raise ValueError("Silver sample selection is incomplete")
+    if mode == "sample":
+        selected = [record for record in records if record["video_id"] in SAMPLE_VIDEO_IDS]
+        if len(selected) != len(SAMPLE_VIDEO_IDS):
+            raise ValueError("Silver sample selection is incomplete")
+    elif mode == "full":
+        selected = records
+        if len(selected) != 38 or len({record["video_id"] for record in selected}) != 38:
+            raise ValueError("Full Silver selection must contain 38 unique videos")
+    else:
+        raise ValueError(f"Unsupported build mode: {mode}")
     return sorted(selected, key=lambda record: record["playlist_position"])
 
 
@@ -108,7 +118,7 @@ def fixed_ranges(segments: list[dict], config: Config, tokenizer) -> list[tuple[
         else:
             index += 1
     ranges.append((start, len(segments) - 1))
-    return add_overlap(ranges, segments, config, tokenizer)
+    return add_overlap(merge_undersize_tail(ranges, segments, config, tokenizer), segments, config, tokenizer)
 
 
 def semantic_windows(segments: list[dict], tokenizer) -> list[tuple[int, int]]:
@@ -165,7 +175,21 @@ def semantic_ranges(segments: list[dict], config: Config, tokenizer, model) -> l
             chosen = min(candidates, key=lambda i: scores[i] if i < len(scores) else 1.0)
         ranges.append((windows[window_start][0], windows[chosen][1]))
         window_start = chosen + 1
-    return add_overlap(ranges, segments, config, tokenizer)
+    return add_overlap(merge_undersize_tail(ranges, segments, config, tokenizer), segments, config, tokenizer)
+
+
+def merge_undersize_tail(ranges: list[tuple[int, int]], segments: list[dict], config: Config, tokenizer) -> list[tuple[int, int]]:
+    """Merge tail dưới minimum vào chunk trước nếu union không vượt hard maximum."""
+
+    if len(ranges) < 2:
+        return ranges
+    tail_start, tail_end = ranges[-1]
+    if token_count(tokenizer, segments[tail_start : tail_end + 1]) >= config.minimum:
+        return ranges
+    previous_start, _ = ranges[-2]
+    if token_count(tokenizer, segments[previous_start : tail_end + 1]) > config.maximum:
+        return ranges
+    return [*ranges[:-2], (previous_start, tail_end)]
 
 
 def add_overlap(ranges: list[tuple[int, int]], segments: list[dict], config: Config, tokenizer) -> list[tuple[int, int]]:
@@ -225,16 +249,16 @@ def write_atomic(path: Path, content: bytes) -> None:
         temporary.unlink(missing_ok=True)
 
 
-def build_config(config: Config, model, validator) -> tuple[list[dict], dict]:
-    """Build một configuration sample và trả metadata validation summary."""
+def build_config(config: Config, model, validator, silver_records: list[dict]) -> tuple[list[dict], dict]:
+    """Build một configuration và trả metadata validation summary."""
 
     records = []
-    for silver in load_sample_records():
+    for silver in silver_records:
         ranges = fixed_ranges(silver["segments"], config, model.tokenizer) if config.strategy == "fixed" else semantic_ranges(silver["segments"], config, model.tokenizer, model)
         for index, (start, end) in enumerate(ranges):
             records.append(build_chunk(silver, config, index, start, end))
     errors = [error.message for record in records for error in validator.iter_errors(record)]
-    silver_by_id = {record["video_id"]: record for record in load_sample_records()}
+    silver_by_id = {record["video_id"]: record for record in silver_records}
     for record in records:
         silver = silver_by_id[record["video_id"]]
         source = silver["segments"][record["source_segment_start_index"] : record["source_segment_end_index"] + 1]
@@ -251,7 +275,7 @@ def build_config(config: Config, model, validator) -> tuple[list[dict], dict]:
         if record["content_sha256"] != sha256(canonical_bytes(expected_hash_input)):
             errors.append(f"content hash mismatch: {record['chunk_id']}")
     covered = {(record["video_id"], index) for record in records for index in range(record["source_segment_start_index"], record["source_segment_end_index"] + 1)}
-    expected = {(silver["video_id"], segment["segment_index"]) for silver in load_sample_records() for segment in silver["segments"]}
+    expected = {(silver["video_id"], segment["segment_index"]) for silver in silver_records for segment in silver["segments"]}
     duplicate_ids = len(records) - len({record["chunk_id"] for record in records})
     token_counts = [text_token_count(model.tokenizer, record["chunk_text"]) for record in records]
     chunks_per_video = [sum(record["video_id"] == video_id for record in records) for video_id in silver_by_id]
@@ -291,11 +315,12 @@ def build_config(config: Config, model, validator) -> tuple[list[dict], dict]:
 
 
 def main() -> None:
-    """Build ba sample configuration, kiểm tra rebuild độc lập và ghi report."""
+    """Build ba configuration, kiểm tra rebuild độc lập và ghi report."""
 
-    parser = argparse.ArgumentParser(description="Build MIT 6.0001 Gold chunk samples.")
+    parser = argparse.ArgumentParser(description="Build MIT 6.0001 Gold chunk experiments.")
+    parser.add_argument("--mode", choices=("sample", "full"), default="sample", help="Build five-video sample or all 38 Silver videos.")
     parser.add_argument("--single-build", action="store_true", help="Skip in-process rebuild; only for cross-process verifier.")
-    parser.add_argument("--skip-report", action="store_true", help="Do not overwrite the normal sample validation report.")
+    parser.add_argument("--skip-report", action="store_true", help="Do not overwrite the validation report for the selected mode.")
     args = parser.parse_args()
     model = SentenceTransformer(MODEL_NAME, revision=MODEL_REVISION, local_files_only=True)
     revision = getattr(model._first_module().auto_model.config, "_commit_hash", None)
@@ -303,25 +328,28 @@ def main() -> None:
         raise RuntimeError("Encoder revision is not pinned in local model metadata")
     schema = json.loads(GOLD_SCHEMA_FILE.read_text(encoding="utf-8"))
     validator = Draft202012Validator(schema)
+    silver_records = load_records(args.mode)
+    output_directory = SAMPLE_OUTPUT_DIRECTORY if args.mode == "sample" else FULL_OUTPUT_DIRECTORY
+    report_path = SAMPLE_REPORT if args.mode == "sample" else FULL_REPORT
     rows = []
     for config in CONFIGS:
-        first, summary = build_config(config, model, validator)
+        first, summary = build_config(config, model, validator, silver_records)
         content = serialize(first)
         deterministic = True
         if not args.single_build:
-            second, _ = build_config(config, model, validator)
+            second, _ = build_config(config, model, validator, silver_records)
             deterministic = content == serialize(second)
         if not deterministic:
             raise RuntimeError(f"Non-deterministic build: {config.config_id}")
-        output = OUTPUT_DIRECTORY / config.config_id / "chunks.jsonl"
+        output = output_directory / config.config_id / "chunks.jsonl"
         write_atomic(output, content)
         rows.append({"chunking_config_id": config.config_id, "encoder_repository": MODEL_NAME, "encoder_revision": revision, "sentence_transformers_version": sentence_transformers.__version__, "tokenizer_name": model.tokenizer.name_or_path, "tokenizer_revision": revision, **summary, "in_process_rebuild_deterministic": deterministic, "output_sha256": sha256(content), "validation_status": "passed"})
     if not args.skip_report:
         buffer = io.StringIO(newline="")
         writer = csv.DictWriter(buffer, fieldnames=list(rows[0]))
         writer.writeheader(); writer.writerows(rows)
-        write_atomic(REPORT_DIRECTORY / "sample_chunk_validation.csv", buffer.getvalue().encode("utf-8-sig"))
-    print(f"Configurations validated: {len(rows)}")
+        write_atomic(report_path, buffer.getvalue().encode("utf-8-sig"))
+    print(f"Mode: {args.mode}; videos: {len(silver_records)}; configurations validated: {len(rows)}")
 
 
 if __name__ == "__main__":

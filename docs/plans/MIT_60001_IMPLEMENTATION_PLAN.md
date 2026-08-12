@@ -167,7 +167,7 @@ Cross-process byte comparison: passed
 
 ## Phase 5 — Chunking experiment
 
-Trạng thái: đang triển khai từ ngày 2026-07-27.
+Trạng thái: hoàn thành ngày 2026-08-12.
 
 Không chọn kích thước chunk chỉ theo cảm tính. Cần thử ít nhất ba cấu hình trên cùng
 một tập câu hỏi và so sánh retrieval.
@@ -200,18 +200,40 @@ schemas/chunking_evaluation_question_v1.schema.json
 scripts/chunking/build_chunk_samples.py
 reports/08_chunking/sample_chunk_validation.csv
 reports/08_chunking/sample_chunk_cross_process_validation.csv
+reports/08_chunking/full_chunk_validation.csv
+reports/08_chunking/full_chunk_cross_process_validation.csv
+reports/08_chunking/chunking_retrieval_results.csv
+reports/08_chunking/chunking_comparison.csv
+reports/08_chunking/retrieval_run_manifest.json
+reports/08_chunking/retrieval_cross_process_validation.csv
+evaluation/review/chunking/mit_60001_chunking_citation_review_2026-08-11_reaudited.xlsx
+evaluation/review/chunking/mit_60001_chunking_configuration_decision_2026-08-12.csv
+scripts/chunking/promote_selected_config.py
+scripts/chunking/verify_canonical_gold_cross_process.py
+reports/08_chunking/canonical_gold_manifest.json
+reports/08_chunking/canonical_gold_validation.csv
+reports/08_chunking/canonical_gold_cross_process_validation.csv
 ```
 
-Sample năm video đã pass schema, source coverage, timing/lineage validation và
-cross-process determinism cho cả ba configuration. Batch 01 hiện có 13 record
-canonical `approved` (11 answerable, hai out-of-scope), nhưng chưa đạt tập 40–60 câu
-để so sánh retrieval; vì vậy chưa chọn configuration và chưa chạy full Gold build.
+Sample năm video và full corpus 38 video đã pass schema, source coverage,
+timing/lineage validation và cross-process determinism cho cả ba configuration.
+Dense retrieval dùng cùng 35 câu `approved`, `answerable=true`; năm câu
+out-of-scope không tham gia Recall/MRR.
 
-### Output sau khi evaluation được duyệt
+Human citation review và re-audit đã hoàn tất cho 35 câu. User approve
+`semantic_cosine_wp240_v1` ngày 2026-08-12. Decision artifact khóa retrieval run,
+review workbook hash, human counts và automatic metrics.
+
+Canonical `data/gold/mit_60001/chunks.jsonl` đã được promote byte-identical từ
+selected candidate: 861 chunks, 38 video, đủ 12.518 Silver segments. Schema,
+lineage, text/timing/hash, chunk ID/index, coverage và cross-process determinism đều
+pass. Canonical JSONL là generated data bị gitignore; manifest và validation reports
+được commit.
+
+### Canonical generated output
 
 ```text
 data/gold/mit_60001/chunks.jsonl
-reports/08_chunking/chunking_comparison.csv
 ```
 
 ## Phase 6 — Embedding và vector index
