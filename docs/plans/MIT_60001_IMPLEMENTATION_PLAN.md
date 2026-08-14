@@ -279,11 +279,47 @@ Ba retrieval artifact byte-identical qua hai Python processes.
 
 ## Phase 7 — Retrieval, reranking và Search API
 
+Trạng thái: lexical/Hybrid comparison và retrieval configuration decision hoàn thành
+ngày 2026-08-14; Cross-Encoder và API chưa triển khai.
+
+### Retrieval experiment đã hoàn thành
+
+- Exact BM25 index gồm 861 documents, 3.334 vocabulary terms và 57.804 posting entries.
+- Đã so sánh `dense_baseline_v1`, `bm25_v1` và `hybrid_rrf_k60_d100_v1` trên cùng
+  35 answerable questions và 57 Ground Truth ranges.
+- Dense branch khớp locked production baseline ở toàn bộ metrics, Top 10 IDs 35/35
+  và Top 10 scores 35/35.
+- Lexical index và retrieval reports đều byte-identical qua hai Python processes.
+- User chọn `dense_baseline_v1` ngày 2026-08-14. BM25 và equal-weight RRF là
+  evaluated non-selected baselines.
+
+### Output hiện có
+
+```text
+scripts/retrieval/build_mit_60001_lexical_index.py
+scripts/retrieval/evaluate_hybrid_retrieval.py
+scripts/retrieval/verify_lexical_index_cross_process.py
+scripts/retrieval/verify_hybrid_retrieval_cross_process.py
+schemas/lexical_index_manifest_v1.schema.json
+reports/10_retrieval/lexical_index_manifest.json
+reports/10_retrieval/lexical_index_validation.csv
+reports/10_retrieval/lexical_index_cross_process_validation.csv
+reports/10_retrieval/hybrid_retrieval_results.csv
+reports/10_retrieval/hybrid_retrieval_comparison.csv
+reports/10_retrieval/hybrid_retrieval_question_comparison.csv
+reports/10_retrieval/hybrid_retrieval_manifest.json
+reports/10_retrieval/hybrid_retrieval_cross_process_validation.csv
+reports/10_retrieval/retrieval_configuration_decision_2026-08-14.csv
+```
+
+Raw comparison giữ `pending_human_decision`; decision CSV riêng là nguồn selection
+sau human review và khóa hash của comparison, question package, cross-process report.
+
 ### Việc cần làm trước API
 
-- Xây lexical retrieval và Hybrid Search trên cùng canonical Gold index.
-- Đánh giá Hybrid Search bằng cùng 35 answerable questions và Ground Truth hiện có.
-- Chỉ thêm Cross-Encoder khi có comparison artifact với dense/Hybrid baseline.
+- Thiết kế và đánh giá Cross-Encoder trên candidates từ selected Dense baseline.
+- Khóa reranker model revision, candidate depth, Top 3 rule và ranking tie-break.
+- Chỉ chọn Cross-Encoder khi có comparison artifact với selected Dense baseline.
 - Khóa Top 3 evidence và chính sách accept/reject trước grounded answer generation.
 
 API tối thiểu:
@@ -370,14 +406,15 @@ Không dùng một LLM khác làm nguồn đánh giá duy nhất.
 6. Cleaning (hoàn thành)
 7. Chunking experiment (hoàn thành)
 8. Embedding/index (hoàn thành)
-9. Hybrid Search và Cross-Encoder evaluation (bước kế tiếp)
-10. Retrieval/Search API
-11. Grounded answer evaluation
+9. Lexical/Hybrid comparison và retrieval selection (hoàn thành)
+10. Cross-Encoder evaluation (bước kế tiếp)
+11. Retrieval/Search API
+12. Grounded answer evaluation
 ```
 
 ## Việc chưa làm
 
 - Chưa thay đổi PostgreSQL schema để lưu vector; MVP đang dùng exact local index.
-- Chưa xây lexical retrieval, Hybrid Search hoặc Cross-Encoder reranking.
+- Chưa xây Cross-Encoder reranking.
 - Chưa xây LLM accept/reject runtime, grounded answer generation hoặc Search API.
 - Chưa đánh giá answer groundedness và abstention accuracy end-to-end.

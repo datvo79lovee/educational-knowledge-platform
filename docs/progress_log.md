@@ -4775,3 +4775,83 @@ byte-identical qua hai Python processes.
 
 Xây Hybrid Search trên cùng canonical Gold corpus và đánh giá bằng cùng 35 answerable
 questions trước khi thêm Cross-Encoder hoặc Search API.
+
+---
+
+# Ngày 24 - Lexical/Hybrid Retrieval Comparison và Dense Selection
+
+## Đã hoàn thành
+
+### 1. Lexical design và exact BM25 index
+
+Canonical Gold, dense embeddings và evaluation dataset được khóa lại bằng SHA-256
+trước khi build. Tokenizer v1 giữ Python identifiers, dotted identifiers, số và
+operators; không stemming hoặc stopword removal.
+
+Exact BM25 index dùng `k1=1.2`, `b=0.75`, score float64 và cùng thứ tự 861 chunk IDs
+với dense index. Kết quả:
+
+```text
+Lexical run ID       : mit60001_lexical_c8b5a0f1c77162b5
+Documents            : 861
+Unique chunk IDs     : 861
+Videos               : 38
+Vocabulary           : 3.334
+Total tokens         : 102.223
+Posting entries      : 57.804
+Invalid positions    : 0
+Invalid term freq    : 0
+Duplicate postings   : 0
+Lexical SHA-256      : 4fd1595a30ee85133bc6395d52278d2f5f2d9398c0c420d2c35031edb8e221f7
+Validation status    : passed
+```
+
+Lexical index, manifest và validation report byte-identical qua hai Python processes.
+
+### 2. Dense/BM25/RRF comparison
+
+Ba method được đánh giá trên cùng 35 answerable questions và 57 Ground Truth ranges:
+
+| Method | MRR | Recall@1 | Recall@3 | Recall@5 | Recall@10 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `dense_baseline_v1` | 0,573585434 | 0,371428571 | 0,742857143 | 0,857142857 | 0,914285714 |
+| `bm25_v1` | 0,443842416 | 0,257142857 | 0,600000000 | 0,628571429 | 0,714285714 |
+| `hybrid_rrf_k60_d100_v1` | 0,517862148 | 0,342857143 | 0,571428571 | 0,828571429 | 0,914285714 |
+
+Equal-weight RRF cải thiện first relevant rank ở 12 câu, giữ nguyên 12 và làm xấu 11.
+Full-evidence coverage rank cải thiện chín câu, giữ nguyên bảy và làm xấu 19. Dense
+đúng nhưng Hybrid mất Recall@10 ở hai câu; Hybrid thêm hai câu khác nên aggregate
+Recall@10 bằng nhau.
+
+Dense branch khớp locked baseline ở toàn bộ metrics, Top 10 IDs 35/35 và Top 10
+scores 35/35. Results, comparison, question comparison và manifest byte-identical
+qua hai Python processes.
+
+### 3. Retrieval configuration decision
+
+User chọn `dense_baseline_v1` ngày 2026-08-14. `bm25_v1` và
+`hybrid_rrf_k60_d100_v1` không được chọn vì thấp hơn Dense ở các metrics chính.
+Decision artifact lưu tại
+`reports/10_retrieval/retrieval_configuration_decision_2026-08-14.csv` và khóa hash
+của comparison, question comparison và cross-process report.
+
+Raw deterministic comparison không bị sửa; field `pending_human_decision` được giữ
+nguyên và decision CSV riêng là nguồn trạng thái sau human review.
+
+### 4. Tài liệu trạng thái
+
+Đã cập nhật current status, implementation plan, schema README và
+`reports/10_retrieval/README.md`.
+
+## Ranh giới chưa làm
+
+* Chưa thiết kế hoặc đánh giá Cross-Encoder reranking.
+* Chưa khóa candidate depth và Top 3 evidence sau reranking.
+* Chưa xây LLM accept/reject runtime, grounded answer generation hoặc Search API.
+* Chưa đánh giá answer groundedness hoặc abstention accuracy end-to-end.
+* Không đưa 286 transcript ngoài target vào retrieval corpus.
+
+## Bước tiếp theo
+
+Thiết kế Cross-Encoder experiment dùng candidates từ selected Dense baseline, sau đó
+so sánh Top 3 reranked evidence với Dense Top 3 trên cùng 35 answerable questions.

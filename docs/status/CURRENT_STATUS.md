@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-08-12
+2026-08-14
 
 ## Corpus mục tiêu
 
@@ -138,6 +138,15 @@ Validation status: `passed`.
   `reports/09_embedding/production_index_retrieval_comparison.csv`
 - Production-index retrieval cross-process validation:
   `reports/09_embedding/production_index_retrieval_cross_process_validation.csv`
+- Lexical index manifest và validation:
+  `reports/10_retrieval/lexical_index_manifest.json`
+  và `reports/10_retrieval/lexical_index_validation.csv`
+- Dense/BM25/RRF comparison:
+  `reports/10_retrieval/hybrid_retrieval_comparison.csv`
+- Retrieval comparison theo từng câu:
+  `reports/10_retrieval/hybrid_retrieval_question_comparison.csv`
+- Retrieval configuration decision:
+  `reports/10_retrieval/retrieval_configuration_decision_2026-08-14.csv`
 - Canonical MIT 6.0001 evaluation dataset:
   `evaluation/mit_60001/evaluation_questions.jsonl`
 - Current Batch 01 source candidates:
@@ -278,11 +287,25 @@ Top 10 chunk IDs 35/35 và Top 10 scores 35/35:
 
 Retrieval detail, comparison và run manifest byte-identical qua hai Python processes.
 
-1. Thiết kế và đánh giá Hybrid Search trên cùng 35 answerable questions.
-2. Sau khi Hybrid Search pass, đánh giá Cross-Encoder reranking trước khi tích hợp API.
-3. Chỉ sau retrieval/reranking validation mới xây Search API và grounded answer runtime.
+Exact BM25 index và equal-weight RRF experiment đã hoàn thành. Lexical index có 861
+documents, 3.334 vocabulary terms, 57.804 posting entries và validation errors bằng 0.
+Lexical index cùng bốn Hybrid retrieval reports byte-identical qua hai Python processes.
+
+| Method | MRR | Recall@1 | Recall@3 | Recall@5 | Recall@10 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `dense_baseline_v1` | 0,573585434 | 0,371428571 | 0,742857143 | 0,857142857 | 0,914285714 |
+| `bm25_v1` | 0,443842416 | 0,257142857 | 0,600000000 | 0,628571429 | 0,714285714 |
+| `hybrid_rrf_k60_d100_v1` | 0,517862148 | 0,342857143 | 0,571428571 | 0,828571429 | 0,914285714 |
+
+User chọn `dense_baseline_v1` ngày 2026-08-14. `bm25_v1` và
+`hybrid_rrf_k60_d100_v1` không được chọn. Raw deterministic comparison không bị sửa;
+decision CSV riêng khóa human selection và các input artifact hashes.
+
+1. Thiết kế Cross-Encoder experiment dùng Dense retrieval candidates làm input.
+2. So sánh Dense Top 3 với Cross-Encoder Top 3 trên cùng 35 answerable questions.
+3. Chỉ sau reranking validation mới xây Search API và grounded answer runtime.
 4. q-011, q-024, q-028 và q-036 chỉ được mở lại khi có evidence hoặc quyết định
    human review mới; không chặn retrieval work hiện tại.
 
-Canonical Gold full và embedding/index đã hoàn thành; chưa xây Hybrid Search,
-Cross-Encoder, LLM runtime hoặc Search API.
+Canonical Gold, embedding/index và retrieval configuration decision đã hoàn thành;
+chưa xây Cross-Encoder, LLM runtime hoặc Search API.
