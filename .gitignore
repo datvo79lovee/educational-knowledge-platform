@@ -15,4 +15,5 @@ data/bronze/
 data/silver/
 data/gold/
 data/indexes/
+data/models/
 test_*.py

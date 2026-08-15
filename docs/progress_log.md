@@ -4855,3 +4855,67 @@ nguyên và decision CSV riêng là nguồn trạng thái sau human review.
 
 Thiết kế Cross-Encoder experiment dùng candidates từ selected Dense baseline, sau đó
 so sánh Top 3 reranked evidence với Dense Top 3 trên cùng 35 answerable questions.
+
+---
+
+# Ngày 25 - Cross-Encoder Evaluation và Dense Runtime Selection
+
+## Đã hoàn thành
+
+### 1. Khóa contract và chạy reranking
+
+Dense Top 50 được chọn vì chứa first relevant và đầy đủ Ground Truth evidence cho
+35/35 canonical answerable questions. Experiment chấm 1.750 question–chunk pairs
+bằng `cross-encoder/ms-marco-MiniLM-L6-v2`, revision
+`c5ee24cb16019beea0893ab7796b1df96625c6b8`, CPU, batch 16, max length 512 và raw
+identity logits. Không có input bị truncate; input dài nhất là 214 tokens.
+
+### 2. Kết quả và cross-process validation
+
+| Method | MRR | Recall@1 | Recall@3 | Recall@5 | Recall@10 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `dense_baseline_v1` | 0,573585434 | 0,371428571 | 0,742857143 | 0,857142857 | 0,914285714 |
+| `cross_encoder_ms_marco_minilm_l6_v2` | 0,532611871 | 0,342857143 | 0,657142857 | 0,771428571 | 0,914285714 |
+
+First relevant rank của Cross-Encoder cải thiện tám câu, bằng nhau 11 và xấu hơn 16.
+Full-evidence coverage rank cải thiện 12 câu, bằng nhau bốn và xấu hơn 19. Dense
+metrics cùng Top 10 IDs/scores khớp locked baseline 35/35. Results, comparison,
+question comparison, validation và manifest byte-identical với Python verification
+process độc lập.
+
+### 3. Human review và quyết định
+
+Workbook review trong project chứa Dense Top 3 và Cross-Encoder Top 3 kèm 210 dòng
+evidence text. Human review hoàn tất 35/35 câu và có notes cho mọi câu:
+
+```text
+Keep Dense          : 15
+Use Cross-Encoder   : 13
+Tie / Needs review  : 7
+```
+
+User chọn `dense_baseline_v1` ngày 2026-08-15. Decision CSV khóa hash workbook
+reviewed, comparison, question comparison, manifest và cross-process report.
+Cross-Encoder được giữ làm evaluated non-selected reranker, không nằm trong MVP
+runtime path. Raw deterministic comparison tiếp tục giữ `pending_human_decision`.
+
+q-023 và q-041 có human notes flag khả năng Ground Truth under-credit evidence hợp
+lệ. Không sửa Ground Truth trong milestone này; nếu audit phải tạo review artifact
+riêng.
+
+### 4. Tài liệu trạng thái
+
+Đã cập nhật current status, implementation plan, schema README và
+`reports/11_reranking/README.md`.
+
+## Ranh giới chưa làm
+
+* Chưa xây Retrieval/Search API.
+* Chưa xây LLM accept/reject runtime hoặc grounded answer generation.
+* Chưa đánh giá answer groundedness hoặc abstention accuracy end-to-end.
+* Chưa audit lại Ground Truth của q-023 và q-041.
+* Không đưa 286 transcript ngoài target vào runtime corpus.
+
+## Bước tiếp theo
+
+Xây Retrieval/Search API dùng selected Dense baseline và trả Dense Top 3 evidence.

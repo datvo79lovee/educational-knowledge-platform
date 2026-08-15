@@ -279,8 +279,8 @@ Ba retrieval artifact byte-identical qua hai Python processes.
 
 ## Phase 7 — Retrieval, reranking và Search API
 
-Trạng thái: lexical/Hybrid comparison và retrieval configuration decision hoàn thành
-ngày 2026-08-14; Cross-Encoder và API chưa triển khai.
+Trạng thái: lexical/Hybrid comparison, Cross-Encoder evaluation và human configuration
+decision hoàn thành ngày 2026-08-15; Search API chưa triển khai.
 
 ### Retrieval experiment đã hoàn thành
 
@@ -315,12 +315,40 @@ reports/10_retrieval/retrieval_configuration_decision_2026-08-14.csv
 Raw comparison giữ `pending_human_decision`; decision CSV riêng là nguồn selection
 sau human review và khóa hash của comparison, question package, cross-process report.
 
+### Cross-Encoder experiment đã hoàn thành
+
+- Dense Top 50 chứa first relevant và đầy đủ Ground Truth evidence cho 35/35 câu.
+- Đã rerank 1.750 question–chunk pairs bằng
+  `cross-encoder/ms-marco-MiniLM-L6-v2`, revision
+  `c5ee24cb16019beea0893ab7796b1df96625c6b8`.
+- Cross-Encoder có MRR 0,532611871, thấp hơn Dense 0,573585434; Recall@1/3/5 cũng
+  thấp hơn, Recall@10 bằng 0,914285714.
+- Năm report artifact byte-identical với verification process độc lập.
+- Human review 35/35 câu: Dense 15, Cross-Encoder 13, Tie 7.
+- User giữ `dense_baseline_v1` ngày 2026-08-15. Cross-Encoder là evaluated
+  non-selected reranker và không nằm trong MVP runtime path.
+
+Output bổ sung:
+
+```text
+scripts/retrieval/evaluate_cross_encoder_reranking.py
+scripts/retrieval/verify_cross_encoder_reranking_cross_process.py
+schemas/cross_encoder_reranking_manifest_v1.schema.json
+reports/11_reranking/cross_encoder_reranking_results.csv
+reports/11_reranking/cross_encoder_reranking_comparison.csv
+reports/11_reranking/cross_encoder_reranking_question_comparison.csv
+reports/11_reranking/cross_encoder_reranking_validation.csv
+reports/11_reranking/cross_encoder_reranking_manifest.json
+reports/11_reranking/cross_encoder_reranking_cross_process_validation.csv
+reports/11_reranking/reranking_configuration_decision_2026-08-15.csv
+evaluation/review/reranking/cross_encoder_reranking_review_2026-08-15_reviewed.xlsx
+```
+
 ### Việc cần làm trước API
 
-- Thiết kế và đánh giá Cross-Encoder trên candidates từ selected Dense baseline.
-- Khóa reranker model revision, candidate depth, Top 3 rule và ranking tie-break.
-- Chỉ chọn Cross-Encoder khi có comparison artifact với selected Dense baseline.
-- Khóa Top 3 evidence và chính sách accept/reject trước grounded answer generation.
+- Xây API bằng selected Dense baseline; output retrieval cho MVP là Dense Top 3.
+- Khóa request/response schema, ranking tie-break và validation cho API.
+- Khóa chính sách accept/reject trước grounded answer generation.
 
 API tối thiểu:
 
@@ -407,14 +435,14 @@ Không dùng một LLM khác làm nguồn đánh giá duy nhất.
 7. Chunking experiment (hoàn thành)
 8. Embedding/index (hoàn thành)
 9. Lexical/Hybrid comparison và retrieval selection (hoàn thành)
-10. Cross-Encoder evaluation (bước kế tiếp)
-11. Retrieval/Search API
+10. Cross-Encoder evaluation (hoàn thành; không được chọn)
+11. Retrieval/Search API (bước kế tiếp)
 12. Grounded answer evaluation
 ```
 
 ## Việc chưa làm
 
 - Chưa thay đổi PostgreSQL schema để lưu vector; MVP đang dùng exact local index.
-- Chưa xây Cross-Encoder reranking.
+- Cross-Encoder đã đánh giá nhưng không được tích hợp vào MVP runtime path.
 - Chưa xây LLM accept/reject runtime, grounded answer generation hoặc Search API.
 - Chưa đánh giá answer groundedness và abstention accuracy end-to-end.

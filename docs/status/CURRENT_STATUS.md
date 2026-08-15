@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-08-14
+2026-08-15
 
 ## Corpus mục tiêu
 
@@ -147,6 +147,15 @@ Validation status: `passed`.
   `reports/10_retrieval/hybrid_retrieval_question_comparison.csv`
 - Retrieval configuration decision:
   `reports/10_retrieval/retrieval_configuration_decision_2026-08-14.csv`
+- Cross-Encoder reranking manifest và comparison:
+  `reports/11_reranking/cross_encoder_reranking_manifest.json`
+  và `reports/11_reranking/cross_encoder_reranking_comparison.csv`
+- Cross-Encoder cross-process validation:
+  `reports/11_reranking/cross_encoder_reranking_cross_process_validation.csv`
+- Cross-Encoder human review workbook:
+  `evaluation/review/reranking/cross_encoder_reranking_review_2026-08-15_reviewed.xlsx`
+- Reranking configuration decision:
+  `reports/11_reranking/reranking_configuration_decision_2026-08-15.csv`
 - Canonical MIT 6.0001 evaluation dataset:
   `evaluation/mit_60001/evaluation_questions.jsonl`
 - Current Batch 01 source candidates:
@@ -301,11 +310,30 @@ User chọn `dense_baseline_v1` ngày 2026-08-14. `bm25_v1` và
 `hybrid_rrf_k60_d100_v1` không được chọn. Raw deterministic comparison không bị sửa;
 decision CSV riêng khóa human selection và các input artifact hashes.
 
-1. Thiết kế Cross-Encoder experiment dùng Dense retrieval candidates làm input.
-2. So sánh Dense Top 3 với Cross-Encoder Top 3 trên cùng 35 answerable questions.
-3. Chỉ sau reranking validation mới xây Search API và grounded answer runtime.
+Cross-Encoder experiment đã rerank Dense Top 50 bằng
+`cross-encoder/ms-marco-MiniLM-L6-v2`, revision
+`c5ee24cb16019beea0893ab7796b1df96625c6b8`, rồi so sánh trên cùng 35 answerable
+questions và 57 Ground Truth ranges:
+
+| Method | MRR | Recall@1 | Recall@3 | Recall@5 | Recall@10 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `dense_baseline_v1` | 0,573585434 | 0,371428571 | 0,742857143 | 0,857142857 | 0,914285714 |
+| `cross_encoder_ms_marco_minilm_l6_v2` | 0,532611871 | 0,342857143 | 0,657142857 | 0,771428571 | 0,914285714 |
+
+Năm report artifact byte-identical với verification process độc lập. Human review có
+35/35 quyết định và notes: 15 `Keep Dense`, 13 `Use Cross-Encoder`, bảy
+`Tie / Needs review`. User chọn `dense_baseline_v1` ngày 2026-08-15; Cross-Encoder
+là evaluated non-selected reranker và không nằm trong MVP runtime path.
+
+Hai review notes ở q-023 và q-041 flag khả năng Ground Truth under-credit evidence
+hợp lệ. Không sửa Ground Truth từ reranking experiment; nếu audit phải tạo review
+artifact riêng.
+
+1. Xây Retrieval/Search API dùng selected Dense baseline và trả Dense Top 3 evidence.
+2. Khóa API request/response contract, validation và failure behavior.
+3. Sau Search API mới xây LLM accept/reject và grounded answer runtime.
 4. q-011, q-024, q-028 và q-036 chỉ được mở lại khi có evidence hoặc quyết định
    human review mới; không chặn retrieval work hiện tại.
 
-Canonical Gold, embedding/index và retrieval configuration decision đã hoàn thành;
-chưa xây Cross-Encoder, LLM runtime hoặc Search API.
+Canonical Gold, embedding/index, retrieval selection và Cross-Encoder evaluation đã
+hoàn thành; chưa xây LLM runtime hoặc Search API.
