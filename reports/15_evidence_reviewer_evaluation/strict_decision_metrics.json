@@ -1,0 +1,23 @@
+{
+  "accept_precision": 0.65,
+  "accept_recall": 0.8125,
+  "accepted_question_count": 27,
+  "accuracy": 0.6428571428571429,
+  "confusion_matrix": {
+    "fn": 3,
+    "fp": 7,
+    "tn": 5,
+    "tp": 13
+  },
+  "evidence_entailment_status": "human_review_pending",
+  "false_accept_rate": 0.5833333333333334,
+  "false_reject_rate": 0.1875,
+  "metric_scope_note": "Decision metrics use only 28 strict calibration rows. GT time overlap is an audit signal, not proof of answer entailment.",
+  "needs_human_review_count": 12,
+  "schema_version": "evidence_reviewer_strict_metrics_v1",
+  "selected_chunk_gt_overlap_count": 19,
+  "selected_supporting_chunk_count": 35,
+  "strict_question_count": 28,
+  "strong_accept_count": 16,
+  "strong_reject_count": 12
+}

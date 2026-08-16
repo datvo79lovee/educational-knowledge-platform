@@ -1,0 +1,41 @@
+{
+  "accept_precision": 0.6538461538461539,
+  "accept_recall": 0.8095238095238095,
+  "accuracy": 0.6486486486486487,
+  "classification_counts": {
+    "A_success": 17,
+    "B_reviewer_false_reject": 4,
+    "C_correct_abstention": 2,
+    "D_potential_false_accept": 9,
+    "benchmark_gt_issue": 2,
+    "needs_discussion": 1,
+    "out_of_scope_correct_reject": 5
+  },
+  "confusion_matrix": {
+    "fn": 4,
+    "fp": 9,
+    "tn": 7,
+    "tp": 17
+  },
+  "evaluated_question_count": 37,
+  "evidence_selection_precision": 0.7714285714285715,
+  "excluded_question_count": 3,
+  "excluded_question_ids": [
+    "mit60001-q-017",
+    "mit60001-q-023",
+    "mit60001-q-041"
+  ],
+  "false_accept_rate": 0.5625,
+  "false_reject_rate": 0.19047619047619047,
+  "ground_truth_issue_question_ids": [
+    "mit60001-q-023",
+    "mit60001-q-041"
+  ],
+  "human_review_status": "complete",
+  "metric_scope_note": "Decision metrics use 28 strict rows plus 9 human-adjudicated rows. q-017, q-023 and q-041 are excluded rather than forced into labels.",
+  "non_supporting_chunk_count": 8,
+  "schema_version": "evidence_reviewer_final_metrics_v1",
+  "selected_supporting_chunk_count": 35,
+  "supporting_chunk_count": 27,
+  "total_question_count": 40
+}

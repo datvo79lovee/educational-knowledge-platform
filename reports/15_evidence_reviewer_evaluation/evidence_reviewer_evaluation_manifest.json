@@ -1,0 +1,84 @@
+{
+  "$schema": "../../schemas/evidence_reviewer_evaluation_final_manifest_v1.schema.json",
+  "final_metrics": {
+    "accept_precision": 0.6538461538461539,
+    "accept_recall": 0.8095238095238095,
+    "accuracy": 0.6486486486486487,
+    "classification_counts": {
+      "A_success": 17,
+      "B_reviewer_false_reject": 4,
+      "C_correct_abstention": 2,
+      "D_potential_false_accept": 9,
+      "benchmark_gt_issue": 2,
+      "needs_discussion": 1,
+      "out_of_scope_correct_reject": 5
+    },
+    "confusion_matrix": {
+      "fn": 4,
+      "fp": 9,
+      "tn": 7,
+      "tp": 17
+    },
+    "evaluated_question_count": 37,
+    "evidence_selection_precision": 0.7714285714285715,
+    "excluded_question_count": 3,
+    "excluded_question_ids": [
+      "mit60001-q-017",
+      "mit60001-q-023",
+      "mit60001-q-041"
+    ],
+    "false_accept_rate": 0.5625,
+    "false_reject_rate": 0.19047619047619047,
+    "ground_truth_issue_question_ids": [
+      "mit60001-q-023",
+      "mit60001-q-041"
+    ],
+    "human_review_status": "complete",
+    "metric_scope_note": "Decision metrics use 28 strict rows plus 9 human-adjudicated rows. q-017, q-023 and q-041 are excluded rather than forced into labels.",
+    "non_supporting_chunk_count": 8,
+    "schema_version": "evidence_reviewer_final_metrics_v1",
+    "selected_supporting_chunk_count": 35,
+    "supporting_chunk_count": 27,
+    "total_question_count": 40
+  },
+  "final_run_id": "mit60001_evidence_reviewer_final_00967c83549487ee",
+  "ground_truth_modified": false,
+  "input_sha256": {
+    "calibration": "9e47bebf57626d437a0757ce9f976c5c0e446c8600fe8465f81b755f94e7be1b",
+    "canonicalizer": "aafb30026dbbcee7ff658587e8fe8744a8978cb824b5f65f9f0010875e885e2d",
+    "final_manifest_schema": "1f82675530c727ba79bda5fec58fce0929d83861bea18230fde984bad51b88de",
+    "pending_evidence_package": "a3ba2de5830cb02cee69d941962fbd39f4979a204c0130c16657ad12c3717cf2",
+    "pending_human_package": "797fd6c79b95ab2ae5d42c74203ac0f070c03cc6c19848c1f351ee2e0c22a5e1",
+    "review_export": "76268ba6c26777a9d980d4e41d8f7e966269c1128537a3c81f30a5ed6098764b",
+    "reviewed_workbook": "7af3fee0fad33b9978eb969790d9c545415d691fba5794b19c1348d6c5df745f",
+    "runtime_manifest": "ce320dfb6c0b910c445ef55bd9353bb78c13d2693f6078c92eae72e3edf5b9f6",
+    "strict_results": "7d2bd7ab78fc5f912c74316c41667168c21b522f6e2478299f6ff29bca1f6492"
+  },
+  "locked_runtime_run_id": "mit60001_evidence_reviewer_0ee5e6a1362fc5c4",
+  "m3_status": "complete_with_exclusions",
+  "output_artifacts": [
+    {
+      "file": "evaluation/review/evidence_accept_reject/m3_human_review_12_canonical.csv",
+      "sha256": "31b9af500387c22957d52269e76c86ba56a1765b6239b1a8e23a6fdf1bccd79d"
+    },
+    {
+      "file": "evaluation/review/evidence_accept_reject/m3_evidence_entailment_canonical.csv",
+      "sha256": "f8eefed029c89378b5b44685df728edad2dae199193ed1e12c2cc14057c7e934"
+    },
+    {
+      "file": "reports/15_evidence_reviewer_evaluation/final_decision_results.csv",
+      "sha256": "9e0b5211ea0c1a760dc0cb1882b6d3eb30c1ec5d78879e07640c9e2ab6f922b6"
+    },
+    {
+      "file": "reports/15_evidence_reviewer_evaluation/final_metrics.json",
+      "sha256": "6cb68f1906234dcd93e02c880b11f5c9e046bb5ebe959b51ef669bdf6b55c7ff"
+    }
+  ],
+  "prompt_or_model_modified": false,
+  "reviewed_workbook": {
+    "file": "evaluation/review/evidence_accept_reject/outputs/phase8_m3/phase8_m3_evidence_reviewer_human_review_reviewed.xlsx",
+    "sha256": "7af3fee0fad33b9978eb969790d9c545415d691fba5794b19c1348d6c5df745f"
+  },
+  "schema_version": "evidence_reviewer_evaluation_final_manifest_v1",
+  "validation_status": "passed"
+}

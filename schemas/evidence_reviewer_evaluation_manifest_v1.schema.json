@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/evidence_reviewer_evaluation_manifest_v1.schema.json",
+  "title": "Evidence Reviewer Evaluation Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "evaluation_run_id", "locked_runtime_run_id", "reproducibility_identity", "strict_metrics", "human_review", "input_sha256", "output_artifacts", "validation_status", "m3_status"],
+  "properties": {
+    "$schema": {"const": "../../schemas/evidence_reviewer_evaluation_manifest_v1.schema.json"},
+    "schema_version": {"const": "evidence_reviewer_evaluation_manifest_v1"},
+    "evaluation_run_id": {"type": "string", "pattern": "^mit60001_evidence_reviewer_eval_[a-f0-9]{16}$"},
+    "locked_runtime_run_id": {"const": "mit60001_evidence_reviewer_0ee5e6a1362fc5c4"},
+    "reproducibility_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "ollama_version", "model", "model_digest", "quantization_level", "temperature", "seed", "num_predict", "context_length", "structured_output_schema_version", "prompt_version", "system_prompt_sha256"],
+      "properties": {
+        "provider": {"const": "ollama"},
+        "ollama_version": {"type": "string", "minLength": 1},
+        "model": {"const": "llama3.2:3b"},
+        "model_digest": {"const": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72"},
+        "quantization_level": {"const": "Q4_K_M"},
+        "temperature": {"const": 0},
+        "seed": {"const": 42},
+        "num_predict": {"const": 512},
+        "context_length": {"const": 4096},
+        "structured_output_schema_version": {"const": "evidence_review_response_v1"},
+        "prompt_version": {"const": "evidence_review_prompt_v1"},
+        "system_prompt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "strict_metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "strict_question_count", "strong_accept_count", "strong_reject_count", "needs_human_review_count", "confusion_matrix", "accuracy", "accept_precision", "accept_recall", "false_accept_rate", "false_reject_rate", "accepted_question_count", "selected_supporting_chunk_count", "selected_chunk_gt_overlap_count", "evidence_entailment_status", "metric_scope_note"],
+      "properties": {
+        "schema_version": {"const": "evidence_reviewer_strict_metrics_v1"},
+        "strict_question_count": {"const": 28},
+        "strong_accept_count": {"const": 16},
+        "strong_reject_count": {"const": 12},
+        "needs_human_review_count": {"const": 12},
+        "confusion_matrix": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tp", "fp", "fn", "tn"],
+          "properties": {
+            "tp": {"type": "integer", "minimum": 0},
+            "fp": {"type": "integer", "minimum": 0},
+            "fn": {"type": "integer", "minimum": 0},
+            "tn": {"type": "integer", "minimum": 0}
+          }
+        },
+        "accuracy": {"type": "number", "minimum": 0, "maximum": 1},
+        "accept_precision": {"type": "number", "minimum": 0, "maximum": 1},
+        "accept_recall": {"type": "number", "minimum": 0, "maximum": 1},
+        "false_accept_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "false_reject_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "accepted_question_count": {"type": "integer", "minimum": 0, "maximum": 40},
+        "selected_supporting_chunk_count": {"type": "integer", "minimum": 0},
+        "selected_chunk_gt_overlap_count": {"type": "integer", "minimum": 0},
+        "evidence_entailment_status": {"const": "human_review_pending"},
+        "metric_scope_note": {"type": "string", "minLength": 1}
+      }
+    },
+    "human_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question_count", "accepted_question_count", "selected_supporting_chunk_count", "audit_flagged_question_ids", "status"],
+      "properties": {
+        "question_count": {"const": 12},
+        "accepted_question_count": {"type": "integer", "minimum": 0, "maximum": 40},
+        "selected_supporting_chunk_count": {"type": "integer", "minimum": 0},
+        "audit_flagged_question_ids": {"const": ["mit60001-q-023", "mit60001-q-041"]},
+        "status": {"const": "pending"}
+      }
+    },
+    "input_sha256": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "output_artifacts": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "sha256"],
+        "properties": {
+          "file": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "validation_status": {"const": "passed"},
+    "m3_status": {"const": "human_review_pending"}
+  }
+}

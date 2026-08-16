@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/evidence_reviewer_evaluation_final_manifest_v1.schema.json",
+  "title": "Evidence Reviewer Evaluation Final Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "final_run_id", "locked_runtime_run_id", "reviewed_workbook", "final_metrics", "input_sha256", "output_artifacts", "ground_truth_modified", "prompt_or_model_modified", "validation_status", "m3_status"],
+  "properties": {
+    "$schema": {"const": "../../schemas/evidence_reviewer_evaluation_final_manifest_v1.schema.json"},
+    "schema_version": {"const": "evidence_reviewer_evaluation_final_manifest_v1"},
+    "final_run_id": {"type": "string", "pattern": "^mit60001_evidence_reviewer_final_[a-f0-9]{16}$"},
+    "locked_runtime_run_id": {"const": "mit60001_evidence_reviewer_0ee5e6a1362fc5c4"},
+    "reviewed_workbook": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256"],
+      "properties": {
+        "file": {"const": "evaluation/review/evidence_accept_reject/outputs/phase8_m3/phase8_m3_evidence_reviewer_human_review_reviewed.xlsx"},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "final_metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "total_question_count", "evaluated_question_count", "excluded_question_count", "excluded_question_ids", "ground_truth_issue_question_ids", "confusion_matrix", "accuracy", "accept_precision", "accept_recall", "false_accept_rate", "false_reject_rate", "classification_counts", "selected_supporting_chunk_count", "supporting_chunk_count", "non_supporting_chunk_count", "evidence_selection_precision", "human_review_status", "metric_scope_note"],
+      "properties": {
+        "schema_version": {"const": "evidence_reviewer_final_metrics_v1"},
+        "total_question_count": {"const": 40},
+        "evaluated_question_count": {"const": 37},
+        "excluded_question_count": {"const": 3},
+        "excluded_question_ids": {"const": ["mit60001-q-017", "mit60001-q-023", "mit60001-q-041"]},
+        "ground_truth_issue_question_ids": {"const": ["mit60001-q-023", "mit60001-q-041"]},
+        "confusion_matrix": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tp", "fp", "fn", "tn"],
+          "properties": {
+            "tp": {"const": 17}, "fp": {"const": 9}, "fn": {"const": 4}, "tn": {"const": 7}
+          }
+        },
+        "accuracy": {"type": "number", "minimum": 0, "maximum": 1},
+        "accept_precision": {"type": "number", "minimum": 0, "maximum": 1},
+        "accept_recall": {"type": "number", "minimum": 0, "maximum": 1},
+        "false_accept_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "false_reject_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "classification_counts": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "integer", "minimum": 0}},
+        "selected_supporting_chunk_count": {"const": 35},
+        "supporting_chunk_count": {"const": 27},
+        "non_supporting_chunk_count": {"const": 8},
+        "evidence_selection_precision": {"type": "number", "minimum": 0, "maximum": 1},
+        "human_review_status": {"const": "complete"},
+        "metric_scope_note": {"type": "string", "minLength": 1}
+      }
+    },
+    "input_sha256": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "output_artifacts": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "sha256"],
+        "properties": {
+          "file": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "ground_truth_modified": {"const": false},
+    "prompt_or_model_modified": {"const": false},
+    "validation_status": {"const": "passed"},
+    "m3_status": {"const": "complete_with_exclusions"}
+  }
+}
