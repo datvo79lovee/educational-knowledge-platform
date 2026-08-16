@@ -1,0 +1,4 @@
+﻿question_id,decision,supporting_chunk_count,prompt_eval_count,eval_count,json_parse_status,decision_contract_status,top3_subset_status,response_schema_status,runtime_status,error
+mit60001-q-001,reject,0,775,34,passed,passed,passed,passed,passed,
+mit60001-q-003,accept,2,780,94,passed,passed,passed,passed,passed,
+mit60001-q-012,reject,0,807,41,passed,passed,passed,passed,passed,

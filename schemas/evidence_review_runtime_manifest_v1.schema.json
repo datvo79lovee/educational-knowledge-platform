@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/evidence_review_runtime_manifest_v1.schema.json",
+  "title": "Evidence Review Runtime Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "runtime_run_id", "provider", "runtime", "execution_config", "input_sha256", "output_artifacts", "question_count", "accept_count", "reject_count", "failure_count", "validation_status"],
+  "properties": {
+    "$schema": {"const": "../../schemas/evidence_review_runtime_manifest_v1.schema.json"},
+    "schema_version": {"const": "evidence_review_runtime_manifest_v1"},
+    "runtime_run_id": {"type": "string", "pattern": "^mit60001_evidence_reviewer_[a-f0-9]{16}$"},
+    "provider": {"const": "ollama"},
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ollama_version", "model", "digest", "size_bytes", "family", "parameter_size", "quantization_level"],
+      "properties": {
+        "ollama_version": {"type": "string", "minLength": 1},
+        "model": {"const": "llama3.2:3b"},
+        "digest": {"const": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72"},
+        "size_bytes": {"const": 2019393189},
+        "family": {"const": "llama"},
+        "parameter_size": {"const": "3.2B"},
+        "quantization_level": {"const": "Q4_K_M"}
+      }
+    },
+    "execution_config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["api_mode", "endpoint", "temperature", "seed", "num_predict", "structured_output_schema_version", "prompt_version", "contract_version"],
+      "properties": {
+        "api_mode": {"const": "ollama_api_chat"},
+        "endpoint": {"const": "http://127.0.0.1:11434"},
+        "temperature": {"const": 0},
+        "seed": {"const": 42},
+        "num_predict": {"const": 512},
+        "structured_output_schema_version": {"const": "evidence_review_response_v1"},
+        "prompt_version": {"const": "evidence_review_prompt_v1"},
+        "contract_version": {"const": "retrieval_evidence_review_contract_v2"}
+      }
+    },
+    "input_sha256": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "output_artifacts": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "sha256"],
+        "properties": {
+          "file": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "question_count": {"const": 40},
+    "accept_count": {"type": "integer", "minimum": 0, "maximum": 40},
+    "reject_count": {"type": "integer", "minimum": 0, "maximum": 40},
+    "failure_count": {"const": 0},
+    "validation_status": {"const": "passed"}
+  }
+}
