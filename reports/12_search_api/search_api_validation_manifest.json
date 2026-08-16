@@ -1,0 +1,56 @@
+{
+  "$schema": "../../schemas/search_api_validation_manifest_v1.schema.json",
+  "answerable_question_count": 35,
+  "answerable_top_3_id_match_count": 35,
+  "answerable_top_3_score_match_count": 35,
+  "approved_question_count": 40,
+  "citation_validation_pass_count": 120,
+  "citation_validation_row_count": 120,
+  "failure_case_pass_count": 16,
+  "http_failure_case_count": 9,
+  "input_sha256": {
+    "api_application": "41a03831c8a03167730f18145b6a294d986099c2bd23a6800a122c4b95d11b6c",
+    "api_contract": "aee308ea19aad44a40ce8bb693b8e5145af7f9fab7f1585d1399981ffd09c63a",
+    "api_schema": "b9e2d3d47facc2eab363432b95677e51943523de79e80bfc41deb02ffcd79692",
+    "api_service": "746406be27d6929e86161b7ec45aca745389b2ff7a6a607c098a21fff6204412",
+    "evaluation": "81d5a1374118b01d850d7c4808edf89b9432036a4488c49f5150720aa3fc8dee",
+    "index_manifest": "4e8d277f630eff2c1a4b8e7721f449400e13f7e2c9fee4d99183270cc6ca388c",
+    "locked_dense_baseline": "b3421ad828ee5165bd832cb1510b11e048c72ddd18b769e254018b2db5044833",
+    "retrieval_decision": "b716b33f2955ebbb2d79e4ebd15bd998c206578a6d764f779af2f6bdaf07b865"
+  },
+  "maximum_observed_score_delta": 4.138e-07,
+  "out_of_scope_question_count": 5,
+  "output_artifacts": [
+    {
+      "file": "reports/12_search_api/search_api_answerable_validation.csv",
+      "sha256": "3d193558112e4327136d3c256cefac6326ce9eaf61681185c2e900d6ab49739e"
+    },
+    {
+      "file": "reports/12_search_api/search_api_out_of_scope_validation.csv",
+      "sha256": "570f8e2edf86e267f8125f834792865fc9a1b7f68855f6f7a458d746ac0698d5"
+    },
+    {
+      "file": "reports/12_search_api/search_api_video_validation.csv",
+      "sha256": "4d35f79fdfdd6416147cbcd642d58b0e9177f3a213c49e49f5f54ed0c9d77489"
+    },
+    {
+      "file": "reports/12_search_api/search_api_failure_validation.csv",
+      "sha256": "13188476462c00d1bb9856f608e5f669b3a06132bdf6b71e973a87a24e628f91"
+    },
+    {
+      "file": "reports/12_search_api/search_api_citation_validation.csv",
+      "sha256": "c8284169bfaa1edb564d04c5b3318a8e90e059ce0a34d99142ae6bcc6dc272ab"
+    }
+  ],
+  "repeat_count": 2,
+  "repeated_response_match_count": 40,
+  "retrieval_method": "dense_baseline_v1",
+  "schema_version": "search_api_validation_manifest_v1",
+  "scope_version": "mit_60001_fall_2016_v1",
+  "score_absolute_tolerance": 1e-06,
+  "startup_failure_case_count": 7,
+  "top_k": 3,
+  "validation_run_id": "mit60001_search_api_35767a6f304c4dc3",
+  "validation_status": "passed",
+  "video_count": 38
+}

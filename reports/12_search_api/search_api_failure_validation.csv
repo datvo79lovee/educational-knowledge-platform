@@ -1,0 +1,17 @@
+﻿layer,case_id,expected_status_or_exception,actual_status_or_exception,passed
+http,missing_query,422,422,True
+http,empty_query,422,422,True
+http,whitespace_query,422,422,True
+http,null_query,422,422,True
+http,numeric_query,422,422,True
+http,extra_top_k,422,422,True
+http,malformed_json,422,422,True
+http,unknown_video,404,404,True
+http,missing_video_id,404,404,True
+startup,missing_required_artifact,FileNotFoundError,FileNotFoundError,True
+startup,manifest_contract_mismatch,ValueError,ValueError,True
+startup,retrieval_decision_mismatch,ValueError,ValueError,True
+startup,canonical_gold_hash_mismatch,ValueError,ValueError,True
+startup,embedding_shape_mismatch,ValueError,ValueError,True
+startup,embedding_norm_mismatch,ValueError,ValueError,True
+startup,metadata_order_mismatch,ValueError,ValueError,True

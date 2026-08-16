@@ -4,3 +4,6 @@ youtube-transcript-api
 google-api-python-client
 jsonschema
 sentence-transformers
+fastapi==0.141.1
+uvicorn==0.52.3
+pytest==9.1.1

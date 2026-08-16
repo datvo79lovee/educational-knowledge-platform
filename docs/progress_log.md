@@ -4919,3 +4919,118 @@ riêng.
 ## Bước tiếp theo
 
 Xây Retrieval/Search API dùng selected Dense baseline và trả Dense Top 3 evidence.
+
+---
+
+# Ngày 26 - Dense Retrieval/Search API Implementation và Validation
+
+## Đã hoàn thành
+
+### 1. Khóa Search API contract
+
+Đã khóa retrieval-only runtime theo flow:
+
+```text
+Question -> dense_baseline_v1 -> Top 3 evidence + citation/video metadata
+```
+
+API tối thiểu gồm `POST /search` và `GET /videos/{video_id}`. Search response có
+rank, chunk ID/text, score, video ID/title, start/end second, source URL và timestamped
+citation URL. Query rỗng hoặc payload ngoài contract trả HTTP `422`; video ngoài 38
+target videos trả HTTP `404`.
+
+API load model/index một lần khi startup. Runtime kiểm tra canonical Gold, embeddings,
+metadata và selected retrieval decision bằng hash, shape, dtype, vector norm, chunk
+order, model revision và video/citation mapping. Startup dừng nếu artifact không đúng;
+không tự tải model hoặc rebuild index.
+
+### 2. Triển khai Dense Search API
+
+Đã thêm FastAPI application và read-only `DenseSearchService`. Service dùng đúng
+`sentence-transformers/all-MiniLM-L6-v2` revision
+`1110a243fdf4706b3f48f1d95db1a4f5529b4d41`, exact cosine trên 861 L2-normalized
+vectors và tie-break score giảm dần rồi chunk ID tăng dần. Output cố định Top 3.
+
+BM25, RRF và Cross-Encoder không được thêm vào runtime. API không có answer,
+accept/reject, abstention hoặc LLM generation.
+
+### 3. Full API validation
+
+Validator gọi application qua ASGI HTTP với lifespan thật, không gọi trực tiếp
+retrieval method để bỏ qua API layer. Nó chạy toàn bộ 40 approved questions hai lần,
+đối chiếu 35 answerable với locked Dense baseline và kiểm tra 5 out-of-scope.
+
+Kết quả:
+
+| Kiểm tra | Kết quả |
+| --- | ---: |
+| Answerable Top 3 IDs khớp baseline | 35/35 |
+| Answerable Top 3 scores trong tolerance `1e-6` | 35/35 |
+| Maximum observed score delta | 0,0000004138 |
+| Out-of-scope giữ retrieval-only behavior | 5/5 |
+| Repeated response match | 40/40 |
+| Video metadata | 38/38 |
+| Citation URL/timestamp/text | 120/120 |
+| HTTP failure cases | 9/9 |
+| Startup failure cases | 7/7 |
+| Unit tests | 5/5 |
+
+Score delta là sai khác float32 giữa baseline batch encoding và API single-query
+encoding. Nó không làm thay đổi Top 3 IDs hoặc ranking.
+
+Hai Python process độc lập đã chạy lại full validator. Sáu canonical validation
+artifacts byte-identical giữa run A, run B và reports hiện có.
+
+### 4. Phân biệt implementation fidelity và retrieval quality
+
+API Top 3 IDs khớp baseline 35/35 chứng minh API tái tạo đúng retriever đã khóa.
+Nó không chứng minh cả 35 câu đều tìm được evidence đúng trong Top 3.
+
+Dense baseline vẫn có:
+
+```text
+Recall@3 = 0,742857143
+```
+
+Đây mới là retrieval-quality metric dựa trên Ground Truth benchmark.
+
+### 5. Cập nhật trạng thái và tài liệu Phase 7
+
+Đã cập nhật current status, implementation plan, root README, Search API contract,
+schema README và `reports/12_search_api/README.md`. Tài liệu khóa rõ Phase 7 hoàn
+thành ở mức retrieval-only và bước tiếp theo là evidence accept/reject cùng grounded
+answer generation.
+
+## Output
+
+```text
+docs/design/SEARCH_API_CONTRACT.md
+src/search_api/contracts.py
+src/search_api/service.py
+src/search_api/app.py
+schemas/search_api_v1.schema.json
+schemas/search_api_validation_manifest_v1.schema.json
+scripts/api/validate_search_api.py
+scripts/api/verify_search_api_cross_process.py
+tests/search_api/search_api_validation_test.py
+reports/12_search_api/
+README.md
+docs/status/CURRENT_STATUS.md
+docs/plans/MIT_60001_IMPLEMENTATION_PLAN.md
+docs/progress_log.md
+schemas/README.md
+```
+
+## Ranh giới chưa làm
+
+* Chưa xây LLM evidence accept/reject runtime.
+* Chưa answer question hoặc sinh grounded answer.
+* Chưa abstain cho out-of-scope; năm out-of-scope questions hiện trả HTTP `200` và
+  Dense Top 3 theo đúng retrieval-only contract.
+* Chưa đánh giá answer groundedness hoặc abstention accuracy end-to-end.
+* Không thêm BM25, RRF hoặc Cross-Encoder vào runtime path.
+
+## Bước tiếp theo
+
+Khóa policy/schema cho evidence accept/reject trên Dense Top 3, sau đó mới xây
+grounded answer generation và end-to-end evaluation.

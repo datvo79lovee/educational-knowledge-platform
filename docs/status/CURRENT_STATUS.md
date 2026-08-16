@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-08-15
+2026-08-16
 
 ## Corpus mục tiêu
 
@@ -156,6 +156,13 @@ Validation status: `passed`.
   `evaluation/review/reranking/cross_encoder_reranking_review_2026-08-15_reviewed.xlsx`
 - Reranking configuration decision:
   `reports/11_reranking/reranking_configuration_decision_2026-08-15.csv`
+- Search API contract và runtime schema:
+  `docs/design/SEARCH_API_CONTRACT.md`
+  và `schemas/search_api_v1.schema.json`
+- Search API validation manifest:
+  `reports/12_search_api/search_api_validation_manifest.json`
+- Search API cross-process validation:
+  `reports/12_search_api/search_api_cross_process_validation.csv`
 - Canonical MIT 6.0001 evaluation dataset:
   `evaluation/mit_60001/evaluation_questions.jsonl`
 - Current Batch 01 source candidates:
@@ -329,11 +336,42 @@ Hai review notes ở q-023 và q-041 flag khả năng Ground Truth under-credit 
 hợp lệ. Không sửa Ground Truth từ reranking experiment; nếu audit phải tạo review
 artifact riêng.
 
-1. Xây Retrieval/Search API dùng selected Dense baseline và trả Dense Top 3 evidence.
-2. Khóa API request/response contract, validation và failure behavior.
-3. Sau Search API mới xây LLM accept/reject và grounded answer runtime.
-4. q-011, q-024, q-028 và q-036 chỉ được mở lại khi có evidence hoặc quyết định
+Retrieval-only Search API đã hoàn thành và được validation qua ASGI HTTP trên toàn bộ
+40 canonical questions. Runtime hiện tại là:
+
+```text
+Question -> dense_baseline_v1 -> Top 3 evidence + citation/video metadata
+```
+
+Kết quả validation:
+
+| Kiểm tra | Kết quả |
+| --- | ---: |
+| Answerable Top 3 IDs khớp locked baseline | 35/35 |
+| Answerable scores trong absolute tolerance `1e-6` | 35/35 |
+| Maximum observed score delta | 0,0000004138 |
+| Out-of-scope giữ retrieval-only behavior | 5/5 |
+| Repeated response match | 40/40 |
+| Video metadata | 38/38 |
+| Citation checks | 120/120 |
+| HTTP và startup failure cases | 16/16 |
+| Cross-process byte-identical artifacts | 6/6 |
+
+Năm out-of-scope questions vẫn trả HTTP `200` và Dense Top 3; response không có
+`answer`, `accepted`, `rejected`, `abstain` hoặc `decision`. Đây là behavior đúng của
+retrieval-only API, không phải out-of-scope handling.
+
+Top 3 IDs khớp baseline 35/35 chỉ chứng minh API tái tạo đúng locked retriever.
+`Recall@3 = 0,742857143` mới là retrieval-quality metric theo Ground Truth; nó không
+có nghĩa 35/35 câu đều có evidence đúng trong Top 3.
+
+1. Khóa contract và threshold cho LLM evidence accept/reject.
+2. Xây accept/reject runtime trên Dense Top 3 trước grounded answer generation.
+3. Xây grounded answer có citation và từ chối khi evidence không hỗ trợ.
+4. Đánh giá answer groundedness và abstention accuracy end-to-end.
+5. q-011, q-024, q-028 và q-036 chỉ được mở lại khi có evidence hoặc quyết định
    human review mới; không chặn retrieval work hiện tại.
 
-Canonical Gold, embedding/index, retrieval selection và Cross-Encoder evaluation đã
-hoàn thành; chưa xây LLM runtime hoặc Search API.
+Canonical Gold, embedding/index, retrieval selection, Cross-Encoder evaluation và
+Phase 7 Retrieval/Search API đã hoàn thành. Chưa xây LLM accept/reject, grounded
+answer generation hoặc end-to-end groundedness/abstention evaluation.

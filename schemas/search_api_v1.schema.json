@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/search_api_v1.schema.json",
+  "title": "MIT 6.0001 Dense Search API v1",
+  "type": "object",
+  "$defs": {
+    "SearchRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["query"],
+      "properties": {
+        "query": {"type": "string", "minLength": 1}
+      }
+    },
+    "SearchResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rank",
+        "chunk_id",
+        "chunk_text",
+        "score",
+        "video_id",
+        "video_title",
+        "start_second",
+        "end_second",
+        "source_url",
+        "citation_url"
+      ],
+      "properties": {
+        "rank": {"type": "integer", "minimum": 1, "maximum": 3},
+        "chunk_id": {"type": "string", "minLength": 1},
+        "chunk_text": {"type": "string", "minLength": 1},
+        "score": {"type": "number"},
+        "video_id": {"type": "string", "minLength": 1},
+        "video_title": {"type": "string", "minLength": 1},
+        "start_second": {"type": "number", "minimum": 0},
+        "end_second": {"type": "number", "exclusiveMinimum": 0},
+        "source_url": {"type": "string", "pattern": "^https://www\\.youtube\\.com/watch\\?v="},
+        "citation_url": {"type": "string", "pattern": "^https://www\\.youtube\\.com/watch\\?v=.*&t=[0-9]+s$"}
+      }
+    },
+    "SearchResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "query",
+        "retrieval_method",
+        "index_run_id",
+        "result_count",
+        "results"
+      ],
+      "properties": {
+        "query": {"type": "string", "minLength": 1},
+        "retrieval_method": {"const": "dense_baseline_v1"},
+        "index_run_id": {"type": "string", "minLength": 1},
+        "result_count": {"const": 3},
+        "results": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"$ref": "#/$defs/SearchResult"}
+        }
+      }
+    },
+    "VideoResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "video_id",
+        "video_title",
+        "source_url",
+        "chunk_count",
+        "start_second",
+        "end_second"
+      ],
+      "properties": {
+        "video_id": {"type": "string", "minLength": 1},
+        "video_title": {"type": "string", "minLength": 1},
+        "source_url": {"type": "string", "pattern": "^https://www\\.youtube\\.com/watch\\?v="},
+        "chunk_count": {"type": "integer", "minimum": 1},
+        "start_second": {"type": "number", "minimum": 0},
+        "end_second": {"type": "number", "exclusiveMinimum": 0}
+      }
+    }
+  }
+}

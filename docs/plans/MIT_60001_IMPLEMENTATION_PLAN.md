@@ -279,8 +279,9 @@ Ba retrieval artifact byte-identical qua hai Python processes.
 
 ## Phase 7 — Retrieval, reranking và Search API
 
-Trạng thái: lexical/Hybrid comparison, Cross-Encoder evaluation và human configuration
-decision hoàn thành ngày 2026-08-15; Search API chưa triển khai.
+Trạng thái: hoàn thành ngày 2026-08-16 ở phạm vi retrieval-only. Lexical/Hybrid và
+Cross-Encoder đã được đánh giá; user chọn Dense baseline. Search API trả Dense Top 3
+evidence và citation/video metadata, chưa có accept/reject hoặc grounded answer.
 
 ### Retrieval experiment đã hoàn thành
 
@@ -344,11 +345,42 @@ reports/11_reranking/reranking_configuration_decision_2026-08-15.csv
 evaluation/review/reranking/cross_encoder_reranking_review_2026-08-15_reviewed.xlsx
 ```
 
-### Việc cần làm trước API
+### Search API đã hoàn thành
 
-- Xây API bằng selected Dense baseline; output retrieval cho MVP là Dense Top 3.
-- Khóa request/response schema, ranking tie-break và validation cho API.
-- Khóa chính sách accept/reject trước grounded answer generation.
+- `POST /search` dùng selected `dense_baseline_v1` và trả đúng Top 3 evidence.
+- `GET /videos/{video_id}` trả metadata từ canonical 38-video index.
+- Request/response schema, ranking tie-break, citation URL và failure behavior đã khóa.
+- Model/index load một lần khi startup; hash, shape, dtype, norm, order, revision và
+  retrieval decision được kiểm tra fail-fast.
+- Full validator gọi đủ 40 approved questions qua ASGI HTTP hai lần mỗi câu.
+- Hai process độc lập tạo sáu validation artifacts byte-identical.
+
+Kết quả validation:
+
+| Kiểm tra | Kết quả |
+| --- | ---: |
+| Answerable Top 3 IDs khớp locked baseline | 35/35 |
+| Answerable scores trong absolute tolerance `1e-6` | 35/35 |
+| Maximum observed score delta | 0,0000004138 |
+| Out-of-scope giữ retrieval-only behavior | 5/5 |
+| Repeated response match | 40/40 |
+| Citation checks | 120/120 |
+| HTTP và startup failure cases | 16/16 |
+
+Output bổ sung:
+
+```text
+docs/design/SEARCH_API_CONTRACT.md
+src/search_api/contracts.py
+src/search_api/service.py
+src/search_api/app.py
+schemas/search_api_v1.schema.json
+schemas/search_api_validation_manifest_v1.schema.json
+scripts/api/validate_search_api.py
+scripts/api/verify_search_api_cross_process.py
+tests/search_api/search_api_validation_test.py
+reports/12_search_api/
+```
 
 API tối thiểu:
 
@@ -369,6 +401,16 @@ end_second
 source_url
 ```
 
+Runtime còn trả `chunk_id`, `rank` và timestamped `citation_url`.
+
+Năm out-of-scope questions vẫn trả HTTP `200` và Dense Top 3. API không có field
+`answer`, `accepted`, `rejected`, `abstain` hoặc `decision`; đây chưa phải
+out-of-scope handling.
+
+Top 3 IDs khớp baseline 35/35 đo implementation fidelity. Retrieval quality vẫn được
+đo bằng Ground Truth benchmark, trong đó Dense `Recall@3 = 0,742857143`. Hai kết quả
+này không tương đương.
+
 Nếu có answer generation, câu trả lời phải:
 
 - chỉ sử dụng retrieved context;
@@ -378,8 +420,9 @@ Nếu có answer generation, câu trả lời phải:
 
 ## Phase 8 — Evaluation chống hallucination
 
-Trạng thái: canonical question set và dense retrieval metrics đã hoàn thành; chưa
-đánh giá answer groundedness hoặc abstention accuracy end-to-end.
+Trạng thái: canonical question set, dense retrieval metrics và retrieval-only Search
+API validation đã hoàn thành; chưa đánh giá answer groundedness hoặc abstention
+accuracy end-to-end.
 
 ### Bộ câu hỏi
 
@@ -436,13 +479,13 @@ Không dùng một LLM khác làm nguồn đánh giá duy nhất.
 8. Embedding/index (hoàn thành)
 9. Lexical/Hybrid comparison và retrieval selection (hoàn thành)
 10. Cross-Encoder evaluation (hoàn thành; không được chọn)
-11. Retrieval/Search API (bước kế tiếp)
-12. Grounded answer evaluation
+11. Retrieval/Search API (hoàn thành; retrieval-only)
+12. Evidence accept/reject và grounded answer evaluation (bước kế tiếp)
 ```
 
 ## Việc chưa làm
 
 - Chưa thay đổi PostgreSQL schema để lưu vector; MVP đang dùng exact local index.
 - Cross-Encoder đã đánh giá nhưng không được tích hợp vào MVP runtime path.
-- Chưa xây LLM accept/reject runtime, grounded answer generation hoặc Search API.
+- Chưa xây LLM accept/reject runtime hoặc grounded answer generation.
 - Chưa đánh giá answer groundedness và abstention accuracy end-to-end.

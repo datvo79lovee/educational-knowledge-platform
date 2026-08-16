@@ -1,0 +1,6 @@
+﻿question_id,http_200_all_runs,result_count_is_3,retrieval_only_contract,no_accept_reject_or_answer_fields,repeated_response_match,citation_pass_count,actual_top_3_ids_json,validation_status
+mit60001-q-012,True,True,True,True,True,3,"[""0jljZRnHwOI:semantic_cosine_wp240_v1:26"",""6LOwPhPDwVc:semantic_cosine_wp240_v1:75"",""nykOeWgQcHM:semantic_cosine_wp240_v1:37""]",passed
+mit60001-q-013,True,True,True,True,True,3,"[""MjbuarJ7SE0:semantic_cosine_wp240_v1:3"",""0jljZRnHwOI:semantic_cosine_wp240_v1:26"",""6LOwPhPDwVc:semantic_cosine_wp240_v1:75""]",passed
+mit60001-q-042,True,True,True,True,True,3,"[""-DP1i2ZU9gk:semantic_cosine_wp240_v1:1"",""-DP1i2ZU9gk:semantic_cosine_wp240_v1:15"",""MjbuarJ7SE0:semantic_cosine_wp240_v1:46""]",passed
+mit60001-q-043,True,True,True,True,True,3,"[""MjbuarJ7SE0:semantic_cosine_wp240_v1:46"",""SrkqbLOQcEo:semantic_cosine_wp240_v1:4"",""MjbuarJ7SE0:semantic_cosine_wp240_v1:15""]",passed
+mit60001-q-044,True,True,True,True,True,3,"[""FlGjISF3l78:semantic_cosine_wp240_v1:13"",""FlGjISF3l78:semantic_cosine_wp240_v1:29"",""7lQXYl_L28w:semantic_cosine_wp240_v1:55""]",passed
