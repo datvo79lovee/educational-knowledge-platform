@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/evidence_review_response_v1.schema.json",
+  "title": "Evidence Review Response v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "review_id", "request_id", "question_id", "retrieval_identity", "top3_chunk_ids", "decision", "decision_reason", "supporting_chunk_ids", "execution_identity"],
+  "properties": {
+    "schema_version": {"const": "evidence_review_response_v1"},
+    "review_id": {"type": "string", "pattern": "^review-[a-z0-9][a-z0-9_-]*$"},
+    "request_id": {"type": "string", "pattern": "^evidence-review-mit60001-q-[0-9]{3}$"},
+    "question_id": {"type": "string", "pattern": "^mit60001-q-[0-9]{3}$"},
+    "retrieval_identity": {"$ref": "#/$defs/retrieval_identity"},
+    "top3_chunk_ids": {"type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "decision": {"enum": ["accept", "reject"]},
+    "decision_reason": {"type": "string", "minLength": 1},
+    "supporting_chunk_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "execution_identity": {"$ref": "#/$defs/execution_identity"}
+  },
+  "allOf": [
+    {"if": {"properties": {"decision": {"const": "accept"}}, "required": ["decision"]}, "then": {"properties": {"supporting_chunk_ids": {"minItems": 1}}}},
+    {"if": {"properties": {"decision": {"const": "reject"}}, "required": ["decision"]}, "then": {"properties": {"supporting_chunk_ids": {"maxItems": 0}}}}
+  ],
+  "$defs": {
+    "retrieval_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["retrieval_method", "index_run_id", "search_api_validation_run_id", "top_k"],
+      "properties": {
+        "retrieval_method": {"const": "dense_baseline_v1"},
+        "index_run_id": {"const": "mit60001_index_558e4d6e873847dd"},
+        "search_api_validation_run_id": {"const": "mit60001_search_api_35767a6f304c4dc3"},
+        "top_k": {"const": 3}
+      }
+    },
+    "execution_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "model_identifier", "api_mode", "temperature", "reasoning_setting", "structured_output_schema_version", "prompt_version", "contract_version"],
+      "properties": {
+        "provider": {"type": "string", "minLength": 1},
+        "model_identifier": {"type": "string", "minLength": 1},
+        "api_mode": {"type": "string", "minLength": 1},
+        "temperature": {"type": ["number", "null"]},
+        "reasoning_setting": {"type": ["string", "null"]},
+        "structured_output_schema_version": {"const": "evidence_review_response_v1"},
+        "prompt_version": {"type": "string", "minLength": 1},
+        "contract_version": {"const": "retrieval_evidence_review_contract_v2"}
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/evidence_review_request_v1.schema.json",
+  "title": "Evidence Review Request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request_id", "question_id", "question", "scope_version", "retrieval_identity", "candidates"],
+  "properties": {
+    "schema_version": {"const": "evidence_review_request_v1"},
+    "request_id": {"type": "string", "pattern": "^evidence-review-mit60001-q-[0-9]{3}$"},
+    "question_id": {"type": "string", "pattern": "^mit60001-q-[0-9]{3}$"},
+    "question": {"type": "string", "minLength": 1},
+    "scope_version": {"const": "mit_60001_fall_2016_v1"},
+    "retrieval_identity": {"$ref": "#/$defs/retrieval_identity"},
+    "candidates": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/candidate"}}
+  },
+  "$defs": {
+    "retrieval_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["retrieval_method", "index_run_id", "search_api_validation_run_id", "top_k"],
+      "properties": {
+        "retrieval_method": {"const": "dense_baseline_v1"},
+        "index_run_id": {"const": "mit60001_index_558e4d6e873847dd"},
+        "search_api_validation_run_id": {"const": "mit60001_search_api_35767a6f304c4dc3"},
+        "top_k": {"const": 3}
+      }
+    },
+    "candidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rank", "chunk_id", "chunk_text", "score", "video_id", "video_title", "start_second", "end_second", "source_url", "citation_url"],
+      "properties": {
+        "rank": {"type": "integer", "minimum": 1, "maximum": 3},
+        "chunk_id": {"type": "string", "minLength": 1},
+        "chunk_text": {"type": "string", "minLength": 1},
+        "score": {"type": "number"},
+        "video_id": {"type": "string", "minLength": 1},
+        "video_title": {"type": "string", "minLength": 1},
+        "start_second": {"type": "number", "minimum": 0},
+        "end_second": {"type": "number", "exclusiveMinimum": 0},
+        "source_url": {"type": "string", "format": "uri"},
+        "citation_url": {"type": "string", "format": "uri"}
+      }
+    }
+  }
+}

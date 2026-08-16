@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/evidence_review_package_manifest_v1.schema.json",
+  "title": "Evidence Review Package Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "package_run_id", "generation_mode", "retrieval_identity", "question_count", "answerable_question_count", "out_of_scope_question_count", "calibration_counts", "input_sha256", "output_artifacts", "validation_status"],
+  "properties": {
+    "$schema": {"const": "../../schemas/evidence_review_package_manifest_v1.schema.json"},
+    "schema_version": {"const": "evidence_review_package_manifest_v1"},
+    "package_run_id": {"type": "string", "pattern": "^mit60001_evidence_review_[a-f0-9]{16}$"},
+    "generation_mode": {"const": "search_api_asgi_http"},
+    "retrieval_identity": {"$ref": "#/$defs/retrieval_identity"},
+    "question_count": {"const": 40},
+    "answerable_question_count": {"const": 35},
+    "out_of_scope_question_count": {"const": 5},
+    "calibration_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strong_accept", "strong_reject", "needs_human_review"],
+      "properties": {"strong_accept": {"const": 16}, "strong_reject": {"const": 12}, "needs_human_review": {"const": 12}}
+    },
+    "input_sha256": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "output_artifacts": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "sha256"],
+        "properties": {"file": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+      }
+    },
+    "validation_status": {"const": "passed"}
+  },
+  "$defs": {
+    "retrieval_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["retrieval_method", "index_run_id", "search_api_validation_run_id", "top_k"],
+      "properties": {
+        "retrieval_method": {"const": "dense_baseline_v1"},
+        "index_run_id": {"const": "mit60001_index_558e4d6e873847dd"},
+        "search_api_validation_run_id": {"const": "mit60001_search_api_35767a6f304c4dc3"},
+        "top_k": {"const": 3}
+      }
+    }
+  }
+}
