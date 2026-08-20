@@ -5,23 +5,31 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from scripts.evaluation.phase8_report_paths import (
+    frozen_compatible_sha256,
+    legacy_manifest_path,
+)
 MANIFEST_FILE = PROJECT_ROOT / (
-    "reports/17_evidence_reviewer_prompt_evaluation/m3_pre_review_manifest.json"
+    "reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation/m3_pre_review_manifest.json"
 )
 MANIFEST_SCHEMA_FILE = PROJECT_ROOT / (
     "schemas/evidence_review_prompt_m3_pre_review_manifest_v1.schema.json"
 )
 METRICS_FILE = PROJECT_ROOT / (
-    "reports/17_evidence_reviewer_prompt_evaluation/pre_review_decision_metrics.json"
+    "reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation/pre_review_decision_metrics.json"
 )
 DELTA_FILE = PROJECT_ROOT / (
-    "reports/17_evidence_reviewer_prompt_evaluation/decision_delta_audit.csv"
+    "reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation/decision_delta_audit.csv"
 )
 EVIDENCE_AUDIT_FILE = PROJECT_ROOT / (
     "evaluation/review/evidence_accept_reject/experiments/prompt_v2/m3_evidence_selection_audit.csv"
@@ -35,9 +43,9 @@ WORKBOOK_FILE = PROJECT_ROOT / (
 
 INPUT_FILES = {
     "baseline_final_manifest": PROJECT_ROOT
-    / "reports/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_manifest.json",
+    / "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_manifest.json",
     "canonical_decisions": PROJECT_ROOT
-    / "reports/15_evidence_reviewer_evaluation/final_decision_results.csv",
+    / "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/final_decision_results.csv",
     "canonical_evidence": PROJECT_ROOT
     / "evaluation/review/evidence_accept_reject/m3_evidence_entailment_canonical.csv",
     "e0_locked_baseline": PROJECT_ROOT
@@ -49,11 +57,11 @@ INPUT_FILES = {
     "evaluator": PROJECT_ROOT
     / "scripts/evaluation/evaluate_evidence_review_prompt_experiment.py",
     "experiment_manifest": PROJECT_ROOT
-    / "reports/16_evidence_reviewer_prompt_experiment/prompt_experiment_manifest.json",
+    / "reports/phase_08_evidence_reviewer/16_evidence_reviewer_prompt_experiment/prompt_experiment_manifest.json",
     "ground_truth": PROJECT_ROOT / "evaluation/mit_60001/evaluation_questions.jsonl",
     "manifest_schema": MANIFEST_SCHEMA_FILE,
     "mechanical_comparison": PROJECT_ROOT
-    / "reports/16_evidence_reviewer_prompt_experiment/mechanical_comparison.json",
+    / "reports/phase_08_evidence_reviewer/16_evidence_reviewer_prompt_experiment/mechanical_comparison.json",
     "request_package": PROJECT_ROOT
     / "evaluation/review/evidence_accept_reject/evidence_review_requests_v1.jsonl",
     "thresholds": PROJECT_ROOT
@@ -88,7 +96,8 @@ def main() -> None:
     if errors:
         raise ValueError(f"M3 manifest schema failed: {errors[0].message}")
     actual_inputs = {
-        label: sha256_file(path) for label, path in sorted(INPUT_FILES.items())
+        label: frozen_compatible_sha256(path)
+        for label, path in sorted(INPUT_FILES.items())
     }
     if manifest["input_sha256"] != actual_inputs:
         raise ValueError("M3 frozen input hash mismatch")
@@ -129,11 +138,11 @@ def main() -> None:
         raise ValueError("Pending evidence rows contain fabricated verdicts")
 
     artifact_paths = {
-        relative(METRICS_FILE): METRICS_FILE,
-        relative(DELTA_FILE): DELTA_FILE,
-        relative(EVIDENCE_AUDIT_FILE): EVIDENCE_AUDIT_FILE,
-        relative(PENDING_FILE): PENDING_FILE,
-        relative(WORKBOOK_FILE): WORKBOOK_FILE,
+        legacy_manifest_path(METRICS_FILE, PROJECT_ROOT): METRICS_FILE,
+        legacy_manifest_path(DELTA_FILE, PROJECT_ROOT): DELTA_FILE,
+        legacy_manifest_path(EVIDENCE_AUDIT_FILE, PROJECT_ROOT): EVIDENCE_AUDIT_FILE,
+        legacy_manifest_path(PENDING_FILE, PROJECT_ROOT): PENDING_FILE,
+        legacy_manifest_path(WORKBOOK_FILE, PROJECT_ROOT): WORKBOOK_FILE,
     }
     manifest_artifacts = {
         row["file"]: row["sha256"] for row in manifest["output_artifacts"]

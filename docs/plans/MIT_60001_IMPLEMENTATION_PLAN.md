@@ -418,7 +418,7 @@ Nếu có answer generation, câu trả lời phải:
 - nói không đủ dữ liệu khi context không hỗ trợ;
 - không trả lời như trợ lý Python tổng quát.
 
-## Phase 8 — Evaluation chống hallucination
+## Phase 8 — Evidence Reviewer research và quyết định kiến trúc
 
 Trạng thái:
 
@@ -426,36 +426,43 @@ Trạng thái:
 - M2B local evidence reviewer runtime: **hoàn thành**.
 - Baseline M3: **hoàn thành với exclusions** q-017, q-023, q-041.
 - Prompt V2 experiment: **hoàn thành; candidate bị reject**.
-- Evidence reviewer production quality gate: **chưa pass**.
-- Grounded answer generation: **chưa bắt đầu; phụ thuộc reviewer quality gate**.
+- A1 two-stage architecture experiment: **hoàn thành; candidate bị reject**.
+- Evidence reviewer production quality gate: **không đạt**.
+- Evidence Reviewer trong active runtime: **deprecated/removed**.
+- Evidence Reviewer research: **kết thúc theo stopping rule sau A1**.
+- Grounded answer generation: **chưa bắt đầu; không còn phụ thuộc reviewer gate**.
 - Answer groundedness và abstention evaluation end-to-end: **chưa bắt đầu**.
 
-Runtime hiện có:
+Runtime retrieval hiện có và target architecture kế tiếp:
 
 ```text
 Question
   -> dense_baseline_v1 Top 3
-  -> Ollama llama3.2:3b evidence reviewer
-  -> accept/reject + supporting_chunk_ids
+  -> Grounded Answer Generator
+       -> Answer + supporting chunk IDs + video URL + timestamp
+       -> hoặc Abstain khi evidence không đủ
 ```
 
-Runtime không sinh answer. `failed_candidate` là kết quả đánh giá chất lượng của
-prompt V2, không phải runtime failure. V2 đạt schema/runtime contract nhưng fail
-quality gate:
+Search API hiện vẫn retrieval-only và chưa sinh answer. Evidence Reviewer runtime
+từng tồn tại phục vụ controlled experiments nhưng không còn thuộc active production
+path. `failed_candidate` là kết quả chất lượng, không phải runtime/schema failure.
 
-| Candidate E2 | Kết quả | Ngưỡng | Trạng thái |
-| --- | ---: | ---: | --- |
-| Accept recall | 90,48% | >= 75% | PASS |
-| False accept rate | 56,25% | <= 25% | FAIL |
-| Evidence-selection precision, 37-scope | 68,66% | >= 85% | FAIL |
+Các kết quả chính:
 
-V2 không được promote. Không tiếp tục V2.1 trên cùng development set 40 câu. Hướng
-experiment tiếp theo phải được khóa riêng theo model capability/reviewer architecture
-hoặc dùng holdout mới trước khi tối ưu tiếp.
+| Candidate | Accept recall | FAR | Evidence precision | Kết quả |
+| --- | ---: | ---: | ---: | --- |
+| Baseline V1/E0 | 80,95% | 56,25% | 79,41%, 37-scope | Gate không đạt |
+| Prompt V2/E2 | 90,48% | 56,25% | 68,66%, 37-scope | `failed_candidate` |
+| A1 two-stage | 0% | 0% | N/A, 0 selected pairs | `failed_candidate` |
 
-So sánh evidence precision cùng 37-scope: baseline E0 `27/34 = 79,41%`, E2
-`46/67 = 68,66%`. Headline baseline M3 `27/35 = 77,14%` là all-40 audit; E2
-all-40 tương ứng `48/70 = 68,57%`.
+V1/V2 quá permissive; A1 collapse về reject toàn bộ. A1 runtime vẫn deterministic:
+Stage 1, Stage 2 và final output đều exact match `40/40` giữa primary/repeat. Kết quả
+này chứng minh determinism/schema correctness không đồng nghĩa quality.
+
+Không tiếp tục V2.1, A1.1, A2, đổi model reviewer hoặc reviewer holdout trong scope
+project hiện tại. Giữ toàn bộ experiment code, human review, metrics, manifests và
+reports để giải thích quyết định kiến trúc. Grounded Answer Generator sẽ kết hợp
+grounded generation và abstention trong một stage, không gọi reviewer riêng trước đó.
 
 ### Bộ câu hỏi
 
@@ -515,15 +522,19 @@ Không dùng một LLM khác làm nguồn đánh giá duy nhất.
 11. Retrieval/Search API (hoàn thành; retrieval-only)
 12. Evidence accept/reject runtime và baseline evaluation (hoàn thành; production gate chưa pass)
 13. Prompt V2 experiment (hoàn thành; candidate bị reject)
-14. Reviewer architecture/model capability hoặc holdout mới (bước quyết định tiếp theo)
-15. Grounded answer generation và end-to-end evaluation (chưa bắt đầu)
+14. A1 two-stage architecture experiment (hoàn thành; reject collapse; candidate bị reject)
+15. Loại Evidence Reviewer khỏi active runtime, giữ experiment evidence (hoàn thành)
+16. Grounded Answer Generator + abstention + citations (bước tiếp theo)
+17. End-to-end groundedness/citation/abstention evaluation (chưa bắt đầu)
 ```
 
 ## Việc chưa làm
 
 - Chưa thay đổi PostgreSQL schema để lưu vector; MVP đang dùng exact local index.
 - Cross-Encoder đã đánh giá nhưng không được tích hợp vào MVP runtime path.
-- Evidence accept/reject runtime đã tồn tại nhưng production quality gate chưa pass.
-- Prompt V2 đã bị reject; không promote và không tuning V2.1 trên cùng 40 câu.
+- Evidence Reviewer experiments được bảo tồn nhưng component đã bị loại khỏi active
+  runtime architecture.
+- Baseline V1, prompt V2 và A1 đều không đạt frozen quality gate; không tiếp tục
+  reviewer tuning trong scope hiện tại.
 - Chưa xây grounded answer generation.
 - Chưa đánh giá answer groundedness và abstention accuracy end-to-end.

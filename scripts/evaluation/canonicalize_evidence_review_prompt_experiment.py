@@ -16,7 +16,7 @@ from jsonschema import Draft202012Validator
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PROMPT_V2_ROOT = PROJECT_ROOT / "evaluation/review/evidence_accept_reject/experiments/prompt_v2"
-REPORT_ROOT = PROJECT_ROOT / "reports/17_evidence_reviewer_prompt_evaluation"
+REPORT_ROOT = PROJECT_ROOT / "reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation"
 
 PENDING_FILE = PROMPT_V2_ROOT / "m3_pending_evidence_review.csv"
 PRE_AUDIT_FILE = PROMPT_V2_ROOT / "m3_evidence_selection_audit.csv"
@@ -42,8 +42,8 @@ CANONICAL_EVIDENCE_FILE = Path(
     "evaluation/review/evidence_accept_reject/experiments/prompt_v2/"
     "m3_evidence_selection_canonical.csv"
 )
-FINAL_METRICS_FILE = Path("reports/17_evidence_reviewer_prompt_evaluation/final_metrics.json")
-FINAL_MANIFEST_FILE = Path("reports/17_evidence_reviewer_prompt_evaluation/m3_final_manifest.json")
+FINAL_METRICS_FILE = Path("reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation/final_metrics.json")
+FINAL_MANIFEST_FILE = Path("reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation/m3_final_manifest.json")
 
 EXPECTED_EXCLUSIONS = {
     "mit60001-q-017",

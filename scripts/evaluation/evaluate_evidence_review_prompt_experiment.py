@@ -37,25 +37,25 @@ THRESHOLDS_FILE = PROJECT_ROOT / (
     "evaluation/review/evidence_accept_reject/experiments/prompt_v2/m3_thresholds.json"
 )
 CANONICAL_DECISIONS_FILE = PROJECT_ROOT / (
-    "reports/15_evidence_reviewer_evaluation/final_decision_results.csv"
+    "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/final_decision_results.csv"
 )
 CANONICAL_EVIDENCE_FILE = PROJECT_ROOT / (
     "evaluation/review/evidence_accept_reject/m3_evidence_entailment_canonical.csv"
 )
 BASELINE_FINAL_MANIFEST_FILE = PROJECT_ROOT / (
-    "reports/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_manifest.json"
+    "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_manifest.json"
 )
 EXPERIMENT_MANIFEST_FILE = PROJECT_ROOT / (
-    "reports/16_evidence_reviewer_prompt_experiment/prompt_experiment_manifest.json"
+    "reports/phase_08_evidence_reviewer/16_evidence_reviewer_prompt_experiment/prompt_experiment_manifest.json"
 )
 MECHANICAL_COMPARISON_FILE = PROJECT_ROOT / (
-    "reports/16_evidence_reviewer_prompt_experiment/mechanical_comparison.json"
+    "reports/phase_08_evidence_reviewer/16_evidence_reviewer_prompt_experiment/mechanical_comparison.json"
 )
 MANIFEST_SCHEMA_FILE = PROJECT_ROOT / (
     "schemas/evidence_review_prompt_m3_pre_review_manifest_v1.schema.json"
 )
 
-REPORT_ROOT = Path("reports/17_evidence_reviewer_prompt_evaluation")
+REPORT_ROOT = Path("reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation")
 DECISION_METRICS_FILE = REPORT_ROOT / "pre_review_decision_metrics.json"
 DECISION_DELTA_FILE = REPORT_ROOT / "decision_delta_audit.csv"
 EVIDENCE_AUDIT_FILE = Path(

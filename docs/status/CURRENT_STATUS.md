@@ -165,17 +165,23 @@ Validation status: `passed`.
   `reports/12_search_api/search_api_cross_process_validation.csv`
 - Evidence review request package và manifest:
   `evaluation/review/evidence_accept_reject/evidence_review_requests_v1.jsonl`
-  và `reports/13_evidence_review/evidence_review_package_manifest.json`
+  và `reports/phase_08_evidence_reviewer/13_evidence_review/evidence_review_package_manifest.json`
 - Evidence reviewer runtime manifest:
-  `reports/14_evidence_review_runtime/evidence_review_runtime_manifest.json`
+  `reports/phase_08_evidence_reviewer/14_evidence_review_runtime/evidence_review_runtime_manifest.json`
 - Baseline evidence reviewer evaluation:
-  `reports/15_evidence_reviewer_evaluation/final_metrics.json`
-  và `reports/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_manifest.json`
+  `reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/final_metrics.json`
+  và `reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_manifest.json`
 - Prompt V2 experiment manifest:
-  `reports/16_evidence_reviewer_prompt_experiment/prompt_experiment_manifest.json`
+  `reports/phase_08_evidence_reviewer/16_evidence_reviewer_prompt_experiment/prompt_experiment_manifest.json`
 - Prompt V2 final evaluation và human evidence audit:
-  `reports/17_evidence_reviewer_prompt_evaluation/final_metrics.json`
-  và `reports/17_evidence_reviewer_prompt_evaluation/m3_final_manifest.json`
+  `reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation/final_metrics.json`
+  và `reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation/m3_final_manifest.json`
+- A1 two-stage reviewer runtime và stability manifest:
+  `reports/phase_08_evidence_reviewer/18_evidence_reviewer_a1_experiment/a1_experiment_manifest.json`
+  và `reports/phase_08_evidence_reviewer/18_evidence_reviewer_a1_experiment/a1_stability_comparison.json`
+- A1 canonical evaluation và final decision manifest:
+  `reports/phase_08_evidence_reviewer/19_evidence_reviewer_a1_evaluation/a1_final_metrics.json`
+  và `reports/phase_08_evidence_reviewer/19_evidence_reviewer_a1_evaluation/a1_m3_final_manifest.json`
 - Canonical MIT 6.0001 evaluation dataset:
   `evaluation/mit_60001/evaluation_questions.jsonl`
 - Current Batch 01 source candidates:
@@ -378,7 +384,7 @@ Top 3 IDs khớp baseline 35/35 chỉ chứng minh API tái tạo đúng locked 
 `Recall@3 = 0,742857143` mới là retrieval-quality metric theo Ground Truth; nó không
 có nghĩa 35/35 câu đều có evidence đúng trong Top 3.
 
-### Evidence reviewer status
+### Evidence reviewer research closure và active architecture
 
 Phase 8 M2A đã khóa contract/schema và deterministic request package 40 câu theo
 flow `Question -> Dense Top 3 -> Evidence accept/reject`. Ground Truth và expected
@@ -418,18 +424,62 @@ candidate accept nhiều hơn; FAR không giảm và evidence precision thấp h
 So sánh cùng 37-scope là E0 `79,41%` và E2 `68,66%`; trên all-40 audit, E0 là
 `77,14%` và E2 là `48/70 = 68,57%`.
 
-Evidence reviewer production gate hiện **chưa pass**. Grounded answer generation
-chưa được xây và chưa được đánh giá. Không mở V2.1 trên cùng 40 câu; experiment tiếp
-theo cần quyết định riêng về model capability/reviewer architecture hoặc holdout mới.
+A1 two-stage experiment giữ nguyên model `llama3.2:3b` nhưng tách requirement
+analysis và requirement-level entailment, sau đó dùng deterministic reducer
+`accept iff all requirements supported`. Primary/repeat đều đạt runtime `40/40`,
+Stage 1/Stage 2/final exact match `40/40`; context thực dùng là `4096` và không có
+Ground Truth leakage.
 
-1. Chốt hướng experiment reviewer tiếp theo và holdout trước khi tuning thêm.
-2. Chỉ xây grounded answer có citation sau khi reviewer quality gate đạt yêu cầu.
-3. Đánh giá answer groundedness và abstention accuracy end-to-end sau khi có grounded
-   answering runtime.
+A1 canonical M3 dùng đúng 37 câu evaluable và ba exclusion cũ:
+
+| A1 | Kết quả | Ngưỡng | Trạng thái |
+| --- | ---: | ---: | --- |
+| Accept recall | 0% | >= 75% | FAIL |
+| False accept rate | 0% | <= 25% | PASS |
+| Evidence-selection precision | N/A, 0 selected pairs | >= 85% | NOT EVALUABLE |
+
+Confusion matrix A1 là `TP=0, FP=0, FN=21, TN=16`; candidate bị
+`reject_class_collapse` và được freeze là `failed_candidate`. FAR `0%` không được
+diễn giải là reviewer hữu ích. Stage 2 có 21/103 requirement assessments được đánh
+dấu supported, nhưng không câu nào có toàn bộ requirements supported; các ID nội bộ
+không được đưa vào final evidence precision.
+
+Ba hướng reviewer đã cho ba kết quả thực nghiệm:
+
+```text
+V1 baseline  -> FAR 56,25%, quá permissive
+V2 candidate -> FAR 56,25%, evidence precision 68,66%, không cải thiện gate
+A1 two-stage -> accept recall 0%, reject collapse
+```
+
+Quyết định kiến trúc ngày 2026-08-20: **loại Evidence Reviewer khỏi active runtime
+path**. Component được giữ dưới dạng archived experiment với nhãn
+`experimental evidence gate — quality threshold not achieved`; toàn bộ code,
+human review, metrics, manifests và reports được bảo tồn. Không tiếp tục V2.1, A1.1,
+A2, đổi model reviewer hoặc tạo reviewer holdout trong scope project hiện tại.
+
+Active target architecture từ thời điểm này là:
+
+```text
+Question
+  -> dense_baseline_v1 Top 3
+  -> Grounded Answer Generator
+       -> Answer + supporting chunk IDs + video URL + timestamp
+       -> hoặc Abstain khi Top 3 không đủ bằng chứng
+```
+
+Grounded Answer Generator chịu trách nhiệm chỉ dùng Dense Top 3, không dùng kiến
+thức ngoài transcript và tự quyết định answer/abstain. Evidence Reviewer quality
+gate không còn là dependency chặn downstream.
+
+1. Khóa contract/schema cho grounded answer + abstention trên Dense Top 3.
+2. Triển khai một generation stage trả answer hoặc abstain cùng citation metadata.
+3. Đánh giá answer groundedness, citation correctness và abstention accuracy
+   end-to-end trên canonical 40 câu.
 4. q-011, q-024, q-028 và q-036 chỉ được mở lại khi có evidence hoặc quyết định
-   human review mới; không chặn retrieval work hiện tại.
+   human review mới; không chặn active runtime work.
 
 Canonical Gold, embedding/index, retrieval selection, Cross-Encoder evaluation và
-Phase 7 Retrieval/Search API đã hoàn thành. Evidence reviewer runtime và hai vòng
-evaluation đã hoàn thành, nhưng production quality gate chưa pass. Chưa xây grounded
-answer generation hoặc end-to-end groundedness/abstention evaluation.
+Phase 7 Retrieval/Search API đã hoàn thành. Evidence Reviewer research đã kết thúc
+và component không nằm trong final runtime architecture. Grounded Answer Generator
+và end-to-end groundedness/abstention evaluation chưa được xây.

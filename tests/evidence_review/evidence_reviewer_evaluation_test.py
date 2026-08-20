@@ -64,7 +64,7 @@ def test_build_separates_strict_and_evidence_audit(tmp_path) -> None:
 def test_metrics_json_is_not_used_as_reviewer_input(tmp_path) -> None:
     build(tmp_path)
     manifest = json.loads(
-        (tmp_path / "reports/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_pre_review_manifest.json").read_text(
+        (tmp_path / "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_pre_review_manifest.json").read_text(
             encoding="utf-8"
         )
     )
@@ -89,7 +89,7 @@ def test_human_classification_mapping() -> None:
 def test_final_canonical_artifacts_preserve_exclusions() -> None:
     project_root = Path(__file__).resolve().parents[2]
     final_rows = read_csv(
-        project_root / "reports/15_evidence_reviewer_evaluation/final_decision_results.csv"
+        project_root / "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/final_decision_results.csv"
     )
     excluded = {row["question_id"] for row in final_rows if row["evaluation_status"] == "excluded"}
     assert excluded == {"mit60001-q-017", "mit60001-q-023", "mit60001-q-041"}

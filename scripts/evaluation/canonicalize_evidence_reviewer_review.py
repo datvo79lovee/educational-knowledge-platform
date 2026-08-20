@@ -22,15 +22,15 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CALIBRATION_FILE = PROJECT_ROOT / "evaluation/review/evidence_accept_reject/evidence_review_calibration_v1.csv"
 PENDING_HUMAN_FILE = PROJECT_ROOT / "evaluation/review/evidence_accept_reject/m3_human_review_12_questions.csv"
 PENDING_EVIDENCE_FILE = PROJECT_ROOT / "evaluation/review/evidence_accept_reject/m3_accepted_evidence_audit.csv"
-STRICT_RESULTS_FILE = PROJECT_ROOT / "reports/15_evidence_reviewer_evaluation/strict_decision_results.csv"
-RUNTIME_MANIFEST_FILE = PROJECT_ROOT / "reports/14_evidence_review_runtime/evidence_review_runtime_manifest.json"
+STRICT_RESULTS_FILE = PROJECT_ROOT / "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/strict_decision_results.csv"
+RUNTIME_MANIFEST_FILE = PROJECT_ROOT / "reports/phase_08_evidence_reviewer/14_evidence_review_runtime/evidence_review_runtime_manifest.json"
 FINAL_SCHEMA_FILE = PROJECT_ROOT / "schemas/evidence_reviewer_evaluation_final_manifest_v1.schema.json"
 
 CANONICAL_HUMAN_FILE = Path("evaluation/review/evidence_accept_reject/m3_human_review_12_canonical.csv")
 CANONICAL_EVIDENCE_FILE = Path("evaluation/review/evidence_accept_reject/m3_evidence_entailment_canonical.csv")
-FINAL_RESULTS_FILE = Path("reports/15_evidence_reviewer_evaluation/final_decision_results.csv")
-FINAL_METRICS_FILE = Path("reports/15_evidence_reviewer_evaluation/final_metrics.json")
-FINAL_MANIFEST_FILE = Path("reports/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_manifest.json")
+FINAL_RESULTS_FILE = Path("reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/final_decision_results.csv")
+FINAL_METRICS_FILE = Path("reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/final_metrics.json")
+FINAL_MANIFEST_FILE = Path("reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_manifest.json")
 
 VALID_SUFFICIENCY = {"sufficient", "insufficient", "possible_gt_under_credit", "needs_discussion"}
 VALID_CORRECTNESS = {"yes", "no", "needs_discussion"}
@@ -386,4 +386,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

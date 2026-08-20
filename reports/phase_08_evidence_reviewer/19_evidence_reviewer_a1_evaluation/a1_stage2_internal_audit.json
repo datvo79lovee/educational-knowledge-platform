@@ -1,0 +1,11 @@
+{
+  "final_selected_pair_metric_includes_internal_ids": false,
+  "interpretation": "internal_debug_only_not_evidence_precision_input",
+  "question_count": 40,
+  "questions_with_all_requirements_supported": 0,
+  "questions_with_at_least_one_supported_requirement": 20,
+  "requirement_assessment_count": 103,
+  "schema_version": "evidence_review_a1_stage2_internal_audit_v1",
+  "supported_requirement_count": 21,
+  "unsupported_requirement_count": 82
+}

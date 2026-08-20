@@ -1,11 +1,29 @@
-# Retrieval evidence review contract v2
+# Retrieval evidence review contract v2 — archived experiment contract
 
-## Mục tiêu
+> Trạng thái từ 2026-08-20: contract này được giữ để audit Phase 8 nhưng không còn
+> là contract của active runtime. Evidence Reviewer đã bị loại khỏi final runtime
+> architecture sau khi Baseline V1, Prompt V2 và A1 không đạt frozen quality gate.
+> Không tiếp tục V2.1, A1.1 hoặc A2 trong scope project hiện tại.
+
+Active target architecture:
+
+```text
+Question
+  -> validated Search API
+  -> Dense Top 3 evidence
+  -> Grounded Answer Generator
+       -> Answer + supporting chunk IDs + video URL + timestamp
+       -> hoặc Abstain khi evidence không đủ
+```
+
+## Mục tiêu lịch sử
 
 Contract này khóa gate kiểm tra evidence sau Dense Search API của corpus MIT 6.0001
 Fall 2016. Gate này chỉ quyết định ba candidate chunks có đủ bằng chứng trực tiếp
 để trả lời câu hỏi hay không; nó không thay thế Ground Truth và không sửa Silver,
 Gold hoặc evaluation canonical.
+
+Flow dưới đây là flow experiment đã được đánh giá, không còn là active runtime:
 
 ```text
 Question
@@ -114,9 +132,15 @@ M3 phải báo tách riêng:
 Không được gộp hai loại lỗi này thành một accuracy duy nhất rồi kết luận về chất
 lượng reviewer.
 
-## M2B bị hoãn
+## Kết quả triển khai và trạng thái đóng
 
-Chỉ triển khai provider adapter khi SDK và credential đã sẵn sàng. Runtime phải
-dùng Structured Outputs theo response schema đã khóa và manifest phải ghi model
-identifier cụ thể; nếu provider có snapshot/version thì dùng snapshot thay vì chỉ
-alias. M2A hiện không gọi OpenAI hoặc bất kỳ generative model nào.
+M2B sau đó đã được triển khai bằng Ollama `llama3.2:3b`; baseline V1 chạy đúng
+structured-output contract nhưng có FAR `56,25%`. Prompt V2 giữ FAR `56,25%` và
+evidence precision 37-scope giảm còn `68,66%`. A1 two-stage đạt runtime/stability
+contract nhưng reject toàn bộ 37 câu evaluable: accept recall `0%`, FAR `0%`, final
+selected pairs `0`, evidence precision `N/A`.
+
+A1 được freeze là `failed_candidate`; Evidence Reviewer research dừng theo stopping
+rule. Code experiment, schemas, human review, metrics, manifests và reports được giữ
+lại. API/runtime production path không được gọi Evidence Reviewer và không dùng
+reviewer quality gate để chặn Grounded Answer Generator.

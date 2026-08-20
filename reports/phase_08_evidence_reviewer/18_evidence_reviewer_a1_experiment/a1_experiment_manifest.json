@@ -1,0 +1,165 @@
+{
+  "$schema": "../../schemas/evidence_review_a1_experiment_manifest_v1.schema.json",
+  "architecture": {
+    "reducer": "accept_iff_all_requirements_supported",
+    "stage1": "question_only_requirement_analysis",
+    "stage2": "requirement_by_evidence_entailment_without_final_decision",
+    "stage2_normalization": "deduplicate_supporting_chunk_ids_preserve_first_occurrence"
+  },
+  "candidate_id": "a1_two_stage_coverage_entailment_v1",
+  "download_performed": false,
+  "execution_config": {
+    "api_mode": "ollama_api_chat",
+    "endpoint": "http://127.0.0.1:11434",
+    "num_ctx": 4096,
+    "num_predict": 512,
+    "repeat_policy": "primary_frozen_repeat_stability_only_no_voting",
+    "seed": 42,
+    "structured_output": "json_schema",
+    "temperature": 0.0
+  },
+  "experiment_run_id": "mit60001_evidence_a1_experiment_607102394851e012",
+  "experiment_type": "architecture_bundle",
+  "ground_truth_read": false,
+  "input_sha256": {
+    "a1_contracts": "b01d4711c882d8842843e80e5f521be039a07796fdb1806c420e3d37021768dd",
+    "a1_prompts": "f3abc8e364f3afdf8fb3458ac3ec5b2dc321f1660d9b5ed31eecb80a51343390",
+    "baseline_manifest": "ce320dfb6c0b910c445ef55bd9353bb78c13d2693f6078c92eae72e3edf5b9f6",
+    "contract": "8a55dc8a37e1c37ec3b4a070c8d6feac4be80fc542bd9a6e80e3613f9c29de97",
+    "final_response_schema": "ce7dd6aafe3667f9fbc33b097d1a6747c2eb165a7bc02034da23a1336a0133cf",
+    "manifest_schema": "7b5ca55f19030ea9f31c76c08037ee9846e59f906e73ccecb9cf9d7c4368caa9",
+    "ollama_adapter": "1f67e11709453a426c0e7b6146f4753988055241ab7c8b12dce592d17aa7ff6f",
+    "request_package": "1cafc735ec5a40cf0179c017f064dd9cd3d187f0a4b90564d68680928e257a3e",
+    "request_schema": "23097956afea34171350b8ea1897f6c347ace1c2adafd0fe7de78ea4fc1a0da3",
+    "runtime_script": "0de6671a23bfba048f92b720ba3f097d5f0382b1bb55ea61db57e0dabb729c66",
+    "stage1_schema": "c5b0cc68b8744ad280df7731dac62fc79b7d0c375353aa5cef207df6e57804a3",
+    "stage2_schema": "119118e1cb8086de85157c22ca2e7eb7e0347e553fc24d4f65751d0afe3a950f",
+    "thresholds": "0d31e3e05d91467fde507264f7382a456fd75961280cb5f3216dbfc699ddf0c1"
+  },
+  "m2_status": "complete_runtime_only_not_quality_evaluated",
+  "operating_condition": {
+    "ollama_api_ps": {
+      "context_length": 4096,
+      "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "model": "llama3.2:3b",
+      "size_bytes": 2910469486,
+      "size_vram_bytes": 2335094865
+    },
+    "ollama_cli_ps": {
+      "context": "4096",
+      "id": "a80c4f17acd5",
+      "name": "llama3.2:3b",
+      "processor": "20%/80% CPU/GPU",
+      "size": "2.9 GB"
+    }
+  },
+  "output_artifacts": [
+    {
+      "file": "reports/18_evidence_reviewer_a1_experiment/a1_stability_comparison.json",
+      "sha256": "15fe1b32011bd5bcec1fbe9d9b1b2e8028485e5af483c7c6b4062024f670c5e7"
+    }
+  ],
+  "runs": [
+    {
+      "accept_count": 0,
+      "duplicate_supporting_id_count": 1,
+      "failure_count": 0,
+      "model_call_count": 80,
+      "output_artifacts": [
+        {
+          "file": "evaluation/review/evidence_accept_reject/experiments/a1_two_stage/primary_requirements.jsonl",
+          "sha256": "0f5f97c1ed6c03b867fe50c614113f4d33d70aeddef9f60436128aeec24ace6b"
+        },
+        {
+          "file": "evaluation/review/evidence_accept_reject/experiments/a1_two_stage/primary_entailment.jsonl",
+          "sha256": "92222d15a87d102ce00189d048b8b40fe2c2cb9fcf659f5876a85c4cda6c09e7"
+        },
+        {
+          "file": "evaluation/review/evidence_accept_reject/experiments/a1_two_stage/primary_reviews.jsonl",
+          "sha256": "842e82cdba9c8480e83fe37ad8d832fb9e978223786b0e619119c9036d15e225"
+        },
+        {
+          "file": "reports/18_evidence_reviewer_a1_experiment/primary_validation.csv",
+          "sha256": "974491d3c6cb7cebfc5474f3def62e1a2e4b02ad790928a3797c0aa11c9f04e8"
+        }
+      ],
+      "question_count": 40,
+      "reject_count": 40,
+      "run_label": "primary"
+    },
+    {
+      "accept_count": 0,
+      "duplicate_supporting_id_count": 1,
+      "failure_count": 0,
+      "model_call_count": 80,
+      "output_artifacts": [
+        {
+          "file": "evaluation/review/evidence_accept_reject/experiments/a1_two_stage/repeat_requirements.jsonl",
+          "sha256": "1c33f447d57aadbeafc7d5397d5d200030fc609c1bef8b86f969c03ba3f527ca"
+        },
+        {
+          "file": "evaluation/review/evidence_accept_reject/experiments/a1_two_stage/repeat_entailment.jsonl",
+          "sha256": "78bea65fcdd7ee04f5f917da14efbbab761acbf3c72ca0be01520c8d63e3f6d6"
+        },
+        {
+          "file": "evaluation/review/evidence_accept_reject/experiments/a1_two_stage/repeat_reviews.jsonl",
+          "sha256": "842e82cdba9c8480e83fe37ad8d832fb9e978223786b0e619119c9036d15e225"
+        },
+        {
+          "file": "reports/18_evidence_reviewer_a1_experiment/repeat_validation.csv",
+          "sha256": "8cdce5c088c625ba8ecd147351a31054f646b9ba2d0241a62d18159640fc03ad"
+        }
+      ],
+      "question_count": 40,
+      "reject_count": 40,
+      "run_label": "repeat"
+    }
+  ],
+  "runtime": {
+    "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "family": "llama",
+    "model": "llama3.2:3b",
+    "model_context_capability": 131072,
+    "ollama_version": "0.32.14",
+    "parameter_size": "3.2B",
+    "quantization_level": "Q4_K_M",
+    "size_bytes": 2019393189
+  },
+  "schema_version": "evidence_review_a1_experiment_manifest_v1",
+  "scope": {
+    "decision_evaluable_count": 37,
+    "development_request_count": 40,
+    "excluded_question_ids": [
+      "mit60001-q-017",
+      "mit60001-q-023",
+      "mit60001-q-041"
+    ],
+    "holdout_status": "not_created_not_used"
+  },
+  "stability": {
+    "best_of_or_voting_used": false,
+    "decision_change_count": 0,
+    "final_response_exact_match_count": 40,
+    "question_count": 40,
+    "stage1_exact_match_count": 40,
+    "stage2_exact_match_count": 40,
+    "supporting_id_change_count": 0
+  },
+  "validation_status": "passed",
+  "variables_frozen": {
+    "additional_exclusions_created": false,
+    "contract_version": "retrieval_evidence_review_contract_v2",
+    "final_response_schema_version": "evidence_review_response_v1",
+    "ground_truth_modified": false,
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "quality_thresholds_sha256": "0d31e3e05d91467fde507264f7382a456fd75961280cb5f3216dbfc699ddf0c1",
+    "request_package_sha256": "1cafc735ec5a40cf0179c017f064dd9cd3d187f0a4b90564d68680928e257a3e",
+    "retrieval_identity": {
+      "index_run_id": "mit60001_index_558e4d6e873847dd",
+      "retrieval_method": "dense_baseline_v1",
+      "search_api_validation_run_id": "mit60001_search_api_35767a6f304c4dc3",
+      "top_k": 3
+    }
+  }
+}

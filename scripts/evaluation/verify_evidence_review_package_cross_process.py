@@ -13,12 +13,12 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 BUILDER = PROJECT_ROOT / "scripts/evaluation/build_evidence_review_package.py"
-REPORT = PROJECT_ROOT / "reports/13_evidence_review/evidence_review_package_cross_process_validation.csv"
+REPORT = PROJECT_ROOT / "reports/phase_08_evidence_reviewer/13_evidence_review/evidence_review_package_cross_process_validation.csv"
 ARTIFACTS = (
     Path("evaluation/review/evidence_accept_reject/evidence_review_requests_v1.jsonl"),
     Path("evaluation/review/evidence_accept_reject/evidence_review_calibration_v1.csv"),
-    Path("reports/13_evidence_review/evidence_review_package_validation.csv"),
-    Path("reports/13_evidence_review/evidence_review_package_manifest.json"),
+    Path("reports/phase_08_evidence_reviewer/13_evidence_review/evidence_review_package_validation.csv"),
+    Path("reports/phase_08_evidence_reviewer/13_evidence_review/evidence_review_package_manifest.json"),
 )
 
 

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/evidence_review_a1_m3_final_manifest_v1.schema.json",
+  "title": "A1 Evidence Reviewer M3 Final Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "evaluation_run_id", "candidate_id", "source_experiment_run_id", "scope", "decision_metrics", "evidence_selection", "stage2_internal_audit", "quality_gate", "input_sha256", "output_artifacts", "model_calls", "human_review_workbook_created", "ground_truth_modified", "additional_exclusions_created", "reviewer_research_status", "validation_status"],
+  "properties": {
+    "$schema": {"const": "../../schemas/evidence_review_a1_m3_final_manifest_v1.schema.json"},
+    "schema_version": {"const": "evidence_review_a1_m3_final_manifest_v1"},
+    "evaluation_run_id": {"type": "string", "pattern": "^mit60001_evidence_a1_m3_[a-f0-9]{16}$"},
+    "candidate_id": {"const": "a1_two_stage_coverage_entailment_v1"},
+    "source_experiment_run_id": {"const": "mit60001_evidence_a1_experiment_607102394851e012"},
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["development_question_count", "evaluated_question_count", "expected_accept_count", "expected_reject_count", "excluded_question_ids", "additional_exclusions_allowed"],
+      "properties": {
+        "development_question_count": {"const": 40},
+        "evaluated_question_count": {"const": 37},
+        "expected_accept_count": {"const": 21},
+        "expected_reject_count": {"const": 16},
+        "excluded_question_ids": {"const": ["mit60001-q-017", "mit60001-q-023", "mit60001-q-041"]},
+        "additional_exclusions_allowed": {"const": false}
+      }
+    },
+    "decision_metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question_count", "confusion_matrix", "accuracy", "accept_precision", "accept_precision_status", "accept_recall", "false_accept_rate", "false_reject_rate", "predicted_accept_count", "predicted_reject_count"],
+      "properties": {
+        "question_count": {"const": 37},
+        "confusion_matrix": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tp", "fp", "fn", "tn"],
+          "properties": {"tp": {"const": 0}, "fp": {"const": 0}, "fn": {"const": 21}, "tn": {"const": 16}}
+        },
+        "accuracy": {"const": 0.43243243243243246},
+        "accept_precision": {"type": "null"},
+        "accept_precision_status": {"const": "undefined_no_predicted_accepts"},
+        "accept_recall": {"const": 0.0},
+        "false_accept_rate": {"const": 0.0},
+        "false_reject_rate": {"const": 1.0},
+        "predicted_accept_count": {"const": 0},
+        "predicted_reject_count": {"const": 37}
+      }
+    },
+    "evidence_selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question_scope", "unit", "selected_pair_count", "supports_count", "does_not_support_count", "evidence_precision", "metric_status", "stage2_requirement_ids_included"],
+      "properties": {
+        "question_scope": {"const": "same_37_decision_evaluable_questions"},
+        "unit": {"const": "final_selected_question_chunk_pair"},
+        "selected_pair_count": {"const": 0},
+        "supports_count": {"const": 0},
+        "does_not_support_count": {"const": 0},
+        "evidence_precision": {"type": "null"},
+        "metric_status": {"const": "not_evaluable_zero_selected_pairs"},
+        "stage2_requirement_ids_included": {"const": false}
+      }
+    },
+    "stage2_internal_audit": {"type": "object", "minProperties": 1},
+    "quality_gate": {"type": "object", "minProperties": 1},
+    "input_sha256": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "output_artifacts": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/artifact"}},
+    "model_calls": {"const": 0},
+    "human_review_workbook_created": {"const": false},
+    "ground_truth_modified": {"const": false},
+    "additional_exclusions_created": {"const": false},
+    "reviewer_research_status": {"const": "stopped_after_a1_per_frozen_rule"},
+    "validation_status": {"const": "passed"}
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256"],
+      "properties": {
+        "file": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    }
+  }
+}

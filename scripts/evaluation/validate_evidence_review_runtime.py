@@ -5,14 +5,18 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from scripts.evaluation.phase8_report_paths import legacy_manifest_path
 REQUEST_FILE = PROJECT_ROOT / (
     "evaluation/review/evidence_accept_reject/evidence_review_requests_v1.jsonl"
 )
@@ -20,10 +24,10 @@ RESPONSE_FILE = PROJECT_ROOT / (
     "evaluation/review/evidence_accept_reject/ollama_llama32_3b_reviews_v1.jsonl"
 )
 VALIDATION_FILE = PROJECT_ROOT / (
-    "reports/14_evidence_review_runtime/evidence_review_runtime_validation.csv"
+    "reports/phase_08_evidence_reviewer/14_evidence_review_runtime/evidence_review_runtime_validation.csv"
 )
 MANIFEST_FILE = PROJECT_ROOT / (
-    "reports/14_evidence_review_runtime/evidence_review_runtime_manifest.json"
+    "reports/phase_08_evidence_reviewer/14_evidence_review_runtime/evidence_review_runtime_manifest.json"
 )
 RESPONSE_SCHEMA_FILE = PROJECT_ROOT / "schemas/evidence_review_response_v1.schema.json"
 MANIFEST_SCHEMA_FILE = (
@@ -96,8 +100,8 @@ def main() -> None:
     if manifest_errors:
         raise ValueError(f"Runtime manifest schema failed: {manifest_errors[0].message}")
     artifact_paths = {
-        str(RESPONSE_FILE.relative_to(PROJECT_ROOT)).replace("\\", "/"): RESPONSE_FILE,
-        str(VALIDATION_FILE.relative_to(PROJECT_ROOT)).replace("\\", "/"): VALIDATION_FILE,
+        legacy_manifest_path(RESPONSE_FILE, PROJECT_ROOT): RESPONSE_FILE,
+        legacy_manifest_path(VALIDATION_FILE, PROJECT_ROOT): VALIDATION_FILE,
     }
     for artifact in manifest["output_artifacts"]:
         actual_hash = sha256_file(artifact_paths[artifact["file"]])
@@ -126,4 +130,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

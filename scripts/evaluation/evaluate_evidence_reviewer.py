@@ -36,17 +36,17 @@ RESPONSE_FILE = PROJECT_ROOT / (
 )
 GROUND_TRUTH_FILE = PROJECT_ROOT / "evaluation/mit_60001/evaluation_questions.jsonl"
 RUNTIME_MANIFEST_FILE = PROJECT_ROOT / (
-    "reports/14_evidence_review_runtime/evidence_review_runtime_manifest.json"
+    "reports/phase_08_evidence_reviewer/14_evidence_review_runtime/evidence_review_runtime_manifest.json"
 )
 MANIFEST_SCHEMA_FILE = (
     PROJECT_ROOT / "schemas/evidence_reviewer_evaluation_manifest_v1.schema.json"
 )
 
 STRICT_RESULTS_FILE = Path(
-    "reports/15_evidence_reviewer_evaluation/strict_decision_results.csv"
+    "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/strict_decision_results.csv"
 )
 STRICT_METRICS_FILE = Path(
-    "reports/15_evidence_reviewer_evaluation/strict_decision_metrics.json"
+    "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/strict_decision_metrics.json"
 )
 HUMAN_REVIEW_FILE = Path(
     "evaluation/review/evidence_accept_reject/m3_human_review_12_questions.csv"
@@ -58,7 +58,7 @@ WORKBOOK_FILE = Path(
     "evaluation/review/evidence_accept_reject/outputs/phase8_m3/phase8_m3_evidence_reviewer_human_review.xlsx"
 )
 MANIFEST_FILE = Path(
-    "reports/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_pre_review_manifest.json"
+    "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_pre_review_manifest.json"
 )
 
 EXPECTED_RUNTIME_RUN_ID = "mit60001_evidence_reviewer_0ee5e6a1362fc5c4"

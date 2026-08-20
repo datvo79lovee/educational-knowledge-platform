@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any
@@ -13,6 +14,13 @@ from jsonschema import Draft202012Validator
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from scripts.evaluation.phase8_report_paths import (
+    frozen_compatible_sha256,
+    legacy_manifest_path,
+)
 REQUEST_FILE = PROJECT_ROOT / (
     "evaluation/review/evidence_accept_reject/evidence_review_requests_v1.jsonl"
 )
@@ -21,10 +29,10 @@ MANIFEST_SCHEMA_FILE = PROJECT_ROOT / (
     "schemas/evidence_review_prompt_experiment_manifest_v1.schema.json"
 )
 MANIFEST_FILE = PROJECT_ROOT / (
-    "reports/16_evidence_reviewer_prompt_experiment/prompt_experiment_manifest.json"
+    "reports/phase_08_evidence_reviewer/16_evidence_reviewer_prompt_experiment/prompt_experiment_manifest.json"
 )
 COMPARISON_FILE = PROJECT_ROOT / (
-    "reports/16_evidence_reviewer_prompt_experiment/mechanical_comparison.json"
+    "reports/phase_08_evidence_reviewer/16_evidence_reviewer_prompt_experiment/mechanical_comparison.json"
 )
 DELTA_FILE = PROJECT_ROOT / (
     "evaluation/review/evidence_accept_reject/experiments/prompt_v2/decision_deltas.csv"
@@ -39,20 +47,20 @@ VARIANT_FILES = {
         "response": PROJECT_ROOT
         / "evaluation/review/evidence_accept_reject/experiments/prompt_v2/control_v1_reviews.jsonl",
         "validation": PROJECT_ROOT
-        / "reports/16_evidence_reviewer_prompt_experiment/control_v1_validation.csv",
+        / "reports/phase_08_evidence_reviewer/16_evidence_reviewer_prompt_experiment/control_v1_validation.csv",
     },
     "candidate_v2": {
         "prompt_version": "evidence_review_prompt_v2_complete_coverage",
         "response": PROJECT_ROOT
         / "evaluation/review/evidence_accept_reject/experiments/prompt_v2/candidate_v2_reviews.jsonl",
         "validation": PROJECT_ROOT
-        / "reports/16_evidence_reviewer_prompt_experiment/candidate_v2_validation.csv",
+        / "reports/phase_08_evidence_reviewer/16_evidence_reviewer_prompt_experiment/candidate_v2_validation.csv",
     },
 }
 
 INPUT_FILES = {
     "baseline_manifest": PROJECT_ROOT
-    / "reports/14_evidence_review_runtime/evidence_review_runtime_manifest.json",
+    / "reports/phase_08_evidence_reviewer/14_evidence_review_runtime/evidence_review_runtime_manifest.json",
     "contract": PROJECT_ROOT / "docs/design/RETRIEVAL_EVIDENCE_REVIEW_CONTRACT.md",
     "contracts_module": PROJECT_ROOT / "src/evidence_review/contracts.py",
     "experiment_manifest_schema": MANIFEST_SCHEMA_FILE,
@@ -150,7 +158,7 @@ def main() -> None:
         raise ValueError(f"Manifest schema failed: {manifest_errors[0].message}")
 
     for label, path in INPUT_FILES.items():
-        if manifest["input_sha256"].get(label) != sha256_file(path):
+        if manifest["input_sha256"].get(label) != frozen_compatible_sha256(path):
             raise ValueError(f"Input hash mismatch: {label}")
 
     response_validator = Draft202012Validator(response_schema)
@@ -202,8 +210,8 @@ def main() -> None:
 
         variant_manifest = manifest_variants[variant_id]
         expected_artifacts = {
-            relative(paths["response"]): sha256_file(paths["response"]),
-            relative(paths["validation"]): sha256_file(paths["validation"]),
+            legacy_manifest_path(paths["response"], PROJECT_ROOT): sha256_file(paths["response"]),
+            legacy_manifest_path(paths["validation"], PROJECT_ROOT): sha256_file(paths["validation"]),
         }
         actual_artifacts = {
             row["file"]: row["sha256"] for row in variant_manifest["output_artifacts"]
@@ -246,7 +254,8 @@ def main() -> None:
         / "scripts/evaluation/build_evidence_review_prompt_comparison.py",
     }
     if mechanical.get("input_sha256") != {
-        label: sha256_file(path) for label, path in sorted(mechanical_inputs.items())
+        label: frozen_compatible_sha256(path)
+        for label, path in sorted(mechanical_inputs.items())
     }:
         raise ValueError("Mechanical comparison input hash mismatch")
     with DELTA_FILE.open("r", encoding="utf-8-sig", newline="") as handle:
@@ -254,7 +263,10 @@ def main() -> None:
     if len(delta_rows) != 40:
         raise ValueError("Decision delta artifact must contain 40 rows")
     if mechanical.get("output_artifacts") != [
-        {"file": relative(DELTA_FILE), "sha256": sha256_file(DELTA_FILE)}
+        {
+            "file": legacy_manifest_path(DELTA_FILE, PROJECT_ROOT),
+            "sha256": sha256_file(DELTA_FILE),
+        }
     ]:
         raise ValueError("Decision delta artifact hash mismatch")
     if mechanical.get("ground_truth_read") is not False:

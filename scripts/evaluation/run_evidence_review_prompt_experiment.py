@@ -50,12 +50,12 @@ MANIFEST_SCHEMA_FILE = PROJECT_ROOT / (
 )
 CONTRACT_FILE = PROJECT_ROOT / "docs/design/RETRIEVAL_EVIDENCE_REVIEW_CONTRACT.md"
 BASELINE_MANIFEST_FILE = PROJECT_ROOT / (
-    "reports/14_evidence_review_runtime/evidence_review_runtime_manifest.json"
+    "reports/phase_08_evidence_reviewer/14_evidence_review_runtime/evidence_review_runtime_manifest.json"
 )
 EXPERIMENT_ROOT = Path(
     "evaluation/review/evidence_accept_reject/experiments/prompt_v2"
 )
-REPORT_ROOT = Path("reports/16_evidence_reviewer_prompt_experiment")
+REPORT_ROOT = Path("reports/phase_08_evidence_reviewer/16_evidence_reviewer_prompt_experiment")
 MANIFEST_FILE = REPORT_ROOT / "prompt_experiment_manifest.json"
 
 PROVIDER = "ollama"

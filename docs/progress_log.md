@@ -5133,3 +5133,154 @@ tests/evidence_review : 31 passed
 Không tiếp tục prompt tuning trên cùng 40-câu development set. Trước experiment mới,
 cần khóa hướng model capability/reviewer architecture hoặc tạo holdout mới. Grounded
 answer generation chỉ chuyển tiếp khi reviewer quality gate đạt yêu cầu.
+
+---
+
+# Ngày 28 - A1 Evaluation và Evidence Reviewer Architecture Closure
+
+## Đã hoàn thành
+
+### 1. A1 two-stage runtime experiment
+
+Đã triển khai đúng một candidate A1 với cùng model Ollama `llama3.2:3b`:
+
+```text
+Question
+  -> Stage 1 question-only requirement analysis
+  -> Stage 2 requirement-level entailment trên Dense Top 3
+  -> deterministic reducer: accept iff all requirements supported
+```
+
+Stage 1 không nhận Ground Truth, expected answer points, human labels hoặc candidate
+evidence. Stage 2 không tạo final accept/reject. Supporting chunk IDs trùng được
+canonicalize bằng code, giữ lần xuất hiện đầu tiên và ghi count để audit.
+
+Primary và repeat đều xử lý đủ 40/40 câu, mỗi run dùng 80 model calls. Runtime khóa:
+
+```text
+Model digest       : a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72
+Temperature / seed : 0 / 42
+num_predict        : 512
+num_ctx thực dùng  : 4096
+Processor quan sát : 20% CPU / 80% GPU
+Ground Truth read  : false
+Model download     : false
+```
+
+Stability primary/repeat:
+
+| Kiểm tra | Kết quả |
+| --- | ---: |
+| Stage 1 exact match | 40/40 |
+| Stage 2 exact match | 40/40 |
+| Final response exact match | 40/40 |
+| Decision changes | 0 |
+| Supporting-ID changes | 0 |
+
+Cả primary và repeat tạo `0 accept / 40 reject`. Đây chỉ là output distribution ở
+M2, chưa phải quality conclusion.
+
+### 2. A1 canonical M3 evaluation
+
+M3 join primary output với cùng 37 canonical human decision labels, giữ ba exclusion
+q-017, q-023, q-041. Canonical scope có 21 expected accept và 16 expected reject.
+
+| Metric | A1 | Frozen threshold | Kết quả |
+| --- | ---: | ---: | --- |
+| TP / FP / FN / TN | 0 / 0 / 21 / 16 | — | — |
+| Accuracy | 43,24% | — | — |
+| Accept recall | 0% | >= 75% | FAIL |
+| False accept rate | 0% | <= 25% | PASS |
+| Evidence precision | N/A, 0 selected pairs | >= 85% | NOT EVALUABLE |
+
+Evidence precision giữ `null` thay vì gán `100%` cho phép chia `0/0`. Không tạo
+human-review workbook vì final `supporting_chunk_ids` rỗng ở toàn bộ 37-scope.
+
+Stage 2 internal audit có 103 requirement assessments: 21 supported và 82
+unsupported. Hai mươi câu có ít nhất một supported requirement, nhưng không câu nào
+có toàn bộ requirements supported. Requirement-level IDs chỉ dùng debug, không được
+đưa vào final evidence precision.
+
+A1 được freeze là `failed_candidate` do reject class collapse. Validator offline
+PASS; toàn bộ `tests/evidence_review` đạt `45 passed` tại thời điểm freeze.
+
+### 3. Kết thúc Evidence Reviewer research
+
+Ba hướng reviewer đã được đánh giá:
+
+```text
+V1 baseline  -> FAR 56,25%, quá permissive
+V2 candidate -> FAR 56,25%, evidence precision 68,66%, không cải thiện gate
+A1 two-stage -> accept recall 0%, reject collapse
+```
+
+Quyết định kiến trúc ngày 2026-08-20:
+
+- loại Evidence Reviewer khỏi active runtime path;
+- không tiếp tục V2.1, A1.1, A2, đổi model reviewer hoặc reviewer holdout;
+- không dùng reviewer quality gate để chặn downstream;
+- giữ nguyên experiment code, human review, metrics, manifests và reports làm bằng
+  chứng cho quyết định engineering;
+- mô tả component là
+  `experimental evidence gate — quality threshold not achieved`.
+
+Không xóa hoặc sửa lịch sử experiment.
+
+### 4. Khóa target architecture mới
+
+```text
+Question
+  -> dense_baseline_v1 Top 3
+  -> Grounded Answer Generator
+       -> Answer + supporting chunk IDs + video URL + timestamp
+       -> hoặc Abstain khi Top 3 không đủ bằng chứng
+```
+
+Grounded Answer Generator chịu trách nhiệm chỉ dùng Top 3, không dùng kiến thức ngoài
+transcript và thực hiện answer/abstain trong cùng một stage. Kiến trúc này bỏ một LLM
+call trung gian và không giả định Evidence Reviewer production-ready.
+
+### 5. Cập nhật tài liệu M4
+
+Đã đồng bộ current status, implementation plan, root README và archived Evidence
+Review contract. Contract Phase 8 được giữ để audit nhưng được đánh dấu deprecated,
+không còn là active runtime contract.
+
+### 6. Gom report Phase 8
+
+Đã chuyển bảy report stage từ các folder rời ở root `reports/` vào một parent:
+
+```text
+reports/phase_08_evidence_reviewer/
+  13_evidence_review/
+  14_evidence_review_runtime/
+  15_evidence_reviewer_evaluation/
+  16_evidence_reviewer_prompt_experiment/
+  17_evidence_reviewer_prompt_evaluation/
+  18_evidence_reviewer_a1_experiment/
+  19_evidence_reviewer_a1_evaluation/
+```
+
+Nội dung frozen manifests không bị rewrite. Các đường dẫn lịch sử bên trong manifest
+được resolve qua compatibility mapping sang vị trí vật lý mới, vì thay đổi byte của
+manifest sẽ làm mất SHA-256 và experiment identity. Baseline runtime, baseline M3,
+Prompt V2 final và A1 final validator đều PASS sau relocation; toàn bộ
+`tests/evidence_review` đạt `48 passed`.
+
+## Validation và ranh giới
+
+* A1 M3 final status: `failed_candidate`.
+* Evidence Reviewer research status: `stopped_after_a1_per_frozen_rule`.
+* Không gọi model trong M3/M4.
+* Không sửa Ground Truth hoặc thêm exclusion.
+* Không tạo human-review workbook cho zero selected pairs.
+* Không xóa code, evaluation artifact hoặc report Phase 8.
+* Chưa xây Grounded Answer Generator.
+* Chưa đánh giá answer groundedness, citation correctness hoặc abstention accuracy
+  end-to-end.
+
+## Bước tiếp theo
+
+Khóa contract/schema cho một Grounded Answer Generator dùng Dense Top 3, trả một
+trong hai kết quả: grounded answer kèm chunk/video/timestamp citations hoặc abstain
+khi evidence không đủ.

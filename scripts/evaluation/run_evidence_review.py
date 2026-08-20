@@ -51,16 +51,16 @@ FULL_OUTPUT = Path(
     "evaluation/review/evidence_accept_reject/ollama_llama32_3b_reviews_v1.jsonl"
 )
 FULL_VALIDATION = Path(
-    "reports/14_evidence_review_runtime/evidence_review_runtime_validation.csv"
+    "reports/phase_08_evidence_reviewer/14_evidence_review_runtime/evidence_review_runtime_validation.csv"
 )
 FULL_MANIFEST = Path(
-    "reports/14_evidence_review_runtime/evidence_review_runtime_manifest.json"
+    "reports/phase_08_evidence_reviewer/14_evidence_review_runtime/evidence_review_runtime_manifest.json"
 )
 SMOKE_OUTPUT = Path(
-    "reports/14_evidence_review_runtime/evidence_review_runtime_smoke_outputs.jsonl"
+    "reports/phase_08_evidence_reviewer/14_evidence_review_runtime/evidence_review_runtime_smoke_outputs.jsonl"
 )
 SMOKE_VALIDATION = Path(
-    "reports/14_evidence_review_runtime/evidence_review_runtime_smoke_validation.csv"
+    "reports/phase_08_evidence_reviewer/14_evidence_review_runtime/evidence_review_runtime_smoke_validation.csv"
 )
 
 PROVIDER = "ollama"
@@ -384,4 +384,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

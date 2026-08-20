@@ -27,7 +27,7 @@ DELTA_FILE = PROJECT_ROOT / (
     "evaluation/review/evidence_accept_reject/experiments/prompt_v2/decision_deltas.csv"
 )
 COMPARISON_FILE = PROJECT_ROOT / (
-    "reports/16_evidence_reviewer_prompt_experiment/mechanical_comparison.json"
+    "reports/phase_08_evidence_reviewer/16_evidence_reviewer_prompt_experiment/mechanical_comparison.json"
 )
 
 

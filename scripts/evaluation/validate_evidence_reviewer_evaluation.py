@@ -5,16 +5,20 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-MANIFEST_FILE = PROJECT_ROOT / "reports/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_manifest.json"
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from scripts.evaluation.phase8_report_paths import resolve_manifest_path
+MANIFEST_FILE = PROJECT_ROOT / "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_manifest.json"
 MANIFEST_SCHEMA_FILE = PROJECT_ROOT / "schemas/evidence_reviewer_evaluation_final_manifest_v1.schema.json"
-FINAL_RESULTS_FILE = PROJECT_ROOT / "reports/15_evidence_reviewer_evaluation/final_decision_results.csv"
+FINAL_RESULTS_FILE = PROJECT_ROOT / "reports/phase_08_evidence_reviewer/15_evidence_reviewer_evaluation/final_decision_results.csv"
 CANONICAL_HUMAN_FILE = PROJECT_ROOT / "evaluation/review/evidence_accept_reject/m3_human_review_12_canonical.csv"
 CANONICAL_EVIDENCE_FILE = PROJECT_ROOT / "evaluation/review/evidence_accept_reject/m3_evidence_entailment_canonical.csv"
 
@@ -40,7 +44,7 @@ def main() -> None:
         raise ValueError(f"Final M3 manifest schema failed: {errors[0].message}")
 
     for artifact in manifest["output_artifacts"]:
-        path = PROJECT_ROOT / artifact["file"]
+        path = resolve_manifest_path(PROJECT_ROOT, artifact["file"])
         if not path.exists() or sha256_file(path) != artifact["sha256"]:
             raise ValueError(f"Final M3 artifact missing or hash mismatch: {artifact['file']}")
 
@@ -93,4 +97,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

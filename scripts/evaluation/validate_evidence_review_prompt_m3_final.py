@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import sys
 from collections import Counter
 from pathlib import Path
 
@@ -12,7 +13,14 @@ from jsonschema import Draft202012Validator
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-MANIFEST_FILE = PROJECT_ROOT / "reports/17_evidence_reviewer_prompt_evaluation/m3_final_manifest.json"
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from scripts.evaluation.phase8_report_paths import (
+    frozen_compatible_sha256,
+    legacy_manifest_path,
+)
+MANIFEST_FILE = PROJECT_ROOT / "reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation/m3_final_manifest.json"
 SCHEMA_FILE = PROJECT_ROOT / "schemas/evidence_review_prompt_m3_final_manifest_v1.schema.json"
 HUMAN_FILE = PROJECT_ROOT / (
     "evaluation/review/evidence_accept_reject/experiments/prompt_v2/"
@@ -22,7 +30,7 @@ EVIDENCE_FILE = PROJECT_ROOT / (
     "evaluation/review/evidence_accept_reject/experiments/prompt_v2/"
     "m3_evidence_selection_canonical.csv"
 )
-FINAL_METRICS_FILE = PROJECT_ROOT / "reports/17_evidence_reviewer_prompt_evaluation/final_metrics.json"
+FINAL_METRICS_FILE = PROJECT_ROOT / "reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation/final_metrics.json"
 
 
 def sha256_file(path: Path) -> str:
@@ -53,21 +61,24 @@ def main() -> None:
             "canonicalizer": PROJECT_ROOT / "scripts/evaluation/canonicalize_evidence_review_prompt_experiment.py",
             "candidate_v2_e2": PROJECT_ROOT / "evaluation/review/evidence_accept_reject/experiments/prompt_v2/candidate_v2_reviews.jsonl",
             "final_manifest_schema": SCHEMA_FILE,
-            "m3_pre_review_manifest": PROJECT_ROOT / "reports/17_evidence_reviewer_prompt_evaluation/m3_pre_review_manifest.json",
+            "m3_pre_review_manifest": PROJECT_ROOT / "reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation/m3_pre_review_manifest.json",
             "pending_human_review_package": PROJECT_ROOT / "evaluation/review/evidence_accept_reject/experiments/prompt_v2/m3_pending_evidence_review.csv",
             "pre_review_evidence_audit": PROJECT_ROOT / "evaluation/review/evidence_accept_reject/experiments/prompt_v2/m3_evidence_selection_audit.csv",
-            "pre_review_metrics": PROJECT_ROOT / "reports/17_evidence_reviewer_prompt_evaluation/pre_review_decision_metrics.json",
+            "pre_review_metrics": PROJECT_ROOT / "reports/phase_08_evidence_reviewer/17_evidence_reviewer_prompt_evaluation/pre_review_decision_metrics.json",
             "review_export": PROJECT_ROOT / manifest["review_export"]["file"],
             "reviewed_workbook": PROJECT_ROOT / manifest["reviewed_workbook"]["file"],
             "thresholds": PROJECT_ROOT / "evaluation/review/evidence_accept_reject/experiments/prompt_v2/m3_thresholds.json",
         }
-        if label not in path_by_label or sha256_file(path_by_label[label]) != expected_hash:
+        if (
+            label not in path_by_label
+            or frozen_compatible_sha256(path_by_label[label]) != expected_hash
+        ):
             raise ValueError(f"Final M3 input hash mismatch: {label}")
 
     output_paths = {
-        HUMAN_FILE.relative_to(PROJECT_ROOT).as_posix(): HUMAN_FILE,
-        EVIDENCE_FILE.relative_to(PROJECT_ROOT).as_posix(): EVIDENCE_FILE,
-        FINAL_METRICS_FILE.relative_to(PROJECT_ROOT).as_posix(): FINAL_METRICS_FILE,
+        legacy_manifest_path(HUMAN_FILE, PROJECT_ROOT): HUMAN_FILE,
+        legacy_manifest_path(EVIDENCE_FILE, PROJECT_ROOT): EVIDENCE_FILE,
+        legacy_manifest_path(FINAL_METRICS_FILE, PROJECT_ROOT): FINAL_METRICS_FILE,
     }
     manifest_outputs = {row["file"]: row["sha256"] for row in manifest["output_artifacts"]}
     if set(manifest_outputs) != set(output_paths):

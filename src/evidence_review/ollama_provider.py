@@ -23,6 +23,7 @@ class OllamaProvider:
         seed: int,
         num_predict: int,
         timeout_seconds: float,
+        num_ctx: int | None = None,
     ) -> None:
         self.endpoint = endpoint.rstrip("/")
         self.model = model
@@ -31,6 +32,7 @@ class OllamaProvider:
         self.seed = seed
         self.num_predict = num_predict
         self.timeout_seconds = timeout_seconds
+        self.num_ctx = num_ctx
 
     def _request(self, path: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
         data = None if payload is None else json.dumps(payload).encode("utf-8")
@@ -77,6 +79,13 @@ class OllamaProvider:
         user_prompt: str,
         output_schema: dict[str, Any],
     ) -> ProviderResult:
+        options: dict[str, Any] = {
+            "temperature": self.temperature,
+            "seed": self.seed,
+            "num_predict": self.num_predict,
+        }
+        if self.num_ctx is not None:
+            options["num_ctx"] = self.num_ctx
         response = self._request(
             "/api/chat",
             {
@@ -87,11 +96,7 @@ class OllamaProvider:
                 ],
                 "stream": False,
                 "format": output_schema,
-                "options": {
-                    "temperature": self.temperature,
-                    "seed": self.seed,
-                    "num_predict": self.num_predict,
-                },
+                "options": options,
                 "keep_alive": "5m",
             },
         )
@@ -104,3 +109,32 @@ class OllamaProvider:
             eval_count=response.get("eval_count"),
         )
 
+    def inspect_model_context_capability(self) -> int | None:
+        """Read model metadata; this is not the configured runtime context."""
+
+        payload = self._request("/api/show", {"model": self.model})
+        model_info = payload.get("model_info", {})
+        value = model_info.get("llama.context_length")
+        return value if isinstance(value, int) else None
+
+    def inspect_process(self) -> dict[str, Any] | None:
+        """Return Ollama's active-process fields after inference when available."""
+
+        models = self._request("/api/ps").get("models", [])
+        process = next(
+            (
+                row
+                for row in models
+                if row.get("name") == self.model or row.get("model") == self.model
+            ),
+            None,
+        )
+        if process is None:
+            return None
+        return {
+            "model": process.get("name") or process.get("model"),
+            "digest": process.get("digest"),
+            "size_bytes": process.get("size"),
+            "size_vram_bytes": process.get("size_vram"),
+            "context_length": process.get("context_length"),
+        }

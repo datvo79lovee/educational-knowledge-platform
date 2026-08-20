@@ -44,8 +44,8 @@ REQUEST_PACKAGE = Path(
 CALIBRATION_FILE = Path(
     "evaluation/review/evidence_accept_reject/evidence_review_calibration_v1.csv"
 )
-VALIDATION_FILE = Path("reports/13_evidence_review/evidence_review_package_validation.csv")
-MANIFEST_FILE = Path("reports/13_evidence_review/evidence_review_package_manifest.json")
+VALIDATION_FILE = Path("reports/phase_08_evidence_reviewer/13_evidence_review/evidence_review_package_validation.csv")
+MANIFEST_FILE = Path("reports/phase_08_evidence_reviewer/13_evidence_review/evidence_review_package_manifest.json")
 
 RETRIEVAL_METHOD = "dense_baseline_v1"
 INDEX_RUN_ID = "mit60001_index_558e4d6e873847dd"
