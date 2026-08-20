@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/evidence_review_prompt_m3_final_manifest_v1.schema.json",
+  "title": "Evidence Review Prompt M3 Final Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "final_run_id", "frozen_pre_review_m3_run_id", "frozen_experiment_run_id", "reviewed_workbook", "review_export", "final_metrics", "input_sha256", "output_artifacts", "ground_truth_modified", "prompt_or_model_modified", "additional_exclusions_created", "validation_status", "m3_status"],
+  "properties": {
+    "$schema": {"const": "../../schemas/evidence_review_prompt_m3_final_manifest_v1.schema.json"},
+    "schema_version": {"const": "evidence_review_prompt_m3_final_manifest_v1"},
+    "final_run_id": {"type": "string", "pattern": "^mit60001_evidence_prompt_m3_final_[a-f0-9]{16}$"},
+    "frozen_pre_review_m3_run_id": {"type": "string", "pattern": "^mit60001_evidence_prompt_m3_[a-f0-9]{16}$"},
+    "frozen_experiment_run_id": {"const": "mit60001_evidence_prompt_experiment_256f435e9d3e0bfd"},
+    "reviewed_workbook": {"$ref": "#/$defs/fileHash"},
+    "review_export": {"$ref": "#/$defs/fileHash"},
+    "final_metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "evaluation_scope", "decision_metrics", "evidence_metrics", "human_review", "threshold_status", "candidate_result", "metric_scope_note"],
+      "properties": {
+        "schema_version": {"const": "evidence_review_prompt_m3_final_metrics_v1"},
+        "evaluation_scope": {"type": "object", "required": ["total_question_count", "evaluated_question_count", "excluded_question_ids"]},
+        "decision_metrics": {"type": "object", "required": ["locked_baseline_e0", "current_control_e1", "candidate_v2_e2"]},
+        "evidence_metrics": {"type": "object", "required": ["locked_baseline_e0", "current_control_e1", "candidate_v2_e2"]},
+        "human_review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["reviewed_pair_count", "supports_count", "does_not_support_count", "needs_discussion_count", "status"],
+          "properties": {
+            "reviewed_pair_count": {"const": 38},
+            "supports_count": {"type": "integer", "minimum": 0},
+            "does_not_support_count": {"type": "integer", "minimum": 0},
+            "needs_discussion_count": {"const": 0},
+            "status": {"const": "complete"}
+          }
+        },
+        "threshold_status": {"type": "object", "required": ["decision_thresholds", "evidence_threshold", "failed_thresholds", "overall"]},
+        "candidate_result": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "passes_in_sample_experiment_gate", "production_ready_claim_allowed", "generalization_claim_allowed", "interpretation"],
+          "properties": {
+            "status": {"enum": ["failed_candidate", "passes_in_sample_experiment_gate"]},
+            "passes_in_sample_experiment_gate": {"type": "boolean"},
+            "production_ready_claim_allowed": {"const": false},
+            "generalization_claim_allowed": {"const": false},
+            "interpretation": {"type": "string", "minLength": 1}
+          }
+        },
+        "metric_scope_note": {"type": "string", "minLength": 1}
+      }
+    },
+    "input_sha256": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+    "output_artifacts": {
+      "type": "array",
+      "minItems": 3,
+      "items": {"$ref": "#/$defs/fileHash"}
+    },
+    "ground_truth_modified": {"const": false},
+    "prompt_or_model_modified": {"const": false},
+    "additional_exclusions_created": {"const": false},
+    "validation_status": {"const": "passed"},
+    "m3_status": {"enum": ["failed_candidate", "passes_in_sample_experiment_gate"]}
+  },
+  "$defs": {
+    "fileHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "sha256"],
+      "properties": {
+        "file": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    }
+  }
+}

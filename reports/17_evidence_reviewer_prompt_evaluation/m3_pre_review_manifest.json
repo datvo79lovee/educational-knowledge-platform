@@ -1,0 +1,198 @@
+{
+  "$schema": "../../schemas/evidence_review_prompt_m3_pre_review_manifest_v1.schema.json",
+  "additional_exclusions_created": false,
+  "decision_metrics": {
+    "candidate_v2_e2": {
+      "accept_precision": 0.6785714285714286,
+      "accept_recall": 0.9047619047619048,
+      "accuracy": 0.7027027027027027,
+      "confusion_matrix": {
+        "fn": 2,
+        "fp": 9,
+        "tn": 7,
+        "tp": 19
+      },
+      "false_accept_rate": 0.5625,
+      "false_reject_rate": 0.09523809523809523,
+      "question_count": 37
+    },
+    "current_control_e1": {
+      "accept_precision": 0.64,
+      "accept_recall": 0.7619047619047619,
+      "accuracy": 0.6216216216216216,
+      "confusion_matrix": {
+        "fn": 5,
+        "fp": 9,
+        "tn": 7,
+        "tp": 16
+      },
+      "false_accept_rate": 0.5625,
+      "false_reject_rate": 0.23809523809523808,
+      "question_count": 37
+    },
+    "locked_baseline_e0": {
+      "accept_precision": 0.6538461538461539,
+      "accept_recall": 0.8095238095238095,
+      "accuracy": 0.6486486486486487,
+      "confusion_matrix": {
+        "fn": 4,
+        "fp": 9,
+        "tn": 7,
+        "tp": 17
+      },
+      "false_accept_rate": 0.5625,
+      "false_reject_rate": 0.19047619047619047,
+      "question_count": 37
+    }
+  },
+  "evaluation_scope": {
+    "evaluated_question_count": 37,
+    "excluded_question_ids": [
+      "mit60001-q-017",
+      "mit60001-q-023",
+      "mit60001-q-041"
+    ],
+    "total_question_count": 40
+  },
+  "evidence_audit": {
+    "canonical_reuse_count": 35,
+    "pending_human_review_count": 38,
+    "unique_selection_pair_count": 73,
+    "variant_summaries": {
+      "candidate_v2_e2": {
+        "all_40_questions": {
+          "canonical_verdict_count": 32,
+          "does_not_support_count": 6,
+          "evidence_precision": null,
+          "pending_human_review_count": 38,
+          "selected_pair_count": 70,
+          "supports_count": 26
+        },
+        "same_37_decision_evaluable_questions": {
+          "canonical_verdict_count": 31,
+          "does_not_support_count": 5,
+          "evidence_precision": null,
+          "pending_human_review_count": 36,
+          "selected_pair_count": 67,
+          "supports_count": 26
+        }
+      },
+      "current_control_e1": {
+        "all_40_questions": {
+          "canonical_verdict_count": 34,
+          "does_not_support_count": 8,
+          "evidence_precision": 0.7647058823529411,
+          "pending_human_review_count": 0,
+          "selected_pair_count": 34,
+          "supports_count": 26
+        },
+        "same_37_decision_evaluable_questions": {
+          "canonical_verdict_count": 33,
+          "does_not_support_count": 7,
+          "evidence_precision": 0.7878787878787878,
+          "pending_human_review_count": 0,
+          "selected_pair_count": 33,
+          "supports_count": 26
+        }
+      },
+      "locked_baseline_e0": {
+        "all_40_questions": {
+          "canonical_verdict_count": 35,
+          "does_not_support_count": 8,
+          "evidence_precision": 0.7714285714285715,
+          "pending_human_review_count": 0,
+          "selected_pair_count": 35,
+          "supports_count": 27
+        },
+        "same_37_decision_evaluable_questions": {
+          "canonical_verdict_count": 34,
+          "does_not_support_count": 7,
+          "evidence_precision": 0.7941176470588235,
+          "pending_human_review_count": 0,
+          "selected_pair_count": 34,
+          "supports_count": 27
+        }
+      }
+    }
+  },
+  "frozen_experiment_run_id": "mit60001_evidence_prompt_experiment_256f435e9d3e0bfd",
+  "ground_truth_modified": false,
+  "input_sha256": {
+    "baseline_final_manifest": "4875f135e389f3e38501aeed2288449a7b0a31954dc0c5da09ed57a4f6f440f4",
+    "canonical_decisions": "9e0b5211ea0c1a760dc0cb1882b6d3eb30c1ec5d78879e07640c9e2ab6f922b6",
+    "canonical_evidence": "f8eefed029c89378b5b44685df728edad2dae199193ed1e12c2cc14057c7e934",
+    "e0_locked_baseline": "6484bf5adcec31de7f19c4015b6f3aa4ab864237bd1de579505e7c0633a01ce0",
+    "e1_current_control": "14895adb11013a0144705bae19410645fd981711169578f16fbb6a824aed00e2",
+    "e2_candidate_v2": "e39d9fe964e4f2d516fb30de93d7e3290c080bbc0d3fee65bfdf25e23464b06a",
+    "evaluator": "8a7ac4549cae6db2f91db869e76db18333290a878022a9517be2c07bf92f7f60",
+    "experiment_manifest": "5910577f20d0f1f10633ff526c8fd4751cc4da17e40585702108f6ac2099067b",
+    "ground_truth": "81d5a1374118b01d850d7c4808edf89b9432036a4488c49f5150720aa3fc8dee",
+    "manifest_schema": "76797efc5d50138380169348120ef9b4a6a851272c1886ec67942a3d57267613",
+    "mechanical_comparison": "6affe16f02de99ab2bffae69e1c6434c00e500c2b843f7293e11a8cfb723808e",
+    "request_package": "1cafc735ec5a40cf0179c017f064dd9cd3d187f0a4b90564d68680928e257a3e",
+    "thresholds": "0d31e3e05d91467fde507264f7382a456fd75961280cb5f3216dbfc699ddf0c1"
+  },
+  "m3_run_id": "mit60001_evidence_prompt_m3_33c974521c60e2dc",
+  "m3_status": "human_evidence_review_pending",
+  "output_artifacts": [
+    {
+      "file": "reports/17_evidence_reviewer_prompt_evaluation/pre_review_decision_metrics.json",
+      "sha256": "8df7d83221f96b71faaac80d40600103a19f014f2f8f011320342fdea9b90775"
+    },
+    {
+      "file": "reports/17_evidence_reviewer_prompt_evaluation/decision_delta_audit.csv",
+      "sha256": "03a5a9af32b78a7a1c38ebcc501332498538ea72eb45a6f97b1ab28335094796"
+    },
+    {
+      "file": "evaluation/review/evidence_accept_reject/experiments/prompt_v2/m3_evidence_selection_audit.csv",
+      "sha256": "26421278f2011e15e15e8091b49b69d825a69923a14b9ef5642772abb9e8c354"
+    },
+    {
+      "file": "evaluation/review/evidence_accept_reject/experiments/prompt_v2/m3_pending_evidence_review.csv",
+      "sha256": "d2efb7ee8954859baf4792691e90906708e93f658bc0ae448fd3ea99c968acd8"
+    },
+    {
+      "file": "evaluation/review/evidence_accept_reject/experiments/prompt_v2/outputs/phase8_m3/phase8_m3_prompt_experiment_evidence_review.xlsx",
+      "sha256": "d63d20a57b7148d54191d6f74b40ca304dfca866d36b4c90e6ccd46bd650e9af"
+    }
+  ],
+  "prompt_or_model_modified": false,
+  "schema_version": "evidence_review_prompt_m3_pre_review_manifest_v1",
+  "threshold_status": {
+    "decision_thresholds": {
+      "accept_recall": {
+        "passed": true,
+        "threshold_min": 0.75,
+        "value": 0.9047619047619048
+      },
+      "false_accept_rate": {
+        "passed": false,
+        "threshold_max": 0.25,
+        "value": 0.5625
+      },
+      "ground_truth_leakage_count": {
+        "passed": true,
+        "threshold_max": 0,
+        "value": 0
+      },
+      "outside_top3_supporting_id_count": {
+        "passed": true,
+        "threshold_max": 0,
+        "value": 0
+      },
+      "response_schema_valid_rate": {
+        "passed": true,
+        "threshold_min": 1.0,
+        "value": 1.0
+      }
+    },
+    "evidence_threshold": {
+      "passed": null,
+      "status": "pending_38_human_verdicts",
+      "threshold_min": 0.85,
+      "value": null
+    },
+    "overall": "human_evidence_review_pending"
+  },
+  "validation_status": "passed"
+}

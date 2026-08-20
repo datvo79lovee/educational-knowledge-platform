@@ -5034,3 +5034,102 @@ schemas/README.md
 
 Khóa policy/schema cho evidence accept/reject trên Dense Top 3, sau đó mới xây
 grounded answer generation và end-to-end evaluation.
+
+---
+
+# Ngày 27 - Evidence Reviewer Runtime, Evaluation và Prompt V2 Experiment
+
+## Đã hoàn thành
+
+### 1. Phase 8 M2A và M2B — request package và baseline reviewer
+
+Provider-independent package đã khóa 40 câu theo flow:
+
+```text
+Question -> Dense Top 3 -> Evidence-review request
+```
+
+Request không chứa Ground Truth, `expected_answer_points` hoặc
+`relevant_time_ranges`. Local reviewer M2B dùng Ollama `llama3.2:3b`, prompt V1,
+structured JSON output, `temperature=0`, `seed=42`. Runtime hoàn thành 40/40 output,
+chỉ chọn supporting chunk IDs trong Dense Top 3 và chưa sinh grounded answer.
+
+### 2. Baseline M3 — hoàn thành với exclusions
+
+Human review hoàn thành 12/12 câu cần adjudication và 35/35 supporting chunks. Metric
+cuối dùng 37 câu; q-017, q-023 và q-041 giữ exclusion thay vì ép nhãn.
+
+| Baseline V1 | Kết quả |
+| --- | ---: |
+| Accept recall | 80,95% |
+| False accept rate | 56,25% |
+| Evidence-selection precision, all-40 audit | 27/35 = 77,14% |
+
+Trên cùng 37-scope dùng trong prompt experiment, baseline E0 đạt
+`27/34 = 79,41%`.
+
+Baseline M3 được freeze với trạng thái `complete_with_exclusions`. Runtime chạy đúng
+contract nhưng chưa đạt production quality gate.
+
+### 3. E0/E1/E2 prompt experiment
+
+Experiment giữ nguyên model `llama3.2:3b`, Dense Top 3, Ground Truth và exclusion set:
+
+- E0: locked baseline V1.
+- E1: V1 control trên runtime hiện tại.
+- E2: prompt V2 candidate.
+
+E1 và E2 xử lý đủ 40/40 câu với structured output hợp lệ. E1 -> E2 thay đổi decision
+ở sáu câu và thay đổi supporting IDs ở 23/40 câu. Prompt/model không bị sửa trong
+M3 evaluation và không có Ground Truth leakage vào request.
+
+### 4. Human evidence audit và final gate
+
+Human audit hoàn thành 38/38 cặp evidence mới:
+
+```text
+supports             : 22
+does_not_support     : 16
+needs_discussion     : 0
+```
+
+Kết quả E2 trên cùng 37 câu evaluable:
+
+| Metric | E2 | Pre-registered threshold | Kết quả |
+| --- | ---: | ---: | --- |
+| Accept recall | 90,48% | >= 75% | PASS |
+| False accept rate | 56,25% | <= 25% | FAIL |
+| Evidence-selection precision, 37-scope | 46/67 = 68,66% | >= 85% | FAIL |
+
+E2 được freeze là `failed_candidate` và không được promote. `failed_candidate` là
+kết quả quality evaluation, không phải runtime failure. V2 đạt schema/runtime
+correctness nhưng không giảm false accept và evidence precision thấp hơn baseline
+trên cả hai scope: cùng 37-scope là E0 `79,41%` so với E2 `68,66%`; all-40 audit
+là E0 `77,14%` so với E2 `48/70 = 68,57%`.
+
+### 5. Validation
+
+Final validator kiểm tra reviewed workbook hash, canonical human verdicts, 73 cặp
+evidence E1/E2, metric, pre-registered thresholds và artifact hashes: `passed`.
+
+```text
+Human evidence review : 38/38
+E2 gate evidence      : 67 pairs
+E2 supports / rejects : 46 / 21
+M3 status             : failed_candidate
+tests/evidence_review : 31 passed
+```
+
+## Ranh giới chưa làm
+
+* Không tạo V2.1 và không chạy experiment mới trong M4.
+* Không sửa model, Ground Truth hoặc ba exclusion cũ.
+* Evidence reviewer production quality gate chưa pass.
+* Chưa xây grounded answer generation.
+* Chưa đánh giá answer groundedness hoặc abstention accuracy end-to-end.
+
+## Bước tiếp theo
+
+Không tiếp tục prompt tuning trên cùng 40-câu development set. Trước experiment mới,
+cần khóa hướng model capability/reviewer architecture hoặc tạo holdout mới. Grounded
+answer generation chỉ chuyển tiếp khi reviewer quality gate đạt yêu cầu.

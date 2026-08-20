@@ -1,0 +1,2176 @@
+﻿review_key,question_id,decision_evaluation_scope,question,expected_answer_points,selected_by_variants,control_e1_selected,candidate_e2_selected,supporting_chunk_id,supporting_rank,supporting_chunk_text,citation_url,e1_reason,e2_reason,verdict_source,human_entailment_verdict,human_notes,human_review_status,source_workbook_sha256,source_review_export_sha256
+mit60001-q-001|nykOeWgQcHM:semantic_cosine_wp240_v1:3,mit60001-q-001,evaluated_37,"According to the course introduction, what learning goals are introduced for students?","- Gain conceptual knowledge and programming skills.
+- Learn to solve problems through problem sets and sustained programming practice.
+- Read problem sets early so course terminology becomes familiar.
+- Develop recursive problem solving by reducing a hard problem to simpler versions of the same problem.",candidate_v2_e2,False,True,nykOeWgQcHM:semantic_cosine_wp240_v1:3,2,"for future reference.
+It's true.
+This is a really
+fast-paced course,
+and we ramp up really quickly.
+We do want to position you
+to succeed in this course.
+As I was writing
+this, I was trying
+to think about when
+I was first starting
+to program what helped
+me get through my very
+first programming course.
+And this is really a good list.
+The first thing was I just
+read the psets as soon
+as they came out, made sure that
+the terminology just sunk in.
+And then, during
+lectures, if the lecturer
+was talking about something
+that suddenly I remembered,
+oh, I saw that word in the pset
+and I didn't know what it was.
+Well, hey, now I
+know what it is.",https://www.youtube.com/watch?v=nykOeWgQcHM&t=127s,,The whole question is covered.,prompt_v2_m3_human_review,supports,Directly supports reading problem sets early so course terminology becomes familiar.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-001|nykOeWgQcHM:semantic_cosine_wp240_v1:6,mit60001-q-001,evaluated_37,"According to the course introduction, what learning goals are introduced for students?","- Gain conceptual knowledge and programming skills.
+- Learn to solve problems through problem sets and sustained programming practice.
+- Read problem sets early so course terminology becomes familiar.
+- Develop recursive problem solving by reducing a hard problem to simpler versions of the same problem.",candidate_v2_e2,False,True,nykOeWgQcHM:semantic_cosine_wp240_v1:6,1,"looks like.
+And underlying all of
+these is just practice.
+You have to just type some
+stuff away and code a lot.
+And you'll succeed in
+this course, I think.
+OK.
+So what are the things we're
+going to learn in this class?
+I feel like the things we're
+going learn in this class
+can be divided into basically
+three different sections.
+The first one is related to
+these first two items here.
+It's really about
+learning how to program.
+Learning how to
+program, part of it
+is figuring out what
+objects to create.
+You'll learn about these later.
+How do you represent knowledge
+with data structures?
+That's sort of the
+broad term for that.
+And then, as you're
+writing programs,",https://www.youtube.com/watch?v=nykOeWgQcHM&t=261s,,The whole question is covered.,prompt_v2_m3_human_review,supports,Directly supports sustained hands-on programming practice and learning how to program.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-001|nykOeWgQcHM:semantic_cosine_wp240_v1:7,mit60001-q-001,evaluated_37,"According to the course introduction, what learning goals are introduced for students?","- Gain conceptual knowledge and programming skills.
+- Learn to solve problems through problem sets and sustained programming practice.
+- Read problem sets early so course terminology becomes familiar.
+- Develop recursive problem solving by reducing a hard problem to simpler versions of the same problem.",candidate_v2_e2,False,True,nykOeWgQcHM:semantic_cosine_wp240_v1:7,3,"you need to-- programs
+aren't just linear.
+Sometimes programs jump around.
+They make decisions.
+There's some control
+flow to programs.
+That's what the second
+line is going to be about.
+The second big
+part of this course
+is a little bit more
+abstract, and it
+deals with how do you write
+good code, good style,
+code that's readable.
+When you write code, you
+want to write it such
+that-- you're in big company,
+other people will read it,
+other people will
+use it, so it has
+to be readable and
+understandable by others.
+To that end, you
+need to write code
+that's well organized,
+modular, easy to understand.
+And not only that, not
+only will your code",https://www.youtube.com/watch?v=nykOeWgQcHM&t=306s,,The whole question is covered.,prompt_v2_m3_human_review,supports,"Supports the programming-skills/concepts part of the learning goals via control flow and readable, modular code.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-002|nykOeWgQcHM:semantic_cosine_wp240_v1:5,mit60001-q-002,evaluated_37,What does the course say students should do to practice programming effectively?,"- Read problem sets early to become familiar with terminology.
+- Practice programming directly rather than only watching someone else code.
+- Download the code before lecture.",candidate_v2_e2,False,True,nykOeWgQcHM:semantic_cosine_wp240_v1:5,3,"Yeah.
+That's probably the
+big thing right there.
+I should have probably
+highlighted it,
+but don't be afraid.
+Great.
+So this is pretty much a
+roadmap of all of 6.0001 or 600
+as I've just explained it.
+There's three big things we
+want to get out of this course.
+The first thing is the
+knowledge of concepts,
+which is pretty much true of
+any class that you'll take.
+The class will teach you
+something through lectures.
+Exams will test
+how much you know.
+This is a class in programming.
+The other thing we want
+you to get out of it
+is programming skills.
+And the last thing,
+and I think this
+is what makes this
+class really great,
+is we teach you how
+to solve problems.
+And we do that
+through the psets.
+That's really how I feel
+the roadmap of this course",https://www.youtube.com/watch?v=nykOeWgQcHM&t=215s,,The evidence supports the requested answer and covers the entire question.,prompt_v2_m3_human_review,does_not_support,"Describes course goals and problem solving through psets, but not the specific practice advice in the expected answer: read psets early, program directly, and download code.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-002|nykOeWgQcHM:semantic_cosine_wp240_v1:6,mit60001-q-002,evaluated_37,What does the course say students should do to practice programming effectively?,"- Read problem sets early to become familiar with terminology.
+- Practice programming directly rather than only watching someone else code.
+- Download the code before lecture.",candidate_v2_e2,False,True,nykOeWgQcHM:semantic_cosine_wp240_v1:6,2,"looks like.
+And underlying all of
+these is just practice.
+You have to just type some
+stuff away and code a lot.
+And you'll succeed in
+this course, I think.
+OK.
+So what are the things we're
+going to learn in this class?
+I feel like the things we're
+going learn in this class
+can be divided into basically
+three different sections.
+The first one is related to
+these first two items here.
+It's really about
+learning how to program.
+Learning how to
+program, part of it
+is figuring out what
+objects to create.
+You'll learn about these later.
+How do you represent knowledge
+with data structures?
+That's sort of the
+broad term for that.
+And then, as you're
+writing programs,",https://www.youtube.com/watch?v=nykOeWgQcHM&t=261s,,The evidence supports the requested answer and covers the entire question.,prompt_v2_m3_human_review,supports,Directly says effective practice requires typing and coding a lot.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-002|nykOeWgQcHM:semantic_cosine_wp240_v1:7,mit60001-q-002,evaluated_37,What does the course say students should do to practice programming effectively?,"- Read problem sets early to become familiar with terminology.
+- Practice programming directly rather than only watching someone else code.
+- Download the code before lecture.","candidate_v2_e2
+current_control_e1",True,True,nykOeWgQcHM:semantic_cosine_wp240_v1:7,1,"you need to-- programs
+aren't just linear.
+Sometimes programs jump around.
+They make decisions.
+There's some control
+flow to programs.
+That's what the second
+line is going to be about.
+The second big
+part of this course
+is a little bit more
+abstract, and it
+deals with how do you write
+good code, good style,
+code that's readable.
+When you write code, you
+want to write it such
+that-- you're in big company,
+other people will read it,
+other people will
+use it, so it has
+to be readable and
+understandable by others.
+To that end, you
+need to write code
+that's well organized,
+modular, easy to understand.
+And not only that, not
+only will your code",https://www.youtube.com/watch?v=nykOeWgQcHM&t=306s,"The candidate excerpt directly supports the answer 'To practice programming effectively, you need to write code that's well organized, modular, easy to understand, and readable by others.' with chunk_id 'nykOeWgQcHM:semantic_cosine_wp240_v1:7'.",The evidence supports the requested answer and covers the entire question.,baseline_m3_canonical,does_not_support,"Discusses readable/modular code and program control flow, not the expected practice advice (read problem sets early, program directly, download code).",canonical_reuse,,
+mit60001-q-003|MjbuarJ7SE0:semantic_cosine_wp240_v1:21,mit60001-q-003,evaluated_37,How does Python use variable names in different scopes?,"- The same variable name can exist in the global scope and in a different scope.
+- Python uses the variable names of the current scope, so same-named variables in different scopes do not interfere with one another.","candidate_v2_e2
+current_control_e1",True,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:21,2,"And this line here return
+something tells Python, OK
+after you have finished
+executing everything
+inside the function, what
+value should I return?
+And whoever called
+the function is
+going to get back that
+value, and the function
+call itself will be
+replaced by that value.
+OK so let's look at an example.
+I'm going to introduce
+the idea of scope now.
+And scope just means-- is
+another word for environment.
+So if I told you that you
+could think of functions
+as little mini-programs,
+the scope of a function
+is going to be a completely
+separate environment
+than the environment
+of the main program.
+So as soon as you
+make a function call,
+behind the scenes
+what Python says is,
+OK I'm in the main program
+but I see a function call.
+I'm going to step out
+of this main program.
+I'm going to go off into
+this new environment.",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=913s,"The candidate excerpt directly supports the answer that Python uses variable names in different scopes, and the scope of a function is a completely separate environment than the environment of the main program.",The evidence supports the requested answer and covers the entire question.,baseline_m3_canonical,supports,"Explains that a function scope is a separate environment from the main program, supporting separation of same-named variables across scopes.",canonical_reuse,,
+mit60001-q-003|MjbuarJ7SE0:semantic_cosine_wp240_v1:42,mit60001-q-003,evaluated_37,How does Python use variable names in different scopes?,"- The same variable name can exist in the global scope and in a different scope.
+- Python uses the variable names of the current scope, so same-named variables in different scopes do not interfere with one another.","candidate_v2_e2
+current_control_e1",True,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:42,3,"Python's going to use
+those variable names,
+so they don't interfere
+with each other at all.
+So in this example, I've defined
+a variable x is equal to 1,
+and then I incremented, and that
+doesn't interfere with the fact
+that we have a
+variable x outside.
+This one's a little
+bit trickier.
+I define this function
+g, and all g does
+is access a variable x.
+But notice inside g, I've
+never actually declared
+or initialized a variable x.
+In this f, I said
+x is equal to 1.
+But in here, I'm
+just sort of using x.
+So this does not
+give you an error.",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=1885s,"The candidate excerpt directly supports the answer that Python uses variable names in different scopes, and the scope of a function is a completely separate environment than the environment of the main program.",The evidence supports the requested answer and covers the entire question.,baseline_m3_canonical,supports,Directly states that same-named variables in different scopes do not interfere with each other.,canonical_reuse,,
+mit60001-q-004|0jljZRnHwOI:semantic_cosine_wp240_v1:31,mit60001-q-004,evaluated_37,What is the difference between assignment (=) and equality (==) in Python?,"- The single equals sign assigns a value to a variable.
+- The double equals sign tests whether two values are equal and produces a Boolean result.",candidate_v2_e2,False,True,0jljZRnHwOI:semantic_cosine_wp240_v1:31,2,"So notice that we denoted
+code blocks using indentation.
+And that's actually
+one of the things
+that I really like about Python.
+It sort of forces you to
+write pretty code and nice
+looking code and just
+code that's very readable.
+And that forces you to indent
+everything that's a code block.
+So you can easily see sort of
+where the flow of control is
+and where decision making
+points are and things like that.
+So in this particular example,
+we have one if statement here,
+and it checks if two
+variables are equal.
+And we have an if, elif, else.
+And in this example, we're
+going to enter either this code
+block or this one or
+this one, depending
+on the variables of x and y.
+And we're only going
+into one code block.
+And we'll enter the
+first one that's true.",https://www.youtube.com/watch?v=0jljZRnHwOI&t=1455s,,The evidence supports both sides of the question and the requested contrast.,prompt_v2_m3_human_review,does_not_support,"Says an if statement checks whether variables are equal, but the transcript does not identify the == operator or contrast it with = assignment.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-004|0jljZRnHwOI:semantic_cosine_wp240_v1:32,mit60001-q-004,evaluated_37,What is the difference between assignment (=) and equality (==) in Python?,"- The single equals sign assigns a value to a variable.
+- The double equals sign tests whether two values are equal and produces a Boolean result.",candidate_v2_e2,False,True,0jljZRnHwOI:semantic_cosine_wp240_v1:32,3,"Notice you can have
+nested conditionals.
+So inside this first if,
+we have another if here.
+And this inner if is only going
+to be checked when we enter
+the first-- this outter if.
+I do want to make
+one point, though.
+So sometimes, you might forget
+to do the double equals sign
+when you are checking for
+equality, and that's OK.
+If you just use one
+equals sign, Python's
+going to give you an error.
+And it's going to
+say syntax error,
+and it's going to
+highlight this line.
+And then you're going to know
+that there's a mistake there.
+And you should be
+using equality,
+because it doesn't
+make sense to be
+using-- to assign-- to be making
+an assignment inside the if.
+So we've learned
+about branching.
+And we know about conditionals.
+Let's try to apply
+this to a little game.",https://www.youtube.com/watch?v=0jljZRnHwOI&t=1513s,,The evidence supports both sides of the question and the requested contrast.,prompt_v2_m3_human_review,supports,Explicitly contrasts double-equals for equality checking with single-equals assignment.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-004|nykOeWgQcHM:semantic_cosine_wp240_v1:53,mit60001-q-004,evaluated_37,What is the difference between assignment (=) and equality (==) in Python?,"- The single equals sign assigns a value to a variable.
+- The double equals sign tests whether two values are equal and produces a Boolean result.",current_control_e1,True,False,nykOeWgQcHM:semantic_cosine_wp240_v1:53,1,"That means always in programming
+the right-hand side is
+going to be an expression.
+It's something that's going
+to be evaluated to a value.
+And the left-hand side
+is always a variable.
+It's going to be an assignment.
+The equal sign is
+not like in math
+where you can have a lot
+of things to the left
+and a lot of things to the
+right of the equal sign.
+There's only one thing to
+the left of the equal sign.
+And that's going
+to be a variable.
+An equal sign stands
+for an assignment.
+Once we've created expressions,
+and we have these assignments,
+you can rebind variable
+names using new assignment
+statements.",https://www.youtube.com/watch?v=nykOeWgQcHM&t=2365s,"The candidate excerpt directly supports the answer that assignment (=) and equality (==) are used differently in Python, with assignment being on the left-hand side and equality on the right-hand side.",,baseline_m3_canonical,does_not_support,Explains single-equals assignment only; it does not provide the == equality/Boolean half required for the requested contrast.,canonical_reuse,,
+mit60001-q-005|WPSeyjX1-4s:semantic_cosine_wp240_v1:15,mit60001-q-005,evaluated_37,"According to the course, why does a recursive function require a base case?","- A base case gives recursion a directly solvable case and stops the unwinding of recursive calls.
+- Having one or more easy base cases prevents infinite recursion.","candidate_v2_e2
+current_control_e1",True,True,WPSeyjX1-4s:semantic_cosine_wp240_v1:15,3,"Recursive definition that
+reduces a problem to a simpler
+version of the same problem.
+OK, let's look at
+another example.
+Classic problem in recursion
+is to compute factorial,
+right? n factorial,
+or n bang if you
+like, n exclamation point
+is n times n minus 1,
+all the way down to 1.
+So it's the product of
+all the integers from 1
+up to n assuming n is
+a positive integer.
+So we can ask the
+same question if I
+wanted to solve this recursively
+what would the base case be?
+Well, when n is equal
+to 1, it's just 1.
+In the recursive case,
+will n times n minus 1
+all the way down to 1,
+that's the same as n times",https://www.youtube.com/watch?v=WPSeyjX1-4s&t=558s,The candidate excerpt directly supports the answer that a recursive function requires a base case to avoid infinite recursion.,The whole question is covered.,baseline_m3_canonical,supports,"Provides a concrete directly solvable factorial base case (n=1), supporting the base-case concept.",canonical_reuse,,
+mit60001-q-005|WPSeyjX1-4s:semantic_cosine_wp240_v1:8,mit60001-q-005,evaluated_37,"According to the course, why does a recursive function require a base case?","- A base case gives recursion a directly solvable case and stops the unwinding of recursive calls.
+- Having one or more easy base cases prevents infinite recursion.","candidate_v2_e2
+current_control_e1",True,True,WPSeyjX1-4s:semantic_cosine_wp240_v1:8,2,"when I get to something
+I can solve directly.
+And so what we're going to do
+is avoid infinite recursion
+by ensuring that we have
+at least one or more base
+cases that are easy to solve.
+And then the basic
+idea is I just
+want to solve the same
+problem on some simpler
+input with the idea
+of using that solution
+to solve the larger problem.
+OK, let's look at an
+example, and to set
+the stage I'm going to go back
+to something you've been doing,",https://www.youtube.com/watch?v=WPSeyjX1-4s&t=308s,The candidate excerpt directly supports the answer that a recursive function requires a base case to avoid infinite recursion.,The whole question is covered.,baseline_m3_canonical,supports,Directly states that easy base cases avoid infinite recursion and are directly solvable.,canonical_reuse,,
+mit60001-q-006|o9nW0uBqvEo:semantic_cosine_wp240_v1:13,mit60001-q-006,evaluated_37,"According to the lecture, how is the efficiency of an algorithm explained?","- Estimate efficiency by running test cases, timing execution, and observing the result.
+- Alternatively count fundamental operations as a function of input size.",candidate_v2_e2,False,True,o9nW0uBqvEo:semantic_cosine_wp240_v1:13,2,"There's lots of little choices.
+So an algorithm
+could be implemented
+many different ways.
+How do I measure the actual
+efficiency of the algorithm?
+Second one is I might,
+for a given problem,
+have different
+choices of algorithm.
+A recursive solution
+versus an iterative one.
+Using divide and conquer
+versus straightforward search.
+We're going to see
+some examples of that.
+So I've got to somehow
+separate those pieces out.
+And in particular, I'd
+like to separate out
+the choice of implementation
+from the choice of algorithm.
+I want to measure how
+hard is the algorithm,
+not can I come up
+with a slightly more
+efficient way of coming
+up with an implementation.
+So here are three
+ways I might do it.
+And we're going to look at
+each one of them very briefly.
+The obvious one is we could
+be scientists-- time it.
+Write the code, run a bunch
+of test case, run a timer,",https://www.youtube.com/watch?v=o9nW0uBqvEo&t=509s,,"The evidence supports the explanation of efficiency in an algorithm, specifically that it can be measured by counting operations and comparing different implementations.",prompt_v2_m3_human_review,supports,Directly supports the timing approach: run test cases and time execution to measure efficiency.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-006|o9nW0uBqvEo:semantic_cosine_wp240_v1:14,mit60001-q-006,evaluated_37,"According to the lecture, how is the efficiency of an algorithm explained?","- Estimate efficiency by running test cases, timing execution, and observing the result.
+- Alternatively count fundamental operations as a function of input size.","candidate_v2_e2
+current_control_e1",True,True,o9nW0uBqvEo:semantic_cosine_wp240_v1:14,1,"use that to try and come up with
+a way of estimating efficiency.
+We'll see some
+challenges with that.
+Slightly more abstractly,
+we could count operations.
+We could say here are the set
+of fundamental operations--
+mathematical operations,
+comparisons, setting values,
+retrieving values.
+And simply say how many
+of those operations
+do I use in my
+algorithm as a function
+of the size of the input?
+And that could be used to
+give us a sense of efficiency.
+We're going to see both of
+those are flawed somewhat more
+in the first case
+than the second one.
+And so we're going to
+abstract that second one
+to a more abstract
+notion of something
+we call an order of growth.
+And I'll come back to that
+in a couple of minutes.
+This is the one we're
+going to focus on.
+It's one that computer
+scientists use.",https://www.youtube.com/watch?v=o9nW0uBqvEo&t=560s,The candidate excerpt directly supports the answer that the efficiency of an algorithm is explained by counting operations and saying how many of those operations do I use in my algorithm as a function of the size of the input.,"The evidence supports the explanation of efficiency in an algorithm, specifically that it can be measured by counting operations and comparing different implementations.",baseline_m3_canonical,supports,Directly describes counting fundamental operations as a function of input size to estimate efficiency.,canonical_reuse,,
+mit60001-q-007|WPSeyjX1-4s:semantic_cosine_wp240_v1:17,mit60001-q-007,evaluated_37,What value is bound to a name after an assignment statement is evaluated?,"- Assignment binds the value on the right-hand side to the variable name on the left-hand side.
+- The binding allows the program to access that value later.",candidate_v2_e2,False,True,WPSeyjX1-4s:semantic_cosine_wp240_v1:17,2,"And let's use the tools
+that Ana talked about,
+in terms of an
+environment at a scope,
+and think about
+what happens here.
+So when I read that in or I
+evaluate that in Python, it
+creates a definition that binds
+the name fact to some code,
+just all of that stuff
+over here plus the name
+for the formal parameter, hasn't
+done anything with it yet.
+And then I'm going to
+evaluate print a fact of 4.
+Print needs a value, so it has
+to get the value of fact of 4,
+and we know what that does.",https://www.youtube.com/watch?v=WPSeyjX1-4s&t=639s,,The evidence supports the requested answer and covers the entire question.,prompt_v2_m3_human_review,does_not_support,"Describes binding a function name to function code, not assignment binding a right-hand-side value to a variable name.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-007|nykOeWgQcHM:semantic_cosine_wp240_v1:53,mit60001-q-007,evaluated_37,What value is bound to a name after an assignment statement is evaluated?,"- Assignment binds the value on the right-hand side to the variable name on the left-hand side.
+- The binding allows the program to access that value later.","candidate_v2_e2
+current_control_e1",True,True,nykOeWgQcHM:semantic_cosine_wp240_v1:53,1,"That means always in programming
+the right-hand side is
+going to be an expression.
+It's something that's going
+to be evaluated to a value.
+And the left-hand side
+is always a variable.
+It's going to be an assignment.
+The equal sign is
+not like in math
+where you can have a lot
+of things to the left
+and a lot of things to the
+right of the equal sign.
+There's only one thing to
+the left of the equal sign.
+And that's going
+to be a variable.
+An equal sign stands
+for an assignment.
+Once we've created expressions,
+and we have these assignments,
+you can rebind variable
+names using new assignment
+statements.",https://www.youtube.com/watch?v=nykOeWgQcHM&t=2365s,The candidate excerpt directly supports the answer that the value bound to a name after an assignment statement is evaluated.,The evidence supports the requested answer and covers the entire question.,baseline_m3_canonical,supports,"States that the right-hand expression is evaluated to a value and the left-hand variable is assigned, which supports the assignment-binding semantics despite no GT time overlap.",canonical_reuse,,
+mit60001-q-007|nykOeWgQcHM:semantic_cosine_wp240_v1:54,mit60001-q-007,evaluated_37,What value is bound to a name after an assignment statement is evaluated?,"- Assignment binds the value on the right-hand side to the variable name on the left-hand side.
+- The binding allows the program to access that value later.",candidate_v2_e2,False,True,nykOeWgQcHM:semantic_cosine_wp240_v1:54,3,"Let's look at an
+example for that.
+Let's say this is our memory.
+Let's type back in the example
+with finding the radius.
+Let's say, pi is equal to 3.14.
+In memory, we're going to
+create this value 3.14.
+We're going to bind it
+to the variable named pi.
+Next line, radius
+is equal to 2.2.
+In memory, we're
+creating this value 2.2.
+And we're going to bind it
+to the variable named radius.
+Then we have this
+expression here.
+It's going to substitute
+the values for pi
+from memory and the value
+for radius from memory.
+It's going to calculate the
+value that this expression
+evaluates to.
+It's going to pop
+that into the memory.
+And it's going to
+assign-- because we're
+using the equal
+sign-- it's going",https://www.youtube.com/watch?v=nykOeWgQcHM&t=2403s,,The evidence supports the requested answer and covers the entire question.,prompt_v2_m3_human_review,supports,"Directly shows values being created, bound to variable names, and later retrieved from memory.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-008|nykOeWgQcHM:semantic_cosine_wp240_v1:55,mit60001-q-008,evaluated_37,Why can rebinding a variable name leave the previous object unchanged?,"- A variable name is a handle or binding used to access an object.
+- Rebinding the name to a new value removes the old binding but does not change the previous object; the old object can remain in memory without that handle.","candidate_v2_e2
+current_control_e1",True,True,nykOeWgQcHM:semantic_cosine_wp240_v1:55,2,"to assign that value
+to that variable area.
+Now, let's say we rebind
+radius to be something else.
+Radius i is bound
+to the value 2.2.
+But when we do this line, radius
+is equal to radius plus 1,
+we're going to take
+away the binding to 2.2.
+We're going to do
+this calculation.
+The new value is 3.2.
+And we're going to rebind that
+value to that same variable.
+In memory, notice
+we're still going
+to have this value,
+2.2, floating around.
+But we've lost
+the handle for it.
+There's no way to get it back.",https://www.youtube.com/watch?v=nykOeWgQcHM&t=2461s,"The candidate excerpt directly supports the answer that rebinding a variable name leaves the previous object unchanged. The excerpt states,",The evidence supports the reason why rebinding a variable name leaves the previous object unchanged.,baseline_m3_canonical,supports,"Directly explains rebinding, loss of the old handle, and persistence of the previous value in memory.",canonical_reuse,,
+mit60001-q-009|MjbuarJ7SE0:semantic_cosine_wp240_v1:22,mit60001-q-009,evaluated_37,"According to the course, how are local variables created and used during a function call?","- The same variable name can exist in the global scope and in a different scope.
+- Within a scope, Python uses that scope's variable names, so names in different scopes do not interfere with one another.",candidate_v2_e2,False,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:22,3,"I'm going to create entirely
+new set of variables that just
+exist within this environment.
+I'm going to do
+some computations.
+When I see the return, I'm going
+to take this one return value.
+I'm going to exit
+that environment,
+and then I'm going to come
+back to the main program.
+So as you're entering
+from one scope to another,
+you're sort of passing
+these values back and forth.
+So when you're entering a scope,
+you're passing a variable back
+into the function.
+And when the
+function's finished,
+you're passing a value
+back to whoever called it.
+So once again, this top part
+is the function definition.
+And any arguments for
+the function definition
+are called formal parameters.
+And they're called
+formal parameters
+because notice they don't
+actually have a value yet.
+In the function
+definition, you're",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=976s,,"The evidence supports the creation and usage of local variables during a function call, including the concept of scopes, global variables, and passing values back and forth between scopes.",prompt_v2_m3_human_review,supports,Directly describes a new set of variables existing inside the function environment/scope and values being passed in and returned.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-009|MjbuarJ7SE0:semantic_cosine_wp240_v1:41,mit60001-q-009,evaluated_37,"According to the course, how are local variables created and used during a function call?","- The same variable name can exist in the global scope and in a different scope.
+- Within a scope, Python uses that scope's variable names, so names in different scopes do not interfere with one another.",candidate_v2_e2,False,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:41,1,"what happens with variable
+names and formal parameters
+and actual parameters.
+That's why I highly recommend
+pieces of paper and pens.
+One last thing I want
+to mention about scope
+before we do another example.
+So there are three
+sort of situations
+you might find yourself in.
+The first one is probably
+the most typical,
+and this is when you
+define a function.
+And it's using a
+variable named x
+in this case that's also
+defined outside of the function.
+And that doesn't matter
+because of the idea of scopes.
+So inside the global scope,
+you can have variables x.
+When you're inside
+a different scope,
+you can have whatever
+variable names you want.
+And when you're
+inside that scope,",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=1837s,,"The evidence supports the creation and usage of local variables during a function call, including the concept of scopes, global variables, and passing values back and forth between scopes.",prompt_v2_m3_human_review,supports,Directly explains that the same variable name can exist in global and inner scopes without conflict because scopes are separate.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-009|MjbuarJ7SE0:semantic_cosine_wp240_v1:45,mit60001-q-009,evaluated_37,"According to the course, how are local variables created and used during a function call?","- The same variable name can exist in the global scope and in a different scope.
+- Within a scope, Python uses that scope's variable names, so names in different scopes do not interfere with one another.",candidate_v2_e2,False,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:45,2,"though global variables
+are part of the readings
+for this lecture.
+And the reason why
+it's not a great idea
+to use global variables is
+because global variables
+sort of give you this
+loophole around scopes,
+so it allows you to write code
+that can become very messy.
+So using global variables,
+you can be inside a function
+and then modify a
+variable that's defined
+outside of your function.
+And that sort of defeats
+the purpose of functions
+and using them in writing
+these coherent modules that
+are separate.
+That said, it might sometimes be
+useful to use global variables,",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=2004s,,"The evidence supports the creation and usage of local variables during a function call, including the concept of scopes, global variables, and passing values back and forth between scopes.",prompt_v2_m3_human_review,does_not_support,Discusses global variables as a loophole around scope; it does not directly explain creation/use of local variables or same-name isolation during a normal function call.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-010|RvRKT-jXvko:semantic_cosine_wp240_v1:2,mit60001-q-010,evaluated_37,What is the difference between mutable and immutable objects?,"- Tuples are immutable, whereas lists are mutable.
+- Lists and tuples can contain elements of any type, but lists use square brackets and tuples use parentheses.",candidate_v2_e2,False,True,RvRKT-jXvko:semantic_cosine_wp240_v1:2,1,"All right.
+So let's go right into tuples.
+So if you recall
+strings, strings
+were sequences of characters.
+Tuples are going to be similar
+to strings in that they're
+going to be sequences
+of something,
+except that tuples aren't
+just sequences of characters,
+they can be sequences
+of anything.
+They're a collection
+of data where
+that data can be of any type.
+So a tuple can contain
+elements that are integers,
+floats, strings, and so on.
+Tuples are immutable.",https://www.youtube.com/watch?v=RvRKT-jXvko&t=98s,,The evidence supports both sides of the question and the requested contrast.,prompt_v2_m3_human_review,does_not_support,Covers only the tuple side (arbitrary element types and immutability); it does not provide the list side or the tuple/list syntax contrast required by this difference question.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-010|RvRKT-jXvko:semantic_cosine_wp240_v1:43,mit60001-q-010,evaluated_37,What is the difference between mutable and immutable objects?,"- Tuples are immutable, whereas lists are mutable.
+- Lists and tuples can contain elements of any type, but lists use square brackets and tuples use parentheses.","candidate_v2_e2
+current_control_e1",True,True,RvRKT-jXvko:semantic_cosine_wp240_v1:43,3,"So the last one is the first
+one, the second to last one
+is the second one, and so on.
+So lists are mutable.
+We've said that so many
+times this lecture.
+But what exactly does that mean?
+What implications
+does that have?
+Once again, this next part
+of the lecture, Python tutor.
+Just paste all the code
+in and go step by step
+to see exactly what's happening.
+So lists are mutable.
+As you have variable
+names-- so for example,
+L is equal to some
+list-- that L is
+going to be pointing
+to the list in memory.
+And since it's a mutable
+object, this list,
+you can have more
+than one variable
+that points to the exact
+same object in memory.
+And if you have more
+than one variable that
+points to the same
+object in memory,
+if that object in
+memory is changed, then
+when you access it through
+any one of these variables,",https://www.youtube.com/watch?v=RvRKT-jXvko&t=1818s,"The candidate excerpt directly supports the answer that lists are mutable, as stated in the chunk_id 'RvRKT-jXvko:semantic_cosine_wp240_v1:43' and 'RvRKT-jXvko:semantic_cosine_wp240_v1:43'.",The evidence supports both sides of the question and the requested contrast.,baseline_m3_canonical,does_not_support,Establishes that lists are mutable but does not contrast tuples as immutable or give the tuple/list syntax differences required by the expected answer.,canonical_reuse,,
+mit60001-q-010|RvRKT-jXvko:semantic_cosine_wp240_v1:48,mit60001-q-010,evaluated_37,What is the difference between mutable and immutable objects?,"- Tuples are immutable, whereas lists are mutable.
+- Lists and tuples can contain elements of any type, but lists use square brackets and tuples use parentheses.",candidate_v2_e2,False,True,RvRKT-jXvko:semantic_cosine_wp240_v1:48,2,"but this I basically
+copied and pasted
+from the Python
+tutor, which is just
+from the code from
+today's lecture.
+So I have these
+lines of code here.
+The first couple of
+lines really just
+show what happens
+when you're dealing
+with non-mutable objects.
+So with non-mutable
+objects, you have
+two separate objects that
+get their own values,
+and that's it.
+End of story.
+With lists, however,
+there's something different
+that happens.",https://www.youtube.com/watch?v=RvRKT-jXvko&t=2033s,,The evidence supports both sides of the question and the requested contrast.,prompt_v2_m3_human_review,does_not_support,Only gives a vague contrast between non-mutable objects and lists; it does not establish the required tuple-vs-list mutability and syntax differences.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-014|RvRKT-jXvko:semantic_cosine_wp240_v1:24,mit60001-q-014,evaluated_37,What is the difference between a Python list and a dictionary?,"- A list is an ordered sequence accessed by integer index.
+- A dictionary maps keys to values and is accessed by the appropriate key.
+- Dictionary keys must be immutable.",current_control_e1,True,False,RvRKT-jXvko:semantic_cosine_wp240_v1:24,3,"So this-- Python just replaces
+i with 2 here and says,
+what's l at position 1?
+And then grabs
+that from in there.
+OK.
+So very, very similar to
+the kinds of operations
+we've seen on
+strings and tuples.
+The one difference,
+and that's what
+we're going to focus on
+for the rest of this class,
+is that lists are
+mutable objects.
+So what does that
+mean internally?
+Internally, that means
+let's say we have a list l,
+and we assign it-- sorry.
+Let's say we have a variable l
+that's going to point to a list
+with three elements,
+2, 1, and 3.
+OK.
+They're all-- each
+element is an integer.",https://www.youtube.com/watch?v=RvRKT-jXvko&t=1009s,The candidate excerpt directly supports the answer that lists are mutable objects.,,baseline_m3_canonical,does_not_support,Shows list indexing and list mutability only; it does not provide the dictionary key-value side of the requested distinction.,canonical_reuse,,
+mit60001-q-015|nykOeWgQcHM:semantic_cosine_wp240_v1:39,mit60001-q-015,evaluated_37,"According to the course, how is using the shell different from using the editor?","- The shell lets a user type and execute simple commands directly, typically to test something quickly.
+- The editor is used to write multiple lines and more complicated programs, which can then be run.","candidate_v2_e2
+current_control_e1",True,True,nykOeWgQcHM:semantic_cosine_wp240_v1:39,1,"you write very simple
+commands just if you're
+testing something out.
+And on the left-hand
+side here in the editor,
+you write more lines and
+more complicated programs.
+Now we're going to start
+talking about Python.
+And in Python, we're going
+to come back to this,
+everything is an object.
+And Python programs
+manipulate these data objects.
+All objects in Python
+are going to have a type.
+And the type is going to tell
+Python the kinds of operations
+that you can do
+on these objects.
+If an object is the
+number five, for example,
+you can add the number
+to another number,
+subtract the number, take it
+to the power of something,
+and so on.
+As a more general example,
+for example, I am a human.",https://www.youtube.com/watch?v=nykOeWgQcHM&t=1739s,"The candidate excerpt directly supports the answer that using the shell is different from using the editor in that shell commands are simple and used for testing, while editor commands are more lines and complicated programs.",The evidence supports both sides of the comparison and the requested contrast.,baseline_m3_canonical,supports,"Directly contrasts simple commands in the shell with longer, more complicated programs in the editor.",canonical_reuse,,
+mit60001-q-015|nykOeWgQcHM:semantic_cosine_wp240_v1:44,mit60001-q-015,evaluated_37,"According to the course, how is using the shell different from using the editor?","- The shell lets a user type and execute simple commands directly, typically to test something quickly.
+- The editor is used to write multiple lines and more complicated programs, which can then be run.",candidate_v2_e2,False,True,nykOeWgQcHM:semantic_cosine_wp240_v1:44,3,"But if you'd like if
+you have the slides up,
+go to go to this exercise.
+And after I'm done
+talking about the slide,
+we'll see what people
+think for that exercise.
+One of the most
+important things that you
+can do in basically
+any programming,
+in Python also, is
+to print things out.
+Printing out is how you
+interact with the user.
+To print things out, you
+use the print command.
+If you're in the shell, if
+you simply type ""3 plus 2,""
+you do see a value here.
+Five, right?
+But that's not actually
+printing something out.
+And that becomes apparent
+when you actually
+type things into the editor.
+If you just do ""3 plus 2,"" and
+you run the program-- that's",https://www.youtube.com/watch?v=nykOeWgQcHM&t=1951s,,The evidence supports both sides of the comparison and the requested contrast.,prompt_v2_m3_human_review,supports,"Directly contrasts shell evaluation with editor execution: an expression shows a value in the shell, while the same expression in an editor-run program is not printed automatically.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-016|9H6muyZjms0:semantic_cosine_wp240_v1:51,mit60001-q-016,evaluated_37,"According to the course, what does an assertion check in a program?","- Assertions check that assumptions about a computation match what a function expects.
+- They can enforce function preconditions or postconditions, including input type and value conditions.
+- When an assertion is false, Python raises an assertion error and the function stops immediately.","candidate_v2_e2
+current_control_e1",True,True,9H6muyZjms0:semantic_cosine_wp240_v1:51,1,"If the assert is false, the
+function does not continue.
+It stops right there.
+Why does it behave this way?
+Well, assertions are
+great to make sure
+that preconditions and
+post-conditions on functions
+are exactly as you expect.
+So as soon as an
+assert becomes false,
+the function's going to
+immediately terminate.
+This is useful because
+it'll prevent the program
+from propagating bad values.
+So as soon as a precondition
+isn't true, for example,
+as you enter a function,
+then that means something
+went wrong in your program.
+And the program is going
+to stop right there.
+So instead of
+propagating a bad value
+throughout the
+program, and then you
+getting an output that
+you didn't expect,
+and then you having to trace
+back to the function that
+gave this bad value, you'll get
+this bad value, you'll get this",https://www.youtube.com/watch?v=9H6muyZjms0&t=2375s,The candidate excerpt directly supports the answer that an assertion check in a program prevents the program from propagating bad values.,The evidence supports the entire question and covers all essential parts.,baseline_m3_canonical,supports,Directly explains assertion pre/postconditions and immediate termination when an assertion is false.,canonical_reuse,,
+mit60001-q-017|9H6muyZjms0:semantic_cosine_wp240_v1:31,mit60001-q-017,excluded_existing,What does the course say is the purpose of exception handling?,"- Exception handling catches an error that would otherwise raise an exception and interrupt normal execution.
+- It lets the programmer respond in a controlled way, such as printing a clearer message for bad user input.
+- A programmer can also raise an exception deliberately to signal an error condition and direct later control flow.","candidate_v2_e2
+current_control_e1",True,True,9H6muyZjms0:semantic_cosine_wp240_v1:31,1,"to testing and debugging.
+The rest of the class will
+be on the error messages,
+or on errors that you
+will get in your programs.
+So when your functions--
+when you run functions,
+or when you run your
+program, at some point,
+the program execution
+is going to stop.
+Maybe it encountered
+an error because
+of some unexpected condition.
+And when that happens
+you get an exception.
+So the error is
+called an exception.
+And it's called an exception
+because it was an exception
+to what was expected.
+To what the program expected.
+So all of these errors
+that I've talked
+about in the previous
+slides are actually
+examples of exceptions.
+And there are actually
+many other types
+of exceptions, which you'll
+see as you go on in this course",https://www.youtube.com/watch?v=9H6muyZjms0&t=1286s,The candidate excerpt directly supports the answer that exception handling is used for testing and debugging.,The evidence supports the purpose of exception handling as related to testing and debugging.,baseline_m3_canonical,does_not_support,"Defines exceptions and program stopping, but does not explain the purpose of exception handling or a controlled handler response.",canonical_reuse,,
+mit60001-q-018|9H6muyZjms0:semantic_cosine_wp240_v1:13,mit60001-q-018,evaluated_37,What does black-box testing examine according to the course?,- Black-box testing derives test cases from the function specification or docstring without examining the implementation code.,"candidate_v2_e2
+current_control_e1",True,True,9H6muyZjms0:semantic_cosine_wp240_v1:13,2,"But there's actually two more
+rigorous ways to do testing.
+And one is black box
+testing and the other one
+is glass box testing.
+In black box testing,
+you're assuming
+you have the specifications
+to a function.
+So that's the docstring.
+All you're looking at is
+the docstring and coming
+up with some test
+cases based on that.
+In glass box testing,
+you have the code
+itself and you're
+trying to come up
+with some test cases that hit
+upon all of the possible paths
+through the code.
+All right.
+Let's look at an example
+for black box testing.
+I'm finding the square root of
+x to some close enough value
+given by this epsilon.",https://www.youtube.com/watch?v=9H6muyZjms0&t=511s,The excerpt directly supports the answer that black-box testing examines the specifications of a function.,The evidence supports the requested answer and covers the entire question.,baseline_m3_canonical,supports,Directly says black-box tests are derived from the specification/docstring rather than implementation code.,canonical_reuse,,
+mit60001-q-018|9H6muyZjms0:semantic_cosine_wp240_v1:14,mit60001-q-018,evaluated_37,What does black-box testing examine according to the course?,- Black-box testing derives test cases from the function specification or docstring without examining the implementation code.,candidate_v2_e2,False,True,9H6muyZjms0:semantic_cosine_wp240_v1:14,3,"And the idea here,
+notice I don't actually
+give you how this
+function's implemented.
+The idea is that you're
+just figuring out test cases
+based on the specification.
+And the great thing
+about black box testing
+is that whoever implements
+this function can implement it
+in whatever way they wish, they
+can use approximation method,
+that can use bisection
+method, it doesn't matter.
+The test cases that you come
+up with for this function
+are going to be
+exactly the same.
+Right?
+No matter what the
+implementation.
+So for this particular
+function, here's a sample set.
+We check the boundary,
+we check perfect squares,
+we can check some number
+that's less than 1,
+we can check maybe irrationals,
+and then you do extreme tests.
+So when either epsilon is
+really large or epsilon
+is really small, or x is really
+large or x is really small,",https://www.youtube.com/watch?v=9H6muyZjms0&t=556s,,The evidence supports the requested answer and covers the entire question.,prompt_v2_m3_human_review,supports,Directly states that black-box tests are derived from the specification without relying on the implementation.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-019|6LOwPhPDwVc:semantic_cosine_wp240_v1:2,mit60001-q-019,evaluated_37,"According to the lecture, what is the goal of bisection search?",- Bisection search is used as a search algorithm for finding an approximation within an implicit numeric collection or range.,candidate_v2_e2,False,True,6LOwPhPDwVc:semantic_cosine_wp240_v1:2,1,"It's just a way to find an
+item or a group of items
+from a collection.
+If you think about
+it, that collection
+could be either
+implicit or explicit.
+So way back at the
+beginning of the term,
+we saw an example of
+a search algorithm
+when you were looking
+for square roots.
+And we saw simple things
+like exhaustive enumeration.
+We'd go through all
+the possibilities.
+We saw our first version
+of bisection search
+there, where you would
+do approximations.
+Newton-Raphson-- these are all
+examples of a search algorithm
+where the collection
+is implicit.
+So all the numbers between some
+point that some other point.
+More common is a
+search algorithm
+where the collection
+is explicit.
+I don't know.
+For example, I've got all
+the data records of students
+and I want to know how do I
+find a particular student,
+so I can record that A plus
+that everybody in this room",https://www.youtube.com/watch?v=6LOwPhPDwVc&t=95s,,The whole question is covered.,baseline_m3_canonical,supports,Directly identifies bisection search as a search algorithm over an implicit numeric collection/range for approximation.,canonical_reuse,,
+mit60001-q-019|7lQXYl_L28w:semantic_cosine_wp240_v1:13,mit60001-q-019,evaluated_37,"According to the lecture, what is the goal of bisection search?",- Bisection search is used as a search algorithm for finding an approximation within an implicit numeric collection or range.,candidate_v2_e2,False,True,7lQXYl_L28w:semantic_cosine_wp240_v1:13,3,"You saw an example much
+earlier in the term when Ana
+showed you bisection search.
+It was searching for a number
+with a particular property.
+I want to show you
+another example,
+both to let you recognize
+the form of the algorithm,
+but especially, to show you how
+we can reason about the growth.
+And that's another trick
+called binary search
+or, again, it's a version
+of bisection search.
+Suppose I give you a list,
+a list of numbers, integers.
+And I want to know if
+a particular element is
+in that list.
+We saw, last time, you could
+just walk down the list, just
+iterate through the entire list
+looking to see if it's there.",https://www.youtube.com/watch?v=7lQXYl_L28w&t=478s,,The whole question is covered.,prompt_v2_m3_human_review,does_not_support,"Describes bisection/binary search as searching for a number or list element, but does not support the expected goal of finding an approximation in an implicit numeric range.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-019|SE4P7IVCunE:semantic_cosine_wp240_v1:53,mit60001-q-019,evaluated_37,"According to the lecture, what is the goal of bisection search?",- Bisection search is used as a search algorithm for finding an approximation within an implicit numeric collection or range.,candidate_v2_e2,False,True,SE4P7IVCunE:semantic_cosine_wp240_v1:53,2,"So that's basically what
+I'm illustrating here.
+So we have our
+original search space.
+We're going to choose a
+guess halfway, eliminate
+half of the guesses.
+Then we're going look in
+the remaining interval,
+eliminate half the guesses,
+and so on and so on.
+So then this is the code
+for bisection search.
+Also looks intimidating,
+but it's not so bad.
+So we're initializing a
+bunch of stuff up here.
+The most important couple
+of things we're initializing",https://www.youtube.com/watch?v=SE4P7IVCunE&t=2389s,,The whole question is covered.,prompt_v2_m3_human_review,does_not_support,"Describes halving a search space and interval, but does not state the requested goal of finding an approximation in an implicit numeric range.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-020|SE4P7IVCunE:semantic_cosine_wp240_v1:12,mit60001-q-020,evaluated_37,"How does the lecture use len, indexing, and slicing to inspect or extract parts of a string?","- len returns the number of characters in a string.
+- Indexing retrieves the character at a specified position in the string.
+- Slicing extracts a substring using start and stop indices and an optional step.","candidate_v2_e2
+current_control_e1",True,True,SE4P7IVCunE:semantic_cosine_wp240_v1:12,2,"And that's just going to value
+it to the string, itself.
+It's the same as 0 to the
+length s going every step.
+This one might
+actually be useful.
+It reverses the string
+automatically for you.
+So with this one
+little line here,
+you can get the
+inverse of your string.
+And that's equivalent to that.
+So the minus 1 represents
+starting from the end
+and going back every letter.
+And then this one's a little
+bit more complicated but also
+not too bad.
+So as we're doing
+these string slices,
+again, if you're unsure
+what something does,
+just type it into Spider.
+And you might be surprised.",https://www.youtube.com/watch?v=SE4P7IVCunE&t=592s,"The candidate excerpt directly supports the answer. The chunk_id 'SE4P7IVCunE:semantic_cosine_wp240_v1:12' mentions 'reverses the string automatically for you' which is equivalent to getting the inverse of the string, and the chunk_id 'SE4P7IVCunE:semantic_cosine_wp240_v1:9' explains how slicing works with a start, stop, and step index.",The evidence supports the requested mechanism or behavior,baseline_m3_canonical,supports,"Valid evidence for the slicing part: shows step-based slicing and reversing a string, though it does not cover len/indexing by itself.",canonical_reuse,,
+mit60001-q-020|SE4P7IVCunE:semantic_cosine_wp240_v1:4,mit60001-q-020,evaluated_37,"How does the lecture use len, indexing, and slicing to inspect or extract parts of a string?","- len returns the number of characters in a string.
+- Indexing retrieves the character at a specified position in the string.
+- Slicing extracts a substring using start and stop indices and an optional step.",candidate_v2_e2,False,True,SE4P7IVCunE:semantic_cosine_wp240_v1:4,1,"And by definition, it's
+going to tell me what
+the length of the string,
+which is 3 characters long.
+Another thing that
+we can do on strings
+is, since they're a
+sequence of characters,
+I might want to get
+what character is
+at a certain position.
+So we do this using this
+fancy word called indexing.
+But pretty much what
+indexing into a string means
+is you're going
+to tell Python, I
+want to know the character,
+at this certain position
+or at this certain
+index, inside my sting.
+So once again, let's use this
+string, s is equal to ""abc.""
+And let's index into it.
+So in computer science, we start
+from 0, counting by convention.",https://www.youtube.com/watch?v=SE4P7IVCunE&t=188s,,The evidence supports the requested mechanism or behavior,prompt_v2_m3_human_review,supports,Directly supports len and indexing: len gives string length and indexing retrieves the character at a specified position.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-020|SE4P7IVCunE:semantic_cosine_wp240_v1:9,mit60001-q-020,evaluated_37,"How does the lecture use len, indexing, and slicing to inspect or extract parts of a string?","- len returns the number of characters in a string.
+- Indexing retrieves the character at a specified position in the string.
+- Slicing extracts a substring using start and stop indices and an optional step.","candidate_v2_e2
+current_control_e1",True,True,SE4P7IVCunE:semantic_cosine_wp240_v1:9,3,"with strings, we call that
+slicing, slicing into a string.
+And this notation here should
+seem a little bit familiar,
+because we saw it last lecture
+when we did it with range.
+We had a start,
+stop, and a step.
+The notation was a
+little bit different,
+because, in range, we had
+open-close parentheses
+and commas in between.
+But except for that, this
+sort of works the same.
+The start is the
+index, starting from 0,
+from where you want to
+slice into this string.
+The stop is the stop index.
+So you're going to go
+up until stop minus 1
+and take that index.
+And then the step is how many
+letters you wish to take.
+So this is the
+full notation here.
+But sometimes, you
+can not give it
+a third sort of number in here.
+So if you only give
+it two numbers,",https://www.youtube.com/watch?v=SE4P7IVCunE&t=406s,"The candidate excerpt directly supports the answer. The chunk_id 'SE4P7IVCunE:semantic_cosine_wp240_v1:12' mentions 'reverses the string automatically for you' which is equivalent to getting the inverse of the string, and the chunk_id 'SE4P7IVCunE:semantic_cosine_wp240_v1:9' explains how slicing works with a start, stop, and step index.",The evidence supports the requested mechanism or behavior,baseline_m3_canonical,supports,"Directly explains string slicing with start, stop, and optional step indices.",canonical_reuse,,
+mit60001-q-021|0jljZRnHwOI:semantic_cosine_wp240_v1:20,mit60001-q-021,evaluated_37,How does the course explain the role of Boolean comparisons in branching?,"- Boolean comparisons provide tests whose results are True or False.
+- Branching uses those test results to choose which path of the program should execute.",candidate_v2_e2,False,True,0jljZRnHwOI:semantic_cosine_wp240_v1:20,1,"All right.
+So now that we have ways to do
+logical-- question right there.
+AUDIENCE: [INAUDIBLE]
+PROFESSOR: Yeah, great question.
+So what does it mean to
+compare a string with a string
+with the greater than?
+So that's just going to compare
+them, lexicographically.
+So does it come first
+in the alphabet?
+So we can even test that out.
+We can say, is a greater than b?
+And it's false.
+So b comes later in
+the alphabet than a.
+OK.
+So now we have ways
+to do the tests.
+So we can add some branching
+to our programming toolbox
+now that we have
+ways to do tests.
+This is a map of MIT.
+I'm going to go through
+sort of a little example
+to motivate why we would want
+to do branching in our code.",https://www.youtube.com/watch?v=0jljZRnHwOI&t=977s,,The evidence supports the requested answer and covers the entire question.,prompt_v2_m3_human_review,supports,"Directly links comparison tests to branching and shows a comparison producing False, supporting the Boolean-test role.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-021|FlGjISF3l78:semantic_cosine_wp240_v1:64,mit60001-q-021,evaluated_37,How does the course explain the role of Boolean comparisons in branching?,"- Boolean comparisons provide tests whose results are True or False.
+- Branching uses those test results to choose which path of the program should execute.",candidate_v2_e2,False,True,FlGjISF3l78:semantic_cosine_wp240_v1:64,2,"or getting the
+combinations of those two.
+So that's what these
+two Booleans are doing.
+So these are going
+to tell me-- these
+are going to be Boolean
+values, either True or False.
+And I'm going to
+return either they
+have the same
+parents of that type
+or the same parents
+criss-crossed, OK?
+So here, notice
+that I'm actually
+comparing the IDs of the
+rabbits as opposed to the Rabbit
+objects directly, OK?
+So if, instead of
+comparing the IDs in here,
+I was comparing the parents
+themselves, directly,
+what would end up happening
+is this function, this method,
+eq(), would get called
+over and over again.
+Because here, we have
+parents that are rabbits.
+And at some point, the parents
+of the very, very first rabbits
+ever created by this
+program are None.
+And so when I try
+to call-- when I",https://www.youtube.com/watch?v=FlGjISF3l78&t=2723s,,The evidence supports the requested answer and covers the entire question.,prompt_v2_m3_human_review,supports,Directly supports the Boolean-result part: comparisons produce Boolean values that are True or False. It does not by itself explain branch-path selection.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-021|SE4P7IVCunE:semantic_cosine_wp240_v1:28,mit60001-q-021,evaluated_37,How does the course explain the role of Boolean comparisons in branching?,"- Boolean comparisons provide tests whose results are True or False.
+- Branching uses those test results to choose which path of the program should execute.",candidate_v2_e2,False,True,SE4P7IVCunE:semantic_cosine_wp240_v1:28,3,"These are the things
+we've added to it.
+We know integer,
+floats, Booleans.
+We know a bit of string
+manipulation, math operations.
+We added, recently, these
+conditionals and branching
+to write slightly more
+interesting programs.
+And now we have loops,
+for and while loops
+to add interesting and
+more complicated programs.
+So with these, the second
+part of this lecture
+is going to be looking at
+three different algorithms.
+That's the sort of
+computer science part
+of this class, Introduction
+to Computer Science
+and Programming using Python.
+Don't let the word
+algorithm scare you.
+They're not that complicated.
+You just have to sort of
+think a little bit about them.",https://www.youtube.com/watch?v=SE4P7IVCunE&t=1298s,,The evidence supports the requested answer and covers the entire question.,prompt_v2_m3_human_review,does_not_support,"Mentions Booleans, conditionals, and branching as language features, but does not explain how Boolean comparison results select a program path.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-022|7lQXYl_L28w:semantic_cosine_wp240_v1:84,mit60001-q-022,evaluated_37,Why is a dictionary more suitable than a list for key-value lookup?,"- A list is an ordered sequence accessed by integer indices, while a dictionary maps keys to values and is accessed by key.
+- Dictionary keys must be immutable.
+- List indexing goes directly to a position; dictionary lookup uses a hash-based indexing scheme and trades additional flexibility for lookup cost.","candidate_v2_e2
+current_control_e1",True,True,7lQXYl_L28w:semantic_cosine_wp240_v1:84,3,"So you can see that these
+operations are typically
+linear in the size of a list.
+These are constant.
+For dictionaries,
+remember, dictionaries
+were this nice thing.
+They weren't ordered.
+It gave me a power in
+terms of storing them.
+But as a consequence, some
+of the costs then go up.
+For a list, indexing, going
+to a particular point,
+I just go to that
+spot and retrieve it.
+Indexing into a
+dictionary, I have
+to find that point in the
+dictionary that has the key
+and get the value back.",https://www.youtube.com/watch?v=7lQXYl_L28w&t=2890s,"The candidate excerpt directly supports the answer that a dictionary is more suitable than a list for key-value lookup because it explains that dictionaries allow for indexing by a key or label, making it easier to retrieve values associated with a particular key.",The evidence supports the reason why a dictionary is more suitable than a list for key-value lookup.,baseline_m3_canonical,supports,Directly contrasts direct list indexing with dictionary key lookup and discusses the lookup-cost tradeoff.,canonical_reuse,,
+mit60001-q-022|WPSeyjX1-4s:semantic_cosine_wp240_v1:59,mit60001-q-022,evaluated_37,Why is a dictionary more suitable than a list for key-value lookup?,"- A list is an ordered sequence accessed by integer indices, while a dictionary maps keys to values and is accessed by key.
+- Dictionary keys must be immutable.
+- List indexing goes directly to a position; dictionary lookup uses a hash-based indexing scheme and trades additional flexibility for lookup cost.","candidate_v2_e2
+current_control_e1",True,True,WPSeyjX1-4s:semantic_cosine_wp240_v1:59,2,"and has elements associated
+with it, a dictionary is going
+to combine a key, or if you
+like, a name of some sort,
+with an actual value.
+And we're going to
+index just by the name
+or the label as we go into it.
+So let me show
+you some examples.
+First of all, to create a
+dictionary I use curly braces,
+open closed curly brace,
+so an empty dictionary
+would be simply that call.
+If I want to create
+an actual dictionary,
+before I insert
+things into it, I",https://www.youtube.com/watch?v=WPSeyjX1-4s&t=2147s,"The candidate excerpt directly supports the answer that a dictionary is more suitable than a list for key-value lookup because it explains that dictionaries allow for indexing by a key or label, making it easier to retrieve values associated with a particular key.",The evidence supports the reason why a dictionary is more suitable than a list for key-value lookup.,baseline_m3_canonical,supports,Directly explains that dictionaries associate keys/names with values and are indexed by the key/name.,canonical_reuse,,
+mit60001-q-022|WPSeyjX1-4s:semantic_cosine_wp240_v1:64,mit60001-q-022,evaluated_37,Why is a dictionary more suitable than a list for key-value lookup?,"- A list is an ordered sequence accessed by integer indices, while a dictionary maps keys to values and is accessed by key.
+- Dictionary keys must be immutable.
+- List indexing goes directly to a position; dictionary lookup uses a hash-based indexing scheme and trades additional flexibility for lookup cost.","candidate_v2_e2
+current_control_e1",True,True,WPSeyjX1-4s:semantic_cosine_wp240_v1:64,1,"back a collection of all the
+keys in some arbitrary order.
+I'm going to use
+a funny term here
+which I'm not certain
+we've seen so far.
+It returns something we call
+an iterable, it's like range.
+Think of it as giving us back
+the equivalent of a list,
+it's not actually
+a list, but it's
+something we can walk down.
+Which is exactly why I
+can then say, is something
+in a dictionary, because it
+returns this set of keys,
+and I can test to see
+something's in there.
+I can similarly get
+all of the values
+if I wanted to look at them,
+giving us out two iterables.
+Here are the key things to keep
+in mind about dictionaries.",https://www.youtube.com/watch?v=WPSeyjX1-4s&t=2317s,"The candidate excerpt directly supports the answer that a dictionary is more suitable than a list for key-value lookup because it explains that dictionaries allow for indexing by a key or label, making it easier to retrieve values associated with a particular key.",The evidence supports the reason why a dictionary is more suitable than a list for key-value lookup.,baseline_m3_canonical,does_not_support,"Mentions keys, values, and membership iteration but does not explain why dictionary key-value lookup is preferable to list indexing.",canonical_reuse,,
+mit60001-q-023|MjbuarJ7SE0:semantic_cosine_wp240_v1:54,mit60001-q-023,excluded_existing,How does the course explain abstraction when functions are used in a program?,"- Abstraction captures a computation inside a procedure and exposes a contract.
+- The caller does not need to know the procedure's internal details as long as it delivers the promised result.
+- Functions also support decomposition by organizing code into coherent structural units.",candidate_v2_e2,False,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:54,2,"So that's sort of
+showing nested functions.
+All right just circling back
+to decomposition-abstraction.
+This is the last slide.
+You can see if you look
+at the code associated
+with today's lecture, there
+are some other examples
+where you can see
+just how powerful it
+is to use functions.
+And you can write really
+clean and simple code
+if you define your own functions
+and then just use them later.
+And the beauty of defining
+your own functions
+that you can use
+multiple times later
+is you only have to debug
+the function once right?
+I know debugging is not
+your favorite thing,
+but you only have to
+debug this one thing once,
+and then you can know that
+it's right and it works well,
+and you can just use
+it multiple times.
+All right thanks everyone.",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=2418s,,The evidence supports the requested mechanism or behavior. The selected excerpts directly explain abstraction when functions are used in a program.,prompt_v2_m3_human_review,supports,"Supports the reuse aspect of function abstraction/decomposition: define a function once, debug it once, and reuse it later. It does not by itself explain the abstraction contract.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-023|MjbuarJ7SE0:semantic_cosine_wp240_v1:6,mit60001-q-023,excluded_existing,How does the course explain abstraction when functions are used in a program?,"- Abstraction captures a computation inside a procedure and exposes a contract.
+- The caller does not need to know the procedure's internal details as long as it delivers the promised result.
+- Functions also support decomposition by organizing code into coherent structural units.",candidate_v2_e2,False,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:6,3,"later on if they find it useful.
+So today we're introducing
+this idea of functions.
+And functions are
+mechanisms to achieve
+decomposition and abstraction.
+So these are two
+key words here that
+are going to pop up
+in today's lecture
+and also in future lectures.
+So before I introduce
+decomposition and abstraction
+in the context of
+functions, let's
+first take a look at just
+sort of a real-life example.
+So let's take a projector.
+I'm using one right now.
+Quick show of hands.",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=247s,,The evidence supports the requested mechanism or behavior. The selected excerpts directly explain abstraction when functions are used in a program.,prompt_v2_m3_human_review,supports,"Directly states that functions are mechanisms for decomposition and abstraction, supporting the high-level connection though not the detailed abstraction contract.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-026|-DP1i2ZU9gk:semantic_cosine_wp240_v1:8,mit60001-q-026,evaluated_37,What happens when a list element is accessed using an index?,"- Python can locate the address of the indexed list slot and follow the stored pointer to the object in memory.
+- Because the address of the i-th slot is known, any list element can be accessed by index in constant time.","candidate_v2_e2
+current_control_e1",True,True,-DP1i2ZU9gk:semantic_cosine_wp240_v1:8,1,"One is going to be the
+value at specific index.
+OK?
+So at index 0, it has
+the value 1, right,
+because it's the first
+element in the list.
+And the second thing
+that represents a list
+is going to be this second
+part, which is a pointer.
+And internally this
+pointer is going
+to tell Python
+where is the memory
+location in the computer where
+you can access the element
+index 1.
+So it's just essentially
+going to be a chain,
+going from one
+index to the other.
+And at the next memory location
+you have the value at index 1,
+and then you have
+another pointer
+that takes you to the
+location in memory
+where the index 2 is located.
+And in index 2 you
+have the value and then
+the next pointer,
+and so on and so on.
+So this is how Python
+internally represents a list.
+OK?",https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=329s,"The candidate excerpt at rank 1 directly supports the answer that when a list element is accessed using an index, it returns the value at that specific index.",The whole question is covered,baseline_m3_canonical,does_not_support,"Discusses values and pointers in an internal list representation, but does not entail direct indexed-slot addressing or constant-time indexed access; the chain description is insufficient for the expected answer.",canonical_reuse,,
+mit60001-q-026|7lQXYl_L28w:semantic_cosine_wp240_v1:16,mit60001-q-026,evaluated_37,What happens when a list element is accessed using an index?,"- Python can locate the address of the indexed list slot and follow the stored pointer to the object in memory.
+- Because the address of the i-th slot is known, any list element can be accessed by index in constant time.",candidate_v2_e2,False,True,7lQXYl_L28w:semantic_cosine_wp240_v1:16,3,"I'm going to assume it's sorted.
+And I'm going to pick an index
+that divides the list in half,
+just pick the
+midpoint in the list.
+And I'm going to
+check that value.
+I'm going to ask, is the element
+in the list at that point
+the thing I'm looking for?
+If it is, great, I'm done.
+If I'm not that lucky,
+I'm then going to ask,
+is it larger or smaller than
+the thing I'm looking for?
+And based on that,
+I'm either going
+to search the front half or
+the back half of the list.
+Ooh, that's nice, OK?",https://www.youtube.com/watch?v=7lQXYl_L28w&t=571s,,The whole question is covered,prompt_v2_m3_human_review,does_not_support,"Uses an index as part of binary search, but does not explain indexed-slot addressing, pointers, or constant-time list access.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-026|RvRKT-jXvko:semantic_cosine_wp240_v1:23,mit60001-q-026,evaluated_37,What happens when a list element is accessed using an index?,"- Python can locate the address of the indexed list slot and follow the stored pointer to the object in memory.
+- Because the address of the i-th slot is known, any list element can be accessed by index in constant time.",candidate_v2_e2,False,True,RvRKT-jXvko:semantic_cosine_wp240_v1:23,2,"It's just going to look at the
+outer-- the shell of elements.
+Indexing and slicing
+works the same way.
+So l at position 0
+gives you the value 2.
+You can index into a list,
+and then do something
+with the value
+that you get back.
+So l at position 2 says--
+that's this value there
+and add one to it.
+L at position 3, that's
+going to be this list here.
+Notice it evaluates
+to another list.
+You're not allowed
+to index outside
+of the length of the list.
+So that's going to give you
+an error, because we only
+have four elements.
+And you can also have
+expressions for your index.",https://www.youtube.com/watch?v=RvRKT-jXvko&t=965s,,The whole question is covered,prompt_v2_m3_human_review,does_not_support,"Explains that indexing returns a list element, but not the expected memory-address/pointer mechanism or constant-time indexed access.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-027|SE4P7IVCunE:semantic_cosine_wp240_v1:21,mit60001-q-027,evaluated_37,How does a for loop process the characters in a string?,"- A for loop over a string iterates directly over every character rather than over numeric indices.
+- On each iteration, the loop variable holds one character from the string.","candidate_v2_e2
+current_control_e1",True,True,SE4P7IVCunE:semantic_cosine_wp240_v1:21,3,"And it just looks pretty, right?
+You can tell what this
+code's supposed to do.
+Whereas this one is a little
+bit harder to decipher.
+So that's sort of an
+illustration of a for loop
+over a sequence of characters.
+So char is going to be
+a loop variable, still.
+And the loop variable,
+instead of iterating over
+a set of numbers, it's going
+to iterate over every character
+in s, directly.
+And char is going
+to be a character.
+It's going to be a letter.
+So here's a more
+complicated example.
+I wrote this code a
+couple of years ago.
+And it was my attempt at
+creating robot cheerleaders ,
+because I needed
+some motivation.
+And then I googled, last
+night, ""robot cheerleaders,""
+and was not disappointed.
+Created this GIF.
+It looks pretty cool.
+And it looks like they
+kind of stole my idea.",https://www.youtube.com/watch?v=SE4P7IVCunE&t=948s,"The candidate excerpt directly supports the answer that a for loop processes the characters in a string by iterating over every character in the string, as shown in the example where the loop variable 'char' iterates over every character in 's'.",The evidence supports the mechanism of how a for loop processes characters in a string.,baseline_m3_canonical,supports,Directly explains that a for loop iterates over each character in a string and the loop variable holds a character.,canonical_reuse,,
+mit60001-q-027|zYVWQpCitKQ:semantic_cosine_wp240_v1:1,mit60001-q-027,evaluated_37,How does a for loop process the characters in a string?,"- A for loop over a string iterates directly over every character rather than over numeric indices.
+- On each iteration, the loop variable holds one character from the string.",candidate_v2_e2,False,True,zYVWQpCitKQ:semantic_cosine_wp240_v1:1,2,"which contains the
+string ""life"", the string
+""answer"", the number
+42, and the number 0.
+Here, I'm writing a loop that
+iterates over every element
+directly in L, right?
+So originally, thing is going
+to be string ""life"", then, thing
+is going to be the
+string ""answer"", then,
+thing is going to
+be the number 42.
+And so what am I doing inside
+the loop as I'm iterating?
+Well, if thing is equal to
+0, then I'm going to do this.
+And otherwise, I'm
+going to do this.
+So for the first
+two iterations when
+thing is equal to
+""life"" or ""answer"",
+I'm not doing anything.",https://www.youtube.com/watch?v=zYVWQpCitKQ&t=54s,,The evidence supports the mechanism of how a for loop processes characters in a string.,prompt_v2_m3_human_review,does_not_support,"The loop iterates over elements of a list, not over characters of a string; it does not establish that the loop variable holds one character per iteration.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-029|MjbuarJ7SE0:semantic_cosine_wp240_v1:20,mit60001-q-029,evaluated_37,How does a function return a value to its caller?,"- A return statement specifies an expression whose evaluated value is sent back by the function.
+- The code that called the function receives that returned value.",candidate_v2_e2,False,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:20,2,"You remember,
+think of a function
+as sort of a small procedure
+or a little mini-program
+that does something.
+So you can do anything
+inside the function
+that you can do in the regular
+program-- print things,
+do mathematical
+operations, and so on.
+The last line is the most
+important part of the function
+though.
+And it's this return statement--
+that's what we call it.
+So it's a line of code
+that starts with return,
+which is a keyword.
+And then it's going
+to be some value.
+Notice this is an
+expression here--
+i%2 == 0 is an expression
+that's going to evaluate to some
+value.
+And as long as this
+part is something
+that evaluates some value,
+it can be anything you want.",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=867s,,The evidence supports the mechanism by which a function returns a value to its caller.,prompt_v2_m3_human_review,supports,Directly explains that return is followed by an expression/value that is evaluated as the function's return value.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-029|MjbuarJ7SE0:semantic_cosine_wp240_v1:21,mit60001-q-029,evaluated_37,How does a function return a value to its caller?,"- A return statement specifies an expression whose evaluated value is sent back by the function.
+- The code that called the function receives that returned value.",candidate_v2_e2,False,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:21,3,"And this line here return
+something tells Python, OK
+after you have finished
+executing everything
+inside the function, what
+value should I return?
+And whoever called
+the function is
+going to get back that
+value, and the function
+call itself will be
+replaced by that value.
+OK so let's look at an example.
+I'm going to introduce
+the idea of scope now.
+And scope just means-- is
+another word for environment.
+So if I told you that you
+could think of functions
+as little mini-programs,
+the scope of a function
+is going to be a completely
+separate environment
+than the environment
+of the main program.
+So as soon as you
+make a function call,
+behind the scenes
+what Python says is,
+OK I'm in the main program
+but I see a function call.
+I'm going to step out
+of this main program.
+I'm going to go off into
+this new environment.",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=913s,,The evidence supports the mechanism by which a function returns a value to its caller.,prompt_v2_m3_human_review,supports,Directly states that the returned value is sent back to the caller and replaces the function call.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-029|MjbuarJ7SE0:semantic_cosine_wp240_v1:27,mit60001-q-029,evaluated_37,How does a function return a value to its caller?,"- A return statement specifies an expression whose evaluated value is sent back by the function.
+- The code that called the function receives that returned value.","candidate_v2_e2
+current_control_e1",True,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:27,1,"So we're still inside
+the function call f,
+so x gets the value 4.
+We're printing this and
+then we're returning x.
+So in the scope of
+f, x is equal to 4,
+so we're returning
+that value back
+to whoever called it,
+which was this function
+call within the global scope.
+So this part right here-- f
+of x, which was the function
+call-- gets replaced with 4.
+So inside the main
+program, z is equal to 4.
+And that's how we pass
+parameters into the function,
+and we got a parameter
+back from the function.
+As soon as the function
+returns something,
+the scope that you were in
+for the function gets erased.
+You forget about every variable
+that was created in there,
+delete that scope, and
+you're back to wherever
+you started calling it.
+One warning though.
+So what happens if there's
+no return statement?",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=1203s,"The candidate excerpt at rank 1 directly supports the answer. It explains how a function returns a value to its caller by stating 'so we're returning x' and 'so in the scope of f, x is equal to 4, so we're returning that value back to whoever called it'.",The evidence supports the mechanism by which a function returns a value to its caller.,baseline_m3_canonical,supports,Directly shows a return value being sent back to the caller and replacing the function call in the caller scope.,canonical_reuse,,
+mit60001-q-030|-DP1i2ZU9gk:semantic_cosine_wp240_v1:21,mit60001-q-030,evaluated_37,What role does self play when a method is called on an object?,"- self represents the particular instance on which a method operates.
+- Instance attributes are referenced with self.attribute, and self is the first parameter of an instance method.","candidate_v2_e2
+current_control_e1",True,True,-DP1i2ZU9gk:semantic_cosine_wp240_v1:21,1,"And we give it some
+parameters, right,
+just like any other function.
+These last two
+parameters are x and y,
+which are going to represent how
+you create a coordinate object.
+So you give it a value
+for the x-coordinate
+and you give it a value
+for the y-coordinate.
+The self, however, is
+a little bit trickier.
+So the self is going
+to be a parameter when
+you define this
+class that represents
+a particular instance
+of the class.
+So we're defining
+this coordinate object
+in sort of a general way, right?",https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=917s,"The candidate excerpt directly supports the answer that 'self' plays the role of a placeholder for any sort of instance when creating an object, and is used to refer to attributes and methods of an instance.",The whole question is covered.,baseline_m3_canonical,supports,Directly says self represents a particular instance of the class.,canonical_reuse,,
+mit60001-q-030|-DP1i2ZU9gk:semantic_cosine_wp240_v1:22,mit60001-q-030,evaluated_37,What role does self play when a method is called on an object?,"- self represents the particular instance on which a method operates.
+- Instance attributes are referenced with self.attribute, and self is the first parameter of an instance method.","candidate_v2_e2
+current_control_e1",True,True,-DP1i2ZU9gk:semantic_cosine_wp240_v1:22,2,"We don't have a
+specific instance
+yet because we haven't
+created an object yet.
+But this self is
+going to be sort
+of a placeholder for
+any sort of instance
+when you create the object.
+So in the definition
+of the class,
+whenever you want to
+refer to attributes
+that belong to an instance,
+you have to use self dot.
+So this dot notation.
+And the dot is going to say
+look for a data attribute
+x that belongs to this class.
+So for methods that
+belong to the class,
+the first parameter is
+always going to be self.
+It can be named
+anything you want,
+but really by convention
+it's always named self.
+So try to stick to that.
+And then any other
+parameters beyond it
+are going to be just
+parameters as you
+would put in a normal function.
+OK.
+In this particular
+case, we're going",https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=954s,"The candidate excerpt directly supports the answer that 'self' plays the role of a placeholder for any sort of instance when creating an object, and is used to refer to attributes and methods of an instance.",The whole question is covered.,baseline_m3_canonical,supports,Directly explains self as the first method parameter and self.attribute notation for instance attributes.,canonical_reuse,,
+mit60001-q-030|FlGjISF3l78:semantic_cosine_wp240_v1:5,mit60001-q-030,evaluated_37,What role does self play when a method is called on an object?,"- self represents the particular instance on which a method operates.
+- Instance attributes are referenced with self.attribute, and self is the first parameter of an instance method.","candidate_v2_e2
+current_control_e1",True,True,FlGjISF3l78:semantic_cosine_wp240_v1:5,3,"attributes of any instance.
+So we use this
+self variable, OK?
+And the self variable
+we used to refer
+to any instance-- to the data
+attributes of any instance
+in a general way
+without actually
+having a particular
+instance in mind, OK?
+So whenever we access
+data attributes,
+we would say something like self
+dot to access a data attribute.
+You'd access the attribute
+directly with self.x.
+Or if you wanted
+to access a method,
+you would say self, dot,
+and then the method name--
+for example, distance.
+And really, the bottom line
+of the class definition
+is that your class defines
+all of the data-- so data
+attributes-- and
+all of the methods",https://www.youtube.com/watch?v=FlGjISF3l78&t=239s,"The candidate excerpt directly supports the answer that 'self' plays the role of a placeholder for any sort of instance when creating an object, and is used to refer to attributes and methods of an instance.",The whole question is covered.,baseline_m3_canonical,supports,Directly explains using self to refer generically to instance data attributes and methods.,canonical_reuse,,
+mit60001-q-031|RvRKT-jXvko:semantic_cosine_wp240_v1:37,mit60001-q-031,evaluated_37,What happens when a list is mutated through one of several aliases?,"- All aliases point to the same mutable list object in memory.
+- Mutating the list through one alias changes that shared object, so the changed value is visible through every alias.",candidate_v2_e2,False,True,RvRKT-jXvko:semantic_cosine_wp240_v1:37,2,"and expect it to be
+the mutated list.
+The list got mutated.
+The list that got
+mutated is the list
+that was passed into to here.
+We're going look at one
+example in a few slides that's
+going to show this.
+OK.
+Another thing that we can do,
+and this is often useful when
+you're working with
+data, is to convert lists
+to strings and then
+strings to lists.
+Sometimes it might be useful
+to work with strings as opposed
+to a list and vice versa.
+So this first line here,
+list s takes in a string
+and casts it to a list.
+So much like when we cast
+a float to an integer,
+for example.
+You're just casting a
+string to a list here.
+And when you do
+that up this line--
+so if this is your s
+here-- when you do list s,",https://www.youtube.com/watch?v=RvRKT-jXvko&t=1583s,,The evidence supports the requested behavior of lists being mutated through aliases.,prompt_v2_m3_human_review,does_not_support,"Describes mutation of a list passed into a function, but does not mention multiple aliases pointing to the same object or visibility through all aliases.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-031|RvRKT-jXvko:semantic_cosine_wp240_v1:47,mit60001-q-031,evaluated_37,What happens when a list is mutated through one of several aliases?,"- All aliases point to the same mutable list object in memory.
+- Mutating the list through one alias changes that shared object, so the changed value is visible through every alias.",current_control_e1,True,False,RvRKT-jXvko:semantic_cosine_wp240_v1:47,1,"all of his nicknames
+are going to refer
+to this exact same person.
+So all of his
+nicknames or aliases
+will refer to the
+same person object
+with these changed attributes.
+Does that makes sense?
+OK.
+So that sort of idea
+arises in lists.
+So a list is like
+a person object
+whose value-- whose attributes
+can change, for example.
+And as they change, all
+of the different aliases
+for this object will point
+to this changed object.
+So let's see a few examples.
+I apologize if this
+is a little small,",https://www.youtube.com/watch?v=RvRKT-jXvko&t=1995s,"The candidate excerpt directly supports the answer that when a list is mutated through one of several aliases, all the aliases will refer to the same person object with the changed attributes.",,baseline_m3_canonical,supports,Directly explains aliases referring to the same mutable object and all aliases seeing the changed object.,canonical_reuse,,
+mit60001-q-031|RvRKT-jXvko:semantic_cosine_wp240_v1:49,mit60001-q-031,evaluated_37,What happens when a list is mutated through one of several aliases?,"- All aliases point to the same mutable list object in memory.
+- Mutating the list through one alias changes that shared object, so the changed value is visible through every alias.",candidate_v2_e2,False,True,RvRKT-jXvko:semantic_cosine_wp240_v1:49,3,"So I have warm is a variable.
+And it's going to be
+equal to this list.
+So warm is going to
+point to this list here.
+Red, yellow, orange.
+It contains three elements.
+Hot is equal to warm.
+It means I'm creating
+an alias for this list.
+And the alias is going to
+be with this variable hot.
+So notice warm and hot point
+to the exact same object.
+So on line 8 when I append
+this string pink to my object,
+since both of
+these two variables
+point to the exact
+same object, if I'm
+trying to access this object
+through either variable,
+they're both going to
+print out the same thing.",https://www.youtube.com/watch?v=RvRKT-jXvko&t=2061s,,The evidence supports the requested behavior of lists being mutated through aliases.,prompt_v2_m3_human_review,supports,Directly shows two aliases pointing to the same list object and a mutation through one alias being visible through either variable.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-033|MjbuarJ7SE0:semantic_cosine_wp240_v1:13,mit60001-q-033,evaluated_37,How does the course connect decomposition and abstraction when building programs with functions?,"- Decomposition creates structure by splitting a program into functional units.
+- Abstraction suppresses implementation details behind a function specification or docstring.
+- Once a task is implemented as a function, it can be reused without rewriting the code or knowing its internal details.","candidate_v2_e2
+current_control_e1",True,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:13,2,"OK so decomposition is creating
+structure in your code.
+And abstraction is the idea
+of suppressing details.
+So in the projector example,
+remember, abstraction
+was you didn't need to know
+exactly how the projector
+worked in order to use it.
+And it's going to be the
+same idea in programming.
+So once you write a piece of
+code that does a little task,
+you don't need to rewrite
+that piece of code many times.
+You've written it
+once, and you write
+this thing called a function
+specification for it,
+or a docstring.
+And this is a piece of
+text that tells anyone
+else who would want to use it
+in the future-- other people,
+maybe yourself-- it tells
+them how to use this function.",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=548s,"The candidate excerpt at rank 2 directly supports the answer by explaining that abstraction is the idea of suppressing details, and in programming, it means you don't need to know exactly how a function works in order to use it.",The evidence supports both sides of the question and provides direct support for the requested contrast.,baseline_m3_canonical,supports,"Directly defines decomposition as code structure and abstraction as suppressing details, with functions/docstrings enabling reuse.",canonical_reuse,,
+mit60001-q-033|MjbuarJ7SE0:semantic_cosine_wp240_v1:54,mit60001-q-033,evaluated_37,How does the course connect decomposition and abstraction when building programs with functions?,"- Decomposition creates structure by splitting a program into functional units.
+- Abstraction suppresses implementation details behind a function specification or docstring.
+- Once a task is implemented as a function, it can be reused without rewriting the code or knowing its internal details.",candidate_v2_e2,False,True,MjbuarJ7SE0:semantic_cosine_wp240_v1:54,3,"So that's sort of
+showing nested functions.
+All right just circling back
+to decomposition-abstraction.
+This is the last slide.
+You can see if you look
+at the code associated
+with today's lecture, there
+are some other examples
+where you can see
+just how powerful it
+is to use functions.
+And you can write really
+clean and simple code
+if you define your own functions
+and then just use them later.
+And the beauty of defining
+your own functions
+that you can use
+multiple times later
+is you only have to debug
+the function once right?
+I know debugging is not
+your favorite thing,
+but you only have to
+debug this one thing once,
+and then you can know that
+it's right and it works well,
+and you can just use
+it multiple times.
+All right thanks everyone.",https://www.youtube.com/watch?v=MjbuarJ7SE0&t=2418s,,The evidence supports both sides of the question and provides direct support for the requested contrast.,prompt_v2_m3_human_review,supports,"Supports the reuse consequence of decomposition/abstraction: functions can be defined once, debugged once, and reused without rewriting the code. It does not define both concepts by itself.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-034|9H6muyZjms0:semantic_cosine_wp240_v1:25,mit60001-q-034,evaluated_37,How does the course connect testing and debugging when finding program errors?,"- Testing uses expected and actual results to identify what is wrong.
+- Debugging then determines how or why the bad result occurred and pinpoints the responsible line, lines, or function.","candidate_v2_e2
+current_control_e1",True,True,9H6muyZjms0:semantic_cosine_wp240_v1:25,2,"that that's giving
+you the bad results.
+So the general debugging steps
+is to study the program code.
+Don't ask what is wrong,
+because that's actually
+part of the testing.
+So your test cases would have
+figured out what's wrong.
+The debugging process
+is figuring out
+how the result took place.
+And since programming is--
+programming and debugging
+is, sort of, is a science, you
+can use the scientific method
+as well.
+So look at all the data,
+that's your test cases.
+Figure out a hypothesis.
+Maybe say, oh, maybe I'm
+indexing from 1 instead of 0
+in lists, for example.
+Come up with an experiment
+that you can repeat.
+And then pick a
+simple test case then
+you can test your
+hypothesis with.
+So as you're debugging, you
+will encounter error messages.
+And these error
+messages are actually",https://www.youtube.com/watch?v=9H6muyZjms0&t=1035s,"The candidate excerpt directly supports the answer by explaining how the course connects testing and debugging when finding program errors, stating that the debugging process is figuring out how the result took place and using the scientific method to study test cases and come up with hypotheses.",The evidence supports the connection between testing and debugging when finding program errors.,baseline_m3_canonical,supports,Directly separates testing (what is wrong) from debugging (how the result occurred) and describes hypothesis-driven debugging.,canonical_reuse,,
+mit60001-q-034|9H6muyZjms0:semantic_cosine_wp240_v1:31,mit60001-q-034,evaluated_37,How does the course connect testing and debugging when finding program errors?,"- Testing uses expected and actual results to identify what is wrong.
+- Debugging then determines how or why the bad result occurred and pinpoints the responsible line, lines, or function.",candidate_v2_e2,False,True,9H6muyZjms0:semantic_cosine_wp240_v1:31,1,"to testing and debugging.
+The rest of the class will
+be on the error messages,
+or on errors that you
+will get in your programs.
+So when your functions--
+when you run functions,
+or when you run your
+program, at some point,
+the program execution
+is going to stop.
+Maybe it encountered
+an error because
+of some unexpected condition.
+And when that happens
+you get an exception.
+So the error is
+called an exception.
+And it's called an exception
+because it was an exception
+to what was expected.
+To what the program expected.
+So all of these errors
+that I've talked
+about in the previous
+slides are actually
+examples of exceptions.
+And there are actually
+many other types
+of exceptions, which you'll
+see as you go on in this course",https://www.youtube.com/watch?v=9H6muyZjms0&t=1286s,,The evidence supports the connection between testing and debugging when finding program errors.,prompt_v2_m3_human_review,does_not_support,"Discusses exceptions and unexpected conditions, not the distinction that testing finds what is wrong while debugging finds how/why and locates the responsible code.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-035|RvRKT-jXvko:semantic_cosine_wp240_v1:47,mit60001-q-035,evaluated_37,How does the course connect list aliasing with mutation side effects?,"- Aliasing means two names can point to the same list object.
+- Because the list is mutable, a change made through one alias changes the shared object and appears through the other alias.
+- This shared visible change is a mutation side effect.",candidate_v2_e2,False,True,RvRKT-jXvko:semantic_cosine_wp240_v1:47,1,"all of his nicknames
+are going to refer
+to this exact same person.
+So all of his
+nicknames or aliases
+will refer to the
+same person object
+with these changed attributes.
+Does that makes sense?
+OK.
+So that sort of idea
+arises in lists.
+So a list is like
+a person object
+whose value-- whose attributes
+can change, for example.
+And as they change, all
+of the different aliases
+for this object will point
+to this changed object.
+So let's see a few examples.
+I apologize if this
+is a little small,",https://www.youtube.com/watch?v=RvRKT-jXvko&t=1995s,,The evidence supports both sides of the question and provides direct support for the requested mechanism.,prompt_v2_m3_human_review,supports,Directly explains aliases referring to the same mutable list object and all aliases seeing the changed object after mutation.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-035|WPSeyjX1-4s:semantic_cosine_wp240_v1:1,mit60001-q-035,evaluated_37,How does the course connect list aliasing with mutation side effects?,"- Aliasing means two names can point to the same list object.
+- Because the list is mutable, a change made through one alias changes the shared object and appears through the other alias.
+- This shared visible change is a mutation side effect.","candidate_v2_e2
+current_control_e1",True,True,WPSeyjX1-4s:semantic_cosine_wp240_v1:1,2,"OK last time Ana introduced
+the first of the compound data
+types, tuples and lists.
+She showed lots of ways
+of manipulating them,
+lots of built in things for
+manipulating those structures.
+And the key difference
+between the two of them
+was that tuples were immutable,
+meaning you could not
+change them, lists
+were mutable, they
+could be changed, or mutated.
+And that led to both some nice
+power and some opportunities
+for challenges.
+And, in particular, she showed
+you things like aliasing,
+where you could have two names
+pointing to the same list
+structure, and
+because of that, you
+could change the
+contents of one,
+it would change the appearance
+of the contents of the other,
+and that leads to
+some nice challenges.
+So the side effects
+of mutability
+are one of the things you're
+going to see, both as a plus
+and minus, as we go
+through the course.",https://www.youtube.com/watch?v=WPSeyjX1-4s&t=53s,"The candidate excerpt at rank 2 directly supports the answer by explaining how lists are mutable and can lead to aliasing, where two names point to the same list structure, and changing the contents of one list affects the appearance of the other.",The evidence supports both sides of the question and provides direct support for the requested mechanism.,baseline_m3_canonical,supports,"Directly explains list mutability, aliasing, shared changes, and the resulting side effects.",canonical_reuse,,
+mit60001-q-038|6LOwPhPDwVc:semantic_cosine_wp240_v1:14,mit60001-q-038,evaluated_37,How does the requirement for sorted input distinguish binary search from linear search?,"- Bisection search requires the list to be sorted, and the ordering lets it cut down the size of the remaining search problem.
+- Linear search does not require sorted input and may scan through the list until it finds the target or reaches the end.","candidate_v2_e2
+current_control_e1",True,True,6LOwPhPDwVc:semantic_cosine_wp240_v1:14,1,"Could just use linear search.
+It's going to be linear.
+When you use binary search
+or bisection search,
+we can do it in log time.
+That's great.
+We assumed the list was
+sorted, but all right.
+So that lens basically says, OK.
+So when does it make
+sense to sort the list
+and then do the search?
+Right?
+Because if I can sort
+the list cheaply,
+then the search is
+going to be logarithmic.
+That's really what I would like.",https://www.youtube.com/watch?v=6LOwPhPDwVc&t=477s,"The candidate excerpt directly supports the answer by stating that the requirement for sorted input distinguishes binary search from linear search, as binary search can be done in log time, whereas linear search has a linear time complexity.",The evidence supports both sides of the question and the requested contrast between binary search and linear search.,baseline_m3_canonical,supports,States that binary/bisection search assumes sorted input and contrasts its logarithmic search with linear search; this is valid semantic support despite no GT time overlap.,canonical_reuse,,
+mit60001-q-038|7lQXYl_L28w:semantic_cosine_wp240_v1:13,mit60001-q-038,evaluated_37,How does the requirement for sorted input distinguish binary search from linear search?,"- Bisection search requires the list to be sorted, and the ordering lets it cut down the size of the remaining search problem.
+- Linear search does not require sorted input and may scan through the list until it finds the target or reaches the end.",candidate_v2_e2,False,True,7lQXYl_L28w:semantic_cosine_wp240_v1:13,3,"You saw an example much
+earlier in the term when Ana
+showed you bisection search.
+It was searching for a number
+with a particular property.
+I want to show you
+another example,
+both to let you recognize
+the form of the algorithm,
+but especially, to show you how
+we can reason about the growth.
+And that's another trick
+called binary search
+or, again, it's a version
+of bisection search.
+Suppose I give you a list,
+a list of numbers, integers.
+And I want to know if
+a particular element is
+in that list.
+We saw, last time, you could
+just walk down the list, just
+iterate through the entire list
+looking to see if it's there.",https://www.youtube.com/watch?v=7lQXYl_L28w&t=478s,,The evidence supports both sides of the question and the requested contrast between binary search and linear search.,prompt_v2_m3_human_review,does_not_support,"Contrasts binary/bisection search with sequential scanning, but does not state the central sorted-input requirement or how ordering enables reducing the search space.",reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-038|o9nW0uBqvEo:semantic_cosine_wp240_v1:70,mit60001-q-038,evaluated_37,How does the requirement for sorted input distinguish binary search from linear search?,"- Bisection search requires the list to be sorted, and the ordering lets it cut down the size of the remaining search problem.
+- Linear search does not require sorted input and may scan through the list until it finds the target or reaches the end.",candidate_v2_e2,False,True,o9nW0uBqvEo:semantic_cosine_wp240_v1:70,2,"whether it's sorted or not.
+I want you to hold
+on to that idea,
+because we're going to come
+back to the sorted list
+next week to see
+that there actually
+are much more efficient ways
+to use the fact that a list is
+sorted to do the search.
+But both of these versions
+same order growth, order n.
+OK.
+So lurching through a
+list-- right, sorry--
+searching through
+a list in sequence
+is linear because of that loop.
+There are other things
+that have a similar flavor.",https://www.youtube.com/watch?v=o9nW0uBqvEo&t=2689s,,The evidence supports both sides of the question and the requested contrast between binary search and linear search.,prompt_v2_m3_human_review,supports,States that sorted order can be exploited for a more efficient search and that sequential list search is linear; the opening context also indicates sequential search does not depend on sortedness.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-039|9H6muyZjms0:semantic_cosine_wp240_v1:13,mit60001-q-039,evaluated_37,How does the course distinguish black-box testing from glass-box testing?,"- Black-box testing creates tests from the specification or docstring without using the implementation code.
+- Glass-box testing uses the code itself to design tests that exercise its possible execution paths.","candidate_v2_e2
+current_control_e1",True,True,9H6muyZjms0:semantic_cosine_wp240_v1:13,2,"But there's actually two more
+rigorous ways to do testing.
+And one is black box
+testing and the other one
+is glass box testing.
+In black box testing,
+you're assuming
+you have the specifications
+to a function.
+So that's the docstring.
+All you're looking at is
+the docstring and coming
+up with some test
+cases based on that.
+In glass box testing,
+you have the code
+itself and you're
+trying to come up
+with some test cases that hit
+upon all of the possible paths
+through the code.
+All right.
+Let's look at an example
+for black box testing.
+I'm finding the square root of
+x to some close enough value
+given by this epsilon.",https://www.youtube.com/watch?v=9H6muyZjms0&t=511s,"The candidate excerpt directly supports the answer to the question 'How does the course distinguish black-box testing from glass-box testing?' by explaining the key differences between the two testing methods: black box testing relies on specifications, while glass box testing uses the code itself to guide test cases.","The evidence supports the distinction between black-box testing and glass-box testing, covering the key aspects of each approach.",baseline_m3_canonical,supports,Directly contrasts black-box testing from specifications/docstrings with glass-box testing from code paths.,canonical_reuse,,
+mit60001-q-039|9H6muyZjms0:semantic_cosine_wp240_v1:15,mit60001-q-039,evaluated_37,How does the course distinguish black-box testing from glass-box testing?,"- Black-box testing creates tests from the specification or docstring without using the implementation code.
+- Glass-box testing uses the code itself to design tests that exercise its possible execution paths.","candidate_v2_e2
+current_control_e1",True,True,9H6muyZjms0:semantic_cosine_wp240_v1:15,1,"and all the possible
+combinations of those.
+So the important thing
+about black box testing
+is that you are doing you are
+creating the test cases based
+on the specifications only.
+Glass box testing, you're
+using the code itself
+to guide your test cases.
+So if you have a piece
+of code and you come up
+with a test case that goes
+through every single possible
+combination of input-- of
+every single possible path
+through the code, then that test
+set is called path complete.
+The problem with this is
+when you encounter loops,
+for example.
+Every single possible
+path through a loop
+is maybe the code not going
+through the loop at all,
+going through once,
+going through twice,
+going through three times, four
+times, five times, and so on.
+Right?
+Which could be a
+very, very big test.
+So instead there are
+actually some guidelines
+for when you're dealing with
+loops and things like that.",https://www.youtube.com/watch?v=9H6muyZjms0&t=607s,"The candidate excerpt directly supports the answer to the question 'How does the course distinguish black-box testing from glass-box testing?' by explaining the key differences between the two testing methods: black box testing relies on specifications, while glass box testing uses the code itself to guide test cases.","The evidence supports the distinction between black-box testing and glass-box testing, covering the key aspects of each approach.",baseline_m3_canonical,supports,Directly states that black-box tests use specifications only while glass-box tests use code to guide test cases.,canonical_reuse,,
+mit60001-q-039|9H6muyZjms0:semantic_cosine_wp240_v1:17,mit60001-q-039,evaluated_37,How does the course distinguish black-box testing from glass-box testing?,"- Black-box testing creates tests from the specification or docstring without using the implementation code.
+- Glass-box testing uses the code itself to design tests that exercise its possible execution paths.",candidate_v2_e2,False,True,9H6muyZjms0:semantic_cosine_wp240_v1:17,3,"So in this example, we have
+the absolute value of x.
+This is its specification and
+this is the implementation
+that someone decided to
+do for this function.
+So a path complete
+test set means
+that you want to
+have a test that
+goes through each one
+of these branches.
+So if x is less than
+minus 1, well, minus 2
+is less than minus 1.
+So that's good.
+And otherwise, which means pick
+a number greater than minus 1.
+So 2.
+So 2 and minus 2
+are path complete.
+Yield path complete-- yields
+a path complete test suite.
+But notice that while we've
+hit upon every possible path
+through this code, we've
+actually missed a test case.
+Minus 1.
+So this code incorrectly
+classifies minus 1
+as returning minus
+1, which is wrong.
+So for glass box
+testing, in addition to
+making sure you're going
+through all the possible paths
+through the code,
+you also want to make",https://www.youtube.com/watch?v=9H6muyZjms0&t=704s,,"The evidence supports the distinction between black-box testing and glass-box testing, covering the key aspects of each approach.",prompt_v2_m3_human_review,does_not_support,Explains glass-box path-complete testing only; it does not provide the black-box side required to distinguish the two approaches.,reviewed,d5a6b023b93ae9a29f651de40a5418f11f856453026d7d7caa64fc69b4b00f1f,9b2778ecc76f48b43870fc0cb8b2d4c0e32e7d46e9168e42ae8dafb49820eca3
+mit60001-q-040|9H6muyZjms0:semantic_cosine_wp240_v1:51,mit60001-q-040,evaluated_37,How does the course distinguish an exception from an assertion failure?,"- Exceptions are appropriate for signaling or handling bad data supplied by a user.
+- Assertions check programmer assumptions such as input types and other function conditions, helping expose bugs early.","candidate_v2_e2
+current_control_e1",True,True,9H6muyZjms0:semantic_cosine_wp240_v1:51,1,"If the assert is false, the
+function does not continue.
+It stops right there.
+Why does it behave this way?
+Well, assertions are
+great to make sure
+that preconditions and
+post-conditions on functions
+are exactly as you expect.
+So as soon as an
+assert becomes false,
+the function's going to
+immediately terminate.
+This is useful because
+it'll prevent the program
+from propagating bad values.
+So as soon as a precondition
+isn't true, for example,
+as you enter a function,
+then that means something
+went wrong in your program.
+And the program is going
+to stop right there.
+So instead of
+propagating a bad value
+throughout the
+program, and then you
+getting an output that
+you didn't expect,
+and then you having to trace
+back to the function that
+gave this bad value, you'll get
+this bad value, you'll get this",https://www.youtube.com/watch?v=9H6muyZjms0&t=2375s,"The candidate excerpt directly supports the answer by explaining that assertions are used to make sure assumptions on computations are exactly what the function expects them to be, and that if an assertion becomes false, the function immediately terminates.",The evidence supports the distinction between exception and assertion failure. The selected chunk IDs are: [9H6muyZjms0:semantic_cosine_wp240_v1:51],baseline_m3_canonical,does_not_support,"Explains assertion behavior and programmer pre/postconditions, but does not provide the exception/user-bad-data side needed to distinguish exceptions from assertion failures.",canonical_reuse,,

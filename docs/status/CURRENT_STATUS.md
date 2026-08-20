@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-08-16
+2026-08-20
 
 ## Corpus mục tiêu
 
@@ -163,6 +163,19 @@ Validation status: `passed`.
   `reports/12_search_api/search_api_validation_manifest.json`
 - Search API cross-process validation:
   `reports/12_search_api/search_api_cross_process_validation.csv`
+- Evidence review request package và manifest:
+  `evaluation/review/evidence_accept_reject/evidence_review_requests_v1.jsonl`
+  và `reports/13_evidence_review/evidence_review_package_manifest.json`
+- Evidence reviewer runtime manifest:
+  `reports/14_evidence_review_runtime/evidence_review_runtime_manifest.json`
+- Baseline evidence reviewer evaluation:
+  `reports/15_evidence_reviewer_evaluation/final_metrics.json`
+  và `reports/15_evidence_reviewer_evaluation/evidence_reviewer_evaluation_manifest.json`
+- Prompt V2 experiment manifest:
+  `reports/16_evidence_reviewer_prompt_experiment/prompt_experiment_manifest.json`
+- Prompt V2 final evaluation và human evidence audit:
+  `reports/17_evidence_reviewer_prompt_evaluation/final_metrics.json`
+  và `reports/17_evidence_reviewer_prompt_evaluation/m3_final_manifest.json`
 - Canonical MIT 6.0001 evaluation dataset:
   `evaluation/mit_60001/evaluation_questions.jsonl`
 - Current Batch 01 source candidates:
@@ -365,13 +378,58 @@ Top 3 IDs khớp baseline 35/35 chỉ chứng minh API tái tạo đúng locked 
 `Recall@3 = 0,742857143` mới là retrieval-quality metric theo Ground Truth; nó không
 có nghĩa 35/35 câu đều có evidence đúng trong Top 3.
 
-1. Khóa contract và threshold cho LLM evidence accept/reject.
-2. Xây accept/reject runtime trên Dense Top 3 trước grounded answer generation.
-3. Xây grounded answer có citation và từ chối khi evidence không hỗ trợ.
-4. Đánh giá answer groundedness và abstention accuracy end-to-end.
-5. q-011, q-024, q-028 và q-036 chỉ được mở lại khi có evidence hoặc quyết định
+### Evidence reviewer status
+
+Phase 8 M2A đã khóa contract/schema và deterministic request package 40 câu theo
+flow `Question -> Dense Top 3 -> Evidence accept/reject`. Ground Truth và expected
+answer points không lọt vào request gửi reviewer.
+
+Phase 8 M2B đã triển khai local reviewer bằng Ollama `llama3.2:3b`, prompt V1,
+structured JSON output. Runtime xử lý đủ 40/40 request và chỉ được chọn supporting
+chunk IDs từ Dense Top 3. Runtime này tồn tại và chạy đúng contract, nhưng chưa đạt
+production quality gate.
+
+Baseline M3 hoàn thành với 37 câu evaluable và ba exclusion giữ nguyên là q-017,
+q-023, q-041:
+
+| Baseline V1 | Kết quả |
+| --- | ---: |
+| Accept recall | 80,95% |
+| False accept rate | 56,25% |
+| Evidence-selection precision, all-40 audit | 27/35 = 77,14% |
+
+Trên cùng scope 37 câu evaluable dùng cho prompt experiment, baseline E0 đạt
+`27/34 = 79,41%` evidence precision.
+
+Prompt experiment đã khóa E0/E1/E2 trên cùng Dense Top 3 và cùng 37 decision labels.
+Human evidence audit cho E2 hoàn thành 38/38 cặp mới: 22 `supports`, 16
+`does_not_support`, không có `needs_discussion`.
+
+| Prompt V2 candidate E2 | Kết quả | Ngưỡng | Trạng thái |
+| --- | ---: | ---: | --- |
+| Accept recall | 90,48% | >= 75% | PASS |
+| False accept rate | 56,25% | <= 25% | FAIL |
+| Evidence-selection precision, 37-scope | 46/67 = 68,66% | >= 85% | FAIL |
+
+E2 được freeze là `failed_candidate` và không được promote. Đây là kết quả đánh giá
+chất lượng, không phải runtime failure: schema/runtime correctness đạt contract,
+nhưng decision quality và evidence-selection quality không đạt gate. Recall tăng do
+candidate accept nhiều hơn; FAR không giảm và evidence precision thấp hơn baseline.
+So sánh cùng 37-scope là E0 `79,41%` và E2 `68,66%`; trên all-40 audit, E0 là
+`77,14%` và E2 là `48/70 = 68,57%`.
+
+Evidence reviewer production gate hiện **chưa pass**. Grounded answer generation
+chưa được xây và chưa được đánh giá. Không mở V2.1 trên cùng 40 câu; experiment tiếp
+theo cần quyết định riêng về model capability/reviewer architecture hoặc holdout mới.
+
+1. Chốt hướng experiment reviewer tiếp theo và holdout trước khi tuning thêm.
+2. Chỉ xây grounded answer có citation sau khi reviewer quality gate đạt yêu cầu.
+3. Đánh giá answer groundedness và abstention accuracy end-to-end sau khi có grounded
+   answering runtime.
+4. q-011, q-024, q-028 và q-036 chỉ được mở lại khi có evidence hoặc quyết định
    human review mới; không chặn retrieval work hiện tại.
 
 Canonical Gold, embedding/index, retrieval selection, Cross-Encoder evaluation và
-Phase 7 Retrieval/Search API đã hoàn thành. Chưa xây LLM accept/reject, grounded
+Phase 7 Retrieval/Search API đã hoàn thành. Evidence reviewer runtime và hai vòng
+evaluation đã hoàn thành, nhưng production quality gate chưa pass. Chưa xây grounded
 answer generation hoặc end-to-end groundedness/abstention evaluation.
