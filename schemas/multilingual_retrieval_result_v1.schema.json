@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/multilingual_retrieval_result_v1.schema.json",
+  "title": "MIT 6.0001 Multilingual Dense Retrieval Result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "retrieval_run_id",
+    "intent_id",
+    "query_variant",
+    "query_text",
+    "retrieval_depth",
+    "results"
+  ],
+  "properties": {
+    "schema_version": {"const": "multilingual_retrieval_result_v1"},
+    "retrieval_run_id": {"type": "string", "pattern": "^mit60001_multilingual_dense_[a-f0-9]{16}$"},
+    "intent_id": {"type": "string", "pattern": "^mit60001-q-[0-9]{3}$"},
+    "query_variant": {"enum": ["en_canonical", "vi_literal_en"]},
+    "query_text": {"type": "string", "minLength": 5},
+    "retrieval_depth": {"const": 861},
+    "results": {
+      "type": "array",
+      "minItems": 861,
+      "maxItems": 861,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["rank", "chunk_id", "score"],
+        "properties": {
+          "rank": {"type": "integer", "minimum": 1, "maximum": 861},
+          "chunk_id": {"type": "string", "minLength": 1},
+          "score": {"type": "number", "minimum": -1, "maximum": 1}
+        }
+      }
+    }
+  }
+}

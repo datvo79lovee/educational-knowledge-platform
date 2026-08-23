@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-08-23
+2026-08-24
 
 ## Pipeline canonical
 
@@ -68,15 +68,64 @@ còn code, test, report hoặc artifact trong working tree. Lý do chọn Dense/
 tóm tắt tại `docs/decisions/CANONICAL_RUNTIME_DECISIONS.md`; Git history giữ lịch
 sử development trước cleanup.
 
-## Bước tiếp theo
+## Phase 9 — Multilingual Retrieval Baseline
 
-Phase 9 — multilingual retrieval baseline:
+Phase 9 đã complete và freeze trên 20 paired semantic intents. Ba representation
+`question_en`, `question_vi` và frozen `literal_en` dùng cùng canonical Ground
+Truth; human review M1 hoàn thành 20/20 với 19 `Equivalent`, 1
+`Minor wording difference` (`mit60001-q-008`) và 0 `Semantic drift`.
+
+M2 chạy đúng hai branches trên cùng `dense_baseline_v1`, canonical Gold/index và
+full ranking 861:
 
 ```text
-EN canonical query → Dense
-VI query → literal English translation → Dense
+question_en → Dense
+literal_en  → Dense
 ```
 
-So sánh trên cùng Ground Truth/relevant chunks, với MRR, Recall@1, Recall@3,
-Recall@5 và Full Evidence@3. Chưa mở expanded translation, query expansion, RRF,
-reranking hoặc prompt tuning generator.
+M2 có 40/40 retrieval records, 0 translator/LLM/generator call và deterministic
+rerun PASS. M3 chỉ đọc frozen M1 + M2, không rerun retrieval hoặc sửa Ground Truth.
+
+| Metric | EN canonical | VI → literal EN | Δ VI - EN |
+| --- | ---: | ---: | ---: |
+| MRR | 0,596274510 | 0,634226651 | +0,037952141 |
+| Recall@1 | 0,400000000 | 0,550000000 | +0,150000000 |
+| Recall@3 | 0,750000000 | 0,700000000 | -0,050000000 |
+| Recall@5 | 0,800000000 | 0,750000000 | -0,050000000 |
+| Full Evidence@3 | 0,500000000 | 0,550000000 | +0,050000000 |
+
+First relevant rank có 4 intents improved, 10 unchanged và 6 degraded. Mean Top-3
+overlap là 0,80; exact ordered Top-3 match là 6/20. Hai exact-string controls
+`mit60001-q-003` và `mit60001-q-022` PASS.
+
+Kết luận khóa: literal English translation preserved overall Dense retrieval
+quality trên paired benchmark 20 intents, với mixed per-intent effects và không có
+bằng chứng systematic degradation. Không diễn giải Vietnamese retrieval tốt hơn
+English hoặc translation luôn làm retrieval kém đi.
+
+Toàn bộ giảm 0,05 ở Recall@3/@5 đến từ `mit60001-q-008`, câu duy nhất có review
+`Minor wording difference`: first relevant rank 2 → 7 và Top-3 overlap 0/3. Đây là
+observed sensitivity về translation fidelity (`object` → `value`), không phải bằng
+chứng cần fusion. Không sửa translation hậu nghiệm và không tune theo một failure
+case đơn lẻ.
+
+Quyết định sau M3: không mở `expanded_en`, query expansion, BM25, Hybrid RRF,
+reranking hoặc model comparison. Phase 9 chuyển từ retrieval research sang runtime
+integration.
+
+## Bước tiếp theo
+
+Multilingual Runtime Integration V1, chưa triển khai:
+
+```text
+Vietnamese user query
+  → original_query
+  → literal English translator
+  → retrieval_query
+  → Dense Top 3
+  → G0 Grounded Answer Generator + answer_language=vi
+  → Vietnamese answer + application-owned citations
+```
+
+Runtime contract tương lai cần phân biệt `original_query`, `retrieval_query` và
+`answer_language`. Không sửa Dense retriever và không thêm BM25/RRF/reranker.

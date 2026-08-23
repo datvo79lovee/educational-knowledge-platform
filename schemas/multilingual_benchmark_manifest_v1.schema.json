@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/multilingual_benchmark_manifest_v1.schema.json",
+  "title": "MIT 6.0001 Multilingual Benchmark M1 Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "artifact_version",
+    "status",
+    "m1_gate_status",
+    "number_of_intents",
+    "source",
+    "selection",
+    "translation",
+    "artifacts",
+    "review",
+    "validation_status"
+  ],
+  "properties": {
+    "$schema": {"type": "string"},
+    "schema_version": {"const": "multilingual_benchmark_manifest_v1"},
+    "artifact_version": {"const": "mit_60001_multilingual_m1_v1"},
+    "status": {"enum": ["ready_for_human_review", "frozen"]},
+    "m1_gate_status": {"enum": ["pending_human_review", "passed"]},
+    "number_of_intents": {"const": 20},
+    "source": {"type": "object"},
+    "selection": {"type": "object"},
+    "translation": {"type": "object"},
+    "artifacts": {"type": "object"},
+    "review": {"type": "object"},
+    "validation_status": {"const": "passed"}
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "schema_version": "multilingual_retrieval_evaluation_manifest_v1",
+  "artifact_version": "mit_60001_multilingual_m3_v1",
+  "evaluation_id": "mit60001_multilingual_eval_11df26f03e73d4f2",
+  "status": "descriptive_baseline_complete",
+  "sources": {
+    "m1_paired_artifact": {
+      "path": "evaluation/mit_60001/multilingual/paired_intents_v1.jsonl",
+      "sha256": "c416752a7bc83d956f8a95990bfb8ad0d40cd6ac905498bd656c6309b05c43da"
+    },
+    "m1_manifest": {
+      "path": "evaluation/mit_60001/multilingual/m1_manifest.json",
+      "sha256": "496a180d5fa8e30ab3dbbd95daed80d4ec799256023071a7a717e69528b431ef"
+    },
+    "m2_results": {
+      "path": "reports/27_multilingual_dense_retrieval/multilingual_dense_retrieval_results.jsonl",
+      "sha256": "244861f3535e2875dee2c3dcd31b0b2af3ecdad91edf43e7af26abef02af3991"
+    },
+    "m2_manifest": {
+      "path": "reports/27_multilingual_dense_retrieval/multilingual_dense_retrieval_manifest.json",
+      "sha256": "e6cf25326dd92961e79d932aab615ff38a1b428a06c39acac83eb6de98221e93"
+    },
+    "canonical_gold": {
+      "path": "data/gold/mit_60001/chunks.jsonl",
+      "sha256": "c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432"
+    },
+    "canonical_silver": {
+      "path": "data/silver/mit_60001/transcripts_clean.jsonl",
+      "sha256": "50d559529bedc33715b13312c5e4b7def80ac808521b53699a14465e084a8ecb"
+    }
+  },
+  "evaluation_contract": {
+    "number_of_paired_intents": 20,
+    "mrr_ranking_depth": 861,
+    "mrr_definition": "mean(1 / full-corpus rank of first chunk covering any Ground Truth range)",
+    "recall_k_values": [
+      1,
+      3,
+      5
+    ],
+    "full_evidence_at_3_definition": "Top 3 union of covered Ground Truth range indices equals all required range indices",
+    "relevance_rule": "same_video_and_source_segment_interval_intersection",
+    "delta_definition": "VI literal_en minus EN canonical",
+    "paired_outcome_definition": "improved if VI rank < EN rank; unchanged if equal; degraded if VI rank > EN rank",
+    "post_hoc_quality_gate_defined": false
+  },
+  "execution": {
+    "retrieval_rerun_count": 0,
+    "translator_calls": 0,
+    "llm_calls": 0,
+    "ground_truth_modification_count": 0,
+    "human_relabel_count": 0,
+    "query_expansion_count": 0
+  },
+  "validation": {
+    "paired_intents_evaluated": 20,
+    "ground_truth_range_count": 34,
+    "exact_string_control_count": 2,
+    "exact_string_control_pass_count": 2,
+    "q_008_trace_preserved": true,
+    "deterministic_in_process_rebuild": "passed"
+  },
+  "artifacts": {
+    "results": {
+      "path": "reports/28_multilingual_retrieval_evaluation/multilingual_retrieval_evaluation_results.csv",
+      "sha256": "be432858f9bd1db0e760fab841b05a25752f0b6d4f4d065a4b6d25084cda543a"
+    },
+    "metrics": {
+      "path": "reports/28_multilingual_retrieval_evaluation/multilingual_retrieval_metrics.json",
+      "sha256": "c11516db92243a43f070a987064c145d01d1745b96c39adace9b692ae263e93d"
+    },
+    "readme": {
+      "path": "reports/28_multilingual_retrieval_evaluation/README.md",
+      "sha256": "82e03bda6b685bb3c495296f4ff74913f5c29d3e0822bfac101d1b008e7a341d"
+    }
+  },
+  "evaluator": {
+    "path": "scripts/evaluation/evaluate_multilingual_retrieval_m3.py",
+    "sha256": "6377d97c58d56e9b84fce63eb82308398270dd8b3b523d0acefd5177d144bbf5"
+  },
+  "validation_status": "passed"
+}

@@ -5306,3 +5306,149 @@ Repository đã được tinh gọn sau khi canonical pipeline được khóa:
 Validation sau cleanup: `28 passed`; benchmark manifest, Search API, Grounded
 Answer API, SHA-256 canonical Gold/embeddings/metadata và `git diff --check` đều
 PASS. Cleanup dừng; bước tiếp theo là Phase 9 multilingual retrieval baseline.
+
+---
+
+# Ngày 29 - Phase 9 Multilingual Retrieval Baseline
+
+## M1 — Paired EN–VI benchmark preparation
+
+Đã chọn có chủ đích 20 approved-answerable semantic intents để phủ `what`, `how`,
+`why`, `comparison`, `procedure`, `concept_relationship`, `multi_point`, cùng cả
+single-range và multi-range Ground Truth.
+
+Artifact M1 giữ ba representation dùng chung canonical Ground Truth:
+
+```text
+question_en
+question_vi
+literal_en
+```
+
+`literal_en` được tạo bằng Ollama local `llama3.2:3b`, digest
+`a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72`,
+với translator input chỉ có `question_vi`. Không đưa Ground Truth, expected answer
+points, relevant chunk IDs, retrieved evidence hoặc answer labels vào translator.
+
+Human review hoàn thành 20/20 bởi Võ Trí Đạt:
+
+```text
+Equivalent                : 19
+Minor wording difference  : 1 (mit60001-q-008)
+Semantic drift            : 0
+```
+
+M1 manifest freeze và validator PASS; Ground Truth leakage bằng 0.
+
+## M2 — Multilingual Dense retrieval run
+
+M2 đọc nguyên frozen `question_en` và `literal_en` từ M1, không chạy translator
+lại:
+
+```text
+question_en → dense_baseline_v1
+literal_en  → dense_baseline_v1
+```
+
+Canonical evaluator trước đây dùng full-corpus ranking cho first relevant rank;
+vì vậy M2 export đủ 861 ranks/query thay vì truncate ở Top 5/10. Kết quả:
+
+```text
+EN queries                    : 20/20
+literal_en queries            : 20/20
+retrieval records             : 40/40
+retrieval depth               : 861
+missing / duplicate / invalid : 0 / 0 / 0
+EN Top-10 canonical matches   : 20/20
+exact-string controls         : 2/2
+translator/LLM/generator call : 0
+quality metrics computed      : false
+deterministic rerun           : passed
+```
+
+M2 dùng nguyên Gold, embeddings, metadata order, encoder revision, exact cosine,
+normalization, scoring và tie-break của `dense_baseline_v1`.
+
+## M3 — Deterministic retrieval evaluation
+
+M3 chỉ đọc frozen M1 Ground Truth và M2 full rankings. Không rerun retrieval, sửa
+Ground Truth, relabel hoặc mở human-review workbook mới.
+
+| Metric | EN canonical | VI → literal EN | Δ VI - EN |
+| --- | ---: | ---: | ---: |
+| MRR | 0,596274510 | 0,634226651 | +0,037952141 |
+| Recall@1 | 0,400000000 | 0,550000000 | +0,150000000 |
+| Recall@3 | 0,750000000 | 0,700000000 | -0,050000000 |
+| Recall@5 | 0,800000000 | 0,750000000 | -0,050000000 |
+| Full Evidence@3 | 0,500000000 | 0,550000000 | +0,050000000 |
+
+MRR dùng full ranking 861. Full Evidence@3 giữ canonical definition: Top 3 phải phủ
+đủ mọi Ground Truth range cần thiết.
+
+Paired diagnostics:
+
+```text
+first relevant rank improved  : 4
+first relevant rank unchanged : 10
+first relevant rank degraded  : 6
+mean Top-3 overlap             : 0,80
+exact ordered Top-3 match      : 6/20
+```
+
+Hai exact-string controls `mit60001-q-003` và `mit60001-q-022` có branch metrics
+giống nhau và PASS. `mit60001-q-008`, câu duy nhất có review
+`Minor wording difference`, giảm first relevant rank 2 → 7, mất Recall@3 và
+Recall@5, Top-3 overlap 0/3. Toàn bộ giảm 0,05 aggregate ở Recall@3/@5 đến từ intent
+này. Không sửa translation sau khi xem retrieval result.
+
+## Quyết định Phase 9
+
+Kết luận descriptive được khóa:
+
+> Literal English translation preserved overall Dense retrieval quality on the
+> 20-intent paired benchmark, with mixed per-intent effects and no evidence of
+> systematic degradation.
+
+Không diễn giải Vietnamese retrieval tốt hơn English hoặc translation luôn làm
+retrieval kém đi. Benchmark chỉ có 20 intents; `mit60001-q-008` được giữ là
+limitation/observed sensitivity về translation fidelity (`object` → `value`),
+không phải bằng chứng cần fusion.
+
+Quyết định engineering:
+
+- không mở `expanded_en` hoặc query expansion;
+- không mở BM25, Hybrid RRF, reranker, model comparison hoặc retrieval experiment
+  mới;
+- không tune translator hậu nghiệm theo riêng `mit60001-q-008`;
+- chuyển từ retrieval research sang Multilingual Runtime Integration V1.
+
+## M4 — Freeze và docs
+
+Đã đồng bộ current status, implementation plan và progress log theo M1–M3 manifests
+và metrics đã validate. Không sửa runtime code trong M4.
+
+## Validation và ranh giới
+
+- M1: frozen/passed, 20/20 reviewed, 0 unresolved drift.
+- M2: 40/40 records, full rank 861, cross-process deterministic PASS.
+- M3: 20/20 evaluated, exact controls 2/2, deterministic evaluator rerun PASS.
+- Retrieval rerun trong M3: 0.
+- Ground Truth modifications/relabels: 0.
+- Chưa stage, commit hoặc push.
+- Chưa triển khai `original_query`, `retrieval_query`, `answer_language` hay runtime
+  translator.
+
+## Bước tiếp theo
+
+Multilingual Runtime Integration V1:
+
+```text
+VI original_query
+  → literal English retrieval_query
+  → Dense Top 3
+  → G0 với answer_language=vi
+  → Vietnamese answer + application-owned citations
+```
+
+Giữ nguyên Dense/index/scoring; không có `expanded_en`, BM25, RRF hoặc reranker ở
+giữa Phase 9 và runtime integration.
