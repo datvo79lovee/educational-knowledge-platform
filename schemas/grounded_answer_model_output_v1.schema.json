@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/grounded_answer_model_output_v1.schema.json",
+  "title": "Grounded answer model output v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decision", "answer", "supporting_chunk_ids", "reason"],
+  "properties": {
+    "decision": {"enum": ["answer", "abstain"]},
+    "answer": {"type": ["string", "null"]},
+    "supporting_chunk_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "maxItems": 3,
+      "uniqueItems": true
+    },
+    "reason": {"type": "string", "minLength": 1, "maxLength": 500}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"decision": {"const": "answer"}}},
+      "then": {
+        "properties": {
+          "answer": {"type": "string", "minLength": 1},
+          "supporting_chunk_ids": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"decision": {"const": "abstain"}}},
+      "then": {
+        "properties": {
+          "answer": {"type": "null"},
+          "supporting_chunk_ids": {"maxItems": 0}
+        }
+      }
+    }
+  ]
+}

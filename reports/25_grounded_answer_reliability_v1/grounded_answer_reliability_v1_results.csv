@@ -1,0 +1,41 @@
+﻿question_id,http_status,runtime_status,raw_contract_compliant,normalization_applied,normalization_reason,normalized_contract_compliant,public_decision,public_answer,public_supporting_chunk_ids_json
+mit60001-q-001,200,passed,true,false,,true,abstain,,[]
+mit60001-q-002,200,passed,false,true,abstain_literal_to_null,true,abstain,,[]
+mit60001-q-003,200,passed,true,false,,true,answer,"Python uses variable names in different scopes to avoid interference. When a function is called, Python steps out of the main program environment and into a new environment for the function. In this new environment, Python uses the variable names without interference from the main program environment.","[""MjbuarJ7SE0:semantic_cosine_wp240_v1:21"", ""MjbuarJ7SE0:semantic_cosine_wp240_v1:42""]"
+mit60001-q-004,200,passed,false,true,abstain_literal_to_null,true,abstain,,[]
+mit60001-q-005,200,passed,true,false,,true,abstain,,[]
+mit60001-q-006,200,passed,true,false,,true,answer,The efficiency of an algorithm is explained by counting operations and saying how many of those operations do I use in my algorithm as a function of the size of the input.,"[""o9nW0uBqvEo:semantic_cosine_wp240_v1:14""]"
+mit60001-q-007,200,passed,true,false,,true,abstain,,[]
+mit60001-q-008,200,passed,true,false,,true,abstain,,[]
+mit60001-q-009,200,passed,true,false,,true,abstain,,[]
+mit60001-q-010,200,passed,true,false,,true,abstain,,[]
+mit60001-q-012,200,passed,false,true,abstain_literal_to_null,true,abstain,,[]
+mit60001-q-013,200,passed,true,false,,true,abstain,,[]
+mit60001-q-014,200,passed,false,true,duplicate_supporting_ids,true,answer,"The main difference between a Python list and a dictionary is that a list is a mutable object, whereas a dictionary is an unordered collection of key-value pairs. Lists are defined by a sequence of elements, whereas dictionaries are defined by a set of key-value pairs. Lists can be modified after creation, whereas dictionaries cannot be modified after creation (although you can add new key-value pairs).","[""-DP1i2ZU9gk:semantic_cosine_wp240_v1:7"", ""RvRKT-jXvko:semantic_cosine_wp240_v1:24""]"
+mit60001-q-015,200,passed,true,false,,true,abstain,,[]
+mit60001-q-016,200,passed,true,false,,true,answer,Assertions are used to make sure that the assumptions on computations are exactly what the function expects them to be.,"[""9H6muyZjms0:semantic_cosine_wp240_v1:51"", ""9H6muyZjms0:semantic_cosine_wp240_v1:52""]"
+mit60001-q-017,200,passed,true,false,,true,answer,"exception handling is used for testing and debugging, as well as to handle errors that occur during program execution.","[""9H6muyZjms0:semantic_cosine_wp240_v1:31"", ""9H6muyZjms0:semantic_cosine_wp240_v1:37""]"
+mit60001-q-018,200,passed,true,false,,true,answer,"black-box testing examines test cases based on the specifications only, without using the code itself.","[""9H6muyZjms0:semantic_cosine_wp240_v1:15""]"
+mit60001-q-019,200,passed,false,true,abstain_literal_to_null,true,abstain,,[]
+mit60001-q-020,200,passed,false,true,duplicate_supporting_ids,true,answer,"The lecture uses len, indexing, and slicing to inspect or extract parts of a string. The chunk IDs that directly support this answer are: SE4P7IVCunE:semantic_cosine_wp240_v1:1, SE4P7IVCunE:semantic_cosine_wp240_v1:12, SE4P7IVCunE:semantic_cosine_wp240_v1:9","[""SE4P7IVCunE:semantic_cosine_wp240_v1:12"", ""SE4P7IVCunE:semantic_cosine_wp240_v1:9""]"
+mit60001-q-021,200,passed,true,false,,true,answer,Boolean comparisons are used to make decisions in branching by evaluating conditions and returning True or False values.,"[""FlGjISF3l78:semantic_cosine_wp240_v1:64""]"
+mit60001-q-022,200,passed,false,true,duplicate_supporting_ids,true,answer,"because it allows for key-value lookup by name, making it more efficient than a list for this purpose","[""WPSeyjX1-4s:semantic_cosine_wp240_v1:64"", ""WPSeyjX1-4s:semantic_cosine_wp240_v1:59""]"
+mit60001-q-023,200,passed,true,false,,true,abstain,,[]
+mit60001-q-025,200,passed,true,false,,true,abstain,,[]
+mit60001-q-026,200,passed,true,false,,true,abstain,,[]
+mit60001-q-027,200,passed,true,false,,true,abstain,,[]
+mit60001-q-029,200,passed,true,false,,true,answer,"The function returns a value to its caller by using a return statement, which tells Python to replace the function call with the returned value.","[""MjbuarJ7SE0:semantic_cosine_wp240_v1:20"", ""MjbuarJ7SE0:semantic_cosine_wp240_v1:21""]"
+mit60001-q-030,200,passed,true,false,,true,answer,"The self parameter plays the role of a placeholder for any instance when creating an object. It is used to refer to attributes that belong to an instance and is conventionally named self. When a method is called on an object, the self parameter is the first parameter, and it can be followed by any other parameters as in a normal function.","[""-DP1i2ZU9gk:semantic_cosine_wp240_v1:21"", ""-DP1i2ZU9gk:semantic_cosine_wp240_v1:22"", ""FlGjISF3l78:semantic_cosine_wp240_v1:5""]"
+mit60001-q-031,200,passed,true,false,,true,abstain,,[]
+mit60001-q-032,200,passed,true,false,,true,answer,"When an exception is raised and no matching handler is used, the program execution stops and the error is printed.","[""9H6muyZjms0:semantic_cosine_wp240_v1:31""]"
+mit60001-q-033,200,passed,true,false,,true,abstain,,[]
+mit60001-q-034,200,passed,true,false,,true,abstain,,[]
+mit60001-q-035,200,passed,true,false,,true,answer,"list aliasing can cause mutation side effects because when a list is mutated, all its aliases point to the same changed object.","[""RvRKT-jXvko:semantic_cosine_wp240_v1:47"", ""RvRKT-jXvko:semantic_cosine_wp240_v1:37""]"
+mit60001-q-037,200,passed,true,false,,true,abstain,,[]
+mit60001-q-038,200,passed,false,true,abstain_literal_to_null,true,abstain,,[]
+mit60001-q-039,200,passed,true,false,,true,abstain,,[]
+mit60001-q-040,200,passed,true,false,,true,answer,"Assertions are used to make sure that the assumptions on computations are exactly what the function expects them to be. Exceptions are errors that occur during program execution, such as division by zero, and are used to flag errors and prevent the program from propagating bad values.","[""9H6muyZjms0:semantic_cosine_wp240_v1:31"", ""9H6muyZjms0:semantic_cosine_wp240_v1:49""]"
+mit60001-q-041,200,passed,true,false,,true,abstain,,[]
+mit60001-q-042,200,passed,true,false,,true,abstain,,[]
+mit60001-q-043,200,passed,true,false,,true,abstain,,[]
+mit60001-q-044,200,passed,true,false,,true,abstain,,[]

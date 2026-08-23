@@ -1,0 +1,73 @@
+{
+  "artifact_sha256": {
+    "outputs": "885d888f2180d67b5455bc60f6ad2116d3b9a73fc7d6ed83d8c18136621ef122",
+    "results": "ead47b5d7a421c5b904f5ccd619620b926bcc3e40201c5e39f68e12199b9c20c"
+  },
+  "artifacts": {
+    "outputs": "reports/25_grounded_answer_reliability_v1/grounded_answer_reliability_v1.jsonl",
+    "results": "reports/25_grounded_answer_reliability_v1/grounded_answer_reliability_v1_results.csv"
+  },
+  "boundaries": {
+    "full_40_complete": true,
+    "ground_truth_read": false,
+    "human_labels_read": false,
+    "human_quality_evaluation_complete": false,
+    "m3_artifacts_modified": false,
+    "retry_used": false
+  },
+  "m3_artifact_sha256": {
+    "evaluation/review/grounded_answer/outputs/m3/grounded_answer_primary_v1.jsonl": "f8fcba9f2c3b90921a6a6ad0ed319a47ff8ad26d6c235ee86eb763c1f2c3bc07",
+    "evaluation/review/grounded_answer/outputs/m3/grounded_answer_repeat_v1.jsonl": "20d79a98fa0f702201cf65916f04ee22607e4d785d7bd336a6cde3c9212f01fd",
+    "reports/21_grounded_answer_evaluation/grounded_answer_m3_final_manifest.json": "82fe0d86d27d6ee996b8cd7553feca133c381479737fc7a4c5b4d496c875a3eb",
+    "reports/21_grounded_answer_evaluation/grounded_answer_m3_final_metrics.json": "505f36d149223d07d3fbf82e6be0e4449c158593d89ae73d5cf0443256db533d",
+    "reports/21_grounded_answer_evaluation/grounded_answer_m3_final_results.csv": "2d7e7c31357db0767778262f457cdbd02bd61b7d5730ddbdcc981b26aa8d7d13"
+  },
+  "model_call_count": 40,
+  "normalization": {
+    "applied_count": 8,
+    "decision_unchanged": true,
+    "only_approved_fields_changed": true,
+    "reason_counts": {
+      "abstain_literal_to_null": 5,
+      "duplicate_supporting_ids": 3
+    }
+  },
+  "public_decisions": {
+    "abstain": 26,
+    "answer": 14
+  },
+  "public_runtime_success": {
+    "count": 40,
+    "http_status_counts": {
+      "200": 40
+    },
+    "rate": 1.0,
+    "total": 40
+  },
+  "question_count": 40,
+  "raw_contract_compliance": {
+    "count": 32,
+    "rate": 0.8,
+    "total": 40
+  },
+  "runtime_identity": {
+    "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "model": "llama3.2:3b",
+    "num_ctx": 4096,
+    "num_predict": 512,
+    "prompt_version": "grounded_answer_prompt_v1",
+    "provider": "ollama",
+    "retrieval_method": "dense_baseline_v1",
+    "seed": 42,
+    "temperature": 0.0,
+    "top_k": 3
+  },
+  "schema_version": "grounded_answer_reliability_v1_summary_v1",
+  "source_sha256": {
+    "contracts": "b91a54d469f9dad69d39703cfbb0540adf802130b0ec190deb46b99f2ef166f9",
+    "fix2_summary": "4efa14dfeeb064350fea512fe27bfaf054eb2c9ad15af4aa6d25f35186b77be5",
+    "runner": "e3b36758714920e823e8d2da9e211e0885bde924b2cec5473ef91d781e34b19c",
+    "service": "a9cf296904b9b5918aec2a21825b099930f3376c77dc4bead04ab514b3ffa4d1"
+  },
+  "status": "runtime_regression_complete_not_human_quality_evaluated"
+}

@@ -6,7 +6,6 @@ dùng lại cùng model/index đã load; không rebuild index và không tải m
 
 from __future__ import annotations
 
-import csv
 import hashlib
 import json
 import math
@@ -20,9 +19,7 @@ from sentence_transformers import SentenceTransformer
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 INDEX_MANIFEST_FILE = Path("reports/09_embedding/embedding_index_manifest.json")
-RETRIEVAL_DECISION_FILE = Path(
-    "reports/10_retrieval/retrieval_configuration_decision_2026-08-14.csv"
-)
+RETRIEVAL_DECISION_FILE = Path("docs/decisions/CANONICAL_RUNTIME_DECISIONS.md")
 CANONICAL_GOLD_FILE = Path("data/gold/mit_60001/chunks.jsonl")
 EMBEDDINGS_FILE = Path("data/indexes/mit_60001/embeddings.npy")
 METADATA_FILE = Path("data/indexes/mit_60001/metadata.jsonl")
@@ -166,10 +163,8 @@ class DenseSearchService:
     def _validate_retrieval_decision(path: Path) -> None:
         """Không cho API chạy nếu decision artifact không chọn Dense baseline."""
 
-        with path.open("r", encoding="utf-8-sig", newline="") as handle:
-            rows = list(csv.DictReader(handle))
-        selected = [row for row in rows if row.get("selection_status") == "selected"]
-        if len(selected) != 1 or selected[0].get("retrieval_method") != RETRIEVAL_METHOD:
+        decision_text = path.read_text(encoding="utf-8")
+        if "`dense_baseline_v1` is the canonical retriever" not in decision_text:
             raise ValueError("Retrieval decision does not select dense_baseline_v1")
 
     @staticmethod
@@ -315,4 +310,3 @@ class DenseSearchService:
         """Trả metadata target video hoặc ``None`` nếu ID nằm ngoài corpus."""
 
         return self._videos.get(video_id)
-

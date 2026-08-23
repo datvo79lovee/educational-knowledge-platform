@@ -1,0 +1,41 @@
+﻿question_id,evaluation_status,answerable,expected_evidence_decision,runtime_status,generator_decision,decision_judgment,decision_correct,decision_outcome,normalization_applied,normalization_reason,raw_contract_compliant,answer_correctness,answer_completeness,groundedness,citation_support_overall,selected_citation_count,supporting_citation_count,non_supporting_citation_count,strict_answer_success,end_to_end_success,failure_reason,human_judgment_source
+mit60001-q-001,evaluated,Yes,evidence_insufficient,passed,abstain,Correct,true,true_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,true,,m3_exact_response_reuse
+mit60001-q-002,evaluated,Yes,evidence_insufficient,passed,abstain,Correct,true,true_abstain,true,abstain_literal_to_null,false,N/A,N/A,N/A,N/A,0,0,0,,true,,not_applicable_recovered_abstain
+mit60001-q-003,evaluated,Yes,evidence_sufficient,passed,answer,Correct,true,true_answer,false,,true,Correct,Complete,Grounded,All support,2,2,0,true,true,,reliability_v1_human_review
+mit60001-q-004,evaluated,Yes,evidence_insufficient,passed,abstain,Correct,true,true_abstain,true,abstain_literal_to_null,false,N/A,N/A,N/A,N/A,0,0,0,,true,,not_applicable_recovered_abstain
+mit60001-q-005,evaluated,Yes,evidence_sufficient,passed,abstain,Incorrect,false,false_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,false,false_abstain,m3_exact_response_reuse
+mit60001-q-006,evaluated,Yes,evidence_sufficient,passed,answer,Correct,true,true_answer,false,,true,Correct,Partial,Grounded,All support,1,1,0,false,false,answer_quality_or_citation_not_strict,m3_exact_response_reuse
+mit60001-q-007,evaluated,Yes,evidence_insufficient,passed,abstain,Correct,true,true_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,true,,m3_exact_response_reuse
+mit60001-q-008,evaluated,Yes,evidence_sufficient,passed,abstain,Incorrect,false,false_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,false,false_abstain,m3_exact_response_reuse
+mit60001-q-009,evaluated,Yes,evidence_sufficient,passed,abstain,Incorrect,false,false_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,false,false_abstain,m3_exact_response_reuse
+mit60001-q-010,evaluated,Yes,evidence_insufficient,passed,abstain,Correct,true,true_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,true,,m3_exact_response_reuse
+mit60001-q-012,evaluated,No,evidence_insufficient,passed,abstain,Correct,true,true_abstain,true,abstain_literal_to_null,false,N/A,N/A,N/A,N/A,0,0,0,,true,,not_applicable_recovered_abstain
+mit60001-q-013,evaluated,No,evidence_insufficient,passed,abstain,Correct,true,true_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,true,,m3_exact_response_reuse
+mit60001-q-014,evaluated,Yes,evidence_insufficient,passed,answer,Incorrect,false,false_answer,true,duplicate_supporting_ids,false,Partial,Incomplete,Partial,Partial support,2,2,0,false,false,false_answer,reliability_v1_human_review
+mit60001-q-015,evaluated,Yes,evidence_sufficient,passed,abstain,Incorrect,false,false_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,false,false_abstain,m3_exact_response_reuse
+mit60001-q-016,evaluated,Yes,evidence_sufficient,passed,answer,Correct,true,true_answer,false,,true,Correct,Partial,Grounded,All support,2,2,0,false,false,answer_quality_or_citation_not_strict,m3_exact_response_reuse
+mit60001-q-017,excluded,Yes,excluded,passed,answer,N/A - excluded,,excluded,false,,true,N/A,N/A,N/A,N/A,0,0,0,,,excluded_from_37_scope,m3_exact_response_reuse
+mit60001-q-018,evaluated,Yes,evidence_sufficient,passed,answer,Correct,true,true_answer,false,,true,Correct,Complete,Grounded,All support,1,1,0,true,true,,m3_exact_response_reuse
+mit60001-q-019,evaluated,Yes,evidence_sufficient,passed,abstain,Incorrect,false,false_abstain,true,abstain_literal_to_null,false,N/A,N/A,N/A,N/A,0,0,0,,false,false_abstain,not_applicable_recovered_abstain
+mit60001-q-020,evaluated,Yes,evidence_sufficient,passed,answer,Correct,true,true_answer,true,duplicate_supporting_ids,false,Partial,Incomplete,Partial,Partial support,2,2,0,false,false,answer_quality_or_citation_not_strict,reliability_v1_human_review
+mit60001-q-021,evaluated,Yes,evidence_sufficient,passed,answer,Correct,true,true_answer,false,,true,Correct,Complete,Grounded,Partial support,1,1,0,false,false,answer_quality_or_citation_not_strict,m3_exact_response_reuse
+mit60001-q-022,evaluated,Yes,evidence_insufficient,passed,answer,Incorrect,false,false_answer,true,duplicate_supporting_ids,false,Partial,Incomplete,Partial,Partial support,2,1,1,false,false,false_answer,reliability_v1_human_review
+mit60001-q-023,excluded,Yes,excluded,passed,abstain,N/A - excluded,,excluded,false,,true,N/A,N/A,N/A,N/A,0,0,0,,,excluded_from_37_scope,m3_exact_response_reuse
+mit60001-q-025,evaluated,Yes,evidence_sufficient,passed,abstain,Incorrect,false,false_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,false,false_abstain,m3_exact_response_reuse
+mit60001-q-026,evaluated,Yes,evidence_insufficient,passed,abstain,Correct,true,true_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,true,,m3_exact_response_reuse
+mit60001-q-027,evaluated,Yes,evidence_sufficient,passed,abstain,Incorrect,false,false_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,false,false_abstain,m3_exact_response_reuse
+mit60001-q-029,evaluated,Yes,evidence_sufficient,passed,answer,Correct,true,true_answer,false,,true,Correct,Complete,Grounded,All support,2,2,0,true,true,,m3_exact_response_reuse
+mit60001-q-030,evaluated,Yes,evidence_sufficient,passed,answer,Correct,true,true_answer,false,,true,Correct,Complete,Grounded,All support,3,3,0,true,true,,m3_exact_response_reuse
+mit60001-q-031,evaluated,Yes,evidence_sufficient,passed,abstain,Incorrect,false,false_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,false,false_abstain,m3_exact_response_reuse
+mit60001-q-032,evaluated,Yes,evidence_sufficient,passed,answer,Correct,true,true_answer,false,,true,Correct,Complete,Partial,Partial support,1,1,0,false,false,answer_quality_or_citation_not_strict,m3_exact_response_reuse
+mit60001-q-033,evaluated,Yes,evidence_sufficient,passed,abstain,Incorrect,false,false_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,false,false_abstain,m3_exact_response_reuse
+mit60001-q-034,evaluated,Yes,evidence_sufficient,passed,abstain,Incorrect,false,false_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,false,false_abstain,m3_exact_response_reuse
+mit60001-q-035,evaluated,Yes,evidence_sufficient,passed,answer,Correct,true,true_answer,false,,true,Correct,Complete,Grounded,Partial support,2,1,1,false,false,answer_quality_or_citation_not_strict,m3_exact_response_reuse
+mit60001-q-037,evaluated,Yes,evidence_insufficient,passed,abstain,Correct,true,true_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,true,,m3_exact_response_reuse
+mit60001-q-038,evaluated,Yes,evidence_insufficient,passed,abstain,Correct,true,true_abstain,true,abstain_literal_to_null,false,N/A,N/A,N/A,N/A,0,0,0,,true,,not_applicable_recovered_abstain
+mit60001-q-039,evaluated,Yes,evidence_sufficient,passed,abstain,Incorrect,false,false_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,false,false_abstain,m3_exact_response_reuse
+mit60001-q-040,evaluated,Yes,evidence_insufficient,passed,answer,Incorrect,false,false_answer,false,,true,Partial,Partial,Partial,Partial support,2,2,0,false,false,false_answer,m3_exact_response_reuse
+mit60001-q-041,excluded,Yes,excluded,passed,abstain,N/A - excluded,,excluded,false,,true,N/A,N/A,N/A,N/A,0,0,0,,,excluded_from_37_scope,m3_exact_response_reuse
+mit60001-q-042,evaluated,No,evidence_insufficient,passed,abstain,Correct,true,true_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,true,,m3_exact_response_reuse
+mit60001-q-043,evaluated,No,evidence_insufficient,passed,abstain,Correct,true,true_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,true,,m3_exact_response_reuse
+mit60001-q-044,evaluated,No,evidence_insufficient,passed,abstain,Correct,true,true_abstain,false,,true,N/A,N/A,N/A,N/A,0,0,0,,true,,m3_exact_response_reuse

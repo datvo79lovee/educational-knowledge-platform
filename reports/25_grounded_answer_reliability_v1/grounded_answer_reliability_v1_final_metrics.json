@@ -1,0 +1,92 @@
+{
+  "answer_quality": {
+    "completeness_counts": {
+      "Complete": 7,
+      "Incomplete": 3,
+      "Partial": 3
+    },
+    "correctness_counts": {
+      "Correct": 9,
+      "Partial": 4
+    },
+    "evaluated_answer_count": 13,
+    "groundedness_counts": {
+      "Grounded": 8,
+      "Partial": 5
+    },
+    "strict_all_dimensions_count": 4,
+    "strict_all_dimensions_rate": 0.3076923076923077,
+    "strict_complete_rate": 0.5384615384615384,
+    "strict_correct_rate": 0.6923076923076923,
+    "strict_grounded_rate": 0.6153846153846154
+  },
+  "citation_entailment": {
+    "all_support_question_rate": 0.46153846153846156,
+    "non_supporting_citation_count": 2,
+    "overall_counts": {
+      "All support": 6,
+      "Partial support": 7
+    },
+    "precision": 0.9130434782608695,
+    "selected_citation_count": 23,
+    "supporting_citation_count": 21
+  },
+  "decision": {
+    "accuracy": 0.6216216216216216,
+    "answer_precision": 0.7692307692307693,
+    "answer_recall": 0.47619047619047616,
+    "correct_count": 23,
+    "expected_insufficient_count": 16,
+    "expected_sufficient_count": 21,
+    "false_abstain_count": 11,
+    "false_abstain_rate_on_sufficient": 0.5238095238095238,
+    "false_answer_count": 3,
+    "false_answer_rate_on_insufficient": 0.1875,
+    "incorrect_count": 14,
+    "true_abstain_count": 13,
+    "true_answer_count": 10
+  },
+  "end_to_end": {
+    "definition": "Sufficient: answer + Correct + Complete + Grounded + All support. Insufficient: abstain.",
+    "insufficient_correct_abstain_count": 13,
+    "insufficient_correct_abstain_rate": 0.8125,
+    "insufficient_question_count": 16,
+    "strict_success_count": 17,
+    "strict_success_rate": 0.4594594594594595,
+    "sufficient_question_count": 21,
+    "sufficient_strict_answer_success_count": 4,
+    "sufficient_strict_answer_success_rate": 0.19047619047619047
+  },
+  "evaluated_question_count": 37,
+  "evaluation_status": "reliability_v1_evaluated",
+  "excluded_question_count": 3,
+  "excluded_question_ids": [
+    "mit60001-q-017",
+    "mit60001-q-023",
+    "mit60001-q-041"
+  ],
+  "human_review": {
+    "provenance_counts": {
+      "m3_exact_response_reuse": 31,
+      "not_applicable_recovered_abstain": 5,
+      "reliability_v1_human_review": 4
+    },
+    "status": "complete"
+  },
+  "out_of_scope": {
+    "answer_count": 0,
+    "correct_abstain_count": 5,
+    "correct_abstain_rate": 1.0,
+    "question_count": 5
+  },
+  "quality_gate_status": "not_defined",
+  "question_count": 40,
+  "runtime": {
+    "normalization_applied_count": 8,
+    "public_failure_count": 0,
+    "public_success_count": 40,
+    "raw_contract_compliance_count": 32
+  },
+  "schema_version": "grounded_answer_reliability_v1_final_metrics_v1",
+  "scope_note": "Descriptive in-sample Reliability V1 evaluation; M3 remains frozen."
+}

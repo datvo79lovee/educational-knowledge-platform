@@ -1,0 +1,165 @@
+{
+  "boundaries": {
+    "ground_truth_modified": false,
+    "m3_artifacts_modified": false,
+    "model_rerun_after_review": false,
+    "prompt_or_model_modified": false,
+    "quality_gate_defined": false
+  },
+  "evaluation_scope": {
+    "evaluated_question_count": 37,
+    "excluded_question_ids": [
+      "mit60001-q-017",
+      "mit60001-q-023",
+      "mit60001-q-041"
+    ],
+    "total_question_count": 40
+  },
+  "final_metrics": {
+    "answer_quality": {
+      "completeness_counts": {
+        "Complete": 7,
+        "Incomplete": 3,
+        "Partial": 3
+      },
+      "correctness_counts": {
+        "Correct": 9,
+        "Partial": 4
+      },
+      "evaluated_answer_count": 13,
+      "groundedness_counts": {
+        "Grounded": 8,
+        "Partial": 5
+      },
+      "strict_all_dimensions_count": 4,
+      "strict_all_dimensions_rate": 0.3076923076923077,
+      "strict_complete_rate": 0.5384615384615384,
+      "strict_correct_rate": 0.6923076923076923,
+      "strict_grounded_rate": 0.6153846153846154
+    },
+    "citation_entailment": {
+      "all_support_question_rate": 0.46153846153846156,
+      "non_supporting_citation_count": 2,
+      "overall_counts": {
+        "All support": 6,
+        "Partial support": 7
+      },
+      "precision": 0.9130434782608695,
+      "selected_citation_count": 23,
+      "supporting_citation_count": 21
+    },
+    "decision": {
+      "accuracy": 0.6216216216216216,
+      "answer_precision": 0.7692307692307693,
+      "answer_recall": 0.47619047619047616,
+      "correct_count": 23,
+      "expected_insufficient_count": 16,
+      "expected_sufficient_count": 21,
+      "false_abstain_count": 11,
+      "false_abstain_rate_on_sufficient": 0.5238095238095238,
+      "false_answer_count": 3,
+      "false_answer_rate_on_insufficient": 0.1875,
+      "incorrect_count": 14,
+      "true_abstain_count": 13,
+      "true_answer_count": 10
+    },
+    "end_to_end": {
+      "definition": "Sufficient: answer + Correct + Complete + Grounded + All support. Insufficient: abstain.",
+      "insufficient_correct_abstain_count": 13,
+      "insufficient_correct_abstain_rate": 0.8125,
+      "insufficient_question_count": 16,
+      "strict_success_count": 17,
+      "strict_success_rate": 0.4594594594594595,
+      "sufficient_question_count": 21,
+      "sufficient_strict_answer_success_count": 4,
+      "sufficient_strict_answer_success_rate": 0.19047619047619047
+    },
+    "evaluated_question_count": 37,
+    "evaluation_status": "reliability_v1_evaluated",
+    "excluded_question_count": 3,
+    "excluded_question_ids": [
+      "mit60001-q-017",
+      "mit60001-q-023",
+      "mit60001-q-041"
+    ],
+    "human_review": {
+      "provenance_counts": {
+        "m3_exact_response_reuse": 31,
+        "not_applicable_recovered_abstain": 5,
+        "reliability_v1_human_review": 4
+      },
+      "status": "complete"
+    },
+    "out_of_scope": {
+      "answer_count": 0,
+      "correct_abstain_count": 5,
+      "correct_abstain_rate": 1.0,
+      "question_count": 5
+    },
+    "quality_gate_status": "not_defined",
+    "question_count": 40,
+    "runtime": {
+      "normalization_applied_count": 8,
+      "public_failure_count": 0,
+      "public_success_count": 40,
+      "raw_contract_compliance_count": 32
+    },
+    "schema_version": "grounded_answer_reliability_v1_final_metrics_v1",
+    "scope_note": "Descriptive in-sample Reliability V1 evaluation; M3 remains frozen."
+  },
+  "human_review": {
+    "new_reviewed_question_ids": [
+      "mit60001-q-003",
+      "mit60001-q-014",
+      "mit60001-q-020",
+      "mit60001-q-022"
+    ],
+    "provenance_counts": {
+      "m3_exact_response_reuse": 31,
+      "not_applicable_recovered_abstain": 5,
+      "reliability_v1_human_review": 4
+    },
+    "reviewed_workbook": "evaluation/review/grounded_answer/grounded_answer_reliability_v1_human_review_2026-08-23_reviewed.xlsx",
+    "reviewed_workbook_sha256": "d04838c7c2924de19c0a659a3722fcbfab9f225ba57e968504593be7ff5834fc"
+  },
+  "input_sha256": {
+    "canonicalizer": "5abf4bea8a47cad4ea3d1463b59c360159414460a840fd21f60cd5e46d8569a6",
+    "exporter": "3a2cb9b58edb51c3d23ec66035e510dc3668ca535cd9e522af75b83db81dc9f5",
+    "m3_canonical_review": "fa60f096c627b539015c204c6f2f0a973af323bbd18714a4bcdd59e8479c17da",
+    "pre_review_metrics": "843e2b01fd32623b01df562470262bfa36e634337db35639b6a70cb76de6b770",
+    "pre_review_results": "e834d7b4449c70503b7dea95b3c8d041869beea30d266ea492476faa4b75c916",
+    "reliability_outputs": "885d888f2180d67b5455bc60f6ad2116d3b9a73fc7d6ed83d8c18136621ef122",
+    "review_export": "4bc9a34505b3d47fdd07dff2b157d04ff01dd41b627518928a59f6f3d57f0279",
+    "reviewed_workbook": "d04838c7c2924de19c0a659a3722fcbfab9f225ba57e968504593be7ff5834fc",
+    "runtime_summary": "84966c501a339602c50888fb9f11afe29788fe95073dc313f8fa4da33534f129"
+  },
+  "output_artifacts": [
+    {
+      "file": "evaluation/review/grounded_answer/grounded_answer_reliability_v1_human_review_canonical.csv",
+      "sha256": "7ab0db56c88139a64476ca792c0dcfd61c7999a8411485eaacb8a8fceaeb8da3"
+    },
+    {
+      "file": "reports/25_grounded_answer_reliability_v1/grounded_answer_reliability_v1_final_results.csv",
+      "sha256": "0f325846325ced340737a9b2a46196fac4a0e20d7192bfa6714275748c59cb64"
+    },
+    {
+      "file": "reports/25_grounded_answer_reliability_v1/grounded_answer_reliability_v1_final_metrics.json",
+      "sha256": "06ffc58b997a5d8cece4e544c773733b0eb987877d406241c337cdc10264a8a9"
+    }
+  ],
+  "runtime_identity": {
+    "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "model": "llama3.2:3b",
+    "num_ctx": 4096,
+    "num_predict": 512,
+    "prompt_version": "grounded_answer_prompt_v1",
+    "provider": "ollama",
+    "retrieval_method": "dense_baseline_v1",
+    "seed": 42,
+    "temperature": 0.0,
+    "top_k": 3
+  },
+  "schema_version": "grounded_answer_reliability_v1_final_manifest_v1",
+  "status": "reliability_v1_evaluated",
+  "validation_status": "passed"
+}

@@ -9,14 +9,14 @@
   "failure_case_pass_count": 16,
   "http_failure_case_count": 9,
   "input_sha256": {
-    "api_application": "41a03831c8a03167730f18145b6a294d986099c2bd23a6800a122c4b95d11b6c",
-    "api_contract": "aee308ea19aad44a40ce8bb693b8e5145af7f9fab7f1585d1399981ffd09c63a",
+    "api_application": "1850663c7701cd56229de9c68691f4a3ec84c0042b9f4782d6ebbd3761fbc251",
+    "api_contract": "52f29fe8e6f85fec6eedc2b4a31a8ea5a5e232c071d990add2631db9845960f6",
     "api_schema": "b9e2d3d47facc2eab363432b95677e51943523de79e80bfc41deb02ffcd79692",
-    "api_service": "746406be27d6929e86161b7ec45aca745389b2ff7a6a607c098a21fff6204412",
+    "api_service": "c9fe2188bb559c16db49a8e2462512be23c16baccf6bcec36a20ad031c1aa4b6",
     "evaluation": "81d5a1374118b01d850d7c4808edf89b9432036a4488c49f5150720aa3fc8dee",
     "index_manifest": "4e8d277f630eff2c1a4b8e7721f449400e13f7e2c9fee4d99183270cc6ca388c",
     "locked_dense_baseline": "b3421ad828ee5165bd832cb1510b11e048c72ddd18b769e254018b2db5044833",
-    "retrieval_decision": "b716b33f2955ebbb2d79e4ebd15bd998c206578a6d764f779af2f6bdaf07b865"
+    "retrieval_decision": "2be9c80d6bdf16e58a3bf2265dffbe3d8605933d44bae9c188141c5d421e2fc0"
   },
   "maximum_observed_score_delta": 4.138e-07,
   "out_of_scope_question_count": 5,
@@ -50,7 +50,7 @@
   "score_absolute_tolerance": 1e-06,
   "startup_failure_case_count": 7,
   "top_k": 3,
-  "validation_run_id": "mit60001_search_api_35767a6f304c4dc3",
+  "validation_run_id": "mit60001_search_api_3f3579a28ecaeaed",
   "validation_status": "passed",
   "video_count": 38
 }

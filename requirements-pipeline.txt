@@ -1,0 +1,7 @@
+# Data Engineering ingestion, corpus build and index build
+-r requirements.txt
+python-dotenv==1.2.2
+youtube-transcript-api==1.2.4
+google-api-python-client==2.193.0
+psycopg2-binary==2.9.12
+jsonschema==4.26.0

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/grounded_answer_api_v1.schema.json",
+  "title": "Grounded Answer API v1",
+  "$defs": {
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question"],
+      "properties": {
+        "question": {"type": "string", "minLength": 1}
+      }
+    },
+    "citation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "chunk_id",
+        "rank",
+        "video_id",
+        "video_url",
+        "start",
+        "end",
+        "citation_url"
+      ],
+      "properties": {
+        "chunk_id": {"type": "string", "minLength": 1},
+        "rank": {"type": "integer", "minimum": 1, "maximum": 3},
+        "video_id": {"type": "string", "minLength": 1},
+        "video_url": {"type": "string", "minLength": 1},
+        "start": {"type": "number", "minimum": 0},
+        "end": {"type": "number", "exclusiveMinimum": 0},
+        "citation_url": {"type": "string", "minLength": 1}
+      }
+    },
+    "retrieval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "top_k"],
+      "properties": {
+        "method": {"const": "dense_baseline_v1"},
+        "top_k": {"const": 3}
+      }
+    },
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question",
+        "decision",
+        "answer",
+        "supporting_chunk_ids",
+        "citations",
+        "retrieval"
+      ],
+      "properties": {
+        "question": {"type": "string", "minLength": 1},
+        "decision": {"enum": ["answer", "abstain"]},
+        "answer": {"type": ["string", "null"]},
+        "supporting_chunk_ids": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "maxItems": 3,
+          "uniqueItems": true
+        },
+        "citations": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/citation"},
+          "maxItems": 3
+        },
+        "retrieval": {"$ref": "#/$defs/retrieval"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"decision": {"const": "answer"}}},
+          "then": {
+            "properties": {
+              "answer": {"type": "string", "minLength": 1},
+              "supporting_chunk_ids": {"minItems": 1},
+              "citations": {"minItems": 1}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"decision": {"const": "abstain"}}},
+          "then": {
+            "properties": {
+              "answer": {"type": "null"},
+              "supporting_chunk_ids": {"maxItems": 0},
+              "citations": {"maxItems": 0}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

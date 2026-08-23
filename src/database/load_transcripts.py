@@ -18,12 +18,6 @@ from src.utils.jsonl import (
     load_processed_video_ids
 )
 
-from src.utils.jsonl import (
-    append_jsonl,
-    load_processed_video_ids,
-    count_jsonl_records
-)
-
 OUTPUT_FILE = Path(
     "data/bronze/transcripts_raw.jsonl"
 )
@@ -172,6 +166,61 @@ def load_completed_video_ids(output_file, checkpoint_file):
     return completed_ids
 
 
+def reconcile_transcript_state(output_file, checkpoint_file):
+    """Load both state stores and warn when their success state disagrees.
+
+    Transcript JSONL is authoritative for successful payloads. The checkpoint is
+    authoritative for processing status.
+    """
+    payload_ids = load_processed_video_ids(output_file)
+    checkpoint_statuses = load_checkpoint_statuses(checkpoint_file)
+    checkpoint_success_ids = {
+        video_id for video_id, status in checkpoint_statuses.items()
+        if status == "success"
+    }
+
+    missing_payload_ids = checkpoint_success_ids - payload_ids
+    missing_success_checkpoint_ids = payload_ids - checkpoint_success_ids
+
+    if missing_payload_ids:
+        print(
+            "[WARNING] Checkpoint says success but transcript payload is "
+            f"missing for {len(missing_payload_ids)} video(s)."
+        )
+    if missing_success_checkpoint_ids:
+        print(
+            "[WARNING] Transcript payload exists but latest checkpoint is not "
+            f"success for {len(missing_success_checkpoint_ids)} video(s)."
+        )
+
+    return payload_ids, checkpoint_statuses
+
+
+def build_ingestion_summary(video_ids, payload_ids, checkpoint_statuses):
+    """Build cumulative metrics for the selected video queue."""
+    selected_ids = set(video_ids)
+    successful_ids = payload_ids & selected_ids
+    permanent_unavailable_ids = {
+        video_id for video_id, status in checkpoint_statuses.items()
+        if video_id in selected_ids
+        and status in PERMANENT_STATUSES
+        and status != "success"
+    }
+    retryable_failure_ids = {
+        video_id for video_id, status in checkpoint_statuses.items()
+        if video_id in selected_ids and status not in PERMANENT_STATUSES
+    }
+    attempted_ids = successful_ids | permanent_unavailable_ids | retryable_failure_ids
+
+    return {
+        "total_videos": len(selected_ids),
+        "cumulative_success_count": len(successful_ids),
+        "permanently_unavailable": len(permanent_unavailable_ids),
+        "retryable_failures": len(retryable_failure_ids),
+        "not_attempted": len(selected_ids - attempted_ids),
+    }
+
+
 def write_checkpoint(video_id, status, error=None):
     """
     Ghi một dòng checkpoint cho video vừa được xử lý.
@@ -315,13 +364,17 @@ def load_transcripts(
         limit=limit
     )
 
-    completed_ids = load_completed_video_ids(
-        OUTPUT_FILE,
-        CHECKPOINT_FILE
+    payload_ids, checkpoint_statuses = reconcile_transcript_state(
+        OUTPUT_FILE, CHECKPOINT_FILE
+    )
+    completed_ids = set(payload_ids)
+    completed_ids.update(
+        video_id for video_id, status in checkpoint_statuses.items()
+        if status in PERMANENT_STATUSES
     )
 
     total = len(video_ids)
-    success = 0
+    run_success_count = 0
     skipped = 0
     failed = 0
     stopped = False
@@ -395,7 +448,7 @@ def load_transcripts(
                     video_id
                 )
 
-                success += 1
+                run_success_count += 1
                 consecutive_failures = 0
 
         except Exception as e:
@@ -439,31 +492,23 @@ def load_transcripts(
             max_delay
         )
     
-    total_collected = count_jsonl_records(
-    OUTPUT_FILE
-)
-
-    remaining = (
-        len(video_ids)
-        - total_collected
+    payload_ids, checkpoint_statuses = reconcile_transcript_state(
+        OUTPUT_FILE, CHECKPOINT_FILE
     )
+    summary = build_ingestion_summary(video_ids, payload_ids, checkpoint_statuses)
 
     print("\n===== FINAL REPORT =====")
 
-    print(f"Success          : {success}")
-    print(f"Skipped          : {skipped}")
-    print(f"Failed           : {failed}")
-
-    print(f"Total Collected  : {total_collected}")
-    print(f"Remaining Videos : {remaining}")
-
-
-    print(f"Stopped          : {stopped}")
-    print(f"Reason           : {stop_reason}")
-    if stop_reason:
-        print(
-            f"Reason  : {stop_reason}"
-        )
+    print(f"Run success count          : {run_success_count}")
+    print(f"Run skipped count          : {skipped}")
+    print(f"Run failed count           : {failed}")
+    print(f"Total videos               : {summary['total_videos']}")
+    print(f"Cumulative success count   : {summary['cumulative_success_count']}")
+    print(f"Permanently unavailable    : {summary['permanently_unavailable']}")
+    print(f"Retryable failures         : {summary['retryable_failures']}")
+    print(f"Not attempted              : {summary['not_attempted']}")
+    print(f"Stopped                    : {stopped}")
+    print(f"Reason                     : {stop_reason}")
 
 
 def parse_args():
@@ -476,38 +521,38 @@ def parse_args():
     """
 
     parser = argparse.ArgumentParser(
-        description="Thu transcript YouTube và ghi vào Bronze JSONL."
+        description="Fetch YouTube transcripts into Bronze JSONL storage."
     )
 
     parser.add_argument(
         "--limit",
         type=int,
         default=None,
-        help="Chỉ xử lý tối đa N video từ bảng videos."
+        help="Process at most N videos from the videos table."
     )
     parser.add_argument(
         "--min-delay",
         type=float,
         default=8,
-        help="Số giây nghỉ tối thiểu giữa hai video."
+        help="Minimum delay in seconds between videos."
     )
     parser.add_argument(
         "--max-delay",
         type=float,
         default=20,
-        help="Số giây nghỉ tối đa giữa hai video."
+        help="Maximum delay in seconds between videos."
     )
     parser.add_argument(
         "--max-consecutive-failures",
         type=int,
         default=5,
-        help="Dừng sau số lỗi retryable liên tiếp này."
+        help="Stop after this many consecutive retryable failures."
     )
     parser.add_argument(
         "--max-runtime-minutes",
         type=float,
         default=None,
-        help="Dừng sạch sau số phút chạy này."
+        help="Stop cleanly after this many minutes."
     )
 
     return parser.parse_args()

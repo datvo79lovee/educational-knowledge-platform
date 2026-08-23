@@ -1,4 +1,0 @@
-﻿run_label,question_id,requirement_count,decision,supporting_chunk_count,stage1_prompt_eval_count,stage1_eval_count,stage2_prompt_eval_count,stage2_eval_count,stage1_json_status,stage1_contract_status,stage1_question_only_status,stage2_json_status,stage2_contract_status,stage2_no_final_decision_status,reducer_status,top3_subset_status,final_response_schema_status,runtime_status,error
-smoke,mit60001-q-003,3,reject,0,129,102,853,223,passed,passed,passed,passed,passed,passed,passed,passed,passed,passed,
-smoke,mit60001-q-012,3,reject,0,133,94,878,126,passed,passed,passed,passed,passed,passed,passed,passed,passed,passed,
-smoke,mit60001-q-014,3,reject,0,131,95,788,217,passed,passed,passed,passed,passed,passed,passed,passed,passed,passed,

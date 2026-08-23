@@ -1,9 +1,8 @@
-psycopg2-binary
-python-dotenv
-youtube-transcript-api
-google-api-python-client
-jsonschema
-sentence-transformers
+# Canonical Search and Grounded Answer runtime
 fastapi==0.141.1
 uvicorn==0.52.3
-pytest==9.1.1
+pydantic==2.13.4
+numpy==2.4.3
+sentence-transformers==5.4.1
+torch==2.11.0
+transformers==5.6.2

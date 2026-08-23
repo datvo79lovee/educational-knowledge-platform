@@ -29,6 +29,18 @@ target question count: 40–60
 | `review_status` | draft, reviewed, approved hoặc rejected |
 | `reviewer`, `review_notes` | Người review và lý do/ambiguity |
 
+## File format và encoding CSV
+
+JSONL là canonical format cho dataset đã duyệt vì schema có field array và object:
+
+```text
+evaluation/mit_60001/evaluation_questions.jsonl
+```
+
+Canonical benchmark dùng JSONL trực tiếp để giữ field array/object mà không cần
+review-template CSV. `benchmark_manifest.json` khóa counts, review provenance và
+hash của JSONL/schema.
+
 ## Quy tắc authoring và review
 
 1. Câu hỏi do AI đề xuất chỉ có trạng thái `draft`.
@@ -36,6 +48,11 @@ target question count: 40–60
 3. Expected answer points, video ID và time range phải được kiểm từ nguồn; không suy ra chỉ từ title hoặc kiến thức Python chung.
 4. `out_of_scope` có `answerable=false` và không có video/time range. Nó chỉ dùng đánh giá abstention ở phase sau, không dùng tính chunk Recall@k.
 5. Một câu hỏi answerable có thể có nhiều video/range khi evidence thực sự nằm ở nhiều đoạn. Không dùng một LLM khác làm judge duy nhất.
+6. `review_status=approved` yêu cầu reviewer khác `unassigned`, expected answer points, video ID và time range đã được kiểm từ source. Python validator phải kiểm tra `end_second > start_second` và mỗi time-range video ID thuộc relevant video IDs.
+
+Câu `draft` hoặc `reviewed` được phép có `answerable=true` nhưng evidence arrays là
+`[]`; đây là candidate chưa kiểm source, không phải label thiếu dữ liệu. Chỉ
+`approved` answerable question mới bắt buộc evidence arrays không rỗng.
 
 ## Phân bố mục tiêu
 
@@ -58,7 +75,8 @@ Chỉ lọc câu hỏi `approved` và `answerable=true`. Với từng question/c
 
 ```text
 schemas/chunking_evaluation_question_v1.schema.json
-evaluation/templates/mit_60001_evaluation_questions_template.csv
+schemas/benchmark_manifest_v1.schema.json
+evaluation/mit_60001/benchmark_manifest.json
 ```
 
 Template CSV không có transcript text, Gold chunk text hoặc câu hỏi giả.

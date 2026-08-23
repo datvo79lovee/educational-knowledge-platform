@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/grounded_answer_runtime_manifest_v1.schema.json",
+  "title": "Grounded answer runtime manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "runtime_run_id",
+    "scope_version",
+    "implementation_status",
+    "provider",
+    "inference",
+    "prompt",
+    "retrieval",
+    "contracts",
+    "smoke",
+    "leakage_guard",
+    "input_sha256",
+    "output_artifacts",
+    "validation_status"
+  ],
+  "properties": {
+    "$schema": {"const": "../../schemas/grounded_answer_runtime_manifest_v1.schema.json"},
+    "schema_version": {"const": "grounded_answer_runtime_manifest_v1"},
+    "runtime_run_id": {
+      "type": "string",
+      "pattern": "^mit60001_grounded_answer_runtime_[0-9a-f]{16}$"
+    },
+    "scope_version": {"const": "mit_60001_fall_2016_v1"},
+    "implementation_status": {"const": "complete_runtime_only_not_quality_evaluated"},
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "api_mode",
+        "ollama_version",
+        "model",
+        "digest",
+        "family",
+        "parameter_size",
+        "quantization_level"
+      ],
+      "properties": {
+        "name": {"const": "ollama"},
+        "api_mode": {"const": "ollama_api_chat"},
+        "ollama_version": {"type": "string", "minLength": 1},
+        "model": {"const": "llama3.2:3b"},
+        "digest": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "family": {"type": "string", "minLength": 1},
+        "parameter_size": {"type": "string", "minLength": 1},
+        "quantization_level": {"type": "string", "minLength": 1}
+      }
+    },
+    "inference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["temperature", "seed", "num_ctx", "num_predict", "actual_context_length"],
+      "properties": {
+        "temperature": {"const": 0.0},
+        "seed": {"const": 42},
+        "num_ctx": {"const": 4096},
+        "num_predict": {"const": 512},
+        "actual_context_length": {"const": 4096}
+      }
+    },
+    "prompt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "sha256"],
+      "properties": {
+        "version": {"const": "grounded_answer_prompt_v1"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "retrieval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "top_k", "index_run_id"],
+      "properties": {
+        "method": {"const": "dense_baseline_v1"},
+        "top_k": {"const": 3},
+        "index_run_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "contracts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_output_schema_version",
+        "api_schema_version",
+        "invalid_case_count",
+        "invalid_case_pass_count",
+        "auto_repair_used"
+      ],
+      "properties": {
+        "model_output_schema_version": {"const": "grounded_answer_model_output_v1"},
+        "api_schema_version": {"const": "grounded_answer_api_v1"},
+        "invalid_case_count": {"const": 5},
+        "invalid_case_pass_count": {"const": 5},
+        "auto_repair_used": {"const": false}
+      }
+    },
+    "smoke": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request_count",
+        "model_call_count",
+        "answer_count",
+        "abstain_count",
+        "citation_count",
+        "smoke_questions_sha256"
+      ],
+      "properties": {
+        "request_count": {"const": 2},
+        "model_call_count": {"const": 2},
+        "answer_count": {"const": 1},
+        "abstain_count": {"const": 1},
+        "citation_count": {"type": "integer", "minimum": 1, "maximum": 3},
+        "smoke_questions_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "leakage_guard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ground_truth_read", "evaluation_label_read", "source_scan_status"],
+      "properties": {
+        "ground_truth_read": {"const": false},
+        "evaluation_label_read": {"const": false},
+        "source_scan_status": {"const": "passed"}
+      }
+    },
+    "input_sha256": {
+      "type": "object",
+      "minProperties": 8,
+      "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+    },
+    "output_artifacts": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "sha256"],
+        "properties": {
+          "file": {"type": "string", "pattern": "^reports/20_grounded_answer_runtime/"},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "validation_status": {"const": "passed"}
+  }
+}

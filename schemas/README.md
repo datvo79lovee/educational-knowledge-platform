@@ -1,24 +1,16 @@
-# Machine-readable data contracts
+# Machine-readable contracts
 
-Folder này chứa schema được version cho các output của pipeline.
+This folder contains versioned JSON Schemas for canonical pipeline and runtime
+artifacts: Silver transcripts, Gold chunks, evaluation questions, embeddings, Dense
+Search API, Grounded Answer API/runtime, and the compact benchmark manifest.
 
-```text
-silver_transcript_v1.schema.json
-gold_chunk_v1.schema.json
-chunking_evaluation_question_v1.schema.json
-embedding_index_manifest_v1.schema.json
-lexical_index_manifest_v1.schema.json
-cross_encoder_reranking_manifest_v1.schema.json
-search_api_v1.schema.json
-search_api_validation_manifest_v1.schema.json
-```
+Schemas validate shape and types. Pipeline validators additionally check hashes,
+coverage, ordering and cross-record invariants.
 
-JSON Schema chỉ kiểm tra shape và kiểu dữ liệu. Validator pipeline phải kiểm tra
-thêm hash, manifest coverage, segment index, source segment range và các invariant
-liên record.
+Key contracts:
 
-`search_api_v1.schema.json` khóa request/response shape của retrieval-only API.
-`search_api_validation_manifest_v1.schema.json` khóa validation run gồm 40 approved
-questions, Dense Top 3 comparison, repeated-run, citation, video, HTTP/startup failure
-và output artifact hashes. Schema không tuyên bố API đã có accept/reject hoặc grounded
-answer generation.
+- `chunking_evaluation_question_v1.schema.json`: canonical Ground Truth question.
+- `benchmark_manifest_v1.schema.json`: compact benchmark provenance/counts/hash.
+- `search_api_v1.schema.json`: retrieval-only `/search` contract.
+- `grounded_answer_model_output_v1.schema.json` and
+  `grounded_answer_api_v1.schema.json`: model and public `/answer` contracts.

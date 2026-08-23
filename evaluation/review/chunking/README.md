@@ -10,9 +10,8 @@ MIT 6.0001 chunking experiment.
 - Quyết định configuration:
   `mit_60001_chunking_configuration_decision_2026-08-12.csv`
 
-Workbook `mit_60001_chunking_citation_review_2026-08-11.xlsx` là template ban đầu.
-Workbook có hậu tố `_reviewed.xlsx` là vòng review trước re-audit; không dùng nó làm
-nguồn quyết định cuối.
+Template ban đầu và vòng review trước re-audit đã được xóa trong repository cleanup;
+chỉ re-audit final được giữ.
 
 ## Quyết định
 

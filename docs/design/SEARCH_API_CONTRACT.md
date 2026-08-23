@@ -2,9 +2,12 @@
 
 ## Phạm vi
 
-API chỉ phục vụ canonical corpus MIT 6.0001 Fall 2016 và chỉ dùng
-`dense_baseline_v1`. Runtime trả ba evidence chunk; nó chưa thực hiện LLM
-accept/reject, chưa sinh grounded answer và chưa xác định câu hỏi out-of-scope.
+Các retrieval endpoint trong contract này chỉ phục vụ canonical corpus MIT 6.0001
+Fall 2016 và chỉ dùng `dense_baseline_v1`. `POST /search` trả ba evidence chunk; nó
+không thực hiện LLM accept/reject, không sinh grounded answer và không tự xác định
+câu hỏi out-of-scope. Application hiện có thêm `POST /answer`, nhưng endpoint đó là
+Grounded Answer orchestration và không thay đổi contract retrieval-only của
+`POST /search`.
 
 ## Source of truth
 
@@ -13,11 +16,11 @@ Canonical Gold : data/gold/mit_60001/chunks.jsonl
 Embeddings      : data/indexes/mit_60001/embeddings.npy
 Metadata        : data/indexes/mit_60001/metadata.jsonl
 Index manifest  : reports/09_embedding/embedding_index_manifest.json
-Decision        : reports/10_retrieval/retrieval_configuration_decision_2026-08-14.csv
+Decision        : docs/decisions/CANONICAL_RUNTIME_DECISIONS.md
 ```
 
 API phải kiểm tra hash, shape, dtype, vector norm, chunk order, model revision và
-retrieval decision khi startup. Nếu validation thất bại, server không được nhận
+canonical retrieval decision khi startup. Nếu validation thất bại, server không được nhận
 request. Query encoder chỉ được load từ cache local bằng revision đã khóa.
 
 ## `POST /search`
@@ -111,3 +114,16 @@ của retrieval-only API, không phải abstention. Response không được ch�
 
 `Recall@3 = 0.742857143` đo retrieval quality so với Ground Truth. Việc API Top 3
 khớp baseline 35/35 chỉ đo implementation fidelity; hai chỉ số này không tương đương.
+
+## Quan hệ với `POST /answer`
+
+`POST /answer` gọi cùng `DenseSearchService`, lấy đúng Top 3 rồi thực hiện một local
+Grounded Answer model call. Client không được truyền evidence tùy ý. Model chỉ trả
+decision, answer, supporting chunk IDs và reason nội bộ; application kiểm tra IDs
+thuộc Top 3 rồi map sang URL/timestamp thật. Không có LLM gate trung gian.
+
+Grounded Answer M3 đã được freeze là `baseline_evaluated`: decision accuracy
+`18/37`, runtime failures `8/37`, answer precision `9/10`, citation entailment
+`16/17` và strict end-to-end success `13/37`. Không có pre-registered quality gate;
+không diễn giải các số này là pass, fail hoặc production-ready. Reliability diagnosis
+cho tám HTTP 502 là bước tiếp theo trước mọi prompt/model experiment.

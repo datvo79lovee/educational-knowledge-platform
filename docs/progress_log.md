@@ -5284,3 +5284,25 @@ Prompt V2 final và A1 final validator đều PASS sau relocation; toàn bộ
 Khóa contract/schema cho một Grounded Answer Generator dùng Dense Top 3, trả một
 trong hai kết quả: grounded answer kèm chunk/video/timestamp citations hoặc abstain
 khi evidence không đủ.
+
+---
+
+# Repository cleanup trước Phase 9
+
+Repository đã được tinh gọn sau khi canonical pipeline được khóa:
+
+- Loại Evidence Reviewer, G1, BM25/Hybrid RRF, Cross-Encoder và artifact/script/test
+  chỉ phục vụ các experiment đã retire.
+- Tạo `evaluation/mit_60001/benchmark_manifest.json` trước khi xóa Batch 01/02
+  source reviews. Manifest khóa 40 questions, 35 answerable, 5 out-of-scope, 57
+  Ground Truth ranges, reviewer-batch summary và hashes.
+- Chuẩn hóa `requirements.txt`, `requirements-dev.txt`,
+  `requirements-pipeline.txt`, `.env.example`, `.gitignore` và Quick Start.
+- Cleanup nhỏ cuối chỉ xóa Hugging Face Cross-Encoder cache, lexical index đã
+  retire, output rỗng, notebook/test thủ công và folder rỗng.
+- Giữ `data/gold/mit_60001/experiments/`, `samples/`, reports chunking/embedding và
+  Reliability V1 vì chúng vẫn là provenance/reproducibility canonical.
+
+Validation sau cleanup: `28 passed`; benchmark manifest, Search API, Grounded
+Answer API, SHA-256 canonical Gold/embeddings/metadata và `git diff --check` đều
+PASS. Cleanup dừng; bước tiếp theo là Phase 9 multilingual retrieval baseline.

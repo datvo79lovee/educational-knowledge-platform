@@ -1,0 +1,4160 @@
+﻿question_id,decision_scope,expected_evidence_decision,answerable,question,expected_answer_points,dense_top1,dense_top2,dense_top3,runtime_status,generator_decision,generator_answer,supporting_chunk_ids,citations,normalization_applied,normalization_reason,raw_contract_compliant,decision_judgment,answer_correctness,answer_completeness,groundedness,citation_1_support,citation_2_support,citation_3_support,citation_support_overall,human_notes,review_status,vietnamese_translation,human_judgment_source,source_workbook_sha256
+mit60001-q-001,evaluated_37,evidence_insufficient,Yes,"According to the course introduction, what learning goals are introduced for students?","• Gain conceptual knowledge and programming skills.
+• Learn to solve problems through problem sets and sustained programming practice.
+• Read problem sets early so course terminology becomes familiar.
+• Develop recursive problem solving by reducing a hard problem to simpler versions of the same problem.","Rank 1 | nykOeWgQcHM:semantic_cosine_wp240_v1:6
+1. What is Computation? | 261.01–306.07s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=261s
+
+looks like.
+And underlying all of
+these is just practice.
+You have to just type some
+stuff away and code a lot.
+And you'll succeed in
+this course, I think.
+OK.
+So what are the things we're
+going to learn in this class?
+I feel like the things we're
+going learn in this class
+can be divided into basically
+three different sections.
+The first one is related to
+these first two items here.
+It's really about
+learning how to program.
+Learning how to
+program, part of it
+is figuring out what
+objects to create.
+You'll learn about these later.
+How do you represent knowledge
+with data structures?
+That's sort of the
+broad term for that.
+And then, as you're
+writing programs,","Rank 2 | nykOeWgQcHM:semantic_cosine_wp240_v1:3
+1. What is Computation? | 127.42–166.72s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=127s
+
+for future reference.
+It's true.
+This is a really
+fast-paced course,
+and we ramp up really quickly.
+We do want to position you
+to succeed in this course.
+As I was writing
+this, I was trying
+to think about when
+I was first starting
+to program what helped
+me get through my very
+first programming course.
+And this is really a good list.
+The first thing was I just
+read the psets as soon
+as they came out, made sure that
+the terminology just sunk in.
+And then, during
+lectures, if the lecturer
+was talking about something
+that suddenly I remembered,
+oh, I saw that word in the pset
+and I didn't know what it was.
+Well, hey, now I
+know what it is.","Rank 3 | nykOeWgQcHM:semantic_cosine_wp240_v1:7
+1. What is Computation? | 306.07–350.57s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=306s
+
+you need to-- programs
+aren't just linear.
+Sometimes programs jump around.
+They make decisions.
+There's some control
+flow to programs.
+That's what the second
+line is going to be about.
+The second big
+part of this course
+is a little bit more
+abstract, and it
+deals with how do you write
+good code, good style,
+code that's readable.
+When you write code, you
+want to write it such
+that-- you're in big company,
+other people will read it,
+other people will
+use it, so it has
+to be readable and
+understandable by others.
+To that end, you
+need to write code
+that's well organized,
+modular, easy to understand.
+And not only that, not
+only will your code",passed,abstain,,,,false,,true,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,,Reviewed,"Câu hỏi: Theo phần giới thiệu môn học, sinh viên được giới thiệu những mục tiêu học tập nào?
+
+Đáp án kỳ vọng:
+• Có kiến thức khái niệm và kỹ năng lập trình.
+• Học cách giải quyết vấn đề thông qua các problem set và thực hành lập trình liên tục.
+• Đọc problem set sớm để làm quen với thuật ngữ của môn học.
+• Phát triển tư duy giải quyết vấn đề đệ quy bằng cách đưa bài toán khó về các phiên bản đơn giản hơn của chính nó.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-002,evaluated_37,evidence_insufficient,Yes,What does the course say students should do to practice programming effectively?,"• Read problem sets early to become familiar with terminology.
+• Practice programming directly rather than only watching someone else code.
+• Download the code before lecture.","Rank 1 | nykOeWgQcHM:semantic_cosine_wp240_v1:7
+1. What is Computation? | 306.07–350.57s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=306s
+
+you need to-- programs
+aren't just linear.
+Sometimes programs jump around.
+They make decisions.
+There's some control
+flow to programs.
+That's what the second
+line is going to be about.
+The second big
+part of this course
+is a little bit more
+abstract, and it
+deals with how do you write
+good code, good style,
+code that's readable.
+When you write code, you
+want to write it such
+that-- you're in big company,
+other people will read it,
+other people will
+use it, so it has
+to be readable and
+understandable by others.
+To that end, you
+need to write code
+that's well organized,
+modular, easy to understand.
+And not only that, not
+only will your code","Rank 2 | nykOeWgQcHM:semantic_cosine_wp240_v1:6
+1. What is Computation? | 261.01–306.07s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=261s
+
+looks like.
+And underlying all of
+these is just practice.
+You have to just type some
+stuff away and code a lot.
+And you'll succeed in
+this course, I think.
+OK.
+So what are the things we're
+going to learn in this class?
+I feel like the things we're
+going learn in this class
+can be divided into basically
+three different sections.
+The first one is related to
+these first two items here.
+It's really about
+learning how to program.
+Learning how to
+program, part of it
+is figuring out what
+objects to create.
+You'll learn about these later.
+How do you represent knowledge
+with data structures?
+That's sort of the
+broad term for that.
+And then, as you're
+writing programs,","Rank 3 | nykOeWgQcHM:semantic_cosine_wp240_v1:5
+1. What is Computation? | 215.39–261.01s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=215s
+
+Yeah.
+That's probably the
+big thing right there.
+I should have probably
+highlighted it,
+but don't be afraid.
+Great.
+So this is pretty much a
+roadmap of all of 6.0001 or 600
+as I've just explained it.
+There's three big things we
+want to get out of this course.
+The first thing is the
+knowledge of concepts,
+which is pretty much true of
+any class that you'll take.
+The class will teach you
+something through lectures.
+Exams will test
+how much you know.
+This is a class in programming.
+The other thing we want
+you to get out of it
+is programming skills.
+And the last thing,
+and I think this
+is what makes this
+class really great,
+is we teach you how
+to solve problems.
+And we do that
+through the psets.
+That's really how I feel
+the roadmap of this course",passed,abstain,,,,true,abstain_literal_to_null,false,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Reliability V1 abstain; answer-quality and citation fields are not applicable.,Reviewed,"Câu hỏi: Theo môn học, sinh viên nên làm gì để luyện lập trình hiệu quả?
+
+Đáp án kỳ vọng:
+• Đọc problem set sớm để làm quen với thuật ngữ.
+• Trực tiếp thực hành lập trình thay vì chỉ xem người khác code.
+• Tải code xuống trước buổi học.
+
+Kết quả model: runtime_failure — lỗi runtime, không phải abstain.",not_applicable_recovered_abstain,
+mit60001-q-003,evaluated_37,evidence_sufficient,Yes,How does Python use variable names in different scopes?,"• The same variable name can exist in the global scope and in a different scope.
+• Python uses the variable names of the current scope, so same-named variables in different scopes do not interfere with one another.","Rank 1 | MjbuarJ7SE0:semantic_cosine_wp240_v1:41
+4. Decomposition, Abstraction, and Functions | 1837.76–1885.25s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=1837s
+
+what happens with variable
+names and formal parameters
+and actual parameters.
+That's why I highly recommend
+pieces of paper and pens.
+One last thing I want
+to mention about scope
+before we do another example.
+So there are three
+sort of situations
+you might find yourself in.
+The first one is probably
+the most typical,
+and this is when you
+define a function.
+And it's using a
+variable named x
+in this case that's also
+defined outside of the function.
+And that doesn't matter
+because of the idea of scopes.
+So inside the global scope,
+you can have variables x.
+When you're inside
+a different scope,
+you can have whatever
+variable names you want.
+And when you're
+inside that scope,","Rank 2 | MjbuarJ7SE0:semantic_cosine_wp240_v1:21
+4. Decomposition, Abstraction, and Functions | 913.58–976.88s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=913s
+
+And this line here return
+something tells Python, OK
+after you have finished
+executing everything
+inside the function, what
+value should I return?
+And whoever called
+the function is
+going to get back that
+value, and the function
+call itself will be
+replaced by that value.
+OK so let's look at an example.
+I'm going to introduce
+the idea of scope now.
+And scope just means-- is
+another word for environment.
+So if I told you that you
+could think of functions
+as little mini-programs,
+the scope of a function
+is going to be a completely
+separate environment
+than the environment
+of the main program.
+So as soon as you
+make a function call,
+behind the scenes
+what Python says is,
+OK I'm in the main program
+but I see a function call.
+I'm going to step out
+of this main program.
+I'm going to go off into
+this new environment.","Rank 3 | MjbuarJ7SE0:semantic_cosine_wp240_v1:42
+4. Decomposition, Abstraction, and Functions | 1885.25–1927.89s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=1885s
+
+Python's going to use
+those variable names,
+so they don't interfere
+with each other at all.
+So in this example, I've defined
+a variable x is equal to 1,
+and then I incremented, and that
+doesn't interfere with the fact
+that we have a
+variable x outside.
+This one's a little
+bit trickier.
+I define this function
+g, and all g does
+is access a variable x.
+But notice inside g, I've
+never actually declared
+or initialized a variable x.
+In this f, I said
+x is equal to 1.
+But in here, I'm
+just sort of using x.
+So this does not
+give you an error.",passed,answer,"Python uses variable names in different scopes to avoid interference. When a function is called, Python steps out of the main program environment and into a new environment for the function. In this new environment, Python uses the variable names without interference from the main program environment.","MjbuarJ7SE0:semantic_cosine_wp240_v1:21
+MjbuarJ7SE0:semantic_cosine_wp240_v1:42","Citation 1 | rank 2 | MjbuarJ7SE0:semantic_cosine_wp240_v1:21
+913.58–976.88s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=913s
+
+Citation 2 | rank 3 | MjbuarJ7SE0:semantic_cosine_wp240_v1:42
+1885.25–1927.89s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=1885s",false,,true,Correct,Correct,Complete,Grounded,Supports,Supports,N/A,All support,Câu trả lời bao phủ đúng hai ý chính: scope của function là environment riêng và tên biến ở scope khác không gây nhiễu lẫn nhau. Hai citation được chọn đều hỗ trợ trực tiếp.,Reviewed,"Câu hỏi: Python sử dụng tên biến trong các scope khác nhau như thế nào?
+
+Đáp án kỳ vọng:
+• Cùng một tên biến có thể tồn tại ở global scope và ở một scope khác.
+• Python sử dụng các tên biến của scope hiện tại, nên các biến trùng tên ở các scope khác nhau không gây nhiễu lẫn nhau.
+
+Kết quả model: answer
+Câu trả lời model: Python sử dụng tên biến trong các scope khác nhau để tránh gây nhiễu. Khi một hàm được gọi, Python rời chương trình chính và đi vào một environment mới, tức một scope riêng. Trong environment này, Python sử dụng các tên biến mà không gây nhiễu với scope của chương trình chính.",reliability_v1_human_review,d04838c7c2924de19c0a659a3722fcbfab9f225ba57e968504593be7ff5834fc
+mit60001-q-004,evaluated_37,evidence_insufficient,Yes,What is the difference between assignment (=) and equality (==) in Python?,"• The single equals sign assigns a value to a variable.
+• The double equals sign tests whether two values are equal and produces a Boolean result.","Rank 1 | nykOeWgQcHM:semantic_cosine_wp240_v1:53
+1. What is Computation? | 2365.69–2400.25s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=2365s
+
+That means always in programming
+the right-hand side is
+going to be an expression.
+It's something that's going
+to be evaluated to a value.
+And the left-hand side
+is always a variable.
+It's going to be an assignment.
+The equal sign is
+not like in math
+where you can have a lot
+of things to the left
+and a lot of things to the
+right of the equal sign.
+There's only one thing to
+the left of the equal sign.
+And that's going
+to be a variable.
+An equal sign stands
+for an assignment.
+Once we've created expressions,
+and we have these assignments,
+you can rebind variable
+names using new assignment
+statements.","Rank 2 | 0jljZRnHwOI:semantic_cosine_wp240_v1:31
+2. Branching and Iteration | 1455.84–1513.51s
+https://www.youtube.com/watch?v=0jljZRnHwOI&t=1455s
+
+So notice that we denoted
+code blocks using indentation.
+And that's actually
+one of the things
+that I really like about Python.
+It sort of forces you to
+write pretty code and nice
+looking code and just
+code that's very readable.
+And that forces you to indent
+everything that's a code block.
+So you can easily see sort of
+where the flow of control is
+and where decision making
+points are and things like that.
+So in this particular example,
+we have one if statement here,
+and it checks if two
+variables are equal.
+And we have an if, elif, else.
+And in this example, we're
+going to enter either this code
+block or this one or
+this one, depending
+on the variables of x and y.
+And we're only going
+into one code block.
+And we'll enter the
+first one that's true.","Rank 3 | 0jljZRnHwOI:semantic_cosine_wp240_v1:32
+2. Branching and Iteration | 1513.51–1582.76s
+https://www.youtube.com/watch?v=0jljZRnHwOI&t=1513s
+
+Notice you can have
+nested conditionals.
+So inside this first if,
+we have another if here.
+And this inner if is only going
+to be checked when we enter
+the first-- this outter if.
+I do want to make
+one point, though.
+So sometimes, you might forget
+to do the double equals sign
+when you are checking for
+equality, and that's OK.
+If you just use one
+equals sign, Python's
+going to give you an error.
+And it's going to
+say syntax error,
+and it's going to
+highlight this line.
+And then you're going to know
+that there's a mistake there.
+And you should be
+using equality,
+because it doesn't
+make sense to be
+using-- to assign-- to be making
+an assignment inside the if.
+So we've learned
+about branching.
+And we know about conditionals.
+Let's try to apply
+this to a little game.",passed,abstain,,,,true,abstain_literal_to_null,false,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Reliability V1 abstain; answer-quality and citation fields are not applicable.,Reviewed,"Câu hỏi: Trong Python, phép gán (=) khác phép kiểm tra bằng nhau (==) như thế nào?
+
+Đáp án kỳ vọng:
+• Dấu bằng đơn gán một giá trị cho biến.
+• Dấu bằng kép kiểm tra hai giá trị có bằng nhau hay không và tạo ra kết quả Boolean.
+
+Kết quả model: runtime_failure — lỗi runtime, không phải abstain.",not_applicable_recovered_abstain,
+mit60001-q-005,evaluated_37,evidence_sufficient,Yes,"According to the course, why does a recursive function require a base case?","• A base case gives recursion a directly solvable case and stops the unwinding of recursive calls.
+• Having one or more easy base cases prevents infinite recursion.","Rank 1 | WPSeyjX1-4s:semantic_cosine_wp240_v1:33
+6. Recursion and Dictionaries | 1167.69–1200.49s
+https://www.youtube.com/watch?v=WPSeyjX1-4s&t=1167s
+
+What does it have to
+do with programming?
+That's exactly what
+we're doing when we think
+about recursive code, right?
+We're saying, show that
+it's true for the base case,
+and then what I'm
+essentially assuming
+is that, if it works for
+values smaller than b,
+then does the code return
+the right answer for b?
+And the answer is,
+absolutely it does,
+and I'm using induction to
+deduce that, in fact, my code
+does the right thing.
+Why am I torturing
+you with this?
+Because this is the way I want
+you to think about recursion.","Rank 2 | WPSeyjX1-4s:semantic_cosine_wp240_v1:8
+6. Recursion and Dictionaries | 308.10–330.45s
+https://www.youtube.com/watch?v=WPSeyjX1-4s&t=308s
+
+when I get to something
+I can solve directly.
+And so what we're going to do
+is avoid infinite recursion
+by ensuring that we have
+at least one or more base
+cases that are easy to solve.
+And then the basic
+idea is I just
+want to solve the same
+problem on some simpler
+input with the idea
+of using that solution
+to solve the larger problem.
+OK, let's look at an
+example, and to set
+the stage I'm going to go back
+to something you've been doing,","Rank 3 | WPSeyjX1-4s:semantic_cosine_wp240_v1:15
+6. Recursion and Dictionaries | 558.97–598.72s
+https://www.youtube.com/watch?v=WPSeyjX1-4s&t=558s
+
+Recursive definition that
+reduces a problem to a simpler
+version of the same problem.
+OK, let's look at
+another example.
+Classic problem in recursion
+is to compute factorial,
+right? n factorial,
+or n bang if you
+like, n exclamation point
+is n times n minus 1,
+all the way down to 1.
+So it's the product of
+all the integers from 1
+up to n assuming n is
+a positive integer.
+So we can ask the
+same question if I
+wanted to solve this recursively
+what would the base case be?
+Well, when n is equal
+to 1, it's just 1.
+In the recursive case,
+will n times n minus 1
+all the way down to 1,
+that's the same as n times",passed,abstain,,,,false,,true,Incorrect,N/A,N/A,N/A,N/A,N/A,N/A,N/A,"Canonical label cho biết Top 3 đủ evidence, nhưng generator đã abstain.",Reviewed,"Câu hỏi: Theo môn học, vì sao một hàm đệ quy cần có base case?
+
+Đáp án kỳ vọng:
+• Base case cung cấp một trường hợp có thể giải trực tiếp và giúp dừng chuỗi lời gọi đệ quy.
+• Có một hoặc nhiều base case đơn giản giúp ngăn đệ quy vô hạn.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-006,evaluated_37,evidence_sufficient,Yes,"According to the lecture, how is the efficiency of an algorithm explained?","• Estimate efficiency by running test cases, timing execution, and observing the result.
+• Alternatively count fundamental operations as a function of input size.","Rank 1 | o9nW0uBqvEo:semantic_cosine_wp240_v1:14
+10. Understanding Program Efficiency, Part 1 | 560.39–609.07s
+https://www.youtube.com/watch?v=o9nW0uBqvEo&t=560s
+
+use that to try and come up with
+a way of estimating efficiency.
+We'll see some
+challenges with that.
+Slightly more abstractly,
+we could count operations.
+We could say here are the set
+of fundamental operations--
+mathematical operations,
+comparisons, setting values,
+retrieving values.
+And simply say how many
+of those operations
+do I use in my
+algorithm as a function
+of the size of the input?
+And that could be used to
+give us a sense of efficiency.
+We're going to see both of
+those are flawed somewhat more
+in the first case
+than the second one.
+And so we're going to
+abstract that second one
+to a more abstract
+notion of something
+we call an order of growth.
+And I'll come back to that
+in a couple of minutes.
+This is the one we're
+going to focus on.
+It's one that computer
+scientists use.","Rank 2 | o9nW0uBqvEo:semantic_cosine_wp240_v1:13
+10. Understanding Program Efficiency, Part 1 | 509.53–560.39s
+https://www.youtube.com/watch?v=o9nW0uBqvEo&t=509s
+
+There's lots of little choices.
+So an algorithm
+could be implemented
+many different ways.
+How do I measure the actual
+efficiency of the algorithm?
+Second one is I might,
+for a given problem,
+have different
+choices of algorithm.
+A recursive solution
+versus an iterative one.
+Using divide and conquer
+versus straightforward search.
+We're going to see
+some examples of that.
+So I've got to somehow
+separate those pieces out.
+And in particular, I'd
+like to separate out
+the choice of implementation
+from the choice of algorithm.
+I want to measure how
+hard is the algorithm,
+not can I come up
+with a slightly more
+efficient way of coming
+up with an implementation.
+So here are three
+ways I might do it.
+And we're going to look at
+each one of them very briefly.
+The obvious one is we could
+be scientists-- time it.
+Write the code, run a bunch
+of test case, run a timer,","Rank 3 | SE4P7IVCunE:semantic_cosine_wp240_v1:28
+3. String Manipulation, Guess and Check, Approximations, Bisection | 1298.01–1339.95s
+https://www.youtube.com/watch?v=SE4P7IVCunE&t=1298s
+
+These are the things
+we've added to it.
+We know integer,
+floats, Booleans.
+We know a bit of string
+manipulation, math operations.
+We added, recently, these
+conditionals and branching
+to write slightly more
+interesting programs.
+And now we have loops,
+for and while loops
+to add interesting and
+more complicated programs.
+So with these, the second
+part of this lecture
+is going to be looking at
+three different algorithms.
+That's the sort of
+computer science part
+of this class, Introduction
+to Computer Science
+and Programming using Python.
+Don't let the word
+algorithm scare you.
+They're not that complicated.
+You just have to sort of
+think a little bit about them.",passed,answer,The efficiency of an algorithm is explained by counting operations and saying how many of those operations do I use in my algorithm as a function of the size of the input.,o9nW0uBqvEo:semantic_cosine_wp240_v1:14,"Citation 1 | rank 1 | o9nW0uBqvEo:semantic_cosine_wp240_v1:14
+560.39–609.07s
+https://www.youtube.com/watch?v=o9nW0uBqvEo&t=560s",false,,true,Correct,Correct,Partial,Grounded,Supports,N/A,N/A,All support,"Câu trả lời đúng về cách đếm phép toán, nhưng bỏ qua cách đo bằng chạy test và timing.",Reviewed,"Câu hỏi: Theo bài giảng, độ hiệu quả của một thuật toán được giải thích như thế nào?
+
+Đáp án kỳ vọng:
+• Ước lượng hiệu quả bằng cách chạy các test case, đo thời gian thực thi và quan sát kết quả.
+• Hoặc đếm các phép toán cơ bản theo kích thước đầu vào.
+
+Kết quả model: answer
+Câu trả lời model: Độ hiệu quả của một thuật toán được giải thích bằng cách đếm các phép toán và xem thuật toán sử dụng bao nhiêu phép toán đó theo kích thước của đầu vào.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-007,evaluated_37,evidence_insufficient,Yes,What value is bound to a name after an assignment statement is evaluated?,"• Assignment binds the value on the right-hand side to the variable name on the left-hand side.
+• The binding allows the program to access that value later.","Rank 1 | nykOeWgQcHM:semantic_cosine_wp240_v1:53
+1. What is Computation? | 2365.69–2400.25s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=2365s
+
+That means always in programming
+the right-hand side is
+going to be an expression.
+It's something that's going
+to be evaluated to a value.
+And the left-hand side
+is always a variable.
+It's going to be an assignment.
+The equal sign is
+not like in math
+where you can have a lot
+of things to the left
+and a lot of things to the
+right of the equal sign.
+There's only one thing to
+the left of the equal sign.
+And that's going
+to be a variable.
+An equal sign stands
+for an assignment.
+Once we've created expressions,
+and we have these assignments,
+you can rebind variable
+names using new assignment
+statements.","Rank 2 | WPSeyjX1-4s:semantic_cosine_wp240_v1:17
+6. Recursion and Dictionaries | 639.90–668.82s
+https://www.youtube.com/watch?v=WPSeyjX1-4s&t=639s
+
+And let's use the tools
+that Ana talked about,
+in terms of an
+environment at a scope,
+and think about
+what happens here.
+So when I read that in or I
+evaluate that in Python, it
+creates a definition that binds
+the name fact to some code,
+just all of that stuff
+over here plus the name
+for the formal parameter, hasn't
+done anything with it yet.
+And then I'm going to
+evaluate print a fact of 4.
+Print needs a value, so it has
+to get the value of fact of 4,
+and we know what that does.","Rank 3 | nykOeWgQcHM:semantic_cosine_wp240_v1:54
+1. What is Computation? | 2403.16–2461.30s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=2403s
+
+Let's look at an
+example for that.
+Let's say this is our memory.
+Let's type back in the example
+with finding the radius.
+Let's say, pi is equal to 3.14.
+In memory, we're going to
+create this value 3.14.
+We're going to bind it
+to the variable named pi.
+Next line, radius
+is equal to 2.2.
+In memory, we're
+creating this value 2.2.
+And we're going to bind it
+to the variable named radius.
+Then we have this
+expression here.
+It's going to substitute
+the values for pi
+from memory and the value
+for radius from memory.
+It's going to calculate the
+value that this expression
+evaluates to.
+It's going to pop
+that into the memory.
+And it's going to
+assign-- because we're
+using the equal
+sign-- it's going",passed,abstain,,,,false,,true,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,,Reviewed,"Câu hỏi: Sau khi một câu lệnh gán được đánh giá, giá trị nào được bind với một tên biến?
+
+Đáp án kỳ vọng:
+• Phép gán bind giá trị ở vế phải với tên biến ở vế trái.
+• Binding đó cho phép chương trình truy cập lại giá trị về sau.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-008,evaluated_37,evidence_sufficient,Yes,Why can rebinding a variable name leave the previous object unchanged?,"• A variable name is a handle or binding used to access an object.
+• Rebinding the name to a new value removes the old binding but does not change the previous object; the old object can remain in memory without that handle.","Rank 1 | MjbuarJ7SE0:semantic_cosine_wp240_v1:41
+4. Decomposition, Abstraction, and Functions | 1837.76–1885.25s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=1837s
+
+what happens with variable
+names and formal parameters
+and actual parameters.
+That's why I highly recommend
+pieces of paper and pens.
+One last thing I want
+to mention about scope
+before we do another example.
+So there are three
+sort of situations
+you might find yourself in.
+The first one is probably
+the most typical,
+and this is when you
+define a function.
+And it's using a
+variable named x
+in this case that's also
+defined outside of the function.
+And that doesn't matter
+because of the idea of scopes.
+So inside the global scope,
+you can have variables x.
+When you're inside
+a different scope,
+you can have whatever
+variable names you want.
+And when you're
+inside that scope,","Rank 2 | nykOeWgQcHM:semantic_cosine_wp240_v1:55
+1. What is Computation? | 2461.30–2508.06s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=2461s
+
+to assign that value
+to that variable area.
+Now, let's say we rebind
+radius to be something else.
+Radius i is bound
+to the value 2.2.
+But when we do this line, radius
+is equal to radius plus 1,
+we're going to take
+away the binding to 2.2.
+We're going to do
+this calculation.
+The new value is 3.2.
+And we're going to rebind that
+value to that same variable.
+In memory, notice
+we're still going
+to have this value,
+2.2, floating around.
+But we've lost
+the handle for it.
+There's no way to get it back.","Rank 3 | FlGjISF3l78:semantic_cosine_wp240_v1:57
+9. Python Classes and Inheritance | 2368.62–2428.15s
+https://www.youtube.com/watch?v=FlGjISF3l78&t=2368s
+
+Initially, what happens is, when
+I first create this new rabbit,
+it's going to access the
+class variable, which,
+it's current value is 1.
+So when I create the
+rabbit ID-- the rabbit ID,
+r1.rid-- this is going
+to get the value 1.
+And according to
+the code, after I
+set the rabbit ID
+to whatever tag is,
+I'm going to increment the tag.
+So this is going to say,
+OK, now that I've said it,
+I'm going to go back up here
+and increment the tag to be 2.
+OK.
+So let's say I create
+another Rabbit object, OK?
+All right, there--
+that's a sad rabbit, r2.
+The ID of r2 is
+going to be what?
+Well, according to the way
+we create a new Rabbit object",passed,abstain,,,,false,,true,Incorrect,N/A,N/A,N/A,N/A,N/A,N/A,N/A,"Canonical label cho biết Top 3 đủ evidence, nhưng generator đã abstain.",Reviewed,"Câu hỏi: Vì sao việc bind lại một tên biến có thể khiến object trước đó không thay đổi?
+
+Đáp án kỳ vọng:
+• Tên biến là một handle/binding dùng để truy cập một object.
+• Bind lại tên sang giá trị mới sẽ bỏ binding cũ nhưng không thay đổi object trước đó; object cũ vẫn có thể còn trong bộ nhớ dù không còn handle đó.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-009,evaluated_37,evidence_sufficient,Yes,"According to the course, how are local variables created and used during a function call?","• The same variable name can exist in the global scope and in a different scope.
+• Within a scope, Python uses that scope's variable names, so names in different scopes do not interfere with one another.","Rank 1 | MjbuarJ7SE0:semantic_cosine_wp240_v1:41
+4. Decomposition, Abstraction, and Functions | 1837.76–1885.25s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=1837s
+
+what happens with variable
+names and formal parameters
+and actual parameters.
+That's why I highly recommend
+pieces of paper and pens.
+One last thing I want
+to mention about scope
+before we do another example.
+So there are three
+sort of situations
+you might find yourself in.
+The first one is probably
+the most typical,
+and this is when you
+define a function.
+And it's using a
+variable named x
+in this case that's also
+defined outside of the function.
+And that doesn't matter
+because of the idea of scopes.
+So inside the global scope,
+you can have variables x.
+When you're inside
+a different scope,
+you can have whatever
+variable names you want.
+And when you're
+inside that scope,","Rank 2 | MjbuarJ7SE0:semantic_cosine_wp240_v1:45
+4. Decomposition, Abstraction, and Functions | 2004.00–2047.88s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=2004s
+
+though global variables
+are part of the readings
+for this lecture.
+And the reason why
+it's not a great idea
+to use global variables is
+because global variables
+sort of give you this
+loophole around scopes,
+so it allows you to write code
+that can become very messy.
+So using global variables,
+you can be inside a function
+and then modify a
+variable that's defined
+outside of your function.
+And that sort of defeats
+the purpose of functions
+and using them in writing
+these coherent modules that
+are separate.
+That said, it might sometimes be
+useful to use global variables,","Rank 3 | MjbuarJ7SE0:semantic_cosine_wp240_v1:22
+4. Decomposition, Abstraction, and Functions | 976.88–1028.08s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=976s
+
+I'm going to create entirely
+new set of variables that just
+exist within this environment.
+I'm going to do
+some computations.
+When I see the return, I'm going
+to take this one return value.
+I'm going to exit
+that environment,
+and then I'm going to come
+back to the main program.
+So as you're entering
+from one scope to another,
+you're sort of passing
+these values back and forth.
+So when you're entering a scope,
+you're passing a variable back
+into the function.
+And when the
+function's finished,
+you're passing a value
+back to whoever called it.
+So once again, this top part
+is the function definition.
+And any arguments for
+the function definition
+are called formal parameters.
+And they're called
+formal parameters
+because notice they don't
+actually have a value yet.
+In the function
+definition, you're",passed,abstain,,,,false,,true,Incorrect,N/A,N/A,N/A,N/A,N/A,N/A,N/A,"Canonical label cho biết Top 3 đủ evidence, nhưng generator đã abstain.",Reviewed,"Câu hỏi: Theo môn học, local variables được tạo và sử dụng như thế nào trong một lần gọi hàm?
+
+Đáp án kỳ vọng:
+• Cùng một tên biến có thể tồn tại ở global scope và ở một scope khác.
+• Trong một scope, Python dùng các tên biến của scope đó, nên các tên ở những scope khác nhau không gây nhiễu lẫn nhau.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-010,evaluated_37,evidence_insufficient,Yes,What is the difference between mutable and immutable objects?,"• Tuples are immutable, whereas lists are mutable.
+• Lists and tuples can contain elements of any type, but lists use square brackets and tuples use parentheses.","Rank 1 | RvRKT-jXvko:semantic_cosine_wp240_v1:2
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 98.11–134.64s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=98s
+
+All right.
+So let's go right into tuples.
+So if you recall
+strings, strings
+were sequences of characters.
+Tuples are going to be similar
+to strings in that they're
+going to be sequences
+of something,
+except that tuples aren't
+just sequences of characters,
+they can be sequences
+of anything.
+They're a collection
+of data where
+that data can be of any type.
+So a tuple can contain
+elements that are integers,
+floats, strings, and so on.
+Tuples are immutable.","Rank 2 | RvRKT-jXvko:semantic_cosine_wp240_v1:48
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 2033.64–2061.97s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=2033s
+
+but this I basically
+copied and pasted
+from the Python
+tutor, which is just
+from the code from
+today's lecture.
+So I have these
+lines of code here.
+The first couple of
+lines really just
+show what happens
+when you're dealing
+with non-mutable objects.
+So with non-mutable
+objects, you have
+two separate objects that
+get their own values,
+and that's it.
+End of story.
+With lists, however,
+there's something different
+that happens.","Rank 3 | RvRKT-jXvko:semantic_cosine_wp240_v1:43
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 1818.84–1883.55s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=1818s
+
+So the last one is the first
+one, the second to last one
+is the second one, and so on.
+So lists are mutable.
+We've said that so many
+times this lecture.
+But what exactly does that mean?
+What implications
+does that have?
+Once again, this next part
+of the lecture, Python tutor.
+Just paste all the code
+in and go step by step
+to see exactly what's happening.
+So lists are mutable.
+As you have variable
+names-- so for example,
+L is equal to some
+list-- that L is
+going to be pointing
+to the list in memory.
+And since it's a mutable
+object, this list,
+you can have more
+than one variable
+that points to the exact
+same object in memory.
+And if you have more
+than one variable that
+points to the same
+object in memory,
+if that object in
+memory is changed, then
+when you access it through
+any one of these variables,",passed,abstain,,,,false,,true,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,,Reviewed,"Câu hỏi: Mutable object và immutable object khác nhau như thế nào?
+
+Đáp án kỳ vọng:
+• Tuple là immutable, còn list là mutable.
+• List và tuple đều có thể chứa phần tử thuộc mọi kiểu, nhưng list dùng ngoặc vuông còn tuple dùng ngoặc tròn.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-012,evaluated_37,evidence_insufficient,No,How would I use asyncio to run several network requests concurrently in Python?,,"Rank 1 | 0jljZRnHwOI:semantic_cosine_wp240_v1:26
+2. Branching and Iteration | 1233.16–1274.41s
+https://www.youtube.com/watch?v=0jljZRnHwOI&t=1233s
+
+just going to keep going
+through the program
+and not execute that
+extra set of instructions.
+How does Python know which
+instructions to execute?
+They're going to be inside
+this what we call code block.
+And the code block is
+denoted by indentation.
+So it's going to be
+everything that's
+indented is part of
+that if code block.
+Typically, four
+spaces is indentation.
+OK.
+So that's how you
+write code that
+decides whether to execute
+this extra thing or not.
+Now let's say I don't just
+want to execute an extra thing,","Rank 2 | 6LOwPhPDwVc:semantic_cosine_wp240_v1:75
+12. Searching and Sorting | 2811.59–2853.78s
+https://www.youtube.com/watch?v=6LOwPhPDwVc&t=2811s
+
+How do I use what I know
+happens inside of the machine
+to write a sequence of
+steps in a language I'm
+using to capture that process?
+And then finally, how do I
+turn that into an algorithm?
+And that not only means I
+need a language for describing
+those automated
+processes, and if you
+like allowing the
+abstraction of details,
+but frankly also a
+way to communicate.
+If you have to think
+crisply about how do I
+describe an algorithm,
+it's actually
+giving you a way to
+crystallize or clarify
+your thinking about a problem.
+This is not to say you should
+talk to your friends in Python.
+I don't recommend it.
+But it does say you
+should use that thinking
+as a way of capturing your ideas
+of what you're going to do.","Rank 3 | nykOeWgQcHM:semantic_cosine_wp240_v1:37
+1. What is Computation? | 1645.85–1713.82s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=1645s
+
+you expected it to do.
+And that's not because the
+program suddenly-- for example,
+you expected the program
+to give you an output of 0
+for a certain test case, and
+the output that you got was 10.
+Well, the program
+didn't suddenly
+decide to change
+its answer to 10.
+It just executed the
+program that you wrote.
+That's the case where
+the program gave you
+a different answer
+than expected.
+Programs might crash, which
+means they stop running.
+That's OK.
+Just go back to your code and
+figure out what was wrong.
+And another example
+of a different meaning
+than what you intended was
+maybe the program won't stop.
+It's also OK.
+There are ways to stop
+it besides restarting
+the computer.
+So then Python
+programs are going
+to be sequences of
+definitions and commands.
+We're going to have expressions
+that are going to be evaluated
+and commands that tell the
+interpreter to do something.",passed,abstain,,,,true,abstain_literal_to_null,false,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Reliability V1 abstain; answer-quality and citation fields are not applicable.,Reviewed,"Câu hỏi: Tôi sẽ dùng asyncio như thế nào để chạy đồng thời nhiều network request trong Python?
+
+Đáp án kỳ vọng:
+Không có expected answer points — câu hỏi ngoài phạm vi benchmark.
+
+Kết quả model: runtime_failure — lỗi runtime, không phải abstain.",not_applicable_recovered_abstain,
+mit60001-q-013,evaluated_37,evidence_insufficient,No,How do I deploy a Python web application to Kubernetes?,,"Rank 1 | MjbuarJ7SE0:semantic_cosine_wp240_v1:3
+4. Decomposition, Abstraction, and Functions | 123.90–157.76s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=123s
+
+to some of the more basic
+mechanisms in Python.
+And today we're going
+to talk about how
+to structure your programs
+such that you write
+nice, coherent code-- reusable
+code-- by hiding away some
+of the details in your code.
+And to do that we're going
+to look at these things
+called functions.
+All right so just
+stepping back and sort
+of getting a high-level view of
+how we write the code so far.
+So so far the way that
+you've been writing code
+for your programs
+is you open a file,
+you type some code to solve
+a particular problem given,","Rank 2 | 0jljZRnHwOI:semantic_cosine_wp240_v1:26
+2. Branching and Iteration | 1233.16–1274.41s
+https://www.youtube.com/watch?v=0jljZRnHwOI&t=1233s
+
+just going to keep going
+through the program
+and not execute that
+extra set of instructions.
+How does Python know which
+instructions to execute?
+They're going to be inside
+this what we call code block.
+And the code block is
+denoted by indentation.
+So it's going to be
+everything that's
+indented is part of
+that if code block.
+Typically, four
+spaces is indentation.
+OK.
+So that's how you
+write code that
+decides whether to execute
+this extra thing or not.
+Now let's say I don't just
+want to execute an extra thing,","Rank 3 | 6LOwPhPDwVc:semantic_cosine_wp240_v1:75
+12. Searching and Sorting | 2811.59–2853.78s
+https://www.youtube.com/watch?v=6LOwPhPDwVc&t=2811s
+
+How do I use what I know
+happens inside of the machine
+to write a sequence of
+steps in a language I'm
+using to capture that process?
+And then finally, how do I
+turn that into an algorithm?
+And that not only means I
+need a language for describing
+those automated
+processes, and if you
+like allowing the
+abstraction of details,
+but frankly also a
+way to communicate.
+If you have to think
+crisply about how do I
+describe an algorithm,
+it's actually
+giving you a way to
+crystallize or clarify
+your thinking about a problem.
+This is not to say you should
+talk to your friends in Python.
+I don't recommend it.
+But it does say you
+should use that thinking
+as a way of capturing your ideas
+of what you're going to do.",passed,abstain,,,,false,,true,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,,Reviewed,"Câu hỏi: Tôi triển khai một ứng dụng web Python lên Kubernetes như thế nào?
+
+Đáp án kỳ vọng:
+Không có expected answer points — câu hỏi ngoài phạm vi benchmark.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-014,evaluated_37,evidence_insufficient,Yes,What is the difference between a Python list and a dictionary?,"• A list is an ordered sequence accessed by integer index.
+• A dictionary maps keys to values and is accessed by the appropriate key.
+• Dictionary keys must be immutable.","Rank 1 | -DP1i2ZU9gk:semantic_cosine_wp240_v1:7
+8. Object Oriented Programming | 296.99–329.03s
+https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=296s
+
+We've worked with lists before.
+The list with elements 1, 2, 3,
+and 4 is a very specific object
+that is of type list.
+Again, we think about it
+in terms of two things.
+One is what is the data
+representation of the list?
+So behind the scenes how
+does Python see lists?
+And the second is, how do
+you interact with lists?
+So what are ways that
+you can manipulate a list
+object once it's created?
+So behind the scenes
+you have a list, L,
+which is going to be made up
+of essentially two things.","Rank 2 | WPSeyjX1-4s:semantic_cosine_wp240_v1:70
+6. Recursion and Dictionaries | 2537.96–2573.17s
+https://www.youtube.com/watch?v=WPSeyjX1-4s&t=2537s
+
+iterate over the list,
+--but now I'm going to say,
+if the word is in
+the dictionary,
+and because the
+dictionary is iterable,
+it's simply going to give
+me back all of the keys,
+it's simply going to
+say, in this case,
+if it's in the dictionary,
+it's already there,
+I've got some value
+associated with it,
+get the value out, add
+1 to it, put it back in.
+If it's not already
+in the dictionary,
+this is the first time
+I've seen it, just store it
+into the dictionary.
+And when I'm done just
+return the dictionary.
+OK?
+So I'm going to, if I can do
+this right with my Python,","Rank 3 | RvRKT-jXvko:semantic_cosine_wp240_v1:24
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 1009.75–1049.77s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=1009s
+
+So this-- Python just replaces
+i with 2 here and says,
+what's l at position 1?
+And then grabs
+that from in there.
+OK.
+So very, very similar to
+the kinds of operations
+we've seen on
+strings and tuples.
+The one difference,
+and that's what
+we're going to focus on
+for the rest of this class,
+is that lists are
+mutable objects.
+So what does that
+mean internally?
+Internally, that means
+let's say we have a list l,
+and we assign it-- sorry.
+Let's say we have a variable l
+that's going to point to a list
+with three elements,
+2, 1, and 3.
+OK.
+They're all-- each
+element is an integer.",passed,answer,"The main difference between a Python list and a dictionary is that a list is a mutable object, whereas a dictionary is an unordered collection of key-value pairs. Lists are defined by a sequence of elements, whereas dictionaries are defined by a set of key-value pairs. Lists can be modified after creation, whereas dictionaries cannot be modified after creation (although you can add new key-value pairs).","-DP1i2ZU9gk:semantic_cosine_wp240_v1:7
+RvRKT-jXvko:semantic_cosine_wp240_v1:24","Citation 1 | rank 1 | -DP1i2ZU9gk:semantic_cosine_wp240_v1:7
+296.99–329.03s
+https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=296s
+
+Citation 2 | rank 3 | RvRKT-jXvko:semantic_cosine_wp240_v1:24
+1009.75–1049.77s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=1009s",true,duplicate_supporting_ids,false,Incorrect,Partial,Incomplete,Partial,Supports,Supports,N/A,Partial support,"Câu trả lời có phần đúng về list là mutable và dictionary là key-value, nhưng thiếu khác biệt ordered/integer-index vs key lookup và không nêu dictionary keys phải immutable. Claim 'dictionaries cannot be modified after creation' không được evidence hỗ trợ và mâu thuẫn với chính phần sau của câu trả lời. Hai citation chỉ hỗ trợ phía list, không đủ cho toàn bộ phép so sánh.",Reviewed,"Câu hỏi: Python list và dictionary khác nhau như thế nào?
+
+Đáp án kỳ vọng:
+• List là một dãy có thứ tự và được truy cập bằng chỉ số nguyên.
+• Dictionary ánh xạ key tới value và được truy cập bằng key tương ứng.
+• Key của dictionary phải là immutable.
+
+Kết quả model: runtime_failure — lỗi runtime, không phải abstain.",reliability_v1_human_review,d04838c7c2924de19c0a659a3722fcbfab9f225ba57e968504593be7ff5834fc
+mit60001-q-015,evaluated_37,evidence_sufficient,Yes,"According to the course, how is using the shell different from using the editor?","• The shell lets a user type and execute simple commands directly, typically to test something quickly.
+• The editor is used to write multiple lines and more complicated programs, which can then be run.","Rank 1 | nykOeWgQcHM:semantic_cosine_wp240_v1:39
+1. What is Computation? | 1739.92–1791.52s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=1739s
+
+you write very simple
+commands just if you're
+testing something out.
+And on the left-hand
+side here in the editor,
+you write more lines and
+more complicated programs.
+Now we're going to start
+talking about Python.
+And in Python, we're going
+to come back to this,
+everything is an object.
+And Python programs
+manipulate these data objects.
+All objects in Python
+are going to have a type.
+And the type is going to tell
+Python the kinds of operations
+that you can do
+on these objects.
+If an object is the
+number five, for example,
+you can add the number
+to another number,
+subtract the number, take it
+to the power of something,
+and so on.
+As a more general example,
+for example, I am a human.","Rank 2 | nykOeWgQcHM:semantic_cosine_wp240_v1:46
+1. What is Computation? | 2038.30–2078.71s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=2038s
+
+That's basically what it says.
+It just tells you it's an
+interaction within the shell
+only.
+It's not interacting
+with anyone else.
+And if you don't
+have any ""Out,"" that
+means it got printed
+out to the console.
+All right.
+We talked a little
+bit about objects.
+Once you have objects, you can
+combine objects and operators
+to form these expressions.
+And each expression is
+going to have a value.
+So an expression
+evaluates to a value.
+The syntax for an
+expression is going
+to be object, operator,
+object, like that.
+And these are some operators
+you can do on ints and floats.
+There's the typical ones,
+addition, subtraction,
+multiplication, and division.","Rank 3 | nykOeWgQcHM:semantic_cosine_wp240_v1:44
+1. What is Computation? | 1951.91–2003.16s
+https://www.youtube.com/watch?v=nykOeWgQcHM&t=1951s
+
+But if you'd like if
+you have the slides up,
+go to go to this exercise.
+And after I'm done
+talking about the slide,
+we'll see what people
+think for that exercise.
+One of the most
+important things that you
+can do in basically
+any programming,
+in Python also, is
+to print things out.
+Printing out is how you
+interact with the user.
+To print things out, you
+use the print command.
+If you're in the shell, if
+you simply type ""3 plus 2,""
+you do see a value here.
+Five, right?
+But that's not actually
+printing something out.
+And that becomes apparent
+when you actually
+type things into the editor.
+If you just do ""3 plus 2,"" and
+you run the program-- that's",passed,abstain,,,,false,,true,Incorrect,N/A,N/A,N/A,N/A,N/A,N/A,N/A,"Canonical label cho biết Top 3 đủ evidence, nhưng generator đã abstain.",Reviewed,"Câu hỏi: Theo môn học, dùng shell khác dùng editor như thế nào?
+
+Đáp án kỳ vọng:
+• Shell cho phép gõ và chạy trực tiếp các lệnh đơn giản, thường để thử nhanh.
+• Editor dùng để viết nhiều dòng và các chương trình phức tạp hơn rồi chạy chúng.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-016,evaluated_37,evidence_sufficient,Yes,"According to the course, what does an assertion check in a program?","• Assertions check that assumptions about a computation match what a function expects.
+• They can enforce function preconditions or postconditions, including input type and value conditions.
+• When an assertion is false, Python raises an assertion error and the function stops immediately.","Rank 1 | 9H6muyZjms0:semantic_cosine_wp240_v1:51
+7. Testing, Debugging, Exceptions, and Assertions | 2375.75–2432.15s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=2375s
+
+If the assert is false, the
+function does not continue.
+It stops right there.
+Why does it behave this way?
+Well, assertions are
+great to make sure
+that preconditions and
+post-conditions on functions
+are exactly as you expect.
+So as soon as an
+assert becomes false,
+the function's going to
+immediately terminate.
+This is useful because
+it'll prevent the program
+from propagating bad values.
+So as soon as a precondition
+isn't true, for example,
+as you enter a function,
+then that means something
+went wrong in your program.
+And the program is going
+to stop right there.
+So instead of
+propagating a bad value
+throughout the
+program, and then you
+getting an output that
+you didn't expect,
+and then you having to trace
+back to the function that
+gave this bad value, you'll get
+this bad value, you'll get this","Rank 2 | 9H6muyZjms0:semantic_cosine_wp240_v1:49
+7. Testing, Debugging, Exceptions, and Assertions | 2235.36–2311.12s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=2235s
+
+So this is the exact
+same thing as before.
+We have a try and an except
+for the 0 division error.
+We also print a
+warning, no grades data.
+And then we return the 0.
+So we still flag the error,
+and now instead of a ""none,""
+we get a 0, because we've
+returned 0.0 here, as opposed
+to just leaving it blank.
+All right.
+So those are exceptions.
+Last thing we're going
+to talk about today
+are these things
+called assertions.
+And assertions are good example
+of defensive programming.
+In that, you have
+assert statements
+at the beginning of
+functions, typically.
+Or at the end of functions.
+And assert statements
+are used to make sure
+that the assumptions
+on computations
+are exactly what the
+function expects them to be.
+So if we have a
+function that says
+it's supposed to take in
+an integer greater than 0,
+then the assert
+statement will assert","Rank 3 | 9H6muyZjms0:semantic_cosine_wp240_v1:52
+7. Testing, Debugging, Exceptions, and Assertions | 2432.15–2485.26s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=2432s
+
+assert being false
+a lot earlier.
+So it'll be a lot
+easier to figure out
+where the bug came from.
+And you won't have to
+trace back so many steps.
+So this is basically
+what I said,
+you really want to spot the bugs
+as soon as they're introduced.
+And exceptions are good
+if you want to raise them
+when the user supplies
+bad data input,
+but assertions are
+used to make sure
+that the types and other-- the
+types of inputs to functions,
+maybe other conditions
+on inputs to functions,
+are being held as the
+values are being passed in.
+So the keyword
+here is making sure
+that the invariants on
+data structures are meant.
+And that's it.
+Great.
+Thanks.",passed,answer,Assertions are used to make sure that the assumptions on computations are exactly what the function expects them to be.,"9H6muyZjms0:semantic_cosine_wp240_v1:51
+9H6muyZjms0:semantic_cosine_wp240_v1:52","Citation 1 | rank 1 | 9H6muyZjms0:semantic_cosine_wp240_v1:51
+2375.75–2432.15s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=2375s
+
+Citation 2 | rank 3 | 9H6muyZjms0:semantic_cosine_wp240_v1:52
+2432.15–2485.26s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=2432s",false,,true,Correct,Correct,Partial,Grounded,Supports,Supports,N/A,All support,"Đúng ý chính về assertion, nhưng thiếu pre/postconditions và hành vi khi assert=False.",Reviewed,"Câu hỏi: Theo môn học, một assertion kiểm tra điều gì trong chương trình?
+
+Đáp án kỳ vọng:
+• Assertion kiểm tra các giả định về phép tính có khớp với điều hàm mong đợi hay không.
+• Nó có thể enforce precondition hoặc postcondition của hàm, gồm kiểu và điều kiện giá trị của input.
+• Khi assertion là false, Python phát sinh assertion error và hàm dừng ngay.
+
+Kết quả model: answer
+Câu trả lời model: Assertion được dùng để bảo đảm rằng các giả định về phép tính đúng với những gì hàm mong đợi.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-017,excluded,excluded,Yes,What does the course say is the purpose of exception handling?,"• Exception handling catches an error that would otherwise raise an exception and interrupt normal execution.
+• It lets the programmer respond in a controlled way, such as printing a clearer message for bad user input.
+• A programmer can also raise an exception deliberately to signal an error condition and direct later control flow.","Rank 1 | 9H6muyZjms0:semantic_cosine_wp240_v1:31
+7. Testing, Debugging, Exceptions, and Assertions | 1286.42–1338.42s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1286s
+
+to testing and debugging.
+The rest of the class will
+be on the error messages,
+or on errors that you
+will get in your programs.
+So when your functions--
+when you run functions,
+or when you run your
+program, at some point,
+the program execution
+is going to stop.
+Maybe it encountered
+an error because
+of some unexpected condition.
+And when that happens
+you get an exception.
+So the error is
+called an exception.
+And it's called an exception
+because it was an exception
+to what was expected.
+To what the program expected.
+So all of these errors
+that I've talked
+about in the previous
+slides are actually
+examples of exceptions.
+And there are actually
+many other types
+of exceptions, which you'll
+see as you go on in this course","Rank 2 | 9H6muyZjms0:semantic_cosine_wp240_v1:37
+7. Testing, Debugging, Exceptions, and Assertions | 1605.09–1670.00s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1605s
+
+try to make the program
+come up with any other error
+besides those two.
+So a lot of the time you're just
+going to use try except blocks.
+But there's other blocks that
+you can add to exceptions.
+And these are more
+rarely used, but I'll
+talk about them anyway.
+So you could have an else block.
+And an else block is
+going to get executed
+when the code in the
+try block finished
+without raising an error.
+And you can also
+have a finally block,
+which is always executed.
+If the code in the try block
+finished without an error,
+if you raised an
+exception, if you raised
+a different kind of exception,
+if you went through the else,
+in any of these cases,
+whatever's in the finally block
+is always going to get executed.
+And it's usually used
+to clean up code.
+Like if you want to print,
+oh, the program finished,","Rank 3 | 9H6muyZjms0:semantic_cosine_wp240_v1:41
+7. Testing, Debugging, Exceptions, and Assertions | 1799.80–1872.27s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1799s
+
+So this is how you create
+control flow in your programs
+with exceptions.
+So in Python, signaling
+an error condition
+means raising your
+own exception.
+So so far we've just seen
+the programs crashing,
+which means they
+raise an exception
+and then you deal with them.
+But in this last case, you're
+raising your own exception.
+As a way to use that exception
+later on in the code.
+So in Python, you raise
+your own exception
+using this raise keyword
+and then an exception.
+And then some sort
+of description,
+like ""user entered a negative
+number"" or something like that.
+A lot of the time we're
+going to raise a value error.
+So if the number is less than
+0, then raise a value error,
+something is wrong.
+The key word, the name
+of the error, and then
+some sort of descriptive string.
+So let's see an example of
+how we raise an exception.",passed,answer,"exception handling is used for testing and debugging, as well as to handle errors that occur during program execution.","9H6muyZjms0:semantic_cosine_wp240_v1:31
+9H6muyZjms0:semantic_cosine_wp240_v1:37","Citation 1 | rank 1 | 9H6muyZjms0:semantic_cosine_wp240_v1:31
+1286.42–1338.42s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1286s
+
+Citation 2 | rank 2 | 9H6muyZjms0:semantic_cosine_wp240_v1:37
+1605.09–1670.00s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1605s",false,,true,N/A - excluded,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Excluded khỏi evaluation scope theo benchmark đã khóa.,Reviewed,"Câu hỏi: Theo môn học, mục đích của exception handling là gì?
+
+Đáp án kỳ vọng:
+• Exception handling bắt lỗi mà nếu không sẽ phát sinh exception và làm gián đoạn thực thi bình thường.
+• Nó cho phép lập trình viên phản hồi có kiểm soát, ví dụ in thông báo rõ hơn khi user nhập dữ liệu xấu.
+• Lập trình viên cũng có thể chủ động raise exception để báo hiệu điều kiện lỗi và điều hướng control flow sau đó.
+
+Kết quả model: answer
+Câu trả lời model: Exception handling được dùng cho testing và debugging, đồng thời xử lý các lỗi xảy ra trong quá trình chương trình thực thi.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-018,evaluated_37,evidence_sufficient,Yes,What does black-box testing examine according to the course?,• Black-box testing derives test cases from the function specification or docstring without examining the implementation code.,"Rank 1 | 9H6muyZjms0:semantic_cosine_wp240_v1:15
+7. Testing, Debugging, Exceptions, and Assertions | 607.15–665.26s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=607s
+
+and all the possible
+combinations of those.
+So the important thing
+about black box testing
+is that you are doing you are
+creating the test cases based
+on the specifications only.
+Glass box testing, you're
+using the code itself
+to guide your test cases.
+So if you have a piece
+of code and you come up
+with a test case that goes
+through every single possible
+combination of input-- of
+every single possible path
+through the code, then that test
+set is called path complete.
+The problem with this is
+when you encounter loops,
+for example.
+Every single possible
+path through a loop
+is maybe the code not going
+through the loop at all,
+going through once,
+going through twice,
+going through three times, four
+times, five times, and so on.
+Right?
+Which could be a
+very, very big test.
+So instead there are
+actually some guidelines
+for when you're dealing with
+loops and things like that.","Rank 2 | 9H6muyZjms0:semantic_cosine_wp240_v1:13
+7. Testing, Debugging, Exceptions, and Assertions | 511.92–556.71s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=511s
+
+But there's actually two more
+rigorous ways to do testing.
+And one is black box
+testing and the other one
+is glass box testing.
+In black box testing,
+you're assuming
+you have the specifications
+to a function.
+So that's the docstring.
+All you're looking at is
+the docstring and coming
+up with some test
+cases based on that.
+In glass box testing,
+you have the code
+itself and you're
+trying to come up
+with some test cases that hit
+upon all of the possible paths
+through the code.
+All right.
+Let's look at an example
+for black box testing.
+I'm finding the square root of
+x to some close enough value
+given by this epsilon.","Rank 3 | 9H6muyZjms0:semantic_cosine_wp240_v1:14
+7. Testing, Debugging, Exceptions, and Assertions | 556.71–607.15s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=556s
+
+And the idea here,
+notice I don't actually
+give you how this
+function's implemented.
+The idea is that you're
+just figuring out test cases
+based on the specification.
+And the great thing
+about black box testing
+is that whoever implements
+this function can implement it
+in whatever way they wish, they
+can use approximation method,
+that can use bisection
+method, it doesn't matter.
+The test cases that you come
+up with for this function
+are going to be
+exactly the same.
+Right?
+No matter what the
+implementation.
+So for this particular
+function, here's a sample set.
+We check the boundary,
+we check perfect squares,
+we can check some number
+that's less than 1,
+we can check maybe irrationals,
+and then you do extreme tests.
+So when either epsilon is
+really large or epsilon
+is really small, or x is really
+large or x is really small,",passed,answer,"black-box testing examines test cases based on the specifications only, without using the code itself.",9H6muyZjms0:semantic_cosine_wp240_v1:15,"Citation 1 | rank 1 | 9H6muyZjms0:semantic_cosine_wp240_v1:15
+607.15–665.26s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=607s",false,,true,Correct,Correct,Complete,Grounded,Supports,N/A,N/A,All support,,Reviewed,"Câu hỏi: Theo môn học, black-box testing kiểm tra điều gì?
+
+Đáp án kỳ vọng:
+• Black-box testing tạo test case từ specification hoặc docstring của hàm mà không xem code implementation.
+
+Kết quả model: answer
+Câu trả lời model: Black-box testing xem xét các test case dựa chỉ trên specification, không dùng chính phần code implementation.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-019,evaluated_37,evidence_sufficient,Yes,"According to the lecture, what is the goal of bisection search?",• Bisection search is used as a search algorithm for finding an approximation within an implicit numeric collection or range.,"Rank 1 | 6LOwPhPDwVc:semantic_cosine_wp240_v1:2
+12. Searching and Sorting | 95.67–144.96s
+https://www.youtube.com/watch?v=6LOwPhPDwVc&t=95s
+
+It's just a way to find an
+item or a group of items
+from a collection.
+If you think about
+it, that collection
+could be either
+implicit or explicit.
+So way back at the
+beginning of the term,
+we saw an example of
+a search algorithm
+when you were looking
+for square roots.
+And we saw simple things
+like exhaustive enumeration.
+We'd go through all
+the possibilities.
+We saw our first version
+of bisection search
+there, where you would
+do approximations.
+Newton-Raphson-- these are all
+examples of a search algorithm
+where the collection
+is implicit.
+So all the numbers between some
+point that some other point.
+More common is a
+search algorithm
+where the collection
+is explicit.
+I don't know.
+For example, I've got all
+the data records of students
+and I want to know how do I
+find a particular student,
+so I can record that A plus
+that everybody in this room","Rank 2 | SE4P7IVCunE:semantic_cosine_wp240_v1:53
+3. String Manipulation, Guess and Check, Approximations, Bisection | 2389.06–2420.97s
+https://www.youtube.com/watch?v=SE4P7IVCunE&t=2389s
+
+So that's basically what
+I'm illustrating here.
+So we have our
+original search space.
+We're going to choose a
+guess halfway, eliminate
+half of the guesses.
+Then we're going look in
+the remaining interval,
+eliminate half the guesses,
+and so on and so on.
+So then this is the code
+for bisection search.
+Also looks intimidating,
+but it's not so bad.
+So we're initializing a
+bunch of stuff up here.
+The most important couple
+of things we're initializing","Rank 3 | 7lQXYl_L28w:semantic_cosine_wp240_v1:13
+11. Understanding Program Efficiency, Part 2 | 478.20–513.10s
+https://www.youtube.com/watch?v=7lQXYl_L28w&t=478s
+
+You saw an example much
+earlier in the term when Ana
+showed you bisection search.
+It was searching for a number
+with a particular property.
+I want to show you
+another example,
+both to let you recognize
+the form of the algorithm,
+but especially, to show you how
+we can reason about the growth.
+And that's another trick
+called binary search
+or, again, it's a version
+of bisection search.
+Suppose I give you a list,
+a list of numbers, integers.
+And I want to know if
+a particular element is
+in that list.
+We saw, last time, you could
+just walk down the list, just
+iterate through the entire list
+looking to see if it's there.",passed,abstain,,,,true,abstain_literal_to_null,false,Incorrect,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Reliability V1 abstain; answer-quality and citation fields are not applicable.,Reviewed,"Câu hỏi: Theo bài giảng, mục tiêu của bisection search là gì?
+
+Đáp án kỳ vọng:
+• Bisection search được dùng như một thuật toán tìm kiếm để tìm một giá trị xấp xỉ trong một tập/range số ngầm định.
+
+Kết quả model: runtime_failure — lỗi runtime, không phải abstain.",not_applicable_recovered_abstain,
+mit60001-q-020,evaluated_37,evidence_sufficient,Yes,"How does the lecture use len, indexing, and slicing to inspect or extract parts of a string?","• len returns the number of characters in a string.
+• Indexing retrieves the character at a specified position in the string.
+• Slicing extracts a substring using start and stop indices and an optional step.","Rank 1 | SE4P7IVCunE:semantic_cosine_wp240_v1:4
+3. String Manipulation, Guess and Check, Approximations, Bisection | 188.31–236.05s
+https://www.youtube.com/watch?v=SE4P7IVCunE&t=188s
+
+And by definition, it's
+going to tell me what
+the length of the string,
+which is 3 characters long.
+Another thing that
+we can do on strings
+is, since they're a
+sequence of characters,
+I might want to get
+what character is
+at a certain position.
+So we do this using this
+fancy word called indexing.
+But pretty much what
+indexing into a string means
+is you're going
+to tell Python, I
+want to know the character,
+at this certain position
+or at this certain
+index, inside my sting.
+So once again, let's use this
+string, s is equal to ""abc.""
+And let's index into it.
+So in computer science, we start
+from 0, counting by convention.","Rank 2 | SE4P7IVCunE:semantic_cosine_wp240_v1:12
+3. String Manipulation, Guess and Check, Approximations, Bisection | 592.44–638.89s
+https://www.youtube.com/watch?v=SE4P7IVCunE&t=592s
+
+And that's just going to value
+it to the string, itself.
+It's the same as 0 to the
+length s going every step.
+This one might
+actually be useful.
+It reverses the string
+automatically for you.
+So with this one
+little line here,
+you can get the
+inverse of your string.
+And that's equivalent to that.
+So the minus 1 represents
+starting from the end
+and going back every letter.
+And then this one's a little
+bit more complicated but also
+not too bad.
+So as we're doing
+these string slices,
+again, if you're unsure
+what something does,
+just type it into Spider.
+And you might be surprised.","Rank 3 | SE4P7IVCunE:semantic_cosine_wp240_v1:9
+3. String Manipulation, Guess and Check, Approximations, Bisection | 406.48–466.01s
+https://www.youtube.com/watch?v=SE4P7IVCunE&t=406s
+
+with strings, we call that
+slicing, slicing into a string.
+And this notation here should
+seem a little bit familiar,
+because we saw it last lecture
+when we did it with range.
+We had a start,
+stop, and a step.
+The notation was a
+little bit different,
+because, in range, we had
+open-close parentheses
+and commas in between.
+But except for that, this
+sort of works the same.
+The start is the
+index, starting from 0,
+from where you want to
+slice into this string.
+The stop is the stop index.
+So you're going to go
+up until stop minus 1
+and take that index.
+And then the step is how many
+letters you wish to take.
+So this is the
+full notation here.
+But sometimes, you
+can not give it
+a third sort of number in here.
+So if you only give
+it two numbers,",passed,answer,"The lecture uses len, indexing, and slicing to inspect or extract parts of a string. The chunk IDs that directly support this answer are: SE4P7IVCunE:semantic_cosine_wp240_v1:1, SE4P7IVCunE:semantic_cosine_wp240_v1:12, SE4P7IVCunE:semantic_cosine_wp240_v1:9","SE4P7IVCunE:semantic_cosine_wp240_v1:12
+SE4P7IVCunE:semantic_cosine_wp240_v1:9","Citation 1 | rank 2 | SE4P7IVCunE:semantic_cosine_wp240_v1:12
+592.44–638.89s
+https://www.youtube.com/watch?v=SE4P7IVCunE&t=592s
+
+Citation 2 | rank 3 | SE4P7IVCunE:semantic_cosine_wp240_v1:9
+406.48–466.01s
+https://www.youtube.com/watch?v=SE4P7IVCunE&t=406s",true,duplicate_supporting_ids,false,Correct,Partial,Incomplete,Partial,Supports,Supports,N/A,Partial support,"Câu trả lời chỉ nói chung rằng len/indexing/slicing được dùng để xem hoặc trích xuất string, nhưng không giải thích chức năng cụ thể của từng thao tác như expected answer points. Dense Top 3 có evidence cho len/indexing và slicing, nhưng hai citation được model chọn chỉ hỗ trợ slicing; answer còn nhắc chunk ID ':1' không nằm trong supporting IDs đã canonicalize.",Reviewed,"Câu hỏi: Bài giảng dùng len, indexing và slicing như thế nào để xem hoặc trích xuất các phần của string?
+
+Đáp án kỳ vọng:
+• len trả về số ký tự trong string.
+• Indexing lấy ký tự tại một vị trí xác định trong string.
+• Slicing lấy một substring bằng start index, stop index và step tùy chọn.
+
+Kết quả model: runtime_failure — lỗi runtime, không phải abstain.",reliability_v1_human_review,d04838c7c2924de19c0a659a3722fcbfab9f225ba57e968504593be7ff5834fc
+mit60001-q-021,evaluated_37,evidence_sufficient,Yes,How does the course explain the role of Boolean comparisons in branching?,"• Boolean comparisons provide tests whose results are True or False.
+• Branching uses those test results to choose which path of the program should execute.","Rank 1 | 0jljZRnHwOI:semantic_cosine_wp240_v1:20
+2. Branching and Iteration | 977.22–1035.16s
+https://www.youtube.com/watch?v=0jljZRnHwOI&t=977s
+
+All right.
+So now that we have ways to do
+logical-- question right there.
+AUDIENCE: [INAUDIBLE]
+PROFESSOR: Yeah, great question.
+So what does it mean to
+compare a string with a string
+with the greater than?
+So that's just going to compare
+them, lexicographically.
+So does it come first
+in the alphabet?
+So we can even test that out.
+We can say, is a greater than b?
+And it's false.
+So b comes later in
+the alphabet than a.
+OK.
+So now we have ways
+to do the tests.
+So we can add some branching
+to our programming toolbox
+now that we have
+ways to do tests.
+This is a map of MIT.
+I'm going to go through
+sort of a little example
+to motivate why we would want
+to do branching in our code.","Rank 2 | FlGjISF3l78:semantic_cosine_wp240_v1:64
+9. Python Classes and Inheritance | 2723.83–2774.41s
+https://www.youtube.com/watch?v=FlGjISF3l78&t=2723s
+
+or getting the
+combinations of those two.
+So that's what these
+two Booleans are doing.
+So these are going
+to tell me-- these
+are going to be Boolean
+values, either True or False.
+And I'm going to
+return either they
+have the same
+parents of that type
+or the same parents
+criss-crossed, OK?
+So here, notice
+that I'm actually
+comparing the IDs of the
+rabbits as opposed to the Rabbit
+objects directly, OK?
+So if, instead of
+comparing the IDs in here,
+I was comparing the parents
+themselves, directly,
+what would end up happening
+is this function, this method,
+eq(), would get called
+over and over again.
+Because here, we have
+parents that are rabbits.
+And at some point, the parents
+of the very, very first rabbits
+ever created by this
+program are None.
+And so when I try
+to call-- when I","Rank 3 | SE4P7IVCunE:semantic_cosine_wp240_v1:28
+3. String Manipulation, Guess and Check, Approximations, Bisection | 1298.01–1339.95s
+https://www.youtube.com/watch?v=SE4P7IVCunE&t=1298s
+
+These are the things
+we've added to it.
+We know integer,
+floats, Booleans.
+We know a bit of string
+manipulation, math operations.
+We added, recently, these
+conditionals and branching
+to write slightly more
+interesting programs.
+And now we have loops,
+for and while loops
+to add interesting and
+more complicated programs.
+So with these, the second
+part of this lecture
+is going to be looking at
+three different algorithms.
+That's the sort of
+computer science part
+of this class, Introduction
+to Computer Science
+and Programming using Python.
+Don't let the word
+algorithm scare you.
+They're not that complicated.
+You just have to sort of
+think a little bit about them.",passed,answer,Boolean comparisons are used to make decisions in branching by evaluating conditions and returning True or False values.,FlGjISF3l78:semantic_cosine_wp240_v1:64,"Citation 1 | rank 2 | FlGjISF3l78:semantic_cosine_wp240_v1:64
+2723.83–2774.41s
+https://www.youtube.com/watch?v=FlGjISF3l78&t=2723s",false,,true,Correct,Correct,Complete,Grounded,Supports,N/A,N/A,Partial support,"Top 3 có evidence về branching, nhưng citation được model chọn chủ yếu chứng minh kết quả Boolean True/False, chưa trực tiếp chứng minh vai trò chọn nhánh.",Reviewed,"Câu hỏi: Môn học giải thích vai trò của Boolean comparison trong branching như thế nào?
+
+Đáp án kỳ vọng:
+• Boolean comparison tạo ra các phép kiểm tra có kết quả True hoặc False.
+• Branching dùng các kết quả kiểm tra đó để chọn nhánh nào của chương trình sẽ thực thi.
+
+Kết quả model: answer
+Câu trả lời model: Boolean comparison được dùng để đưa ra quyết định trong branching bằng cách đánh giá điều kiện và trả về giá trị True hoặc False.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-022,evaluated_37,evidence_insufficient,Yes,Why is a dictionary more suitable than a list for key-value lookup?,"• A list is an ordered sequence accessed by integer indices, while a dictionary maps keys to values and is accessed by key.
+• Dictionary keys must be immutable.
+• List indexing goes directly to a position; dictionary lookup uses a hash-based indexing scheme and trades additional flexibility for lookup cost.","Rank 1 | WPSeyjX1-4s:semantic_cosine_wp240_v1:64
+6. Recursion and Dictionaries | 2317.64–2356.74s
+https://www.youtube.com/watch?v=WPSeyjX1-4s&t=2317s
+
+back a collection of all the
+keys in some arbitrary order.
+I'm going to use
+a funny term here
+which I'm not certain
+we've seen so far.
+It returns something we call
+an iterable, it's like range.
+Think of it as giving us back
+the equivalent of a list,
+it's not actually
+a list, but it's
+something we can walk down.
+Which is exactly why I
+can then say, is something
+in a dictionary, because it
+returns this set of keys,
+and I can test to see
+something's in there.
+I can similarly get
+all of the values
+if I wanted to look at them,
+giving us out two iterables.
+Here are the key things to keep
+in mind about dictionaries.","Rank 2 | WPSeyjX1-4s:semantic_cosine_wp240_v1:59
+6. Recursion and Dictionaries | 2147.04–2175.43s
+https://www.youtube.com/watch?v=WPSeyjX1-4s&t=2147s
+
+and has elements associated
+with it, a dictionary is going
+to combine a key, or if you
+like, a name of some sort,
+with an actual value.
+And we're going to
+index just by the name
+or the label as we go into it.
+So let me show
+you some examples.
+First of all, to create a
+dictionary I use curly braces,
+open closed curly brace,
+so an empty dictionary
+would be simply that call.
+If I want to create
+an actual dictionary,
+before I insert
+things into it, I","Rank 3 | 7lQXYl_L28w:semantic_cosine_wp240_v1:84
+11. Understanding Program Efficiency, Part 2 | 2890.43–2919.11s
+https://www.youtube.com/watch?v=7lQXYl_L28w&t=2890s
+
+So you can see that these
+operations are typically
+linear in the size of a list.
+These are constant.
+For dictionaries,
+remember, dictionaries
+were this nice thing.
+They weren't ordered.
+It gave me a power in
+terms of storing them.
+But as a consequence, some
+of the costs then go up.
+For a list, indexing, going
+to a particular point,
+I just go to that
+spot and retrieve it.
+Indexing into a
+dictionary, I have
+to find that point in the
+dictionary that has the key
+and get the value back.",passed,answer,"because it allows for key-value lookup by name, making it more efficient than a list for this purpose","WPSeyjX1-4s:semantic_cosine_wp240_v1:64
+WPSeyjX1-4s:semantic_cosine_wp240_v1:59","Citation 1 | rank 1 | WPSeyjX1-4s:semantic_cosine_wp240_v1:64
+2317.64–2356.74s
+https://www.youtube.com/watch?v=WPSeyjX1-4s&t=2317s
+
+Citation 2 | rank 2 | WPSeyjX1-4s:semantic_cosine_wp240_v1:59
+2147.04–2175.43s
+https://www.youtube.com/watch?v=WPSeyjX1-4s&t=2147s",true,duplicate_supporting_ids,false,Incorrect,Partial,Incomplete,Partial,Does not support,Supports,N/A,Partial support,"Ý 'lookup bằng key/name' được citation 2 hỗ trợ, nhưng claim 'more efficient than a list' không được các citation chứng minh; Dense Top 3 còn mô tả list indexing là đi trực tiếp tới vị trí và dictionary lookup có thêm lookup cost. Câu trả lời cũng thiếu integer-index vs key access và yêu cầu dictionary keys phải immutable.",Reviewed,"Câu hỏi: Vì sao dictionary phù hợp hơn list cho việc tra cứu key-value?
+
+Đáp án kỳ vọng:
+• List là dãy có thứ tự được truy cập bằng chỉ số nguyên, còn dictionary ánh xạ key tới value và truy cập bằng key.
+• Key của dictionary phải immutable.
+• List indexing đi trực tiếp tới một vị trí; dictionary lookup dùng cơ chế indexing dựa trên hash và đổi lấy tính linh hoạt cao hơn với chi phí lookup.
+
+Kết quả model: runtime_failure — lỗi runtime, không phải abstain.",reliability_v1_human_review,d04838c7c2924de19c0a659a3722fcbfab9f225ba57e968504593be7ff5834fc
+mit60001-q-023,excluded,excluded,Yes,How does the course explain abstraction when functions are used in a program?,"• Abstraction captures a computation inside a procedure and exposes a contract.
+• The caller does not need to know the procedure's internal details as long as it delivers the promised result.
+• Functions also support decomposition by organizing code into coherent structural units.","Rank 1 | RvRKT-jXvko:semantic_cosine_wp240_v1:0
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 0.79–59.49s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=0s
+
+The following content is
+provided under a Creative
+Commons license.
+Your support will help
+MIT OpenCourseWare
+continue to offer high quality
+educational resources for free.
+To make a donation or
+view additional materials
+from hundreds of MIT courses,
+visit MIT OpenCourseWare
+at ocw.mit.edu.
+PROFESSOR: Quick, quick recap
+of what we did last time.
+So last time we introduced
+this idea of decomposition
+and abstraction.
+And we started putting
+that into our programs.
+And these were sort of
+high level concepts,
+and we achieved them using
+these concrete things called
+functions in our programs.
+And functions
+allowed us to create
+code that was coherent, that
+had some structure to it,
+and was reusable.
+OK.
+And from now on in problem
+sets and in lectures,","Rank 2 | MjbuarJ7SE0:semantic_cosine_wp240_v1:54
+4. Decomposition, Abstraction, and Functions | 2418.06–2460.99s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=2418s
+
+So that's sort of
+showing nested functions.
+All right just circling back
+to decomposition-abstraction.
+This is the last slide.
+You can see if you look
+at the code associated
+with today's lecture, there
+are some other examples
+where you can see
+just how powerful it
+is to use functions.
+And you can write really
+clean and simple code
+if you define your own functions
+and then just use them later.
+And the beauty of defining
+your own functions
+that you can use
+multiple times later
+is you only have to debug
+the function once right?
+I know debugging is not
+your favorite thing,
+but you only have to
+debug this one thing once,
+and then you can know that
+it's right and it works well,
+and you can just use
+it multiple times.
+All right thanks everyone.","Rank 3 | MjbuarJ7SE0:semantic_cosine_wp240_v1:6
+4. Decomposition, Abstraction, and Functions | 247.84–280.32s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=247s
+
+later on if they find it useful.
+So today we're introducing
+this idea of functions.
+And functions are
+mechanisms to achieve
+decomposition and abstraction.
+So these are two
+key words here that
+are going to pop up
+in today's lecture
+and also in future lectures.
+So before I introduce
+decomposition and abstraction
+in the context of
+functions, let's
+first take a look at just
+sort of a real-life example.
+So let's take a projector.
+I'm using one right now.
+Quick show of hands.",passed,abstain,,,,false,,true,N/A - excluded,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Excluded khỏi evaluation scope theo benchmark đã khóa.,Reviewed,"Câu hỏi: Môn học giải thích abstraction khi dùng function trong chương trình như thế nào?
+
+Đáp án kỳ vọng:
+• Abstraction đóng gói một phép tính bên trong procedure và đưa ra một contract.
+• Caller không cần biết chi tiết bên trong procedure miễn là nó cung cấp kết quả đã hứa.
+• Function cũng hỗ trợ decomposition bằng cách tổ chức code thành các đơn vị cấu trúc mạch lạc.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-025,evaluated_37,evidence_sufficient,Yes,How does the course explain the role of inheritance in object-oriented programming?,"• A parent class defines data attributes and methods or behaviors shared by its child classes.
+• Child classes inherit all of those parent attributes and methods.
+• A child class can add information or behavior specific to that subclass.","Rank 1 | FlGjISF3l78:semantic_cosine_wp240_v1:1
+9. Python Classes and Inheritance | 70.64–114.22s
+https://www.youtube.com/watch?v=FlGjISF3l78&t=70s
+
+able to create objects
+that were of our own types.
+We saw the coordinate example.
+And then at the
+end of the class,
+we saw the fraction example.
+So today we're going to
+talk a little bit more
+about object-oriented
+programming and classes.
+We're going to see
+a few more examples.
+And we're going to talk about
+a few other nuances of classes,
+talk about information
+hiding and class variables.
+And in the second
+half of the lecture,
+we're going to talk about
+the idea of inheritance.
+So we're going to use
+object-oriented programming
+to simulate how real life works.
+So in real life, you
+have inheritance.
+And in object-oriented
+programming,
+you can also simulate that.
+OK, so the first
+few slides are going","Rank 2 | FlGjISF3l78:semantic_cosine_wp240_v1:32
+9. Python Classes and Inheritance | 1401.68–1430.80s
+https://www.youtube.com/watch?v=FlGjISF3l78&t=1401s
+
+Whatever an animal
+can do, a cat can do.
+And whatever an animal can do,
+a rabbit can do, OK-- that is,
+have an age and maybe some
+really basic functionality, OK?
+But between person,
+cat, and rabbit,
+they're going to
+be varying wildly
+as to the kinds of things
+that they can do, right?
+But they can all do
+whatever Animal can do.
+So child classes inherit
+all of the data attributes
+and all of the
+methods, or behaviors,
+that their parent's
+classes have, OK?
+But child classes can
+add more information.","Rank 3 | FlGjISF3l78:semantic_cosine_wp240_v1:7
+9. Python Classes and Inheritance | 339.65–372.44s
+https://www.youtube.com/watch?v=FlGjISF3l78&t=339s
+
+value.
+But the x and y values
+among different instances
+are going to vary, OK?
+So that's the difference
+between defining a class
+and looking at a particular
+instance of a class.
+So instances have the
+structure of the class.
+So for a coordinate,
+all instances
+have an x value and a y value.
+But the actual values
+are going to vary
+between the different instances.
+OK, so ultimately,
+why do we want
+to use object-oriented
+programming?
+So, so far, the
+examples that we've seen",passed,abstain,,,,false,,true,Incorrect,N/A,N/A,N/A,N/A,N/A,N/A,N/A,"Canonical label cho biết Top 3 đủ evidence, nhưng generator đã abstain.",Reviewed,"Câu hỏi: Môn học giải thích vai trò của inheritance trong lập trình hướng đối tượng như thế nào?
+
+Đáp án kỳ vọng:
+• Parent class định nghĩa data attributes và methods/behaviors dùng chung cho các child class.
+• Child class kế thừa các attributes và methods đó từ parent.
+• Child class có thể thêm thông tin hoặc hành vi riêng cho subclass.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-026,evaluated_37,evidence_insufficient,Yes,What happens when a list element is accessed using an index?,"• Python can locate the address of the indexed list slot and follow the stored pointer to the object in memory.
+• Because the address of the i-th slot is known, any list element can be accessed by index in constant time.","Rank 1 | -DP1i2ZU9gk:semantic_cosine_wp240_v1:8
+8. Object Oriented Programming | 329.03–385.56s
+https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=329s
+
+One is going to be the
+value at specific index.
+OK?
+So at index 0, it has
+the value 1, right,
+because it's the first
+element in the list.
+And the second thing
+that represents a list
+is going to be this second
+part, which is a pointer.
+And internally this
+pointer is going
+to tell Python
+where is the memory
+location in the computer where
+you can access the element
+index 1.
+So it's just essentially
+going to be a chain,
+going from one
+index to the other.
+And at the next memory location
+you have the value at index 1,
+and then you have
+another pointer
+that takes you to the
+location in memory
+where the index 2 is located.
+And in index 2 you
+have the value and then
+the next pointer,
+and so on and so on.
+So this is how Python
+internally represents a list.
+OK?","Rank 2 | RvRKT-jXvko:semantic_cosine_wp240_v1:23
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 965.16–1009.75s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=965s
+
+It's just going to look at the
+outer-- the shell of elements.
+Indexing and slicing
+works the same way.
+So l at position 0
+gives you the value 2.
+You can index into a list,
+and then do something
+with the value
+that you get back.
+So l at position 2 says--
+that's this value there
+and add one to it.
+L at position 3, that's
+going to be this list here.
+Notice it evaluates
+to another list.
+You're not allowed
+to index outside
+of the length of the list.
+So that's going to give you
+an error, because we only
+have four elements.
+And you can also have
+expressions for your index.","Rank 3 | 7lQXYl_L28w:semantic_cosine_wp240_v1:16
+11. Understanding Program Efficiency, Part 2 | 571.65–604.20s
+https://www.youtube.com/watch?v=7lQXYl_L28w&t=571s
+
+I'm going to assume it's sorted.
+And I'm going to pick an index
+that divides the list in half,
+just pick the
+midpoint in the list.
+And I'm going to
+check that value.
+I'm going to ask, is the element
+in the list at that point
+the thing I'm looking for?
+If it is, great, I'm done.
+If I'm not that lucky,
+I'm then going to ask,
+is it larger or smaller than
+the thing I'm looking for?
+And based on that,
+I'm either going
+to search the front half or
+the back half of the list.
+Ooh, that's nice, OK?",passed,abstain,,,,false,,true,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,,Reviewed,"Câu hỏi: Điều gì xảy ra khi một phần tử list được truy cập bằng index?
+
+Đáp án kỳ vọng:
+• Python có thể xác định địa chỉ của ô list tại index đó và đi theo pointer được lưu tới object trong memory.
+• Vì địa chỉ của ô thứ i đã biết, mọi phần tử list có thể được truy cập bằng index trong thời gian hằng số.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-027,evaluated_37,evidence_sufficient,Yes,How does a for loop process the characters in a string?,"• A for loop over a string iterates directly over every character rather than over numeric indices.
+• On each iteration, the loop variable holds one character from the string.","Rank 1 | SE4P7IVCunE:semantic_cosine_wp240_v1:17
+3. String Manipulation, Guess and Check, Approximations, Bisection | 781.88–825.94s
+https://www.youtube.com/watch?v=SE4P7IVCunE&t=781s
+
+is a little bit of
+recap on for loops.
+And we're going to see how
+we can apply for loops, very
+easily, to write very
+nice, readable code when
+dealing with strings.
+So remember that for
+loops had a loop variable.
+My loop variable being this var,
+here, in this particular case.
+It can be anything you want.
+And this variable, in
+this particular case,
+iterates over this sequence
+of numbers, 0, 1, 2, 3, 4.
+So the very first time through
+the loop, var has a value of 0.
+It does the expressions
+in the loop.
+As soon as they're done,
+var takes the value 1.
+It does all the
+expressions in the loop.
+And then var takes the value
+2, and it does that all","Rank 2 | zYVWQpCitKQ:semantic_cosine_wp240_v1:1
+Simple Lists | 54.12–94.96s
+https://www.youtube.com/watch?v=zYVWQpCitKQ&t=54s
+
+which contains the
+string ""life"", the string
+""answer"", the number
+42, and the number 0.
+Here, I'm writing a loop that
+iterates over every element
+directly in L, right?
+So originally, thing is going
+to be string ""life"", then, thing
+is going to be the
+string ""answer"", then,
+thing is going to
+be the number 42.
+And so what am I doing inside
+the loop as I'm iterating?
+Well, if thing is equal to
+0, then I'm going to do this.
+And otherwise, I'm
+going to do this.
+So for the first
+two iterations when
+thing is equal to
+""life"" or ""answer"",
+I'm not doing anything.","Rank 3 | SE4P7IVCunE:semantic_cosine_wp240_v1:21
+3. String Manipulation, Guess and Check, Approximations, Bisection | 948.46–1010.92s
+https://www.youtube.com/watch?v=SE4P7IVCunE&t=948s
+
+And it just looks pretty, right?
+You can tell what this
+code's supposed to do.
+Whereas this one is a little
+bit harder to decipher.
+So that's sort of an
+illustration of a for loop
+over a sequence of characters.
+So char is going to be
+a loop variable, still.
+And the loop variable,
+instead of iterating over
+a set of numbers, it's going
+to iterate over every character
+in s, directly.
+And char is going
+to be a character.
+It's going to be a letter.
+So here's a more
+complicated example.
+I wrote this code a
+couple of years ago.
+And it was my attempt at
+creating robot cheerleaders ,
+because I needed
+some motivation.
+And then I googled, last
+night, ""robot cheerleaders,""
+and was not disappointed.
+Created this GIF.
+It looks pretty cool.
+And it looks like they
+kind of stole my idea.",passed,abstain,,,,false,,true,Incorrect,N/A,N/A,N/A,N/A,N/A,N/A,N/A,"Canonical label cho biết Top 3 đủ evidence, nhưng generator đã abstain.",Reviewed,"Câu hỏi: Một vòng for xử lý các ký tự trong string như thế nào?
+
+Đáp án kỳ vọng:
+• Vòng for trên string lặp trực tiếp qua từng ký tự thay vì qua các chỉ số số học.
+• Ở mỗi lần lặp, biến vòng lặp giữ một ký tự của string.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-029,evaluated_37,evidence_sufficient,Yes,How does a function return a value to its caller?,"• A return statement specifies an expression whose evaluated value is sent back by the function.
+• The code that called the function receives that returned value.","Rank 1 | MjbuarJ7SE0:semantic_cosine_wp240_v1:27
+4. Decomposition, Abstraction, and Functions | 1203.66–1258.52s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=1203s
+
+So we're still inside
+the function call f,
+so x gets the value 4.
+We're printing this and
+then we're returning x.
+So in the scope of
+f, x is equal to 4,
+so we're returning
+that value back
+to whoever called it,
+which was this function
+call within the global scope.
+So this part right here-- f
+of x, which was the function
+call-- gets replaced with 4.
+So inside the main
+program, z is equal to 4.
+And that's how we pass
+parameters into the function,
+and we got a parameter
+back from the function.
+As soon as the function
+returns something,
+the scope that you were in
+for the function gets erased.
+You forget about every variable
+that was created in there,
+delete that scope, and
+you're back to wherever
+you started calling it.
+One warning though.
+So what happens if there's
+no return statement?","Rank 2 | MjbuarJ7SE0:semantic_cosine_wp240_v1:20
+4. Decomposition, Abstraction, and Functions | 867.35–913.58s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=867s
+
+You remember,
+think of a function
+as sort of a small procedure
+or a little mini-program
+that does something.
+So you can do anything
+inside the function
+that you can do in the regular
+program-- print things,
+do mathematical
+operations, and so on.
+The last line is the most
+important part of the function
+though.
+And it's this return statement--
+that's what we call it.
+So it's a line of code
+that starts with return,
+which is a keyword.
+And then it's going
+to be some value.
+Notice this is an
+expression here--
+i%2 == 0 is an expression
+that's going to evaluate to some
+value.
+And as long as this
+part is something
+that evaluates some value,
+it can be anything you want.","Rank 3 | MjbuarJ7SE0:semantic_cosine_wp240_v1:21
+4. Decomposition, Abstraction, and Functions | 913.58–976.88s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=913s
+
+And this line here return
+something tells Python, OK
+after you have finished
+executing everything
+inside the function, what
+value should I return?
+And whoever called
+the function is
+going to get back that
+value, and the function
+call itself will be
+replaced by that value.
+OK so let's look at an example.
+I'm going to introduce
+the idea of scope now.
+And scope just means-- is
+another word for environment.
+So if I told you that you
+could think of functions
+as little mini-programs,
+the scope of a function
+is going to be a completely
+separate environment
+than the environment
+of the main program.
+So as soon as you
+make a function call,
+behind the scenes
+what Python says is,
+OK I'm in the main program
+but I see a function call.
+I'm going to step out
+of this main program.
+I'm going to go off into
+this new environment.",passed,answer,"The function returns a value to its caller by using a return statement, which tells Python to replace the function call with the returned value.","MjbuarJ7SE0:semantic_cosine_wp240_v1:20
+MjbuarJ7SE0:semantic_cosine_wp240_v1:21","Citation 1 | rank 2 | MjbuarJ7SE0:semantic_cosine_wp240_v1:20
+867.35–913.58s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=867s
+
+Citation 2 | rank 3 | MjbuarJ7SE0:semantic_cosine_wp240_v1:21
+913.58–976.88s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=913s",false,,true,Correct,Correct,Complete,Grounded,Supports,Supports,N/A,All support,,Reviewed,"Câu hỏi: Một function trả giá trị về caller như thế nào?
+
+Đáp án kỳ vọng:
+• Return statement chỉ định một expression; giá trị sau khi expression được đánh giá sẽ được function trả về.
+• Đoạn code gọi function nhận giá trị được trả về đó.
+
+Kết quả model: answer
+Câu trả lời model: Function trả giá trị về caller bằng return statement; nó báo cho Python thay thế lời gọi function bằng giá trị được trả về.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-030,evaluated_37,evidence_sufficient,Yes,What role does self play when a method is called on an object?,"• self represents the particular instance on which a method operates.
+• Instance attributes are referenced with self.attribute, and self is the first parameter of an instance method.","Rank 1 | -DP1i2ZU9gk:semantic_cosine_wp240_v1:21
+8. Object Oriented Programming | 917.59–954.54s
+https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=917s
+
+And we give it some
+parameters, right,
+just like any other function.
+These last two
+parameters are x and y,
+which are going to represent how
+you create a coordinate object.
+So you give it a value
+for the x-coordinate
+and you give it a value
+for the y-coordinate.
+The self, however, is
+a little bit trickier.
+So the self is going
+to be a parameter when
+you define this
+class that represents
+a particular instance
+of the class.
+So we're defining
+this coordinate object
+in sort of a general way, right?","Rank 2 | -DP1i2ZU9gk:semantic_cosine_wp240_v1:22
+8. Object Oriented Programming | 954.54–1013.37s
+https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=954s
+
+We don't have a
+specific instance
+yet because we haven't
+created an object yet.
+But this self is
+going to be sort
+of a placeholder for
+any sort of instance
+when you create the object.
+So in the definition
+of the class,
+whenever you want to
+refer to attributes
+that belong to an instance,
+you have to use self dot.
+So this dot notation.
+And the dot is going to say
+look for a data attribute
+x that belongs to this class.
+So for methods that
+belong to the class,
+the first parameter is
+always going to be self.
+It can be named
+anything you want,
+but really by convention
+it's always named self.
+So try to stick to that.
+And then any other
+parameters beyond it
+are going to be just
+parameters as you
+would put in a normal function.
+OK.
+In this particular
+case, we're going","Rank 3 | FlGjISF3l78:semantic_cosine_wp240_v1:5
+9. Python Classes and Inheritance | 239.89–284.37s
+https://www.youtube.com/watch?v=FlGjISF3l78&t=239s
+
+attributes of any instance.
+So we use this
+self variable, OK?
+And the self variable
+we used to refer
+to any instance-- to the data
+attributes of any instance
+in a general way
+without actually
+having a particular
+instance in mind, OK?
+So whenever we access
+data attributes,
+we would say something like self
+dot to access a data attribute.
+You'd access the attribute
+directly with self.x.
+Or if you wanted
+to access a method,
+you would say self, dot,
+and then the method name--
+for example, distance.
+And really, the bottom line
+of the class definition
+is that your class defines
+all of the data-- so data
+attributes-- and
+all of the methods",passed,answer,"The self parameter plays the role of a placeholder for any instance when creating an object. It is used to refer to attributes that belong to an instance and is conventionally named self. When a method is called on an object, the self parameter is the first parameter, and it can be followed by any other parameters as in a normal function.","-DP1i2ZU9gk:semantic_cosine_wp240_v1:21
+-DP1i2ZU9gk:semantic_cosine_wp240_v1:22
+FlGjISF3l78:semantic_cosine_wp240_v1:5","Citation 1 | rank 1 | -DP1i2ZU9gk:semantic_cosine_wp240_v1:21
+917.59–954.54s
+https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=917s
+
+Citation 2 | rank 2 | -DP1i2ZU9gk:semantic_cosine_wp240_v1:22
+954.54–1013.37s
+https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=954s
+
+Citation 3 | rank 3 | FlGjISF3l78:semantic_cosine_wp240_v1:5
+239.89–284.37s
+https://www.youtube.com/watch?v=FlGjISF3l78&t=239s",false,,true,Correct,Correct,Complete,Grounded,Supports,Supports,Supports,All support,,Reviewed,"Câu hỏi: self có vai trò gì khi một method được gọi trên một object?
+
+Đáp án kỳ vọng:
+• self đại diện cho instance cụ thể mà method đang thao tác.
+• Instance attributes được tham chiếu bằng self.attribute, và self là parameter đầu tiên của một instance method.
+
+Kết quả model: answer
+Câu trả lời model: Parameter self đóng vai trò placeholder cho một instance khi tạo object. Nó được dùng để tham chiếu các attribute thuộc về instance và theo quy ước được đặt tên là self. Khi một method được gọi trên object, self là parameter đầu tiên và sau đó có thể là các parameter khác như trong function thông thường.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-031,evaluated_37,evidence_sufficient,Yes,What happens when a list is mutated through one of several aliases?,"• All aliases point to the same mutable list object in memory.
+• Mutating the list through one alias changes that shared object, so the changed value is visible through every alias.","Rank 1 | RvRKT-jXvko:semantic_cosine_wp240_v1:47
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 1995.16–2033.64s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=1995s
+
+all of his nicknames
+are going to refer
+to this exact same person.
+So all of his
+nicknames or aliases
+will refer to the
+same person object
+with these changed attributes.
+Does that makes sense?
+OK.
+So that sort of idea
+arises in lists.
+So a list is like
+a person object
+whose value-- whose attributes
+can change, for example.
+And as they change, all
+of the different aliases
+for this object will point
+to this changed object.
+So let's see a few examples.
+I apologize if this
+is a little small,","Rank 2 | RvRKT-jXvko:semantic_cosine_wp240_v1:37
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 1583.85–1629.99s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=1583s
+
+and expect it to be
+the mutated list.
+The list got mutated.
+The list that got
+mutated is the list
+that was passed into to here.
+We're going look at one
+example in a few slides that's
+going to show this.
+OK.
+Another thing that we can do,
+and this is often useful when
+you're working with
+data, is to convert lists
+to strings and then
+strings to lists.
+Sometimes it might be useful
+to work with strings as opposed
+to a list and vice versa.
+So this first line here,
+list s takes in a string
+and casts it to a list.
+So much like when we cast
+a float to an integer,
+for example.
+You're just casting a
+string to a list here.
+And when you do
+that up this line--
+so if this is your s
+here-- when you do list s,","Rank 3 | RvRKT-jXvko:semantic_cosine_wp240_v1:49
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 2061.97–2105.64s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=2061s
+
+So I have warm is a variable.
+And it's going to be
+equal to this list.
+So warm is going to
+point to this list here.
+Red, yellow, orange.
+It contains three elements.
+Hot is equal to warm.
+It means I'm creating
+an alias for this list.
+And the alias is going to
+be with this variable hot.
+So notice warm and hot point
+to the exact same object.
+So on line 8 when I append
+this string pink to my object,
+since both of
+these two variables
+point to the exact
+same object, if I'm
+trying to access this object
+through either variable,
+they're both going to
+print out the same thing.",passed,abstain,,,,false,,true,Incorrect,N/A,N/A,N/A,N/A,N/A,N/A,N/A,"Canonical label cho biết Top 3 đủ evidence, nhưng generator đã abstain.",Reviewed,"Câu hỏi: Điều gì xảy ra khi một list bị mutate thông qua một trong nhiều alias?
+
+Đáp án kỳ vọng:
+• Tất cả alias cùng trỏ tới một mutable list object trong memory.
+• Mutate list qua một alias sẽ thay đổi object dùng chung đó, nên giá trị đã đổi sẽ thấy được qua mọi alias.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-032,evaluated_37,evidence_sufficient,Yes,What happens when an exception is raised and no matching handler is used?,"• Without a matching try/except handler, the failing code raises the exception instead of producing a controlled response.
+• The lecture describes this unhandled case as the program crashing; with a matching handler, the exception can be caught and replaced by a clearer message.","Rank 1 | 9H6muyZjms0:semantic_cosine_wp240_v1:31
+7. Testing, Debugging, Exceptions, and Assertions | 1286.42–1338.42s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1286s
+
+to testing and debugging.
+The rest of the class will
+be on the error messages,
+or on errors that you
+will get in your programs.
+So when your functions--
+when you run functions,
+or when you run your
+program, at some point,
+the program execution
+is going to stop.
+Maybe it encountered
+an error because
+of some unexpected condition.
+And when that happens
+you get an exception.
+So the error is
+called an exception.
+And it's called an exception
+because it was an exception
+to what was expected.
+To what the program expected.
+So all of these errors
+that I've talked
+about in the previous
+slides are actually
+examples of exceptions.
+And there are actually
+many other types
+of exceptions, which you'll
+see as you go on in this course","Rank 2 | 9H6muyZjms0:semantic_cosine_wp240_v1:37
+7. Testing, Debugging, Exceptions, and Assertions | 1605.09–1670.00s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1605s
+
+try to make the program
+come up with any other error
+besides those two.
+So a lot of the time you're just
+going to use try except blocks.
+But there's other blocks that
+you can add to exceptions.
+And these are more
+rarely used, but I'll
+talk about them anyway.
+So you could have an else block.
+And an else block is
+going to get executed
+when the code in the
+try block finished
+without raising an error.
+And you can also
+have a finally block,
+which is always executed.
+If the code in the try block
+finished without an error,
+if you raised an
+exception, if you raised
+a different kind of exception,
+if you went through the else,
+in any of these cases,
+whatever's in the finally block
+is always going to get executed.
+And it's usually used
+to clean up code.
+Like if you want to print,
+oh, the program finished,","Rank 3 | 9H6muyZjms0:semantic_cosine_wp240_v1:41
+7. Testing, Debugging, Exceptions, and Assertions | 1799.80–1872.27s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1799s
+
+So this is how you create
+control flow in your programs
+with exceptions.
+So in Python, signaling
+an error condition
+means raising your
+own exception.
+So so far we've just seen
+the programs crashing,
+which means they
+raise an exception
+and then you deal with them.
+But in this last case, you're
+raising your own exception.
+As a way to use that exception
+later on in the code.
+So in Python, you raise
+your own exception
+using this raise keyword
+and then an exception.
+And then some sort
+of description,
+like ""user entered a negative
+number"" or something like that.
+A lot of the time we're
+going to raise a value error.
+So if the number is less than
+0, then raise a value error,
+something is wrong.
+The key word, the name
+of the error, and then
+some sort of descriptive string.
+So let's see an example of
+how we raise an exception.",passed,answer,"When an exception is raised and no matching handler is used, the program execution stops and the error is printed.",9H6muyZjms0:semantic_cosine_wp240_v1:31,"Citation 1 | rank 1 | 9H6muyZjms0:semantic_cosine_wp240_v1:31
+1286.42–1338.42s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1286s",false,,true,Correct,Correct,Complete,Partial,Supports,N/A,N/A,Partial support,Evidence trực tiếp hỗ trợ việc execution dừng và phát sinh exception; phần 'error is printed' không được Top 3 nói rõ.,Reviewed,"Câu hỏi: Điều gì xảy ra khi một exception được raise mà không có handler phù hợp?
+
+Đáp án kỳ vọng:
+• Không có try/except handler phù hợp, đoạn code lỗi sẽ raise exception thay vì tạo một phản hồi có kiểm soát.
+• Bài giảng mô tả trường hợp không được handle này là chương trình bị crash; nếu có handler phù hợp thì exception có thể được bắt và thay bằng thông báo rõ hơn.
+
+Kết quả model: answer
+Câu trả lời model: Khi một exception được raise mà không có handler phù hợp, quá trình thực thi chương trình dừng lại và lỗi được in ra.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-033,evaluated_37,evidence_sufficient,Yes,How does the course connect decomposition and abstraction when building programs with functions?,"• Decomposition creates structure by splitting a program into functional units.
+• Abstraction suppresses implementation details behind a function specification or docstring.
+• Once a task is implemented as a function, it can be reused without rewriting the code or knowing its internal details.","Rank 1 | RvRKT-jXvko:semantic_cosine_wp240_v1:0
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 0.79–59.49s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=0s
+
+The following content is
+provided under a Creative
+Commons license.
+Your support will help
+MIT OpenCourseWare
+continue to offer high quality
+educational resources for free.
+To make a donation or
+view additional materials
+from hundreds of MIT courses,
+visit MIT OpenCourseWare
+at ocw.mit.edu.
+PROFESSOR: Quick, quick recap
+of what we did last time.
+So last time we introduced
+this idea of decomposition
+and abstraction.
+And we started putting
+that into our programs.
+And these were sort of
+high level concepts,
+and we achieved them using
+these concrete things called
+functions in our programs.
+And functions
+allowed us to create
+code that was coherent, that
+had some structure to it,
+and was reusable.
+OK.
+And from now on in problem
+sets and in lectures,","Rank 2 | MjbuarJ7SE0:semantic_cosine_wp240_v1:13
+4. Decomposition, Abstraction, and Functions | 548.63–586.27s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=548s
+
+OK so decomposition is creating
+structure in your code.
+And abstraction is the idea
+of suppressing details.
+So in the projector example,
+remember, abstraction
+was you didn't need to know
+exactly how the projector
+worked in order to use it.
+And it's going to be the
+same idea in programming.
+So once you write a piece of
+code that does a little task,
+you don't need to rewrite
+that piece of code many times.
+You've written it
+once, and you write
+this thing called a function
+specification for it,
+or a docstring.
+And this is a piece of
+text that tells anyone
+else who would want to use it
+in the future-- other people,
+maybe yourself-- it tells
+them how to use this function.","Rank 3 | MjbuarJ7SE0:semantic_cosine_wp240_v1:54
+4. Decomposition, Abstraction, and Functions | 2418.06–2460.99s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=2418s
+
+So that's sort of
+showing nested functions.
+All right just circling back
+to decomposition-abstraction.
+This is the last slide.
+You can see if you look
+at the code associated
+with today's lecture, there
+are some other examples
+where you can see
+just how powerful it
+is to use functions.
+And you can write really
+clean and simple code
+if you define your own functions
+and then just use them later.
+And the beauty of defining
+your own functions
+that you can use
+multiple times later
+is you only have to debug
+the function once right?
+I know debugging is not
+your favorite thing,
+but you only have to
+debug this one thing once,
+and then you can know that
+it's right and it works well,
+and you can just use
+it multiple times.
+All right thanks everyone.",passed,abstain,,,,false,,true,Incorrect,N/A,N/A,N/A,N/A,N/A,N/A,N/A,"Canonical label cho biết Top 3 đủ evidence, nhưng generator đã abstain.",Reviewed,"Câu hỏi: Môn học liên hệ decomposition và abstraction như thế nào khi xây dựng chương trình bằng function?
+
+Đáp án kỳ vọng:
+• Decomposition tạo cấu trúc bằng cách chia chương trình thành các đơn vị chức năng.
+• Abstraction che giấu chi tiết implementation phía sau function specification hoặc docstring.
+• Khi một tác vụ đã được triển khai thành function, có thể tái sử dụng mà không cần viết lại code hoặc biết chi tiết bên trong.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-034,evaluated_37,evidence_sufficient,Yes,How does the course connect testing and debugging when finding program errors?,"• Testing uses expected and actual results to identify what is wrong.
+• Debugging then determines how or why the bad result occurred and pinpoints the responsible line, lines, or function.","Rank 1 | 9H6muyZjms0:semantic_cosine_wp240_v1:31
+7. Testing, Debugging, Exceptions, and Assertions | 1286.42–1338.42s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1286s
+
+to testing and debugging.
+The rest of the class will
+be on the error messages,
+or on errors that you
+will get in your programs.
+So when your functions--
+when you run functions,
+or when you run your
+program, at some point,
+the program execution
+is going to stop.
+Maybe it encountered
+an error because
+of some unexpected condition.
+And when that happens
+you get an exception.
+So the error is
+called an exception.
+And it's called an exception
+because it was an exception
+to what was expected.
+To what the program expected.
+So all of these errors
+that I've talked
+about in the previous
+slides are actually
+examples of exceptions.
+And there are actually
+many other types
+of exceptions, which you'll
+see as you go on in this course","Rank 2 | 9H6muyZjms0:semantic_cosine_wp240_v1:25
+7. Testing, Debugging, Exceptions, and Assertions | 1035.34–1093.90s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1035s
+
+that that's giving
+you the bad results.
+So the general debugging steps
+is to study the program code.
+Don't ask what is wrong,
+because that's actually
+part of the testing.
+So your test cases would have
+figured out what's wrong.
+The debugging process
+is figuring out
+how the result took place.
+And since programming is--
+programming and debugging
+is, sort of, is a science, you
+can use the scientific method
+as well.
+So look at all the data,
+that's your test cases.
+Figure out a hypothesis.
+Maybe say, oh, maybe I'm
+indexing from 1 instead of 0
+in lists, for example.
+Come up with an experiment
+that you can repeat.
+And then pick a
+simple test case then
+you can test your
+hypothesis with.
+So as you're debugging, you
+will encounter error messages.
+And these error
+messages are actually","Rank 3 | 9H6muyZjms0:semantic_cosine_wp240_v1:20
+7. Testing, Debugging, Exceptions, and Assertions | 863.12–899.87s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=863s
+
+And I don't know if you can read
+this, but this part right here.
+They made a note
+in their logbook
+that says, first actual
+case of bug being found.
+Which I think is really cute.
+So they were literally doing
+debugging in this computer.
+Right.
+All right.
+So you won't be doing
+that sort of debugging.
+You'll be doing a virtual kind
+of debugging in your programs.
+Which, again, is not that fun.
+But you still have to do it.
+So debugging, as you might have
+noticed so far in your problem
+sets, has a bit of a
+steep learning curve.
+And obviously your goal is
+to have a bug free program,",passed,abstain,,,,false,,true,Incorrect,N/A,N/A,N/A,N/A,N/A,N/A,N/A,"Canonical label cho biết Top 3 đủ evidence, nhưng generator đã abstain.",Reviewed,"Câu hỏi: Môn học liên hệ testing và debugging như thế nào khi tìm lỗi chương trình?
+
+Đáp án kỳ vọng:
+• Testing dùng expected result và actual result để xác định cái gì sai.
+• Debugging sau đó xác định lỗi xảy ra bằng cách nào/vì sao và chỉ ra line hoặc function chịu trách nhiệm.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-035,evaluated_37,evidence_sufficient,Yes,How does the course connect list aliasing with mutation side effects?,"• Aliasing means two names can point to the same list object.
+• Because the list is mutable, a change made through one alias changes the shared object and appears through the other alias.
+• This shared visible change is a mutation side effect.","Rank 1 | RvRKT-jXvko:semantic_cosine_wp240_v1:47
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 1995.16–2033.64s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=1995s
+
+all of his nicknames
+are going to refer
+to this exact same person.
+So all of his
+nicknames or aliases
+will refer to the
+same person object
+with these changed attributes.
+Does that makes sense?
+OK.
+So that sort of idea
+arises in lists.
+So a list is like
+a person object
+whose value-- whose attributes
+can change, for example.
+And as they change, all
+of the different aliases
+for this object will point
+to this changed object.
+So let's see a few examples.
+I apologize if this
+is a little small,","Rank 2 | WPSeyjX1-4s:semantic_cosine_wp240_v1:1
+6. Recursion and Dictionaries | 53.07–102.36s
+https://www.youtube.com/watch?v=WPSeyjX1-4s&t=53s
+
+OK last time Ana introduced
+the first of the compound data
+types, tuples and lists.
+She showed lots of ways
+of manipulating them,
+lots of built in things for
+manipulating those structures.
+And the key difference
+between the two of them
+was that tuples were immutable,
+meaning you could not
+change them, lists
+were mutable, they
+could be changed, or mutated.
+And that led to both some nice
+power and some opportunities
+for challenges.
+And, in particular, she showed
+you things like aliasing,
+where you could have two names
+pointing to the same list
+structure, and
+because of that, you
+could change the
+contents of one,
+it would change the appearance
+of the contents of the other,
+and that leads to
+some nice challenges.
+So the side effects
+of mutability
+are one of the things you're
+going to see, both as a plus
+and minus, as we go
+through the course.","Rank 3 | RvRKT-jXvko:semantic_cosine_wp240_v1:37
+5. Tuples, Lists, Aliasing, Mutability, and Cloning | 1583.85–1629.99s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=1583s
+
+and expect it to be
+the mutated list.
+The list got mutated.
+The list that got
+mutated is the list
+that was passed into to here.
+We're going look at one
+example in a few slides that's
+going to show this.
+OK.
+Another thing that we can do,
+and this is often useful when
+you're working with
+data, is to convert lists
+to strings and then
+strings to lists.
+Sometimes it might be useful
+to work with strings as opposed
+to a list and vice versa.
+So this first line here,
+list s takes in a string
+and casts it to a list.
+So much like when we cast
+a float to an integer,
+for example.
+You're just casting a
+string to a list here.
+And when you do
+that up this line--
+so if this is your s
+here-- when you do list s,",passed,answer,"list aliasing can cause mutation side effects because when a list is mutated, all its aliases point to the same changed object.","RvRKT-jXvko:semantic_cosine_wp240_v1:47
+RvRKT-jXvko:semantic_cosine_wp240_v1:37","Citation 1 | rank 1 | RvRKT-jXvko:semantic_cosine_wp240_v1:47
+1995.16–2033.64s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=1995s
+
+Citation 2 | rank 3 | RvRKT-jXvko:semantic_cosine_wp240_v1:37
+1583.85–1629.99s
+https://www.youtube.com/watch?v=RvRKT-jXvko&t=1583s",false,,true,Correct,Correct,Complete,Grounded,Supports,Does not support,N/A,Partial support,"Citation 1 hỗ trợ aliasing + mutation; citation 2 chỉ nói list bị mutate khi truyền vào hàm, không trực tiếp hỗ trợ claim về aliases.",Reviewed,"Câu hỏi: Môn học liên hệ list aliasing với mutation side effects như thế nào?
+
+Đáp án kỳ vọng:
+• Aliasing nghĩa là hai tên có thể cùng trỏ tới một list object.
+• Vì list là mutable, thay đổi qua một alias sẽ thay đổi object dùng chung và thay đổi đó xuất hiện qua alias còn lại.
+• Thay đổi dùng chung nhìn thấy được này là một mutation side effect.
+
+Kết quả model: answer
+Câu trả lời model: List aliasing có thể gây mutation side effects vì khi list bị mutate, tất cả alias của nó đều trỏ tới cùng object đã thay đổi.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-037,evaluated_37,evidence_insufficient,Yes,How do linear search and binary search differ in the number of elements they need to examine?,"• Linear search may inspect every list element, so its worst-case complexity is linear.
+• Bisection search requires a sorted list and uses the ordering to reduce the size of the remaining problem.
+• That reduction makes bisection search more efficient than linear search on suitable sorted data.","Rank 1 | 7lQXYl_L28w:semantic_cosine_wp240_v1:13
+11. Understanding Program Efficiency, Part 2 | 478.20–513.10s
+https://www.youtube.com/watch?v=7lQXYl_L28w&t=478s
+
+You saw an example much
+earlier in the term when Ana
+showed you bisection search.
+It was searching for a number
+with a particular property.
+I want to show you
+another example,
+both to let you recognize
+the form of the algorithm,
+but especially, to show you how
+we can reason about the growth.
+And that's another trick
+called binary search
+or, again, it's a version
+of bisection search.
+Suppose I give you a list,
+a list of numbers, integers.
+And I want to know if
+a particular element is
+in that list.
+We saw, last time, you could
+just walk down the list, just
+iterate through the entire list
+looking to see if it's there.","Rank 2 | 6LOwPhPDwVc:semantic_cosine_wp240_v1:2
+12. Searching and Sorting | 95.67–144.96s
+https://www.youtube.com/watch?v=6LOwPhPDwVc&t=95s
+
+It's just a way to find an
+item or a group of items
+from a collection.
+If you think about
+it, that collection
+could be either
+implicit or explicit.
+So way back at the
+beginning of the term,
+we saw an example of
+a search algorithm
+when you were looking
+for square roots.
+And we saw simple things
+like exhaustive enumeration.
+We'd go through all
+the possibilities.
+We saw our first version
+of bisection search
+there, where you would
+do approximations.
+Newton-Raphson-- these are all
+examples of a search algorithm
+where the collection
+is implicit.
+So all the numbers between some
+point that some other point.
+More common is a
+search algorithm
+where the collection
+is explicit.
+I don't know.
+For example, I've got all
+the data records of students
+and I want to know how do I
+find a particular student,
+so I can record that A plus
+that everybody in this room","Rank 3 | 6LOwPhPDwVc:semantic_cosine_wp240_v1:3
+12. Searching and Sorting | 144.96–185.54s
+https://www.youtube.com/watch?v=6LOwPhPDwVc&t=144s
+
+is going to get next
+Tuesday on that exam?
+That's not a promise.
+Sorry.
+But we'll work on it.
+So could do it implicit,
+could do it explicit.
+Today I want to focus on
+doing search explicitly.
+And it could be on different
+kinds of collections,
+but I'm going to focus-- just
+as an example-- on search
+over lists.
+And to make it a little
+easier, let's just do search
+over lists of numbers.
+But it could obviously be
+other kinds of elements.
+Now you've already seen
+some of this, right?
+We did search where we said,
+we can do linear search.
+Brute force.
+Just walk down the list
+looking at everything
+till we either find the
+thing we're looking for
+or we get to the
+end of the list.
+Sometimes also called
+British Museum algorithm
+or exhaustive enumeration.",passed,abstain,,,,false,,true,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,,Reviewed,"Câu hỏi: Linear search và binary search khác nhau như thế nào về số lượng phần tử cần kiểm tra?
+
+Đáp án kỳ vọng:
+• Linear search có thể phải kiểm tra mọi phần tử list, nên worst-case complexity là tuyến tính.
+• Bisection search cần list đã sorted và dùng thứ tự đó để giảm kích thước phần còn lại của bài toán.
+• Việc giảm đó khiến bisection search hiệu quả hơn linear search trên dữ liệu sorted phù hợp.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-038,evaluated_37,evidence_insufficient,Yes,How does the requirement for sorted input distinguish binary search from linear search?,"• Bisection search requires the list to be sorted, and the ordering lets it cut down the size of the remaining search problem.
+• Linear search does not require sorted input and may scan through the list until it finds the target or reaches the end.","Rank 1 | 6LOwPhPDwVc:semantic_cosine_wp240_v1:14
+12. Searching and Sorting | 477.42–504.68s
+https://www.youtube.com/watch?v=6LOwPhPDwVc&t=477s
+
+Could just use linear search.
+It's going to be linear.
+When you use binary search
+or bisection search,
+we can do it in log time.
+That's great.
+We assumed the list was
+sorted, but all right.
+So that lens basically says, OK.
+So when does it make
+sense to sort the list
+and then do the search?
+Right?
+Because if I can sort
+the list cheaply,
+then the search is
+going to be logarithmic.
+That's really what I would like.","Rank 2 | o9nW0uBqvEo:semantic_cosine_wp240_v1:70
+10. Understanding Program Efficiency, Part 1 | 2689.95–2718.21s
+https://www.youtube.com/watch?v=o9nW0uBqvEo&t=2689s
+
+whether it's sorted or not.
+I want you to hold
+on to that idea,
+because we're going to come
+back to the sorted list
+next week to see
+that there actually
+are much more efficient ways
+to use the fact that a list is
+sorted to do the search.
+But both of these versions
+same order growth, order n.
+OK.
+So lurching through a
+list-- right, sorry--
+searching through
+a list in sequence
+is linear because of that loop.
+There are other things
+that have a similar flavor.","Rank 3 | 7lQXYl_L28w:semantic_cosine_wp240_v1:13
+11. Understanding Program Efficiency, Part 2 | 478.20–513.10s
+https://www.youtube.com/watch?v=7lQXYl_L28w&t=478s
+
+You saw an example much
+earlier in the term when Ana
+showed you bisection search.
+It was searching for a number
+with a particular property.
+I want to show you
+another example,
+both to let you recognize
+the form of the algorithm,
+but especially, to show you how
+we can reason about the growth.
+And that's another trick
+called binary search
+or, again, it's a version
+of bisection search.
+Suppose I give you a list,
+a list of numbers, integers.
+And I want to know if
+a particular element is
+in that list.
+We saw, last time, you could
+just walk down the list, just
+iterate through the entire list
+looking to see if it's there.",passed,abstain,,,,true,abstain_literal_to_null,false,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Reliability V1 abstain; answer-quality and citation fields are not applicable.,Reviewed,"Câu hỏi: Yêu cầu input phải được sorted phân biệt binary search với linear search như thế nào?
+
+Đáp án kỳ vọng:
+• Bisection search yêu cầu list đã sorted; thứ tự này cho phép giảm kích thước phần tìm kiếm còn lại.
+• Linear search không yêu cầu input sorted và có thể quét list cho tới khi tìm thấy target hoặc tới cuối.
+
+Kết quả model: runtime_failure — lỗi runtime, không phải abstain.",not_applicable_recovered_abstain,
+mit60001-q-039,evaluated_37,evidence_sufficient,Yes,How does the course distinguish black-box testing from glass-box testing?,"• Black-box testing creates tests from the specification or docstring without using the implementation code.
+• Glass-box testing uses the code itself to design tests that exercise its possible execution paths.","Rank 1 | 9H6muyZjms0:semantic_cosine_wp240_v1:15
+7. Testing, Debugging, Exceptions, and Assertions | 607.15–665.26s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=607s
+
+and all the possible
+combinations of those.
+So the important thing
+about black box testing
+is that you are doing you are
+creating the test cases based
+on the specifications only.
+Glass box testing, you're
+using the code itself
+to guide your test cases.
+So if you have a piece
+of code and you come up
+with a test case that goes
+through every single possible
+combination of input-- of
+every single possible path
+through the code, then that test
+set is called path complete.
+The problem with this is
+when you encounter loops,
+for example.
+Every single possible
+path through a loop
+is maybe the code not going
+through the loop at all,
+going through once,
+going through twice,
+going through three times, four
+times, five times, and so on.
+Right?
+Which could be a
+very, very big test.
+So instead there are
+actually some guidelines
+for when you're dealing with
+loops and things like that.","Rank 2 | 9H6muyZjms0:semantic_cosine_wp240_v1:13
+7. Testing, Debugging, Exceptions, and Assertions | 511.92–556.71s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=511s
+
+But there's actually two more
+rigorous ways to do testing.
+And one is black box
+testing and the other one
+is glass box testing.
+In black box testing,
+you're assuming
+you have the specifications
+to a function.
+So that's the docstring.
+All you're looking at is
+the docstring and coming
+up with some test
+cases based on that.
+In glass box testing,
+you have the code
+itself and you're
+trying to come up
+with some test cases that hit
+upon all of the possible paths
+through the code.
+All right.
+Let's look at an example
+for black box testing.
+I'm finding the square root of
+x to some close enough value
+given by this epsilon.","Rank 3 | 9H6muyZjms0:semantic_cosine_wp240_v1:17
+7. Testing, Debugging, Exceptions, and Assertions | 704.48–769.08s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=704s
+
+So in this example, we have
+the absolute value of x.
+This is its specification and
+this is the implementation
+that someone decided to
+do for this function.
+So a path complete
+test set means
+that you want to
+have a test that
+goes through each one
+of these branches.
+So if x is less than
+minus 1, well, minus 2
+is less than minus 1.
+So that's good.
+And otherwise, which means pick
+a number greater than minus 1.
+So 2.
+So 2 and minus 2
+are path complete.
+Yield path complete-- yields
+a path complete test suite.
+But notice that while we've
+hit upon every possible path
+through this code, we've
+actually missed a test case.
+Minus 1.
+So this code incorrectly
+classifies minus 1
+as returning minus
+1, which is wrong.
+So for glass box
+testing, in addition to
+making sure you're going
+through all the possible paths
+through the code,
+you also want to make",passed,abstain,,,,false,,true,Incorrect,N/A,N/A,N/A,N/A,N/A,N/A,N/A,"Canonical label cho biết Top 3 đủ evidence, nhưng generator đã abstain.",Reviewed,"Câu hỏi: Môn học phân biệt black-box testing và glass-box testing như thế nào?
+
+Đáp án kỳ vọng:
+• Black-box testing tạo test từ specification hoặc docstring mà không dùng code implementation.
+• Glass-box testing dùng chính code để thiết kế test nhằm đi qua các execution path có thể có.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-040,evaluated_37,evidence_insufficient,Yes,How does the course distinguish an exception from an assertion failure?,"• Exceptions are appropriate for signaling or handling bad data supplied by a user.
+• Assertions check programmer assumptions such as input types and other function conditions, helping expose bugs early.","Rank 1 | 9H6muyZjms0:semantic_cosine_wp240_v1:51
+7. Testing, Debugging, Exceptions, and Assertions | 2375.75–2432.15s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=2375s
+
+If the assert is false, the
+function does not continue.
+It stops right there.
+Why does it behave this way?
+Well, assertions are
+great to make sure
+that preconditions and
+post-conditions on functions
+are exactly as you expect.
+So as soon as an
+assert becomes false,
+the function's going to
+immediately terminate.
+This is useful because
+it'll prevent the program
+from propagating bad values.
+So as soon as a precondition
+isn't true, for example,
+as you enter a function,
+then that means something
+went wrong in your program.
+And the program is going
+to stop right there.
+So instead of
+propagating a bad value
+throughout the
+program, and then you
+getting an output that
+you didn't expect,
+and then you having to trace
+back to the function that
+gave this bad value, you'll get
+this bad value, you'll get this","Rank 2 | 9H6muyZjms0:semantic_cosine_wp240_v1:31
+7. Testing, Debugging, Exceptions, and Assertions | 1286.42–1338.42s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1286s
+
+to testing and debugging.
+The rest of the class will
+be on the error messages,
+or on errors that you
+will get in your programs.
+So when your functions--
+when you run functions,
+or when you run your
+program, at some point,
+the program execution
+is going to stop.
+Maybe it encountered
+an error because
+of some unexpected condition.
+And when that happens
+you get an exception.
+So the error is
+called an exception.
+And it's called an exception
+because it was an exception
+to what was expected.
+To what the program expected.
+So all of these errors
+that I've talked
+about in the previous
+slides are actually
+examples of exceptions.
+And there are actually
+many other types
+of exceptions, which you'll
+see as you go on in this course","Rank 3 | 9H6muyZjms0:semantic_cosine_wp240_v1:49
+7. Testing, Debugging, Exceptions, and Assertions | 2235.36–2311.12s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=2235s
+
+So this is the exact
+same thing as before.
+We have a try and an except
+for the 0 division error.
+We also print a
+warning, no grades data.
+And then we return the 0.
+So we still flag the error,
+and now instead of a ""none,""
+we get a 0, because we've
+returned 0.0 here, as opposed
+to just leaving it blank.
+All right.
+So those are exceptions.
+Last thing we're going
+to talk about today
+are these things
+called assertions.
+And assertions are good example
+of defensive programming.
+In that, you have
+assert statements
+at the beginning of
+functions, typically.
+Or at the end of functions.
+And assert statements
+are used to make sure
+that the assumptions
+on computations
+are exactly what the
+function expects them to be.
+So if we have a
+function that says
+it's supposed to take in
+an integer greater than 0,
+then the assert
+statement will assert",passed,answer,"Assertions are used to make sure that the assumptions on computations are exactly what the function expects them to be. Exceptions are errors that occur during program execution, such as division by zero, and are used to flag errors and prevent the program from propagating bad values.","9H6muyZjms0:semantic_cosine_wp240_v1:31
+9H6muyZjms0:semantic_cosine_wp240_v1:49","Citation 1 | rank 2 | 9H6muyZjms0:semantic_cosine_wp240_v1:31
+1286.42–1338.42s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=1286s
+
+Citation 2 | rank 3 | 9H6muyZjms0:semantic_cosine_wp240_v1:49
+2235.36–2311.12s
+https://www.youtube.com/watch?v=9H6muyZjms0&t=2235s",false,,true,Incorrect,Partial,Partial,Partial,Supports,Supports,N/A,Partial support,Model trả lời dù canonical evidence là insufficient. Nội dung đúng một phần nhưng trộn hành vi 'ngăn bad values lan truyền' của assertion sang exceptions và không nêu rõ bad user input vs programmer assumptions.,Reviewed,"Câu hỏi: Môn học phân biệt exception với assertion failure như thế nào?
+
+Đáp án kỳ vọng:
+• Exception phù hợp để báo hiệu hoặc xử lý dữ liệu xấu do user cung cấp.
+• Assertion kiểm tra các giả định của programmer như kiểu input và các điều kiện khác của function, giúp phát hiện bug sớm.
+
+Kết quả model: answer
+Câu trả lời model: Assertion được dùng để bảo đảm các giả định về phép tính đúng với những gì function mong đợi. Exception là các lỗi xảy ra trong quá trình chương trình thực thi, chẳng hạn chia cho 0, và được dùng để báo lỗi cũng như ngăn chương trình lan truyền các giá trị xấu.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-041,excluded,excluded,Yes,How does the course distinguish a class from an instance of that class?,"• A class definition describes an object type, including its data representation and available interactions or methods.
+• An instance is a particular object created from that class and has the class name as its type.
+• Methods defined for the class are used to operate on its instances.","Rank 1 | vqn_yk5aFcI:semantic_cosine_wp240_v1:0
+Class Definition | 0.79–48.96s
+https://www.youtube.com/watch?v=vqn_yk5aFcI&t=0s
+
+The following content is
+provided under a Creative
+Commons license.
+Your support will help
+MIT OpenCourseWare
+continue to offer high quality
+educational resources for free.
+To make a donation or
+view additional materials
+from hundreds of MIT courses,
+visit MIT OpenCourseWare
+at ocw.mit.edu.
+PROFESSOR: So, which
+of the following
+is a good and valid definition
+for a class representing a car?
+OK, most of the people
+I think have gotten it,
+which is the red, which
+says class car object,
+and that's perfect.
+OK.
+So this defines a function,
+this defines a class correctly,
+but A is just not
+descriptive name at all,
+and this is kind of weird, and
+this is the right one here.","Rank 2 | -DP1i2ZU9gk:semantic_cosine_wp240_v1:42
+8. Object Oriented Programming | 1921.95–1964.69s
+https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=1921s
+
+an instance of a
+particular class,
+you use this special
+function called is instance.
+So if you print is instance
+C comma coordinate,
+this is going to print true
+because C is an object that
+is of type coordinate.
+Couple more words on
+these special operators.
+So these special
+operators allow you
+to customize your classes which
+can add some cool functionality
+to them.
+So these special
+operators are going
+to be things like
+addition, subtraction,
+using the equal equal sign,
+greater than, less than,
+length and so on and so on.","Rank 3 | 2__KumJsGXc:semantic_cosine_wp240_v1:0
+Class Instance | 0.79–36.61s
+https://www.youtube.com/watch?v=2__KumJsGXc&t=0s
+
+The following content is
+provided under a Creative
+Commons license.
+Your support will help
+MIT OpenCourseWare
+continue to offer high quality
+educational resources for free.
+To make a donation or
+view additional materials
+from hundreds of MIT courses,
+visit MIT OpenCourseWare
+at ocw.mit.edu.
+PROFESSOR: We have
+this definition
+for the class object.
+I've created the init for you.
+And here I'm giving
+it ""self,"" which
+is the first thing that
+you have to give it,",passed,abstain,,,,false,,true,N/A - excluded,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Excluded khỏi evaluation scope theo benchmark đã khóa.,Reviewed,"Câu hỏi: Môn học phân biệt class với một instance của class đó như thế nào?
+
+Đáp án kỳ vọng:
+• Class definition mô tả một object type, gồm data representation và các interaction/method có thể dùng.
+• Instance là một object cụ thể được tạo từ class và có tên class làm type.
+• Các method định nghĩa trong class được dùng để thao tác trên các instance.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-042,evaluated_37,evidence_insufficient,No,How do Python type hints work in a FastAPI endpoint?,,"Rank 1 | -DP1i2ZU9gk:semantic_cosine_wp240_v1:1
+8. Object Oriented Programming | 58.21–107.88s
+https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=58s
+
+So let's talk a little
+bit about objects.
+And we've seen objects
+in Python so far.
+Objects are basically
+data in Python.
+So every object that we've
+seen has a certain type.
+OK, that we know.
+Behind the scenes,
+though, every object
+has these two additional things.
+One is some data representation.
+So how Python represents the
+object just behind the scenes
+and what are different
+ways that you
+can interact with the object.
+So for example, every one of
+these is a different object.
+For example, this
+is the number 1,234.
+It's a specific object
+that is of type integer.
+The number 5 is a different
+object that's of type integer
+and so on.
+We've seen floats.","Rank 2 | -DP1i2ZU9gk:semantic_cosine_wp240_v1:15
+8. Object Oriented Programming | 650.24–704.49s
+https://www.youtube.com/watch?v=-DP1i2ZU9gk&t=650s
+
+in the context of a
+coordinate object.
+And a coordinate
+object is essentially
+going to be an object
+that's going to define
+a point in an xy plane.
+So x, y is going to be a
+coordinate in a 2D plane.
+So we're going to
+write code that's
+going to allow us to
+define that kind of object.
+So the way we do that is
+we have to define a class.
+So we have to tell Python,
+hey, I'm defining my own object
+type.
+So you do that with
+this class key word.
+So you say class, then you
+say the name of your type.
+In this case, we're creating
+a type called coordinate.
+Just like we had type list,
+type string, and so on.
+This is going to be a
+type called coordinate.
+And then in
+parentheses here, you
+put what the parents
+of the class are.","Rank 3 | MjbuarJ7SE0:semantic_cosine_wp240_v1:46
+4. Decomposition, Abstraction, and Functions | 2047.88–2081.89s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=2047s
+
+as you'll see in a
+couple lectures from now.
+OK cool.
+So let's go on to the
+last scope example.
+OK this slide is here,
+and notice I've bolded,
+underlined, and italicized
+the Python Tutor,
+because I find it
+extremely helpful.
+So the Python Tutor--
+as I've mentioned
+in one of the assignments--
+it was actually developed
+by a grad student here,
+or post-grad student
+slash post-doc here.
+And it allows you to go
+through Python, paste a code,",passed,abstain,,,,false,,true,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,,Reviewed,"Câu hỏi: Python type hints hoạt động như thế nào trong một FastAPI endpoint?
+
+Đáp án kỳ vọng:
+Không có expected answer points — câu hỏi ngoài phạm vi benchmark.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-043,evaluated_37,evidence_insufficient,No,How do I train a transformer model with PyTorch?,,"Rank 1 | MjbuarJ7SE0:semantic_cosine_wp240_v1:46
+4. Decomposition, Abstraction, and Functions | 2047.88–2081.89s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=2047s
+
+as you'll see in a
+couple lectures from now.
+OK cool.
+So let's go on to the
+last scope example.
+OK this slide is here,
+and notice I've bolded,
+underlined, and italicized
+the Python Tutor,
+because I find it
+extremely helpful.
+So the Python Tutor--
+as I've mentioned
+in one of the assignments--
+it was actually developed
+by a grad student here,
+or post-grad student
+slash post-doc here.
+And it allows you to go
+through Python, paste a code,","Rank 2 | SrkqbLOQcEo:semantic_cosine_wp240_v1:4
+List Operations | 169.75–186.51s
+https://www.youtube.com/watch?v=SrkqbLOQcEo&t=169s
+
+suggest you go through
+the Python tutor
+or you just trace it out by
+hand, just like I just did.
+And hopefully it'll
+be apparent, the more
+exercises you do with lists,
+what exactly is going on.
+OK.","Rank 3 | MjbuarJ7SE0:semantic_cosine_wp240_v1:15
+4. Decomposition, Abstraction, and Functions | 626.15–673.26s
+https://www.youtube.com/watch?v=MjbuarJ7SE0&t=626s
+
+So in the projector
+example, someone
+had to build the
+first projector.
+Someone had to know how to put
+all these components together.
+So that's going to be
+you writing a function,
+so you need to know how
+to make the function work.
+And then the other hat
+is you as someone--
+as a programmer-- who is
+just using the function.
+You're assuming it's already
+been implemented correctly,
+and now you're just
+using it to do something.
+So these are some of the
+function characteristics
+and we'll see an example
+on the next slide.
+So a function's
+going to have a name.
+You have to call it something.
+It's going to have
+some parameters.
+These are the inputs
+to the function.
+You can have 0 inputs or
+as many as you'd like.
+Function should
+have a docstring.
+This is how you
+achieve abstraction.",passed,abstain,,,,false,,true,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,,Reviewed,"Câu hỏi: Tôi huấn luyện một transformer model bằng PyTorch như thế nào?
+
+Đáp án kỳ vọng:
+Không có expected answer points — câu hỏi ngoài phạm vi benchmark.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872
+mit60001-q-044,evaluated_37,evidence_insufficient,No,How do I provision cloud infrastructure with Terraform?,,"Rank 1 | FlGjISF3l78:semantic_cosine_wp240_v1:13
+9. Python Classes and Inheritance | 583.50–624.99s
+https://www.youtube.com/watch?v=FlGjISF3l78&t=583s
+
+Inside the
+parentheses, remember,
+we have the self,
+which is a variable
+that we use to refer to any
+instance of the class, OK?
+We don't have a particular
+instance in mind,
+we just want to be able to
+refer to any instance, OK?
+So we use this self variable.
+And then, the second
+parameter here
+is going to represent
+what other data we use
+to initialize our object with.
+So in this case,
+I'm going to say,
+I'm going to initialize an
+Animal object with an age, OK?
+So when I create an animal,
+I need to give it an age.
+Inside the __init__ are any
+initializations that I want
+to make.
+So the first thing is, I'm
+going to assign an instance
+variable, age-- so this is
+going to be the data attribute
+age-- to be whatever
+is passed in.","Rank 2 | FlGjISF3l78:semantic_cosine_wp240_v1:29
+9. Python Classes and Inheritance | 1284.40–1313.51s
+https://www.youtube.com/watch?v=FlGjISF3l78&t=1284s
+
+And that's probably true, right?
+Every one of these
+things has an age.
+But now I want to
+build up on this
+and create separate
+groups, right?
+And each one of
+these separate groups
+that I create on
+top of Animal is
+going to have its own
+functionality, right?
+They're going to be a little
+bit more specific, a little more
+specialized.
+So I can create these three
+groups now, a cat, a rabbit,
+and a person group.
+And for example-- so
+they're all animals, right?","Rank 3 | 7lQXYl_L28w:semantic_cosine_wp240_v1:55
+11. Understanding Program Efficiency, Part 2 | 1902.13–1950.56s
+https://www.youtube.com/watch?v=7lQXYl_L28w&t=1902s
+
+All right.
+I want to show you
+one more example.
+It's a cool problem
+from math, but mostly
+to see that characteristic
+of exponential growth.
+And then we're going to
+pull all of this together.
+This is something
+called the power set.
+So if I have a set
+of things-- well,
+let's assume I have a set of
+integers-- with no repeats--
+so 1 through n, 1, 2,
+3, 4, for example--
+I want to generate
+the collection
+of all possible subsets--
+so subset with no elements,
+with one element, with two
+elements, with three amounts,
+all the way up to n elements.
+So for example, if my
+set is 1 through 4,
+then the power set
+would be the empty set
+with no elements in it, all of
+the instances with one element,
+all of them with two,
+all of them with three,",passed,abstain,,,,false,,true,Correct,N/A,N/A,N/A,N/A,N/A,N/A,N/A,,Reviewed,"Câu hỏi: Tôi provision hạ tầng cloud bằng Terraform như thế nào?
+
+Đáp án kỳ vọng:
+Không có expected answer points — câu hỏi ngoài phạm vi benchmark.
+
+Kết quả model: abstain — model không trả lời.",m3_exact_response_reuse,f2cd3e68cff5f52e512295143c1665b838aeeb8ba3b27abe971d8e2621e02872

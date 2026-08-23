@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/benchmark_manifest_v1.schema.json",
+  "title": "MIT 6.0001 canonical benchmark manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "scope_version", "benchmark", "ground_truth_provenance", "input_sha256", "validation_status"],
+  "properties": {
+    "$schema": {"const": "../../schemas/benchmark_manifest_v1.schema.json"},
+    "schema_version": {"const": "benchmark_manifest_v1"},
+    "scope_version": {"const": "mit_60001_fall_2016_v1"},
+    "benchmark": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["question_count", "answerable_count", "out_of_scope_count", "ground_truth_range_count", "question_schema_version", "all_questions_approved"],
+      "properties": {
+        "question_count": {"const": 40},
+        "answerable_count": {"const": 35},
+        "out_of_scope_count": {"const": 5},
+        "ground_truth_range_count": {"const": 57},
+        "question_schema_version": {"const": "chunking_evaluation_question_v1"},
+        "all_questions_approved": {"const": true}
+      }
+    },
+    "ground_truth_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["review_status", "reviewer_batches", "source_review_artifacts_retained"],
+      "properties": {
+        "review_status": {"const": "human_approved"},
+        "reviewer_batches": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["human_batch_01_2026-07-31", "human_batch_02_2026-08-10", "human_batch_02_2026-08-11"],
+          "properties": {
+            "human_batch_01_2026-07-31": {"const": 13},
+            "human_batch_02_2026-08-10": {"const": 20},
+            "human_batch_02_2026-08-11": {"const": 7}
+          }
+        },
+        "source_review_artifacts_retained": {"const": false}
+      }
+    },
+    "input_sha256": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evaluation_questions", "question_schema"],
+      "properties": {
+        "evaluation_questions": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "question_schema": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "validation_status": {"const": "passed"}
+  }
+}

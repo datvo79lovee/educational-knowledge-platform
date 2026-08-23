@@ -4,8 +4,9 @@
   "title": "MIT 6.0001 Chunking Evaluation Question v1",
   "type": "object",
   "additionalProperties": false,
-  "required": ["question_id", "scope_version", "question", "category", "answerable", "expected_answer_points", "relevant_video_ids", "relevant_time_ranges", "review_status", "reviewer", "review_notes"],
+  "required": ["schema_version", "question_id", "scope_version", "question", "category", "answerable", "expected_answer_points", "relevant_video_ids", "relevant_time_ranges", "review_status", "reviewer", "review_notes"],
   "properties": {
+    "schema_version": {"const": "chunking_evaluation_question_v1"},
     "question_id": {"type": "string", "pattern": "^mit60001-q-[0-9]{3}$"},
     "scope_version": {"const": "mit_60001_fall_2016_v1"},
     "question": {"type": "string", "minLength": 5},
@@ -32,9 +33,16 @@
   },
   "allOf": [
     {
-      "if": {"properties": {"answerable": {"const": true}}},
-      "then": {"properties": {"expected_answer_points": {"minItems": 1}, "relevant_video_ids": {"minItems": 1}, "relevant_time_ranges": {"minItems": 1}}},
-      "else": {"properties": {"expected_answer_points": {"maxItems": 0}, "relevant_video_ids": {"maxItems": 0}, "relevant_time_ranges": {"maxItems": 0}}}
+      "if": {"properties": {"answerable": {"const": false}}},
+      "then": {"properties": {"expected_answer_points": {"maxItems": 0}, "relevant_video_ids": {"maxItems": 0}, "relevant_time_ranges": {"maxItems": 0}}}
+    },
+    {
+      "if": {"allOf": [{"properties": {"answerable": {"const": true}}}, {"properties": {"review_status": {"const": "approved"}}}]},
+      "then": {"properties": {"expected_answer_points": {"minItems": 1}, "relevant_video_ids": {"minItems": 1}, "relevant_time_ranges": {"minItems": 1}}}
+    },
+    {
+      "if": {"properties": {"category": {"const": "out_of_scope"}}},
+      "then": {"properties": {"answerable": {"const": false}}}
     }
   ]
 }

@@ -44,7 +44,7 @@ ranking.
 khớp baseline 35/35 chỉ chứng minh Search API tái tạo đúng retriever đã khóa. Nó không
 có nghĩa cả 35 câu đều có evidence đúng trong Top 3.
 
-## Ranh giới hiện tại
+## Ranh giới của Phase 7 `POST /search`
 
 Đã hoàn thành:
 
@@ -54,7 +54,7 @@ có nghĩa cả 35 câu đều có evidence đúng trong Top 3.
 - video metadata;
 - deterministic validation.
 
-Chưa làm:
+Chưa làm trong Phase 7 artifact này:
 
 - answer question;
 - evidence accept/reject;
@@ -64,6 +64,11 @@ Chưa làm:
 
 Năm out-of-scope questions cố ý trả HTTP `200` và Dense Top 3. Validator xác nhận
 response không có `answer`, `accepted`, `rejected`, `abstain` hoặc `decision`.
+
+Grounded Answer `POST /answer` được triển khai ở phase sau và được ghi tại
+`reports/20_grounded_answer_runtime/` và final Reliability V1 evidence tại
+`reports/25_grounded_answer_reliability_v1/`.
+Việc đó không thay đổi retrieval-only contract hoặc frozen validation của `/search`.
 
 ## Lệnh chạy
 

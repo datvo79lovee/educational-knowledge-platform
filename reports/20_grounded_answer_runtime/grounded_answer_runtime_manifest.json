@@ -1,0 +1,77 @@
+{
+  "$schema": "../../schemas/grounded_answer_runtime_manifest_v1.schema.json",
+  "contracts": {
+    "api_schema_version": "grounded_answer_api_v1",
+    "auto_repair_used": false,
+    "invalid_case_count": 5,
+    "invalid_case_pass_count": 5,
+    "model_output_schema_version": "grounded_answer_model_output_v1"
+  },
+  "implementation_status": "complete_runtime_only_not_quality_evaluated",
+  "inference": {
+    "actual_context_length": 4096,
+    "num_ctx": 4096,
+    "num_predict": 512,
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "input_sha256": {
+    "api_application": "1850663c7701cd56229de9c68691f4a3ec84c0042b9f4782d6ebbd3761fbc251",
+    "api_schema": "4a87e480cf02fdce40278e589de064d896e332a55ed65ac99a1d03b79a603542",
+    "contracts": "b91a54d469f9dad69d39703cfbb0540adf802130b0ec190deb46b99f2ef166f9",
+    "index_manifest": "4e8d277f630eff2c1a4b8e7721f449400e13f7e2c9fee4d99183270cc6ca388c",
+    "manifest_schema": "eca92ee14998843db7f8f6ed4820b17036c8da5447ad321a4a908946e1e60b56",
+    "model_output_schema": "a0527431a42a050f3b496a4945031cae3be91ab85fd3dc97429689c89010f15d",
+    "prompts": "ad0b1f24e64cac47daea80a82cd4904caa0ca588a7c885d82ebf818433e027df",
+    "provider": "9b972918d8458605660b38d3b320e11d565591822c1d7f6669fb65b98d69ddb3",
+    "runtime_decision": "2be9c80d6bdf16e58a3bf2265dffbe3d8605933d44bae9c188141c5d421e2fc0",
+    "runtime_validator": "96a8e533bde09360e8847e44d70e3a00cb3ae3752fad8b15e614732098abbf97",
+    "service": "a9cf296904b9b5918aec2a21825b099930f3376c77dc4bead04ab514b3ffa4d1"
+  },
+  "leakage_guard": {
+    "evaluation_label_read": false,
+    "ground_truth_read": false,
+    "source_scan_status": "passed"
+  },
+  "output_artifacts": [
+    {
+      "file": "reports/20_grounded_answer_runtime/grounded_answer_runtime_validation.csv",
+      "sha256": "09f25285496b35bb785fbef0a274347b3209abf05fc61717e5bfad1a5f16c54d"
+    },
+    {
+      "file": "reports/20_grounded_answer_runtime/grounded_answer_smoke_outputs.jsonl",
+      "sha256": "7ecb3db4de438fa4afcab5a6b2ae72fde148a5c384d7fd27c0afd783a4c0e29d"
+    }
+  ],
+  "prompt": {
+    "sha256": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+    "version": "grounded_answer_prompt_v1"
+  },
+  "provider": {
+    "api_mode": "ollama_api_chat",
+    "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "family": "llama",
+    "model": "llama3.2:3b",
+    "name": "ollama",
+    "ollama_version": "0.32.15",
+    "parameter_size": "3.2B",
+    "quantization_level": "Q4_K_M"
+  },
+  "retrieval": {
+    "index_run_id": "mit60001_index_558e4d6e873847dd",
+    "method": "dense_baseline_v1",
+    "top_k": 3
+  },
+  "runtime_run_id": "mit60001_grounded_answer_runtime_4ecfd1d052e19c2c",
+  "schema_version": "grounded_answer_runtime_manifest_v1",
+  "scope_version": "mit_60001_fall_2016_v1",
+  "smoke": {
+    "abstain_count": 1,
+    "answer_count": 1,
+    "citation_count": 2,
+    "model_call_count": 2,
+    "request_count": 2,
+    "smoke_questions_sha256": "dfa2aeae7271e7cb90ce0ddaddaebeb2899ba0f813c653ba5b873897ce8201ad"
+  },
+  "validation_status": "passed"
+}

@@ -1,0 +1,65 @@
+{
+  "artifact_sha256": {
+    "decision_results": "e834d7b4449c70503b7dea95b3c8d041869beea30d266ea492476faa4b75c916",
+    "review_workbook": "049614f35f1fb3561d8e7092538e2be2385ec0681a24b30048b9f711506d2662"
+  },
+  "artifacts": {
+    "decision_results": "reports/25_grounded_answer_reliability_v1/grounded_answer_reliability_v1_decision_results.csv",
+    "review_workbook": "evaluation/review/grounded_answer/grounded_answer_reliability_v1_human_review_2026-08-23.xlsx"
+  },
+  "boundaries": {
+    "m3_human_judgments_reused_only_for_exact_response_matches": true,
+    "m3_metrics_modified": false,
+    "new_or_changed_answers_not_auto_labeled": true
+  },
+  "decision": {
+    "accuracy": 0.6216216216216216,
+    "answer_precision": 0.7692307692307693,
+    "answer_recall": 0.47619047619047616,
+    "correct_count": 23,
+    "false_abstain_count": 11,
+    "false_abstain_rate": 0.5238095238095238,
+    "false_answer_count": 3,
+    "false_answer_rate": 0.1875,
+    "incorrect_count": 14,
+    "true_abstain_count": 13,
+    "true_answer_count": 10
+  },
+  "evaluation_scope": {
+    "evaluated_questions": 37,
+    "excluded_questions": 3,
+    "total_questions": 40
+  },
+  "human_quality": {
+    "answer_completeness": null,
+    "answer_correctness": null,
+    "citation_entailment": null,
+    "exact_m3_response_match_count": 31,
+    "groundedness": null,
+    "review_required_count": 4,
+    "review_required_ids": [
+      "mit60001-q-003",
+      "mit60001-q-014",
+      "mit60001-q-020",
+      "mit60001-q-022"
+    ],
+    "status": "pending",
+    "strict_end_to_end_success": null
+  },
+  "runtime": {
+    "failure_count": 0,
+    "normalization_applied_count": 8,
+    "raw_contract_compliance_count": 32,
+    "success_count": 40
+  },
+  "schema_version": "grounded_answer_reliability_v1_pre_review_metrics_v1",
+  "source_sha256": {
+    "evaluator": "3ab2f90d8d0cb298eac86fa94325abd25ef48d2b3e33715105aa40873c9b9912",
+    "m3_final_results": "2d7e7c31357db0767778262f457cdbd02bd61b7d5730ddbdcc981b26aa8d7d13",
+    "m3_primary": "f8fcba9f2c3b90921a6a6ad0ed319a47ff8ad26d6c235ee86eb763c1f2c3bc07",
+    "reliability_outputs": "885d888f2180d67b5455bc60f6ad2116d3b9a73fc7d6ed83d8c18136621ef122",
+    "review_workbook": "049614f35f1fb3561d8e7092538e2be2385ec0681a24b30048b9f711506d2662",
+    "runtime_summary": "84966c501a339602c50888fb9f11afe29788fe95073dc313f8fa4da33534f129"
+  },
+  "status": "ready_for_human_quality_review"
+}

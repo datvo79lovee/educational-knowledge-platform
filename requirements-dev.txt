@@ -1,0 +1,6 @@
+# Tests and local validation
+-r requirements.txt
+pytest==9.1.1
+httpx==0.28.1
+jsonschema==4.26.0
+pandas==3.0.2
