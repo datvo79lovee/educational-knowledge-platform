@@ -9,6 +9,7 @@ and the pre-execution hash refusals without loading the encoder or calling Ollam
 from __future__ import annotations
 
 import hashlib
+import inspect
 import json
 import subprocess
 import sys
@@ -78,13 +79,11 @@ def test_english_prompt_is_still_byte_identical_to_reliability_v1() -> None:
     assert PROMPT_VERSION == "grounded_answer_prompt_v1"
 
 
-def test_vietnamese_prompt_is_decision_conditional_and_reversioned() -> None:
-    assert VI_SYSTEM_PROMPT.startswith(SYSTEM_PROMPT), "the VI prompt extends the frozen English prompt"
-    tail = VI_SYSTEM_PROMPT[len(SYSTEM_PROMPT) :]
-    assert "Write an answer in Vietnamese." not in tail, "the unconditional instruction must be gone"
-    assert "If you answer" in tail and "If you abstain" in tail, "both decision branches must be addressed"
-    assert "null" in tail and "supporting_chunk_ids" in tail, "the abstain shape must be stated"
-    assert VI_PROMPT_VERSION == "grounded_answer_prompt_vi_v2", "a changed prompt needs a changed version label"
+def test_vietnamese_prompt_was_rolled_back_after_the_candidate_failed() -> None:
+    """The active runtime returns to the M4 prompt after frozen M5.1 rejected v2."""
+
+    assert VI_SYSTEM_PROMPT == SYSTEM_PROMPT + "\nWrite an answer in Vietnamese."
+    assert VI_PROMPT_VERSION == "grounded_answer_prompt_vi_v1"
 
 
 def test_user_prompt_is_untouched() -> None:
@@ -142,16 +141,20 @@ def test_gate_g1_fails_when_runtime_hashes_move_during_execution() -> None:
     assert gates["all_passed"] is False
 
 
-def test_scope_integrity_accepts_only_the_authorised_prompt_file() -> None:
+def test_frozen_m5_scope_detects_the_post_failure_rollback() -> None:
     prereg = json.loads(M5_PREREGISTRATION.read_text(encoding="utf-8"))
 
     report = scope_integrity_report(prereg)
 
-    assert report["observed_changed_files"] == ["src/grounded_answer/prompts.py"]
+    assert report["observed_changed_files"] == []
     assert report["unauthorized_changed_files"] == []
-    assert report["authorized_files_without_change"] == []
+    assert report["authorized_files_without_change"] == ["src/grounded_answer/prompts.py"]
     assert report["en_system_prompt_unchanged"] is True
-    assert report["result"] == "PASS"
+    assert report["prompt_symbols"]["mismatched_symbols"] == [
+        "vi_prompt_version",
+        "vi_system_prompt_sha256",
+    ]
+    assert report["result"] == "FAIL"
 
 
 def test_scope_integrity_rejects_a_second_changed_runtime_file() -> None:
@@ -190,8 +193,38 @@ def test_preregistration_locks_the_corrected_gate_and_the_pins() -> None:
         "scripts/evaluation/run_multilingual_runtime_v1_m3.py",
     }
     assert runner.analysis_code_mismatches(prereg) == []
-    assert runner.runtime_source_mismatches(prereg) == []
+    assert runner.runtime_source_mismatches(prereg) == ["src/grounded_answer/prompts.py"]
     assert "contract_must_not_be_weakened" in prereg
+
+
+def _current_prompt_pins() -> dict[str, str]:
+    return {
+        "en_system_prompt_sha256": _sha_text(SYSTEM_PROMPT),
+        "en_prompt_version": PROMPT_VERSION,
+        "build_user_prompt_source_sha256": _sha_text(
+            inspect.getsource(build_user_prompt).replace("\r\n", "\n")
+        ),
+        "vi_system_prompt_sha256": _sha_text(VI_SYSTEM_PROMPT),
+        "vi_prompt_version": VI_PROMPT_VERSION,
+    }
+
+
+def _runtime_matched_preregistration(tmp_path: Path, filename: str = "m5_preregistration.json") -> Path:
+    """Build a temporary verifier fixture for today's rolled-back runtime.
+
+    The frozen pre-registration itself remains untouched and correctly refuses this
+    runtime. The fixture preserves a positive test for the verification mechanism.
+    """
+
+    prereg = json.loads(M5_PREREGISTRATION.read_text(encoding="utf-8"))
+    prereg["runtime_under_test"]["source_sha256_lf_normalized"] = {
+        relative_path: runner.sha256_file_lf(PROJECT_ROOT / relative_path)
+        for relative_path in prereg["runtime_under_test"]["source_sha256_lf_normalized"]
+    }
+    prereg["scope_integrity"]["prompt_symbols"] = _current_prompt_pins()
+    path = tmp_path / filename
+    path.write_text(json.dumps(prereg, ensure_ascii=False), encoding="utf-8")
+    return path
 
 
 @pytest.mark.parametrize(
@@ -223,9 +256,9 @@ def test_runner_refuses_to_start_on_a_hash_mismatch(
 def test_runner_refuses_to_start_when_scope_integrity_fails(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
-    tampered = json.loads(M5_PREREGISTRATION.read_text(encoding="utf-8"))
+    tampered = json.loads(_runtime_matched_preregistration(tmp_path).read_text(encoding="utf-8"))
     tampered["scope_integrity"]["prompt_symbols"]["en_system_prompt_sha256"] = "0" * 64
-    tampered_path = tmp_path / "m5_preregistration.json"
+    tampered_path = tmp_path / "m5_preregistration_scope_drift.json"
     tampered_path.write_text(json.dumps(tampered, ensure_ascii=False), encoding="utf-8")
 
     monkeypatch.setattr(runner, "PREREGISTRATION", tampered_path)
@@ -243,19 +276,33 @@ def _result_artifact_state() -> dict[str, str | None]:
     return state
 
 
-def test_verify_only_leaves_result_artifacts_unchanged() -> None:
+def test_frozen_m5_runner_refuses_the_rolled_back_runtime_without_touching_artifacts() -> None:
     script = PROJECT_ROOT / "scripts/evaluation/run_multilingual_runtime_v1_m5.py"
     before = _result_artifact_state()
     completed = subprocess.run(
         [sys.executable, "-X", "utf8", str(script), "--verify-only"],
         cwd=PROJECT_ROOT,
-        check=True,
         capture_output=True,
         text=True,
         encoding="utf-8",
     )
 
-    assert "no encoder load and no Ollama call was made" in completed.stdout
+    assert completed.returncode != 0
+    assert "Runtime under test changed since pre-registration" in completed.stderr
+    assert "src/grounded_answer/prompts.py" in completed.stderr
+    assert _result_artifact_state() == before
+
+
+def test_verify_only_positive_path_works_with_a_runtime_matched_fixture(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    fixture = _runtime_matched_preregistration(tmp_path)
+    monkeypatch.setattr(runner, "PREREGISTRATION", fixture)
+    monkeypatch.setattr(sys, "argv", ["run_multilingual_runtime_v1_m5.py", "--verify-only"])
+    before = _result_artifact_state()
+
+    runner.main()
+
     assert _result_artifact_state() == before
 
 
@@ -388,7 +435,7 @@ def test_prompt_symbols_are_pinned_with_roles() -> None:
 
     report = prompt_symbol_report(prereg)
 
-    assert report["result"] == "PASS"
+    assert report["result"] == "FAIL", "the frozen candidate must detect the rollback"
     assert report["frozen_symbols_unchanged"] is True
     assert report["symbols"]["en_system_prompt_sha256"]["role"] == "frozen"
     assert report["symbols"]["en_prompt_version"]["role"] == "frozen"
@@ -407,10 +454,10 @@ def test_prompt_symbols_are_pinned_with_roles() -> None:
         "vi_prompt_version",
     ],
 )
-def test_any_prompt_symbol_drift_fails_scope_integrity(symbol: str) -> None:
+def test_any_prompt_symbol_drift_fails_scope_integrity(symbol: str, tmp_path: Path) -> None:
     """A change to any pinned symbol must fail, not just a change to the file."""
 
-    prereg = json.loads(M5_PREREGISTRATION.read_text(encoding="utf-8"))
+    prereg = json.loads(_runtime_matched_preregistration(tmp_path).read_text(encoding="utf-8"))
     prereg["scope_integrity"]["prompt_symbols"][symbol] = "drifted"
 
     report = scope_integrity_report(prereg)

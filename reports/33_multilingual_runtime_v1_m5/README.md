@@ -163,3 +163,13 @@ prompt mới cải thiện có hệ thống hoặc prompt cũ gây ra lỗi.
 Freeze không rollback prompt và không mở candidate mới. Theo failure rule đã đăng ký,
 rollback cần được thực hiện ở bước riêng sau khi artifact failed này được commit. M6
 không được mở vì M5.1 không PASS.
+
+## M5.2 — rollback sau failed gate
+
+Sau khi M5.1 failed artifact được commit, candidate `grounded_answer_prompt_vi_v2`
+đã được rollback về `grounded_answer_prompt_vi_v1`. File prompt active khớp lại đúng
+M4 pin `ac8541bea67a...`. Không gọi model, không rerun M5.1 và không mở candidate mới.
+
+Rollback chỉ thực thi failure rule; nó không làm runtime VI production-ready. Prompt
+`vi_v1` là runtime đã quan sát 8/20 failure ở M4. Mọi remediation tiếp theo phải có
+pre-registration và approval mới.

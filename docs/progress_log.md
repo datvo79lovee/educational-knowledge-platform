@@ -5650,3 +5650,33 @@ non-deterministic ở M2.
 
 Freeze M4 đã hoàn tất. Mọi thay đổi prompt, normalization, model hoặc retry policy
 phải là milestone mới có pre-registration mới; không rerun M3/M4 để tìm output đẹp hơn.
+
+---
+
+# Multilingual Runtime V1 — M5.1 prompt candidate và M5.2 rollback
+
+M5.1 pre-registration revision 5 khóa một prompt artifact change gồm
+`VI_SYSTEM_PROMPT` và version identity `VI_PROMPT_VERSION`. Preparation được commit
+trước execution. Attempt `m5-1-attempt-1` chạy đúng 20 intent, zero retry.
+
+```text
+Executed / passed / failed   : 20 / 19 / 1
+G1 execution integrity       : PASS
+G2 total runtime failure = 0 : FAIL
+G3 scope integrity           : PASS
+Overall                      : FAILED
+Candidate                    : REJECTED
+```
+
+Failure duy nhất là `mit60001-q-025`: raw payload chọn abstain và answer null nhưng
+giữ một supporting chunk. Raw output, retrieval query, Top 3 và generation telemetry
+được capture; runtime source rehash sau execution PASS. M5.1 đã freeze, không rerun.
+
+M5.2 thực hiện rollback theo failure rule: `prompts.py` trở lại đúng M4 hash
+`ac8541bea67a...`, active VI prompt version trở lại `grounded_answer_prompt_vi_v1`.
+Rollback không gọi model, không sửa artifact M5.1 và không mở candidate mới. Test M5
+sau rollback: `38 passed`; frozen M5 runner từ chối runtime đã rollback đúng thiết kế,
+trong khi positive verifier path vẫn được test bằng fixture tạm.
+
+Runtime VI vẫn chưa production-ready. Remediation tiếp theo cần pre-registration và
+approval mới trước mọi code/runtime experiment.

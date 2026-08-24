@@ -200,8 +200,23 @@ M4 không human-review và không tính quality metric. Giả thuyết prompt VI
 mâu thuẫn với abstention là hướng chẩn đoán tương lai, chưa phải kết luận nhân quả và
 không được sửa trong M4.
 
+## Multilingual Runtime V1 — M5.1 failed và M5.2 rollback
+
+M5.1 thử đúng một prompt artifact candidate `grounded_answer_prompt_vi_v2` trên cùng
+20 intent. Pre-registration revision 5 được commit trước execution. Attempt chạy đủ
+20/20, zero retry: G1 PASS, G3 PASS nhưng G2 FAIL vì `mit60001-q-025` trả
+`decision="abstain"`, `answer=null` và một supporting chunk. Kết quả 19 passed / 1
+failed đã freeze tại `reports/33_multilingual_runtime_v1_m5/m5_1_final_manifest.json`;
+candidate bị `REJECTED`.
+
+M5.2 đã rollback prompt active về `grounded_answer_prompt_vi_v1`, khớp M4 source pin
+`ac8541bea67a...`. Rollback không gọi model, không rerun M5.1 và không mở candidate
+mới. Runtime VI active vẫn chưa production-ready vì prompt được restore chính là
+runtime đã quan sát 8/20 failure ở M4.
+
 ## Bước tiếp theo
 
-M4 đã freeze tại final manifest `f55a4752d712...` sau execution commit `271db28`.
-Freeze chỉ khóa phép đo đã quan sát và ranh giới diễn giải; không mở prompt tuning,
-normalization mới, model mới, rerun hay đánh giá chất lượng VI.
+Muốn tiếp tục tới demo song ngữ phải mở một remediation milestone mới có
+pre-registration riêng. Không được diễn giải 8/20 → 1/20 giữa M4 và M5.1 là bằng
+chứng nhân quả hoặc cải thiện có hệ thống vì generation/translation không được bảo
+đảm deterministic.

@@ -1,0 +1,39 @@
+{
+  "schema_version": "multilingual_runtime_v1_m5_2_rollback_manifest_v1",
+  "milestone": "multilingual_runtime_v1_m5",
+  "stage": "m5.2",
+  "status": "rollback_complete",
+  "source_failed_attempt": {
+    "file": "reports/33_multilingual_runtime_v1_m5/m5_1_final_manifest.json",
+    "sha256": "bb7c3285bb13c77e1b5759f264d10ddbcd6c67778982037c029e1ba41828f23f",
+    "candidate_decision": "REJECTED"
+  },
+  "rollback": {
+    "file": "src/grounded_answer/prompts.py",
+    "rejected_source_sha256_lf_normalized": "0b069ccc683514c9871bf5d04f77446f5016a3f001360afd74c1f17bb1d606a2",
+    "restored_source_sha256_lf_normalized": "ac8541bea67a6bfe1d7d980ce34fab2a5ff27467dce78fbf0a1df671c1d22342",
+    "restored_from_milestone": "multilingual_runtime_v1_m4",
+    "active_vi_prompt_version": "grounded_answer_prompt_vi_v1",
+    "active_vi_prompt_tail": "Write an answer in Vietnamese.",
+    "failed_candidate_retained_in_git_history": true
+  },
+  "scope": {
+    "runtime_files_changed": [
+      "src/grounded_answer/prompts.py"
+    ],
+    "frozen_m5_execution_artifacts_changed": false,
+    "model_calls": 0,
+    "rerun_performed": false,
+    "new_candidate_opened": false
+  },
+  "interpretation": {
+    "active_runtime_is_production_ready": false,
+    "reason": "Rollback restores the pre-M5 Vietnamese prompt, whose M4 sample had 8/20 runtime failures. Rollback satisfies the failed-candidate protocol; it is not a quality or reliability improvement.",
+    "next_step_requires_new_preregistration": true
+  },
+  "validation": {
+    "restored_source_matches_m4_pin": true,
+    "m5_tests": "38 passed",
+    "git_diff_check": "PASS"
+  }
+}
