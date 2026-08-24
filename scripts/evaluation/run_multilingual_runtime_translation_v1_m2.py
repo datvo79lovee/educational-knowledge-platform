@@ -29,7 +29,10 @@ from sentence_transformers import SentenceTransformer
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from scripts.evaluation.evaluate_multilingual_retrieval_m3 import branch_metrics  # noqa: E402
+from scripts.evaluation.evaluate_multilingual_retrieval_m3 import (  # noqa: E402
+    branch_metrics,
+    resolve_ranges,
+)
 from src.multilingual.translation import (  # noqa: E402
     TRANSLATION_NUM_PREDICT,
     TRANSLATION_PROMPT_VERSION,
@@ -38,12 +41,15 @@ from src.multilingual.translation import (  # noqa: E402
 
 REPORT_DIR = PROJECT_ROOT / "reports/30_multilingual_runtime_v1_m2"
 PREREGISTRATION = REPORT_DIR / "m2_preregistration.json"
+ATTEMPT_1_FAILURE = REPORT_DIR / "m2_execution_attempt_1_failure.json"
 M1_ARTIFACT = PROJECT_ROOT / "evaluation/mit_60001/multilingual/paired_intents_v1.jsonl"
+M1_MANIFEST = PROJECT_ROOT / "evaluation/mit_60001/multilingual/m1_manifest.json"
 FROZEN_RESULTS = (
     PROJECT_ROOT / "reports/27_multilingual_dense_retrieval/multilingual_dense_retrieval_results.jsonl"
 )
 INDEX_MANIFEST = PROJECT_ROOT / "reports/09_embedding/embedding_index_manifest.json"
 GOLD_FILE = PROJECT_ROOT / "data/gold/mit_60001/chunks.jsonl"
+SILVER_FILE = PROJECT_ROOT / "data/silver/mit_60001/transcripts_clean.jsonl"
 
 MACHINE_BRANCH = "machine_literal_en"
 FROZEN_LITERAL_BRANCH = "literal_en_frozen_human"
@@ -52,6 +58,7 @@ FROZEN_VARIANT_BY_BRANCH = {EN_BRANCH: "en_canonical", FROZEN_LITERAL_BRANCH: "v
 METRIC_NAMES = ("mrr", "recall_at_1", "recall_at_3", "recall_at_5", "full_evidence_at_3")
 PREDICTION_INTENT = "mit60001-q-008"
 BASELINE_TOLERANCE = 1e-9
+EXECUTION_ATTEMPT = 2
 
 
 def sha256_file(path: Path) -> str:
@@ -102,6 +109,33 @@ def verify_runtime_sources(prereg: dict[str, Any]) -> None:
             raise ValueError(f"Runtime under test changed since pre-registration: {relative_path}")
 
 
+def verify_silver_from_frozen_m1() -> None:
+    """Verify the local-only Silver input through the already-frozen M1 manifest."""
+
+    m1_manifest = json.loads(M1_MANIFEST.read_text(encoding="utf-8"))
+    source = m1_manifest["source"]
+    expected_path = str(SILVER_FILE.relative_to(PROJECT_ROOT)).replace("\\", "/")
+    if source["silver_path"] != expected_path:
+        raise ValueError("Frozen M1 manifest points to a different Silver artifact")
+    if sha256_file(SILVER_FILE) != source["silver_sha256"]:
+        raise ValueError("Local Silver hash does not match the frozen M1 manifest")
+
+
+def ensure_no_existing_result_artifacts() -> None:
+    """Prevent an accidental overwrite or unregistered third execution attempt."""
+
+    names = (
+        "m2_machine_translations.jsonl",
+        "m2_machine_retrieval_results.jsonl",
+        "m2_adjudication_worksheet.csv",
+        "m2_metrics.json",
+        "m2_manifest.json",
+    )
+    existing = [name for name in names if (REPORT_DIR / name).exists()]
+    if existing:
+        raise FileExistsError("M2 result artifacts already exist: " + ", ".join(existing))
+
+
 def translate_all(intents: list[dict[str, Any]], run_label: str) -> list[dict[str, Any]]:
     """One translator call per intent; the translator sees only the Vietnamese query."""
 
@@ -114,6 +148,7 @@ def translate_all(intents: list[dict[str, Any]], run_label: str) -> list[dict[st
         eval_count = result.eval_count
         rows.append(
             {
+                "execution_attempt": EXECUTION_ATTEMPT,
                 "run": run_label,
                 "intent_id": intent["intent_id"],
                 "question_vi": intent["question_vi"],
@@ -216,6 +251,52 @@ def aggregate_branch(rows: list[dict[str, Any]]) -> dict[str, float]:
     }
 
 
+def prepare_frozen_evaluation(
+    intents: list[dict[str, Any]],
+) -> tuple[
+    dict[tuple[str, str], dict[str, Any]],
+    dict[str, dict[str, Any]],
+    dict[str, list[dict[str, Any]]],
+    dict[str, list[dict[str, Any]]],
+]:
+    """Resolve canonical ranges and reproduce both frozen branches before model calls."""
+
+    verify_silver_from_frozen_m1()
+    gold_rows = load_jsonl(GOLD_FILE)
+    silver_rows = load_jsonl(SILVER_FILE)
+    frozen_rows = load_jsonl(FROZEN_RESULTS)
+    if len(gold_rows) != 861 or len(silver_rows) != 38 or len(frozen_rows) != 40:
+        raise ValueError("Frozen Gold/Silver/retrieval counts changed")
+    chunk_by_id = {row["chunk_id"]: row for row in gold_rows}
+    silver_by_video = {row["video_id"]: row for row in silver_rows}
+    frozen_by_key = {(row["intent_id"], row["query_variant"]): row for row in frozen_rows}
+    if len(frozen_by_key) != 40:
+        raise ValueError("Frozen retrieval results contain duplicate intent/branch records")
+
+    ranges_by_intent: dict[str, list[dict[str, Any]]] = {}
+    branch_rows = {EN_BRANCH: [], FROZEN_LITERAL_BRANCH: []}
+    for intent in intents:
+        intent_id = intent["intent_id"]
+        ranges = resolve_ranges(intent, silver_by_video)
+        ranges_by_intent[intent_id] = ranges
+        computed_relevant_ids = [
+            chunk["chunk_id"]
+            for chunk in gold_rows
+            if any(
+                chunk["video_id"] == item["video_id"]
+                and chunk["source_segment_start_index"] <= item["source_segment_end_index"]
+                and chunk["source_segment_end_index"] >= item["source_segment_start_index"]
+                for item in ranges
+            )
+        ]
+        if computed_relevant_ids != intent["relevant_chunk_ids"]:
+            raise ValueError(f"M1 relevant chunk mapping changed: {intent_id}")
+        for branch, variant in FROZEN_VARIANT_BY_BRANCH.items():
+            ranking = frozen_by_key[(intent_id, variant)]
+            branch_rows[branch].append(branch_metrics(ranking, chunk_by_id, ranges))
+    return frozen_by_key, chunk_by_id, ranges_by_intent, branch_rows
+
+
 def verify_baseline_reproduction(branch_table: dict[str, dict[str, float]], prereg: dict[str, Any]) -> None:
     """The two frozen branches must reproduce the pre-registered Phase 9 baseline."""
 
@@ -313,37 +394,57 @@ def main() -> None:
     print(f"Pre-registration revision {prereg['preregistration_revision']} verified: {prereg_hash}")
     print(f"Frozen inputs verified   : {len(prereg['frozen_inputs_sha256'])}")
     print(f"Runtime sources verified : {len(prereg['runtime_under_test']['source_sha256_lf_normalized'])}")
-    if args.verify_only:
-        print("verify-only: contract holds; no translator call was made.")
-        return
-
     intents = load_jsonl(M1_ARTIFACT)
     if len(intents) != 20:
         raise ValueError("Frozen paired artifact must contain exactly 20 intents")
     intent_by_id = {intent["intent_id"]: intent for intent in intents}
+    frozen_by_key, frozen_chunk_by_id, ranges_by_intent, frozen_branch_rows = (
+        prepare_frozen_evaluation(intents)
+    )
+    frozen_branch_table = {
+        branch: aggregate_branch(rows) for branch, rows in frozen_branch_rows.items()
+    }
+    verify_baseline_reproduction(frozen_branch_table, prereg)
+    print("Frozen branch baseline reproduction: PASS")
+    if args.verify_only:
+        print("verify-only: contract and analysis mapping hold; no translator call was made.")
+        return
+
+    ensure_no_existing_result_artifacts()
+    if not ATTEMPT_1_FAILURE.exists():
+        raise FileNotFoundError("Execution attempt 1 failure record is required before attempt 2")
+    translations_path = REPORT_DIR / "m2_machine_translations.jsonl"
 
     runs: dict[str, list[dict[str, Any]]] = {}
     for run_index in range(args.runs):
         label = chr(ord("A") + run_index)
         print(f"Translator run {label}:")
         runs[label] = translate_all(intents, label)
+        write_jsonl(
+            translations_path,
+            [row for completed_label in sorted(runs) for row in runs[completed_label]],
+        )
     determinism = determinism_report(runs)
 
     rankings, chunk_by_id = rank_machine_queries(runs["A"])
-    frozen_by_key = {(row["intent_id"], row["query_variant"]): row for row in load_jsonl(FROZEN_RESULTS)}
+    if set(chunk_by_id) != set(frozen_chunk_by_id):
+        raise ValueError("Machine ranking Gold differs from frozen evaluation Gold")
     translation_by_id = {row["intent_id"]: row for row in runs["A"]}
     machine_by_id = {ranking["intent_id"]: ranking for ranking in rankings}
 
-    branch_rows: dict[str, list[dict[str, Any]]] = {EN_BRANCH: [], FROZEN_LITERAL_BRANCH: [], MACHINE_BRANCH: []}
+    branch_rows: dict[str, list[dict[str, Any]]] = {
+        EN_BRANCH: list(frozen_branch_rows[EN_BRANCH]),
+        FROZEN_LITERAL_BRANCH: list(frozen_branch_rows[FROZEN_LITERAL_BRANCH]),
+        MACHINE_BRANCH: [],
+    }
     per_intent: list[dict[str, Any]] = []
     for intent in intents:
         intent_id = intent["intent_id"]
-        ranges = intent["ground_truth_ranges"]
-        metrics_by_branch = {}
+        ranges = ranges_by_intent[intent_id]
+        metrics_by_branch: dict[str, dict[str, Any]] = {}
         for branch, variant in FROZEN_VARIANT_BY_BRANCH.items():
             ranking = frozen_by_key[(intent_id, variant)]
             metrics_by_branch[branch] = branch_metrics(ranking, chunk_by_id, ranges)
-            branch_rows[branch].append(metrics_by_branch[branch])
         machine_ranking = machine_by_id[intent_id]
         metrics_by_branch[MACHINE_BRANCH] = branch_metrics(machine_ranking, chunk_by_id, ranges)
         branch_rows[MACHINE_BRANCH].append(metrics_by_branch[MACHINE_BRANCH])
@@ -380,13 +481,11 @@ def main() -> None:
     prediction = evaluate_prediction(per_intent, prereg)
 
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
-    translations_path = REPORT_DIR / "m2_machine_translations.jsonl"
     rankings_path = REPORT_DIR / "m2_machine_retrieval_results.jsonl"
     worksheet_path = REPORT_DIR / "m2_adjudication_worksheet.csv"
     metrics_path = REPORT_DIR / "m2_metrics.json"
     manifest_path = REPORT_DIR / "m2_manifest.json"
 
-    write_jsonl(translations_path, [row for label in sorted(runs) for row in runs[label]])
     write_jsonl(rankings_path, rankings)
     write_adjudication_worksheet(worksheet_path, per_intent)
 
@@ -396,6 +495,7 @@ def main() -> None:
         "preregistration_sha256": prereg_hash,
         "preregistration_revision": prereg["preregistration_revision"],
         "status": "awaiting_human_adjudication",
+        "execution_attempt": EXECUTION_ATTEMPT,
         "translator": {
             "prompt_version": TRANSLATION_PROMPT_VERSION,
             "num_predict_cap_hits": sum(1 for row in run_a if row["reached_num_predict_cap"]),
@@ -434,12 +534,18 @@ def main() -> None:
         "schema_version": "multilingual_runtime_v1_m2_manifest_v1",
         "milestone": "multilingual_runtime_v1_m2",
         "status": "executed_awaiting_human_adjudication",
+        "execution_attempt": EXECUTION_ATTEMPT,
         "preregistration": {
             "file": "reports/30_multilingual_runtime_v1_m2/m2_preregistration.json",
             "revision": prereg["preregistration_revision"],
             "sha256": prereg_hash,
         },
         "frozen_inputs_sha256": prereg["frozen_inputs_sha256"],
+        "local_silver_ground_truth_mapping": {
+            "file": str(SILVER_FILE.relative_to(PROJECT_ROOT)).replace("\\", "/"),
+            "sha256": sha256_file(SILVER_FILE),
+            "verified_against": "evaluation/mit_60001/multilingual/m1_manifest.json:source.silver_sha256",
+        },
         "runtime_under_test_sha256_lf_normalized": prereg["runtime_under_test"]["source_sha256_lf_normalized"],
         "translator_identity": prereg["runtime_under_test"]["translator"],
         "analysis_code_sha256_lf_normalized": {
@@ -447,6 +553,10 @@ def main() -> None:
             "scripts/evaluation/evaluate_multilingual_retrieval_m3.py": sha256_file_lf(
                 PROJECT_ROOT / "scripts/evaluation/evaluate_multilingual_retrieval_m3.py"
             ),
+        },
+        "prior_failed_attempt": {
+            "file": str(ATTEMPT_1_FAILURE.relative_to(PROJECT_ROOT)).replace("\\", "/"),
+            "sha256": sha256_file(ATTEMPT_1_FAILURE),
         },
         "determinism": determinism,
         "gate_results": {

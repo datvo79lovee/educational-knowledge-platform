@@ -1,0 +1,29 @@
+{
+  "analysis_failure": {
+    "exception": "KeyError: 'range_index'",
+    "failure_stage": "three-branch metric computation before any M2 artifact write",
+    "root_cause": "The runner passed raw paired ground_truth_ranges to the frozen Phase 9 branch_metrics function instead of ranges resolved through canonical Silver segment indices."
+  },
+  "execution_attempt": 1,
+  "formal_results_produced": false,
+  "git_commit": "1d0a729",
+  "model_calls_completed": 40,
+  "observations_before_failure": {
+    "aggregate_metrics_observed": false,
+    "gate_G1_observed": false,
+    "gate_G2_observed": false,
+    "prediction_P1_observed": false,
+    "translation_strings_persisted": false,
+    "visible_stdout_note": "The displayed prefixes for mit60001-q-001 differed between runs A and B, so possible non-determinism was observed but could not be fully adjudicated from persisted artifacts."
+  },
+  "preregistration_revision": 2,
+  "preregistration_sha256": "4afd116ad699d46d487a278a7729b477f82be886313069a338b00874ec2c7c70",
+  "repair_constraints": [
+    "Do not change the pre-registration, gates, prediction, translator, prompt, parameters, retriever, frozen Phase 9 artifacts or Ground Truth.",
+    "Use the frozen Phase 9 resolve_ranges and branch_metrics functions with Silver verified through the frozen M1 manifest.",
+    "Persist completed translation runs before downstream ranking or metric computation.",
+    "Record the next execution as attempt 2 and do not select between attempts."
+  ],
+  "schema_version": "multilingual_runtime_v1_m2_execution_failure_v1",
+  "status": "failed_analysis_mapping_no_formal_result"
+}

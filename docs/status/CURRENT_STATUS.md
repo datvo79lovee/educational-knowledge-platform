@@ -113,19 +113,66 @@ Quyết định sau M3: không mở `expanded_en`, query expansion, BM25, Hybrid
 reranking hoặc model comparison. Phase 9 chuyển từ retrieval research sang runtime
 integration.
 
-## Bước tiếp theo
+## Multilingual Runtime V1 — M1 triển khai, M2 đo và bị từ chối
 
-Multilingual Runtime Integration V1, chưa triển khai:
+M1 đã triển khai nhánh runtime tiếng Việt:
 
 ```text
-Vietnamese user query
-  → original_query
-  → literal English translator
-  → retrieval_query
+question_vi
+  → literal translator (Ollama llama3.2:3b)
+  → retrieval_query English
   → Dense Top 3
-  → G0 Grounded Answer Generator + answer_language=vi
+  → G0 + answer_language=vi
   → Vietnamese answer + application-owned citations
 ```
 
-Runtime contract tương lai cần phân biệt `original_query`, `retrieval_query` và
-`answer_language`. Không sửa Dense retriever và không thêm BM25/RRF/reranker.
+`POST /answer` nhận `answer_language: "en" | "vi"` và trả thêm `original_query`,
+`retrieval_query`, `answer_language`. Nhánh English giữ prompt Reliability V1
+**byte-identical** (`grounded_answer_prompt_v1`, sha `2b0a35d6…`) và không gọi
+translator; nhánh VI dùng `grounded_answer_prompt_vi_v1` riêng và chưa có metric nào.
+Translator lỗi thì runtime **fail-closed**, không âm thầm đem câu tiếng Việt đi Dense
+retrieval.
+
+M2 đo chính translator đã ship trên 20 paired intents của Phase 9, với gate và dự đoán
+đăng ký trước khi chạy. Kết quả freeze tại `reports/30_multilingual_runtime_v1_m2/`:
+
+```text
+G1 semantic fidelity : FAIL   Semantic drift = 10/20, threshold = 0
+G2 retrieval quality : FAIL   Recall@3 = 0,55, threshold = 0,65
+Determinism          : FAIL   q-001 khác nhau giữa run A và run B
+Overall              : FAILED
+VI runtime candidate : REJECTED
+```
+
+| Nhánh | MRR | Recall@1 | Recall@3 | Recall@5 | Full Evidence@3 |
+|---|---:|---:|---:|---:|---:|
+| `question_en` | 0,596 | 0,40 | 0,75 | 0,80 | 0,50 |
+| `literal_en` (người duyệt, frozen) | 0,634 | 0,55 | 0,70 | 0,75 | 0,55 |
+| `machine_literal_en` | 0,497 | 0,40 | 0,55 | 0,65 | 0,40 |
+
+Hai nhánh frozen tái lập chính xác baseline Phase 9, nên chênh lệch là thật. Human
+adjudication: 4 `Equivalent`, 6 `Minor wording difference`, 10 `Semantic drift`. Bốn
+dạng hỏng: xuất nhãn thay vì dịch (6 câu), trả lời thay vì dịch (2), đảo nghĩa (1),
+sai thuật ngữ chuyên ngành (1). Không câu nào chạm trần `num_predict`, nên truncation
+không phải nguyên nhân.
+
+**Kết luận quan trọng nhất: retrieval metric có thể mù trước semantic translation
+failure.** Bốn câu drift có `rank_delta = 0`; riêng `mit60001-q-039` mất hẳn vế
+white-box nhưng Top-3 vẫn trùng `3/3` với bản dịch người. Nếu chỉ đặt gate retrieval,
+kết luận sẽ sai. Gate dạng hội giữa metric tự động và phán đoán ngữ nghĩa của người là
+thiết kế đúng, và M2 là bằng chứng thực nghiệm cho điều đó.
+
+Determinism FAIL đo **riêng literal translator**. Nó cho thấy deterministic-rerun
+guarantee của repository không thể mặc định suy rộng sang Ollama generation nói chung;
+nó **không** phải kết luận về G0 English generator, vốn cần một test riêng.
+
+## Bước tiếp theo
+
+Chưa chọn phương án. M2 đã đóng và không có remedy nào được mở trong cùng milestone.
+Ba hướng đang để ngỏ, mỗi hướng là một milestone riêng có pre-registration riêng: đổi
+model dịch, bỏ khâu dịch và dùng multilingual encoder, hoặc giữ EN-only và ghi VI là
+đã đo và bị từ chối.
+
+20 paired intents của Phase 9 nay đã bị dùng làm dev set — kết quả từng câu đã được
+quan sát và adjudicate. Mọi đánh giá phương án khắc phục trên đúng bộ 20 câu này sẽ là
+so sánh contaminated; cần một bộ paired thứ hai hoặc một holdout tách trước.

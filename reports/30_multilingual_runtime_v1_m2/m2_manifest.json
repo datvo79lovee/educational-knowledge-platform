@@ -1,0 +1,124 @@
+{
+  "analysis_code_sha256_lf_normalized": {
+    "scripts/evaluation/evaluate_multilingual_retrieval_m3.py": "6377d97c58d56e9b84fce63eb82308398270dd8b3b523d0acefd5177d144bbf5",
+    "scripts/evaluation/freeze_multilingual_runtime_v1_m2.py": "39564004913a5d5c960dde638eb0309ff66b17536cbf3ae2bdbd7e09a070e069",
+    "scripts/evaluation/run_multilingual_runtime_translation_v1_m2.py": "6d8aa04d7562241c398f9d8f16792976bde0d25a8977898d0c2b50e004c5eb3a"
+  },
+  "determinism": {
+    "all_runs_identical": false,
+    "compared_pairs": [
+      {
+        "mismatch_count": 1,
+        "mismatched_intent_ids": [
+          "mit60001-q-001"
+        ],
+        "pair": "A_vs_B"
+      }
+    ],
+    "runs": 2
+  },
+  "execution_attempt": 2,
+  "frozen_inputs_sha256": {
+    "data/gold/mit_60001/chunks.jsonl": "c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432",
+    "data/indexes/mit_60001/embeddings.npy": "3cf94fd32adf78e1e294d5562910f0d7144744a4c310de30f74f0084c80e56a7",
+    "data/indexes/mit_60001/metadata.jsonl": "376faf54d90b6c4a30dc562aeba2127cbdd2953c243cd341bc288068dce4c7d7",
+    "evaluation/mit_60001/multilingual/m1_manifest.json": "496a180d5fa8e30ab3dbbd95daed80d4ec799256023071a7a717e69528b431ef",
+    "evaluation/mit_60001/multilingual/paired_intents_v1.jsonl": "c416752a7bc83d956f8a95990bfb8ad0d40cd6ac905498bd656c6309b05c43da",
+    "reports/09_embedding/embedding_index_manifest.json": "4e8d277f630eff2c1a4b8e7721f449400e13f7e2c9fee4d99183270cc6ca388c",
+    "reports/27_multilingual_dense_retrieval/multilingual_dense_retrieval_results.jsonl": "244861f3535e2875dee2c3dcd31b0b2af3ecdad91edf43e7af26abef02af3991",
+    "reports/28_multilingual_retrieval_evaluation/multilingual_retrieval_metrics.json": "c11516db92243a43f070a987064c145d01d1745b96c39adace9b692ae263e93d"
+  },
+  "gate_results": {
+    "G1": "FAIL",
+    "G2": "FAIL",
+    "P1": "PASS",
+    "determinism": "FAIL",
+    "overall": "FAIL",
+    "vi_runtime_candidate": "REJECTED"
+  },
+  "human_adjudication": {
+    "byte_note": "Hashed exactly as saved by the reviewer, UTF-8 BOM included; the file is never rewritten.",
+    "reviewed_row_count": 20,
+    "rubric": [
+      "Equivalent",
+      "Minor wording difference",
+      "Semantic drift"
+    ],
+    "semantic_drift_intent_ids": [
+      "mit60001-q-001",
+      "mit60001-q-008",
+      "mit60001-q-010",
+      "mit60001-q-014",
+      "mit60001-q-016",
+      "mit60001-q-022",
+      "mit60001-q-033",
+      "mit60001-q-034",
+      "mit60001-q-037",
+      "mit60001-q-039"
+    ],
+    "tally": {
+      "Equivalent": 4,
+      "Minor wording difference": 6,
+      "Semantic drift": 10
+    },
+    "worksheet": "reports/30_multilingual_runtime_v1_m2/m2_adjudication_worksheet_reviewed.csv",
+    "worksheet_sha256_raw_bytes": "69542ffa62fa508c64ac02263232dc773576ac12cb09a2fcffee552889974fd0"
+  },
+  "local_silver_ground_truth_mapping": {
+    "file": "data/silver/mit_60001/transcripts_clean.jsonl",
+    "sha256": "50d559529bedc33715b13312c5e4b7def80ac808521b53699a14465e084a8ecb",
+    "verified_against": "evaluation/mit_60001/multilingual/m1_manifest.json:source.silver_sha256"
+  },
+  "milestone": "multilingual_runtime_v1_m2",
+  "output_artifacts": [
+    {
+      "file": "reports/30_multilingual_runtime_v1_m2/m2_machine_translations.jsonl",
+      "sha256": "f4295e3a0d116b3b6047b87e32e7df428f5239ec5f51e804b830f66163c4aa89"
+    },
+    {
+      "file": "reports/30_multilingual_runtime_v1_m2/m2_machine_retrieval_results.jsonl",
+      "sha256": "0384e78bd861380d18a4395ed875de6890a973c01d4fa8ba06f3f4365cd99c39"
+    },
+    {
+      "file": "reports/30_multilingual_runtime_v1_m2/m2_adjudication_worksheet.csv",
+      "sha256": "a0a0f82da07aeb9cc46c7fe735df6068274bb299b72c1558b53728d654d9e621"
+    },
+    {
+      "file": "reports/30_multilingual_runtime_v1_m2/m2_adjudication_worksheet_reviewed.csv",
+      "sha256": "69542ffa62fa508c64ac02263232dc773576ac12cb09a2fcffee552889974fd0"
+    },
+    {
+      "file": "reports/30_multilingual_runtime_v1_m2/m2_metrics.json",
+      "sha256": "37de6d06d5ff0f8db9e73082a37efbcc3dec224d835192d9bdf162781419d702"
+    }
+  ],
+  "preregistration": {
+    "file": "reports/30_multilingual_runtime_v1_m2/m2_preregistration.json",
+    "revision": 2,
+    "sha256": "4afd116ad699d46d487a278a7729b477f82be886313069a338b00874ec2c7c70"
+  },
+  "prior_failed_attempt": {
+    "file": "reports/30_multilingual_runtime_v1_m2/m2_execution_attempt_1_failure.json",
+    "sha256": "dd5169afe9d495270a79f4ccbd2320103cfd6af04b4d86d30e72b75c3a5c760c"
+  },
+  "runtime_under_test_sha256_lf_normalized": {
+    "src/grounded_answer/__init__.py": "f08564d68bc1031cb0f2e17143bb0224e62656ad6b375ab760f7246160d9e9d3",
+    "src/grounded_answer/prompts.py": "ac8541bea67a6bfe1d7d980ce34fab2a5ff27467dce78fbf0a1df671c1d22342",
+    "src/grounded_answer/service.py": "7433b4596bbac8016a408b1d068da044558a8bf9e085017770dcffff1e995085",
+    "src/multilingual/__init__.py": "e73097089e4eeda9e505af8fbb3fe150ce180365246bad7426e298c08418735a",
+    "src/multilingual/translation.py": "2e469e5808093a2886d504f0290b90682bfb0768366da352e4607526f03b28ff"
+  },
+  "schema_version": "multilingual_runtime_v1_m2_manifest_v1",
+  "status": "frozen_failed",
+  "translator_identity": {
+    "model": "llama3.2:3b",
+    "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "num_ctx": 4096,
+    "num_predict": 128,
+    "prompt_version": "literal_translation_prompt_vi_en_v1",
+    "provider": "ollama",
+    "seed": 42,
+    "temperature": 0.0
+  },
+  "validation_status": "passed"
+}

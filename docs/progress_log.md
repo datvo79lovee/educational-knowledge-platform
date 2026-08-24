@@ -5452,3 +5452,129 @@ VI original_query
 
 Giữ nguyên Dense/index/scoring; không có `expanded_en`, BM25, RRF hoặc reranker ở
 giữa Phase 9 và runtime integration.
+
+---
+
+# Multilingual Runtime V1 — M1 triển khai, M2 đo và bị từ chối
+
+## M1 — Runtime nhánh tiếng Việt
+
+Đã thêm nhánh runtime:
+
+```text
+question_vi → literal translator (Ollama llama3.2:3b) → retrieval_query English
+           → Dense Top 3 → G0 với answer_language=vi
+           → Vietnamese answer + application-owned citations
+```
+
+`POST /answer` nhận `answer_language: "en" | "vi"`; response thêm `original_query`,
+`retrieval_query`, `answer_language`.
+
+Ràng buộc đã giữ:
+
+- Nhánh English dùng lại prompt Reliability V1 **byte-identical**
+  (`grounded_answer_prompt_v1`, sha `2b0a35d6…`), có test khóa hash, nên các số
+  23/37 và 17/37 vẫn mô tả đúng runtime EN.
+- Nhánh VI dùng `grounded_answer_prompt_vi_v1` riêng và chưa có metric nào.
+- Translator lỗi thì **fail-closed**; không có đường nào cho query tiếng Việt lọt vào
+  Dense retrieval.
+- Translator có identity pin riêng, telemetry và `TranslationError` typed; API map
+  invalid output → 502, runtime unavailable → 503.
+
+Đã sửa một circular import thật: `src.multilingual.translation` →
+`src.grounded_answer.ollama_provider` → `src/grounded_answer/__init__.py` →
+`service` → quay lại `translation`. Lỗi vô hình với test và `app.py` vì cả hai luôn
+import `grounded_answer` trước. Bỏ re-export `GroundedAnswerService` khỏi package
+root. Thêm `tests/multilingual/import_order_test.py` chạy 4 thứ tự import trong
+**subprocess** — trong một process pytest thì kiểm tra này pass giả. Negative control:
+khôi phục bản lỗi làm đúng 2 thứ tự translation-first fail, đúng như chẩn đoán.
+
+## M2 — Đo translator đã ship, gate đăng ký trước
+
+Phase 9 đo trên `literal_en` do người duyệt; runtime lại dịch bằng model. M2 đo đúng
+cái đã ship trên cùng 20 paired intents.
+
+Đăng ký trước khi chạy (`m2_preregistration.json` revision 2, sha `4afd116a…`): Ground
+Truth, Gold/index, Dense, 20 intents, hash của cả runtime source; G1 `Semantic
+drift = 0`; G2 `Recall@3 >= 0,65`; dự đoán P1 về `q-008` có rule máy kiểm tra được;
+danh sách cấm sau khi thấy kết quả.
+
+Execution attempt 1 dừng trước metric vì runner truyền Ground Truth ranges chưa
+resolve vào `branch_metrics` (`KeyError: 'range_index'`); không có formal result nào
+được tạo. Attempt 2 chạy đủ: 2 lượt × 20 câu, rồi Dense full ranking 861 trên run A.
+
+### Kết quả
+
+```text
+G1 semantic fidelity : FAIL   Semantic drift = 10/20, threshold = 0
+G2 retrieval quality : FAIL   Recall@3 = 0,55, threshold = 0,65
+Determinism          : FAIL   q-001 khác nhau giữa run A và run B
+Overall              : FAILED
+VI runtime candidate : REJECTED
+```
+
+| Nhánh | MRR | Recall@1 | Recall@3 | Recall@5 | Full Evidence@3 |
+|---|---:|---:|---:|---:|---:|
+| `question_en` | 0,596 | 0,40 | 0,75 | 0,80 | 0,50 |
+| `literal_en` (frozen, người duyệt) | 0,634 | 0,55 | 0,70 | 0,75 | 0,55 |
+| `machine_literal_en` | 0,497 | 0,40 | 0,55 | 0,65 | 0,40 |
+
+Hai nhánh frozen tái lập chính xác baseline Phase 9 (`frozen_baseline_reproduced:
+true`), nên chênh lệch là thật chứ không do lệch định nghĩa metric.
+
+Human adjudication: 4 `Equivalent`, 6 `Minor wording difference`, 10 `Semantic drift`.
+Bốn dạng hỏng: xuất nhãn thay vì dịch (q-001, q-010, q-014, q-016, q-037, q-039), trả
+lời thay vì dịch (q-022, q-034), đảo nghĩa (q-008), sai thuật ngữ chuyên ngành
+(q-033: `decomposition` → `nuclear fission`). `num_predict_cap_hits = 0` nên
+truncation **không** phải nguyên nhân.
+
+### Phát hiện nghiên cứu chính
+
+**Retrieval metric có thể mù trước semantic translation failure.** Bốn câu drift có
+`rank_delta = 0`. `mit60001-q-039` là ví dụ sạch nhất: machine output còn mỗi
+`"Black box testing"`, mất hẳn vế white-box và mất intent so sánh, nhưng
+`top_3_overlap = 3/3` và `rank_delta = 0` — mọi chỉ số retrieval đều không phản ứng.
+
+Nếu M2 chỉ đặt G2, kết luận sẽ là "tụt nhẹ, chấp nhận được". Chính G1 mới bắt được lớp
+lỗi mà G2 mù. Đây là bằng chứng thực nghiệm cho việc dùng **human semantic gate +
+retrieval gate** thay vì chỉ nhìn Recall.
+
+### Determinism
+
+Run A và B khác nhau ở `q-001` tại `temperature = 0`, `seed = 42`. Đây là phép đo
+**riêng cho literal translator**: nó cho thấy deterministic-rerun guarantee trước đây
+của repository không thể mặc định suy rộng sang Ollama generation nói chung. Nó
+**không** phải kết luận về G0 English generator; muốn kết luận riêng cho G0 phải có
+test G0 riêng.
+
+### P1 — đọc trung thực
+
+`P1 = PASS` nhưng là pass kỹ thuật. Criterion A không thỏa (câu tụt nặng nhất là
+q-014, delta 108, không phải q-008 với delta 20); P1 chỉ đậu nhờ criterion B, nơi
+q-008 hòa với q-033 và q-037 tại overlap 0. Rule đã đăng ký cho phép hòa nên PASS hợp
+lệ và không sửa hậu nghiệm, nhưng dự đoán thực chất không được dữ liệu ủng hộ.
+
+## Freeze
+
+`freeze_multilingual_runtime_v1_m2.py` chỉ ghi nhận kết quả đã có: hash nguyên byte
+worksheet đã review (giữ cả BOM, sha `69542ffa…`), canonicalize tally, đóng G1, cập
+nhật metrics sang `final_failed` và manifest sang `frozen_failed`. Script kiểm tra
+chuỗi `machine_literal_en` trong worksheet khớp đúng output đã thực thi nên review
+không thể là bản sao cũ. Không rerun model, không đụng pre-registration, gate, Ground
+Truth hay retriever.
+
+## Ranh giới
+
+- Không sửa translation prompt, không đổi model, không đổi generation parameters.
+- Không rerun để tìm output đẹp hơn, không đổi Dense retriever, không sửa Ground Truth.
+- Không đổi gate, không mở MT model mới, không mở multilingual encoder.
+
+## Bước tiếp theo
+
+Chưa chọn phương án. Ba hướng để ngỏ, mỗi hướng là milestone riêng có pre-registration
+riêng: đổi model dịch; bỏ khâu dịch và dùng multilingual encoder; hoặc giữ EN-only và
+ghi VI là đã đo và bị từ chối.
+
+20 paired intents nay đã bị dùng làm dev set — kết quả từng câu đã được quan sát và
+adjudicate. Đánh giá remedy trên đúng bộ 20 câu này sẽ là so sánh contaminated; cần bộ
+paired thứ hai hoặc holdout tách trước.
