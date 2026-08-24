@@ -1,0 +1,55 @@
+{
+  "execution": {
+    "attempt_id": "m3-attempt-1",
+    "expected_intent_count": 20,
+    "failed_count": 1,
+    "generation_call_count": 2,
+    "intent_count": 2,
+    "passed_count": 1,
+    "retry_count": 0,
+    "translation_call_count": 2
+  },
+  "ground_truth_exposed_to_runtime_calls": false,
+  "milestone": "multilingual_runtime_v1_m3",
+  "output_artifacts": [
+    {
+      "file": "reports/31_multilingual_runtime_v1_m3/m3_runtime_outputs.jsonl",
+      "sha256": "bd0dbe9f890fc2f351a081eb133f4103f429ab6c42edf1ede2bf0a0f069f00e0"
+    },
+    {
+      "file": "reports/31_multilingual_runtime_v1_m3/m3_human_review_worksheet.csv",
+      "sha256": "b02683fe28a56dfe5e69f3de834d6a299f8e03dafd22e89e8db7b8b000dce567"
+    }
+  ],
+  "preregistration": {
+    "file": "reports/31_multilingual_runtime_v1_m3/m3_preregistration.json",
+    "revision": 2,
+    "sha256": "6c127e5e469e019409793e47a9ecfe453221810ad9f8fac794f7f94716920d52"
+  },
+  "quality_metrics_computed": false,
+  "runtime_identity": {
+    "generator": {
+      "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "family": "llama",
+      "model": "llama3.2:3b",
+      "ollama_version": "0.32.15",
+      "parameter_size": "3.2B",
+      "quantization_level": "Q4_K_M",
+      "size_bytes": 2019393189
+    },
+    "retrieval_method": "dense_baseline_v1",
+    "top_k": 3,
+    "translator": {
+      "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "family": "llama",
+      "model": "llama3.2:3b",
+      "ollama_version": "0.32.15",
+      "parameter_size": "3.2B",
+      "quantization_level": "Q4_K_M",
+      "size_bytes": 2019393189
+    }
+  },
+  "schema_version": "multilingual_runtime_v1_m3_execution_manifest_v1",
+  "status": "executed_failed_runtime",
+  "validation_status": "failed_runtime_integrity"
+}
