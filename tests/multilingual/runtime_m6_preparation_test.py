@@ -193,8 +193,28 @@ def test_verify_only_is_read_only() -> None:
     assert _artifact_state() == before
 
 
-def test_evaluation_outputs_do_not_exist_before_review() -> None:
-    assert not runner.REVIEWED_WORKSHEET.exists()
+def test_quality_result_artifacts_do_not_exist_before_evaluation() -> None:
+    """The three outputs --evaluate produces must not exist ahead of that run.
+
+    Whether a reviewed worksheet exists is a separate question: human review can
+    legitimately complete before --evaluate runs. Only the quality result artifacts are
+    required to be absent at this stage.
+    """
+
     assert not runner.FINAL_RESULTS.exists()
     assert not runner.METRICS.exists()
     assert not runner.EVALUATION_MANIFEST.exists()
+
+
+def test_verify_only_does_not_create_a_reviewed_worksheet_when_absent(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """--verify-only must not create a reviewed worksheet when none exists yet."""
+
+    absent_reviewed = tmp_path / "reviewed.csv"
+    monkeypatch.setattr(runner, "REVIEWED_WORKSHEET", absent_reviewed)
+    monkeypatch.setattr(sys, "argv", [str(Path(runner.__file__)), "--verify-only"])
+
+    runner.main()
+
+    assert not absent_reviewed.exists()
