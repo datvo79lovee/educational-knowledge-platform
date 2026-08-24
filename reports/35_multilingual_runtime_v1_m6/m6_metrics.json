@@ -1,0 +1,253 @@
+{
+  "diagnostics": {
+    "decision_failure_intent_ids": [
+      "mit60001-q-001",
+      "mit60001-q-008",
+      "mit60001-q-021",
+      "mit60001-q-006",
+      "mit60001-q-004"
+    ],
+    "interpretation_boundary": "These fields are joined only after primary labels are complete. They support diagnosis but do not establish translation-, retrieval-, or generation-level causality.",
+    "normalization_applied_intent_ids": [
+      "mit60001-q-002",
+      "mit60001-q-010",
+      "mit60001-q-014",
+      "mit60001-q-021",
+      "mit60001-q-022",
+      "mit60001-q-023",
+      "mit60001-q-025",
+      "mit60001-q-033"
+    ],
+    "role": "post-review_observation_only_no_causal_attribution",
+    "strict_end_to_end_failure_intent_ids": [
+      "mit60001-q-001",
+      "mit60001-q-003",
+      "mit60001-q-037",
+      "mit60001-q-029",
+      "mit60001-q-008",
+      "mit60001-q-039",
+      "mit60001-q-034",
+      "mit60001-q-016",
+      "mit60001-q-021",
+      "mit60001-q-006",
+      "mit60001-q-005",
+      "mit60001-q-004"
+    ],
+    "strict_failure_runtime_context": [
+      {
+        "intent_id": "mit60001-q-001",
+        "normalization_applied": false,
+        "normalization_reason": null,
+        "retrieval_query": "Learning Objectives",
+        "top3_chunk_ids": [
+          "MjbuarJ7SE0:semantic_cosine_wp240_v1:24",
+          "6LOwPhPDwVc:semantic_cosine_wp240_v1:0",
+          "nykOeWgQcHM:semantic_cosine_wp240_v1:3"
+        ]
+      },
+      {
+        "intent_id": "mit60001-q-003",
+        "normalization_applied": false,
+        "normalization_reason": null,
+        "retrieval_query": "Python uses variable names in different scopes how?",
+        "top3_chunk_ids": [
+          "MjbuarJ7SE0:semantic_cosine_wp240_v1:41",
+          "MjbuarJ7SE0:semantic_cosine_wp240_v1:42",
+          "MjbuarJ7SE0:semantic_cosine_wp240_v1:51"
+        ]
+      },
+      {
+        "intent_id": "mit60001-q-037",
+        "normalization_applied": false,
+        "normalization_reason": null,
+        "retrieval_query": "Linear search",
+        "top3_chunk_ids": [
+          "6LOwPhPDwVc:semantic_cosine_wp240_v1:3",
+          "7lQXYl_L28w:semantic_cosine_wp240_v1:15",
+          "6LOwPhPDwVc:semantic_cosine_wp240_v1:17"
+        ]
+      },
+      {
+        "intent_id": "mit60001-q-029",
+        "normalization_applied": false,
+        "normalization_reason": null,
+        "retrieval_query": "How does a function return a value for the code that called it?",
+        "top3_chunk_ids": [
+          "MjbuarJ7SE0:semantic_cosine_wp240_v1:20",
+          "MjbuarJ7SE0:semantic_cosine_wp240_v1:27",
+          "MjbuarJ7SE0:semantic_cosine_wp240_v1:16"
+        ]
+      },
+      {
+        "intent_id": "mit60001-q-008",
+        "normalization_applied": false,
+        "normalization_reason": null,
+        "retrieval_query": "Why can assigning a new name to an object change its value?",
+        "top3_chunk_ids": [
+          "FlGjISF3l78:semantic_cosine_wp240_v1:26",
+          "FlGjISF3l78:semantic_cosine_wp240_v1:25",
+          "FlGjISF3l78:semantic_cosine_wp240_v1:57"
+        ]
+      },
+      {
+        "intent_id": "mit60001-q-039",
+        "normalization_applied": false,
+        "normalization_reason": null,
+        "retrieval_query": "Black box testing",
+        "top3_chunk_ids": [
+          "9H6muyZjms0:semantic_cosine_wp240_v1:15",
+          "9H6muyZjms0:semantic_cosine_wp240_v1:13",
+          "9H6muyZjms0:semantic_cosine_wp240_v1:14"
+        ]
+      },
+      {
+        "intent_id": "mit60001-q-034",
+        "normalization_applied": false,
+        "normalization_reason": null,
+        "retrieval_query": "Testing and debugging are related in the sense that testing is the process of identifying potential errors or defects in a program, while debugging is the process of finding and fixing those errors. In other words, testing is the initial step in identifying potential problems, and debugging is the step that follows to actually fix those problems.",
+        "top3_chunk_ids": [
+          "9H6muyZjms0:semantic_cosine_wp240_v1:25",
+          "9H6muyZjms0:semantic_cosine_wp240_v1:9",
+          "9H6muyZjms0:semantic_cosine_wp240_v1:7"
+        ]
+      },
+      {
+        "intent_id": "mit60001-q-016",
+        "normalization_applied": false,
+        "normalization_reason": null,
+        "retrieval_query": "Assertion",
+        "top3_chunk_ids": [
+          "9H6muyZjms0:semantic_cosine_wp240_v1:51",
+          "9H6muyZjms0:semantic_cosine_wp240_v1:52",
+          "-DP1i2ZU9gk:semantic_cosine_wp240_v1:45"
+        ]
+      },
+      {
+        "intent_id": "mit60001-q-021",
+        "normalization_applied": true,
+        "normalization_reason": "vi_abstain_payload_to_canonical",
+        "retrieval_query": "Boolean comparison roles in branching",
+        "top3_chunk_ids": [
+          "FlGjISF3l78:semantic_cosine_wp240_v1:64",
+          "0jljZRnHwOI:semantic_cosine_wp240_v1:20",
+          "0jljZRnHwOI:semantic_cosine_wp240_v1:32"
+        ]
+      },
+      {
+        "intent_id": "mit60001-q-006",
+        "normalization_applied": false,
+        "normalization_reason": null,
+        "retrieval_query": "According to the lecture, the efficiency of an algorithm is explained as follows.",
+        "top3_chunk_ids": [
+          "o9nW0uBqvEo:semantic_cosine_wp240_v1:14",
+          "o9nW0uBqvEo:semantic_cosine_wp240_v1:10",
+          "o9nW0uBqvEo:semantic_cosine_wp240_v1:19"
+        ]
+      },
+      {
+        "intent_id": "mit60001-q-005",
+        "normalization_applied": false,
+        "normalization_reason": null,
+        "retrieval_query": "Why is a recursive function in a course required to have a base case?",
+        "top3_chunk_ids": [
+          "WPSeyjX1-4s:semantic_cosine_wp240_v1:8",
+          "WPSeyjX1-4s:semantic_cosine_wp240_v1:33",
+          "WPSeyjX1-4s:semantic_cosine_wp240_v1:15"
+        ]
+      },
+      {
+        "intent_id": "mit60001-q-004",
+        "normalization_applied": false,
+        "normalization_reason": null,
+        "retrieval_query": "Assignment operator (gán) is different from comparison operator (so sánh) in Python.",
+        "top3_chunk_ids": [
+          "0jljZRnHwOI:semantic_cosine_wp240_v1:32",
+          "nykOeWgQcHM:semantic_cosine_wp240_v1:42",
+          "0jljZRnHwOI:semantic_cosine_wp240_v1:31"
+        ]
+      }
+    ]
+  },
+  "gates": {
+    "all_passed": true,
+    "conditions": {
+      "G1_review_integrity": {
+        "excluded_count": 1,
+        "primary_count": 19,
+        "result": "PASS",
+        "reviewed_count": 20
+      },
+      "G2_language_compliance": {
+        "answer_count": 12,
+        "compliant_count": 12,
+        "result": "PASS"
+      },
+      "G3_decision_non_inferiority": {
+        "minimum_required_count": 10,
+        "observed_count": 14,
+        "result": "PASS"
+      },
+      "G4_strict_end_to_end_non_inferiority": {
+        "minimum_required_count": 6,
+        "observed_count": 7,
+        "result": "PASS"
+      }
+    },
+    "pass_rule": "G1, G2, G3 and G4 must all PASS"
+  },
+  "metrics": {
+    "decision_correct": {
+      "denominator": 19,
+      "numerator": 14,
+      "rate": 0.7368421052631579,
+      "wilson_95": [
+        0.5120844910218489,
+        0.8819358765321748
+      ]
+    },
+    "excluded_intent_ids": [
+      "mit60001-q-023"
+    ],
+    "language_compliance": {
+      "denominator": 12,
+      "numerator": 12,
+      "rate": 1.0,
+      "wilson_95": [
+        0.7575059933447592,
+        1.0
+      ]
+    },
+    "matched_english_reference": {
+      "answer_count": 8,
+      "decision_correct_count": 11,
+      "evaluated_count": 19,
+      "excluded_intent_ids": [
+        "mit60001-q-023"
+      ],
+      "selected_count": 20,
+      "source": "reports/31_multilingual_runtime_v1_m3/m3_preregistration.json, independently traced to frozen Reliability V1 results",
+      "strict_answer_success_count": 2,
+      "strict_end_to_end_success_count": 7
+    },
+    "primary_count": 19,
+    "schema_version": "multilingual_runtime_v1_m6_metrics_v1",
+    "strict_answer_success_diagnostic": {
+      "denominator": 19,
+      "numerator": 1,
+      "rate": 0.05263157894736842,
+      "wilson_95": [
+        0.009351994062300362,
+        0.24638731166898786
+      ]
+    },
+    "strict_end_to_end_success": {
+      "denominator": 19,
+      "numerator": 7,
+      "rate": 0.3684210526315789,
+      "wilson_95": [
+        0.19149512745135072,
+        0.5896046683519693
+      ]
+    }
+  }
+}

@@ -193,13 +193,25 @@ def test_verify_only_is_read_only() -> None:
     assert _artifact_state() == before
 
 
-def test_quality_result_artifacts_do_not_exist_before_evaluation() -> None:
-    """The three outputs --evaluate produces must not exist ahead of that run.
+def test_evaluate_refuses_and_creates_no_artifact_without_preparation(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """evaluate() must not fabricate quality artifacts when preparation never ran.
 
-    Whether a reviewed worksheet exists is a separate question: human review can
-    legitimately complete before --evaluate runs. Only the quality result artifacts are
-    required to be absent at this stage.
+    This is a property of the function, not a snapshot of repository state: no
+    worksheet or preparation manifest exists in the isolated tmp_path, so evaluate()
+    must refuse before touching any result artifact.
     """
+
+    monkeypatch.setattr(runner, "WORKSHEET", tmp_path / "m6_human_review_worksheet.csv")
+    monkeypatch.setattr(runner, "PREPARATION_MANIFEST", tmp_path / "m6_preparation_manifest.json")
+    monkeypatch.setattr(runner, "REVIEWED_WORKSHEET", tmp_path / "m6_human_review_worksheet_reviewed.csv")
+    monkeypatch.setattr(runner, "FINAL_RESULTS", tmp_path / "m6_final_results.csv")
+    monkeypatch.setattr(runner, "METRICS", tmp_path / "m6_metrics.json")
+    monkeypatch.setattr(runner, "EVALUATION_MANIFEST", tmp_path / "m6_evaluation_manifest.json")
+
+    with pytest.raises(FileNotFoundError, match="M6 must be prepared before evaluation"):
+        runner.evaluate({})
 
     assert not runner.FINAL_RESULTS.exists()
     assert not runner.METRICS.exists()
