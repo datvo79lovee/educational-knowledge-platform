@@ -2,10 +2,11 @@
 
 ## Kết quả
 
-Candidate repository snapshot đã PASS clean-room validation từ base commit
-`0657d1a`. Snapshot không có `.git`, chứa đúng approved working-tree delta và bắt
-đầu với Hugging Face cache rỗng. Agent chưa stage, commit hoặc push; actual remote
-fresh clone chỉ có thể được kiểm tra sau khi user commit các file trong milestone.
+Fresh clone tại remote commit `dd51619` đã PASS serving/contract validation với
+Hugging Face cache rỗng. Sau đó phát hiện một exception portability của M1: frozen
+human-review source được ký SHA-256 trên CRLF, trong khi default policy checkout
+là LF. Bản sửa hiện tại pin riêng file đó về CRLF; cần fresh-clone validation lại
+sau khi user commit/push trước khi đóng P0 reproducibility.
 
 Ba canonical serving artifacts được đưa ra khỏi ignore policy:
 
@@ -59,11 +60,12 @@ generator hoặc Ollama.
 | Tầng | Chạy được từ fresh clone | Cần data lake local |
 |---|---|---|
 | Serving và contract | `pytest`, `validate_search_api.py`, `validate_benchmark_manifest.py`, startup và `POST /search` | Không |
-| Pipeline/research rebuild | Không | Chunking validators, M1/M2/M3 multilingual rebuild/validation và mọi Bronze → Silver → Gold rebuild |
+| Pipeline/research rebuild | Không đầy đủ | Chunking validators, M1/M2/M3 multilingual rebuild/validation và mọi Bronze → Silver → Gold rebuild |
 
 Fresh-clone claim của milestone này áp dụng cho canonical serving package. Bronze,
-Silver và Gold experiment inputs vẫn local-only có chủ đích; các pipeline/research
-validator đọc những input đó không thuộc fresh-clone gate.
+Silver và Gold experiment inputs vẫn local-only có chủ đích. M1 validator có thể
+kiểm tra hash review trước khi dừng ở Silver bị thiếu; full M1/M2/M3 validation vẫn
+không thuộc fresh-clone gate.
 
 ### Tách riêng, có Ollama
 
@@ -77,12 +79,14 @@ Lần snapshot đầu dùng Git archive làm frozen report CSV chuyển LF thàn
 test hash có kết quả `27 passed, 1 failed`. Đây là fresh-checkout risk thật trên
 Windows khi `core.autocrlf=true`, không phải model/test instability.
 
-`.gitattributes` mới đặt default `text=auto eol=lf` để mọi text artifact hiện tại và
+`.gitattributes` đặt default `text=auto eol=lf` để mọi text artifact hiện tại và
 tương lai có checkout bytes độc lập với `core.autocrlf`; `.npy`, `.png` và `.xlsx`
-được đánh dấu binary. Các rule canonical tường minh được giữ để document contract.
-Tracked blobs hiện tại không chứa CR nên policy không yêu cầu historical
-renormalization. Sau khi áp dụng policy trong candidate snapshot, pytest và
-benchmark hash validator đều PASS.
+được đánh dấu binary. Có một exception tường minh: file review nguồn M1
+`mit_60001_multilingual_m1_human_review_reviewed_by_user.csv` phải checkout CRLF
+để giữ nguyên SHA-256 đã freeze trong M1 manifest. Đây chỉ là bảo toàn bytes của
+provenance, không sửa nội dung hay re-sign Ground Truth/M1/M2/M3. Sau commit cần
+fresh-clone lại để xác nhận hash gate M1 PASS, rồi validator dự kiến chỉ dừng ở
+Silver local-only như đã khai báo. Pytest và benchmark hash validator trước đó PASS.
 
 ## Negative scope
 

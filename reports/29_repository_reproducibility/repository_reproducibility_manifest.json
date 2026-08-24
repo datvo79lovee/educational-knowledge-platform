@@ -1,7 +1,7 @@
 {
   "schema_version": "repository_reproducibility_manifest_v1",
   "base_commit": "0657d1a",
-  "milestone_status": "candidate_validated_pending_user_commit",
+  "milestone_status": "post_commit_m1_hash_portability_fix_pending_fresh_clone_validation",
   "repository_state": {
     "agent_staged_files": false,
     "agent_created_commit": false,
@@ -49,7 +49,7 @@
     "initial_archive_pytest": "27_passed_1_failed",
     "failure_cause": "LF-to-CRLF conversion changed a frozen fixture byte hash",
     "policy_file": ".gitattributes",
-    "policy_scope": "all auto-detected tracked text uses LF; canonical hash inputs remain explicit",
+    "policy_scope": "all auto-detected tracked text uses LF, except the frozen M1 human-review source retained as CRLF; canonical hash inputs remain explicit",
     "binary_extensions": [
       ".npy",
       ".png",
@@ -57,7 +57,15 @@
     ],
     "historical_renormalization_required": false,
     "post_policy_pytest": "28_passed",
-    "post_policy_benchmark_manifest": "passed"
+    "post_policy_benchmark_manifest": "passed",
+    "m1_frozen_review_source_exception": {
+      "path": "evaluation/review/multilingual/mit_60001_multilingual_m1_human_review_reviewed_by_user.csv",
+      "expected_sha256": "e22a0439f0940c78184772b0c559baefe976497e4797ffcc40ac871b5a6dabca",
+      "checkout_eol": "crlf",
+      "validation_gate": "scripts/evaluation/validate_multilingual_benchmark_m1.py",
+      "rationale": "Frozen M1 manifest was signed over CRLF bytes; preserving those bytes avoids re-signing M1/M2/M3 provenance.",
+      "post_fix_fresh_clone_validation": "pending"
+    }
   },
   "clean_room_validation_without_ollama": {
     "pytest_passed": 28,

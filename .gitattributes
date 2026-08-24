@@ -5,6 +5,9 @@
 *.png binary
 *.xlsx binary
 
+# Preserve the frozen M1 human-review source SHA, originally signed with CRLF.
+evaluation/review/multilingual/mit_60001_multilingual_m1_human_review_reviewed_by_user.csv text eol=crlf
+
 # Explicit hash-sensitive paths document the current canonical contracts.
 data/gold/mit_60001/chunks.jsonl text eol=lf
 data/indexes/mit_60001/metadata.jsonl text eol=lf
