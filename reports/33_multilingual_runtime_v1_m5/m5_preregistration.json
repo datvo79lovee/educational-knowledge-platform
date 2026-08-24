@@ -1,0 +1,262 @@
+{
+  "acceptance_gates": {
+    "G1_execution_integrity": "20/20 records whose intent ids match the pre-registered list in order; at most one call per stage per intent; every passed record made exactly one translation, one retrieval and one generation call; stage call totals reach twenty each on a clean run; every record satisfies the per-stage diagnostic requirements; zero retry; and runtime source hashes match the pin both before and after execution.",
+    "G2_runtime_failure": "total_runtime_failure_count equals zero across every failure layer. Counting only generation_contract would let a run pass while failing at the translation or provider layer, so every layer is counted. generation_contract_failure_count is reported separately as a diagnostic.",
+    "G3_scope_integrity": "Only the authorised prompt file differs from the M4 runtime baseline, and every pinned prompt symbol matches: the frozen English SYSTEM_PROMPT, the English PROMPT_VERSION and the build_user_prompt source are unchanged, while VI_SYSTEM_PROMPT and VI_PROMPT_VERSION match their authorised candidate values."
+  },
+  "analysis_code_sha256_lf_normalized": {
+    "scripts/evaluation/run_multilingual_runtime_v1_m3.py": "cf3e50c0bf79f1a5ce6dd9a29e5e86562bbcdd83fc12bf27a30d79e3458e9652",
+    "scripts/evaluation/run_multilingual_runtime_v1_m4.py": "3ae148431a727ac9ee95d8b6e89433995883e5b9ed81802aca2724eb3ab47998",
+    "scripts/evaluation/run_multilingual_runtime_v1_m5.py": "1ab7b31234909962d73bab6ebcd6f5577c61891c07392c1264bd04fb89447667"
+  },
+  "analysis_code_verification": {
+    "includes_self": true,
+    "on_mismatch": "The runner raises and refuses to execute; no result artifact is created",
+    "reuse_note": "M5 imports the recorders, failure classification and capture helpers from the M4 runner rather than reimplementing them, so both milestones classify and capture failures identically. The M3 runner is pinned because M4 imports its Wilson interval.",
+    "scripts": [
+      "scripts/evaluation/run_multilingual_runtime_v1_m3.py",
+      "scripts/evaluation/run_multilingual_runtime_v1_m4.py",
+      "scripts/evaluation/run_multilingual_runtime_v1_m5.py"
+    ],
+    "self_reference_note": "The runner verifies its own hash. This detects drift, meaning code changed after pre-registration without re-registering. It does not defeat a rewrite that also updates the pre-registration, and it is not claimed to.",
+    "verified_before_any_model_call": true
+  },
+  "base_commit_at_preregistration": "4fd2125917c3f2e54565ba47f96260be8101c825",
+  "baseline_m4": {
+    "final_manifest": {
+      "file": "reports/32_multilingual_runtime_v1_m4/m4_final_manifest.json",
+      "sha256": "f55a4752d712aba13815f41b30713acbeb48c9186865c3c993c1f3150be2d1c7"
+    },
+    "not_a_causal_conclusion": true,
+    "observed_executed_intents": 20,
+    "observed_generation_contract_failures": 8
+  },
+  "conclusions_not_permitted": [
+    "Vietnamese answer quality, groundedness or citation support",
+    "parity with English",
+    "production readiness",
+    "causal proof that the prior Vietnamese prompt caused the M4 failures",
+    "expected runtime failure rate from a single attempt",
+    "reinterpretation of frozen M2, M3 or M4"
+  ],
+  "contract_must_not_be_weakened": {
+    "normalization_rules_frozen": [
+      "abstain_literal_to_null",
+      "duplicate_supporting_ids"
+    ],
+    "statement": "Passing G2 by making the strict contract more permissive, by extending the normalization rules to absorb a malformed abstention, by adding a retry, or by selecting a better run is prohibited. The only authorised change is the prompt symbol above.",
+    "strict_contract_files_frozen": [
+      "src/grounded_answer/contracts.py",
+      "src/grounded_answer/service.py"
+    ]
+  },
+  "declared_before_execution": true,
+  "execution_order": {
+    "intent_ids": [
+      "mit60001-q-001",
+      "mit60001-q-002",
+      "mit60001-q-003",
+      "mit60001-q-004",
+      "mit60001-q-005",
+      "mit60001-q-006",
+      "mit60001-q-008",
+      "mit60001-q-010",
+      "mit60001-q-014",
+      "mit60001-q-016",
+      "mit60001-q-020",
+      "mit60001-q-021",
+      "mit60001-q-022",
+      "mit60001-q-023",
+      "mit60001-q-025",
+      "mit60001-q-029",
+      "mit60001-q-033",
+      "mit60001-q-034",
+      "mit60001-q-037",
+      "mit60001-q-039"
+    ],
+    "method": "Frozen order of evaluation/mit_60001/multilingual/paired_intents_v1.jsonl; the runner refuses to run if the file order differs."
+  },
+  "execution_protocol": {
+    "atomic_flush_after_each_intent": true,
+    "attempt_count": 1,
+    "continue_after_failure": true,
+    "execution_attempt_id": "m5-1-attempt-1",
+    "external_interruption_policy": "An external process or machine interruption retains any partial raw output. A rerun requires a new attempt ID and explicit user approval; no attempt may be deleted or cherry-picked.",
+    "hash_verification_before_any_model_call": [
+      "frozen inputs",
+      "runtime sources",
+      "analysis scripts",
+      "scope integrity against the M4 runtime baseline"
+    ],
+    "human_review_performed": false,
+    "intent_count": 20,
+    "per_intent_failure_policy": "A translation, provider, contract or unexpected failure is recorded as evaluation data with full diagnostics, and execution continues with the next intent.",
+    "quality_metrics_computed": false,
+    "required_diagnostics_by_stage": {
+      "enforced_by": "diagnostic_gaps in the M5 runner, evaluated inside G1",
+      "every_failed_record": [
+        "failure_layer",
+        "error_type"
+      ],
+      "if_generation_ran": [
+        "retrieval_query",
+        "top3_chunk_ids",
+        "raw_model_output",
+        "generation_latency_ms",
+        "generation_prompt_eval_count",
+        "generation_eval_count"
+      ],
+      "if_retrieval_ran": [
+        "retrieval_query",
+        "retrieval_latency_ms"
+      ],
+      "if_translation_ran": [
+        "translation_latency_ms"
+      ],
+      "rationale": "The pipeline is sequential: retrieval runs only after translation returns and generation only after retrieval returns. Requirements are therefore conditional on which stages actually ran. Demanding Top 3 from a translation-layer failure would be wrong; not demanding it from a generation-layer failure is the data loss M3 attempt 1 suffered."
+    },
+    "required_failure_diagnostics": [
+      "raw_generator_payload",
+      "retrieval_query",
+      "top3_chunk_ids",
+      "generation_telemetry"
+    ],
+    "result_artifact_overwrite_guard": true,
+    "retry_count": 0,
+    "runtime_and_analysis_hashes_must_be_pinned_before_execution": true,
+    "runtime_sources_rehashed_after_execution": true,
+    "startup_failure_policy": "A failure before the first model call is an infrastructure abort and creates no result artifact."
+  },
+  "failure_rule": "A failed gate rejects this prompt candidate; restore the prior prompt and do not make another runtime change without a new preregistration and approval.",
+  "frozen_inputs_sha256": {
+    "data/gold/mit_60001/chunks.jsonl": "c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432",
+    "data/indexes/mit_60001/embeddings.npy": "3cf94fd32adf78e1e294d5562910f0d7144744a4c310de30f74f0084c80e56a7",
+    "data/indexes/mit_60001/metadata.jsonl": "376faf54d90b6c4a30dc562aeba2127cbdd2953c243cd341bc288068dce4c7d7",
+    "evaluation/mit_60001/benchmark_manifest.json": "75e4c1b6296c27a5485be0034d5d8425ad9966efb7be2152a741ff2d349f7724",
+    "evaluation/mit_60001/evaluation_questions.jsonl": "81d5a1374118b01d850d7c4808edf89b9432036a4488c49f5150720aa3fc8dee",
+    "evaluation/mit_60001/multilingual/m1_manifest.json": "496a180d5fa8e30ab3dbbd95daed80d4ec799256023071a7a717e69528b431ef",
+    "evaluation/mit_60001/multilingual/paired_intents_v1.jsonl": "c416752a7bc83d956f8a95990bfb8ad0d40cd6ac905498bd656c6309b05c43da",
+    "reports/09_embedding/embedding_index_manifest.json": "4e8d277f630eff2c1a4b8e7721f449400e13f7e2c9fee4d99183270cc6ca388c",
+    "reports/25_grounded_answer_reliability_v1/grounded_answer_reliability_v1_final_manifest.json": "d447b341e65957870cf6cd5196cb0f692b6d37f794bf483b576fd55ef5a99ee5",
+    "reports/25_grounded_answer_reliability_v1/grounded_answer_reliability_v1_final_results.csv": "0f325846325ced340737a9b2a46196fac4a0e20d7192bfa6714275748c59cb64",
+    "reports/30_multilingual_runtime_v1_m2/m2_adjudication_worksheet_reviewed.csv": "69542ffa62fa508c64ac02263232dc773576ac12cb09a2fcffee552889974fd0",
+    "reports/30_multilingual_runtime_v1_m2/m2_manifest.json": "cb4042b1f5d7f0862106ed4a380ece268ae575e81ede0ee1eff8f47096e55c43",
+    "reports/30_multilingual_runtime_v1_m2/m2_metrics.json": "37de6d06d5ff0f8db9e73082a37efbcc3dec224d835192d9bdf162781419d702",
+    "reports/31_multilingual_runtime_v1_m3/m3_final_manifest.json": "5ac4ee0e82f3856c1b6f9ea52bf009eb823f5a856def0f5dfcb9bbfed03fa7cd",
+    "reports/31_multilingual_runtime_v1_m3/m3_preregistration.json": "6c127e5e469e019409793e47a9ecfe453221810ad9f8fac794f7f94716920d52",
+    "reports/31_multilingual_runtime_v1_m3/m3_runtime_outputs.jsonl": "bd0dbe9f890fc2f351a081eb133f4103f429ab6c42edf1ede2bf0a0f069f00e0",
+    "reports/32_multilingual_runtime_v1_m4/m4_execution_manifest.json": "c336c031496db7de6a520a006ec08ffbbbece37067f1d671180923e249aea63c",
+    "reports/32_multilingual_runtime_v1_m4/m4_failure_summary.json": "73ef1a4376ce74ac80881a39e8f7ca201ee3184812b80465a0fe16f48cae4952",
+    "reports/32_multilingual_runtime_v1_m4/m4_final_manifest.json": "f55a4752d712aba13815f41b30713acbeb48c9186865c3c993c1f3150be2d1c7",
+    "reports/32_multilingual_runtime_v1_m4/m4_preregistration.json": "229f4597448f723aeacbb83899192fdaf5341154e7561eebb1774d7fdf176921",
+    "reports/32_multilingual_runtime_v1_m4/m4_runtime_outputs.jsonl": "4d4fe063d2b7122511b182f4bf97fc56017c8cf62beaa59246f518f67d766e11",
+    "schemas/grounded_answer_api_v1.schema.json": "9c22e79a1d6de284d312dd7cd1e8e5fe29c83377c2fba6cd5e53c99ee11536bc"
+  },
+  "frozen_or_prohibited": [
+    "SYSTEM_PROMPT",
+    "build_user_prompt",
+    "strict Pydantic contracts",
+    "normalization rules",
+    "translator model, digest, prompt and generation parameters",
+    "generator model, digest and generation parameters",
+    "Dense retrieval implementation, index, embeddings, metadata and scoring",
+    "Ground Truth and selected 20 intents",
+    "application citation mapping",
+    "retry policy",
+    "query expansion, BM25, RRF and reranking"
+  ],
+  "gate_zero_tolerance_rationale": "A payload that does not satisfy the strict contract is a runtime failure, not a quality metric. There is no sample-size argument for tolerating one at n=20, so the threshold is zero rather than a proportion with a confidence interval.",
+  "milestone": "multilingual_runtime_v1_m5",
+  "next_milestone_if_pass": "M6 human evaluation of Vietnamese end-to-end answer quality",
+  "pass_rule": "G1, G2 and G3 all PASS",
+  "planned_outputs": [
+    "reports/33_multilingual_runtime_v1_m5/m5_1_runtime_outputs.jsonl",
+    "reports/33_multilingual_runtime_v1_m5/m5_1_gate_results.json",
+    "reports/33_multilingual_runtime_v1_m5/m5_1_execution_manifest.json"
+  ],
+  "preregistration_revision": 5,
+  "preregistration_revision_note": "Revision 5 is written before any M5 execution and before any M5 model output exists or has been observed. It carries the revision 4 enforcement work and re-pins the M5 runner hash after that work, and it removes the duplicated English prompt pins so scope_integrity.prompt_symbols is the single source of truth for prompt pins. No gate rule, threshold, runtime source, frozen input, prompt content or scope rule changed relative to revision 4.",
+  "purpose": "Test one conditional Vietnamese abstention-instruction change against the frozen M4 generation-contract failure observation.",
+  "runtime_under_test": {
+    "retriever": "dense_baseline_v1",
+    "source_hash_normalisation": "CRLF collapsed to LF before hashing",
+    "source_sha256_lf_normalized": {
+      "src/grounded_answer/contracts.py": "96478139b8777778f5dbc8e1b75dbca52e04be6e4fd8af70488e470593df9259",
+      "src/grounded_answer/ollama_provider.py": "9b972918d8458605660b38d3b320e11d565591822c1d7f6669fb65b98d69ddb3",
+      "src/grounded_answer/prompts.py": "0b069ccc683514c9871bf5d04f77446f5016a3f001360afd74c1f17bb1d606a2",
+      "src/grounded_answer/service.py": "7433b4596bbac8016a408b1d068da044558a8bf9e085017770dcffff1e995085",
+      "src/multilingual/translation.py": "2e469e5808093a2886d504f0290b90682bfb0768366da352e4607526f03b28ff",
+      "src/search_api/service.py": "c9fe2188bb559c16db49a8e2462512be23c16baccf6bcec36a20ad031c1aa4b6"
+    },
+    "top_k": 3,
+    "verified_by_runner_before_execution": true
+  },
+  "schema_version": "multilingual_runtime_v1_m5_preregistration_v1",
+  "scope_integrity": {
+    "authorized_changed_files": [
+      "src/grounded_answer/prompts.py"
+    ],
+    "baseline_milestone": "multilingual_runtime_v1_m4",
+    "baseline_runtime_sources_sha256_lf_normalized": {
+      "src/grounded_answer/contracts.py": "96478139b8777778f5dbc8e1b75dbca52e04be6e4fd8af70488e470593df9259",
+      "src/grounded_answer/ollama_provider.py": "9b972918d8458605660b38d3b320e11d565591822c1d7f6669fb65b98d69ddb3",
+      "src/grounded_answer/prompts.py": "ac8541bea67a6bfe1d7d980ce34fab2a5ff27467dce78fbf0a1df671c1d22342",
+      "src/grounded_answer/service.py": "7433b4596bbac8016a408b1d068da044558a8bf9e085017770dcffff1e995085",
+      "src/multilingual/translation.py": "2e469e5808093a2886d504f0290b90682bfb0768366da352e4607526f03b28ff",
+      "src/search_api/service.py": "c9fe2188bb559c16db49a8e2462512be23c16baccf6bcec36a20ad031c1aa4b6"
+    },
+    "method": "Two independent layers. Every runtime source is compared against the M4 pin so only the authorised file may differ. Then every pinned symbol inside that file is checked individually, because file-level authorisation alone would let an unrelated edit hide behind the authorised filename.",
+    "observed_changed_files_at_preregistration": [
+      "src/grounded_answer/prompts.py"
+    ],
+    "prompt_pin_source_of_truth": "scope_integrity.prompt_symbols",
+    "prompt_symbol_roles": {
+      "authorized_candidate": [
+        "vi_system_prompt_sha256",
+        "vi_prompt_version"
+      ],
+      "frozen": [
+        "en_system_prompt_sha256",
+        "en_prompt_version",
+        "build_user_prompt_source_sha256"
+      ]
+    },
+    "prompt_symbols": {
+      "build_user_prompt_source_sha256": "fe53e2806f95792f5cc8a32c45803c5f550c6c4bd80e7969a92b235f6e879bf6",
+      "en_prompt_version": "grounded_answer_prompt_v1",
+      "en_system_prompt_sha256": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+      "vi_prompt_version": "grounded_answer_prompt_vi_v2",
+      "vi_system_prompt_sha256": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8"
+    }
+  },
+  "single_authorized_runtime_change": {
+    "applied": true,
+    "behavioral_change_count": 1,
+    "description": "One prompt artifact change, comprising exactly two symbols in src/grounded_answer/prompts.py.",
+    "file": "src/grounded_answer/prompts.py",
+    "symbol_count": 2,
+    "symbols": {
+      "VI_PROMPT_VERSION": {
+        "change": "grounded_answer_prompt_vi_v1 -> grounded_answer_prompt_vi_v2",
+        "not_a_behavioral_change": true,
+        "reason": "The repository treats a version label pointing at two different prompt contents as a defect; the English prompt was restored to byte-identical v1 for exactly that reason. Changing the prompt while keeping the label would recreate the collision.",
+        "role": "identity_and_provenance_only"
+      },
+      "VI_SYSTEM_PROMPT": {
+        "allowed_behavior": {
+          "abstain": "answer=null and supporting_chunk_ids=[]",
+          "answer": "write the answer field in Vietnamese"
+        },
+        "change": "Replace the unconditional Vietnamese-writing instruction with decision-conditional answer and abstain shape instructions.",
+        "role": "behavioral",
+        "sha256": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8"
+      }
+    }
+  },
+  "statistical_reporting": {
+    "applies_to": "the observed runtime failure rate, reported as a descriptive diagnostic",
+    "interval": "Wilson score interval, two-sided 95%, reused from the frozen M3 implementation",
+    "note": "The gate itself is zero-tolerance and does not use an interval. The translator is known to be non-deterministic at temperature 0, so a single attempt is one sample; a PASS is evidence that this prompt can produce twenty clean records, not proof that it always will."
+  },
+  "status": "preregistered_not_executed"
+}

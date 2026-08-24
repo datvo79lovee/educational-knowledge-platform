@@ -203,20 +203,57 @@ def _result_artifact_state() -> dict[str, str | None]:
     return state
 
 
-def test_verify_only_leaves_result_artifacts_unchanged() -> None:
+def _runtime_matched_preregistration(tmp_path: Path) -> Path:
+    """Copy the pre-registration and refresh only its runtime source hashes.
+
+    M5 changed the pinned prompt module, so this frozen milestone legitimately refuses
+    today's runtime. The fixture copy restates the runtime hashes as they are now so the
+    positive path of the mechanism stays under test; no repository file and no frozen
+    artifact is modified.
+    """
+
+    prereg = json.loads(M4_PREREGISTRATION.read_text(encoding="utf-8"))
+    prereg["runtime_under_test"]["source_sha256_lf_normalized"] = {
+        relative_path: runner.sha256_file_lf(PROJECT_ROOT / relative_path)
+        for relative_path in prereg["runtime_under_test"]["source_sha256_lf_normalized"]
+    }
+    path = tmp_path / "m4_preregistration.json"
+    path.write_text(json.dumps(prereg, ensure_ascii=False), encoding="utf-8")
+    return path
+
+
+def test_frozen_m4_runner_refuses_the_drifted_runtime() -> None:
+    """A frozen milestone must refuse once the runtime it pinned has moved."""
+
     script = PROJECT_ROOT / "scripts/evaluation/run_multilingual_runtime_v1_m4.py"
     before = _result_artifact_state()
     completed = subprocess.run(
         [sys.executable, "-X", "utf8", str(script), "--verify-only"],
         cwd=PROJECT_ROOT,
-        check=True,
         capture_output=True,
         text=True,
         encoding="utf-8",
     )
 
-    assert "no encoder load and no Ollama call was made" in completed.stdout
-    assert _result_artifact_state() == before
+    assert completed.returncode != 0
+    assert "Runtime under test changed since pre-registration" in completed.stderr
+    assert "src/grounded_answer/prompts.py" in completed.stderr
+    assert _result_artifact_state() == before, "a refusal must not touch any artifact"
+
+
+def test_verify_only_passes_against_a_runtime_matched_preregistration_copy(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """The positive path of verify-only still works when the runtime matches its pin."""
+
+    fixture = _runtime_matched_preregistration(tmp_path)
+    monkeypatch.setattr(runner, "PREREGISTRATION", fixture)
+    monkeypatch.setattr(sys, "argv", ["run_multilingual_runtime_v1_m4.py", "--verify-only"])
+    before = _result_artifact_state()
+
+    runner.main()
+
+    assert _result_artifact_state() == before, "verify-only must not create or modify results"
 
 
 def test_runner_refuses_to_overwrite_existing_results(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
@@ -369,14 +406,21 @@ def test_integrity_conditions_fail_when_runtime_changed_after_execution() -> Non
     assert tampered["all_passed"] is False
 
 
-def test_runtime_source_mismatch_detection_is_real() -> None:
-    prereg = json.loads(M4_PREREGISTRATION.read_text(encoding="utf-8"))
-    assert runner.runtime_source_mismatches(prereg) == []
+def test_runtime_source_mismatch_detection_is_real(tmp_path: Path) -> None:
+    """Detection is exercised in three states: real drift, matched, and injected."""
 
-    tampered = json.loads(M4_PREREGISTRATION.read_text(encoding="utf-8"))
-    first = next(iter(tampered["runtime_under_test"]["source_sha256_lf_normalized"]))
-    tampered["runtime_under_test"]["source_sha256_lf_normalized"][first] = "0" * 64
-    assert runner.runtime_source_mismatches(tampered) == [first]
+    frozen = json.loads(M4_PREREGISTRATION.read_text(encoding="utf-8"))
+    assert runner.runtime_source_mismatches(frozen) == ["src/grounded_answer/prompts.py"], (
+        "the M5 prompt change is real drift and the frozen pin must report it"
+    )
+
+    matched = json.loads(_runtime_matched_preregistration(tmp_path).read_text(encoding="utf-8"))
+    assert runner.runtime_source_mismatches(matched) == []
+
+    tampered = json.loads(_runtime_matched_preregistration(tmp_path).read_text(encoding="utf-8"))
+    target = "src/grounded_answer/service.py"
+    tampered["runtime_under_test"]["source_sha256_lf_normalized"][target] = "0" * 64
+    assert runner.runtime_source_mismatches(tampered) == [target]
 
 
 def test_integrity_conditions_fail_when_a_failed_record_lost_its_payload() -> None:
@@ -427,11 +471,12 @@ def test_runner_refuses_to_start_when_analysis_hash_is_wrong(
 ) -> None:
     """A wrong analysis hash must stop the run before the encoder and before Ollama."""
 
-    tampered = json.loads(M4_PREREGISTRATION.read_text(encoding="utf-8"))
+    # Bring the runtime check to a valid state first, so the analysis check is what fails.
+    tampered = json.loads(_runtime_matched_preregistration(tmp_path).read_text(encoding="utf-8"))
     tampered["analysis_code_sha256_lf_normalized"][
         "scripts/evaluation/run_multilingual_runtime_v1_m4.py"
     ] = "0" * 64
-    tampered_path = tmp_path / "m4_preregistration.json"
+    tampered_path = tmp_path / "m4_preregistration_analysis_drift.json"
     tampered_path.write_text(json.dumps(tampered, ensure_ascii=False), encoding="utf-8")
 
     monkeypatch.setattr(runner, "PREREGISTRATION", tampered_path)
