@@ -18,7 +18,21 @@ outputs/
 # Data Lake
 data/bronze/
 data/silver/
-data/gold/
-data/indexes/
+data/gold/*
+!data/gold/mit_60001/
+data/gold/mit_60001/*
+!data/gold/mit_60001/chunks.jsonl
+data/indexes/*
+!data/indexes/mit_60001/
+data/indexes/mit_60001/*
+!data/indexes/mit_60001/embeddings.npy
+!data/indexes/mit_60001/metadata.jsonl
 data/models/
-test_*.py
+
+# Legacy live/manual probes; these are not pytest tests.
+/src/database/test_connection.py
+/src/quality/test_transform.py
+/src/test/test_batch_transcripts.py
+/src/test/test_single_transcript.py
+/src/test/test_transcript.py
+/src/test/test_transcript_coverage.py

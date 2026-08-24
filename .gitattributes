@@ -1,0 +1,15 @@
+# Cross-platform default: tracked text is checked out as LF so stored SHA-256 values
+# do not depend on core.autocrlf. Binary formats are never normalized.
+* text=auto eol=lf
+*.npy binary
+*.png binary
+*.xlsx binary
+
+# Explicit hash-sensitive paths document the current canonical contracts.
+data/gold/mit_60001/chunks.jsonl text eol=lf
+data/indexes/mit_60001/metadata.jsonl text eol=lf
+data/indexes/mit_60001/embeddings.npy binary
+evaluation/mit_60001/evaluation_questions.jsonl text eol=lf
+schemas/chunking_evaluation_question_v1.schema.json text eol=lf
+reports/20_grounded_answer_runtime/grounded_answer_runtime_validation.csv text eol=lf
+reports/20_grounded_answer_runtime/grounded_answer_smoke_outputs.jsonl text eol=lf

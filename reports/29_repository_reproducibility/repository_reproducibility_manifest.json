@@ -1,0 +1,96 @@
+{
+  "schema_version": "repository_reproducibility_manifest_v1",
+  "base_commit": "0657d1a",
+  "milestone_status": "candidate_validated_pending_user_commit",
+  "repository_state": {
+    "agent_staged_files": false,
+    "agent_created_commit": false,
+    "agent_pushed": false,
+    "candidate_snapshot_has_git_directory": false
+  },
+  "canonical_artifacts": [
+    {
+      "path": "data/gold/mit_60001/chunks.jsonl",
+      "size_bytes": 1289944,
+      "sha256": "c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432"
+    },
+    {
+      "path": "data/indexes/mit_60001/embeddings.npy",
+      "size_bytes": 1322624,
+      "sha256": "3cf94fd32adf78e1e294d5562910f0d7144744a4c310de30f74f0084c80e56a7"
+    },
+    {
+      "path": "data/indexes/mit_60001/metadata.jsonl",
+      "size_bytes": 220369,
+      "sha256": "376faf54d90b6c4a30dc562aeba2127cbdd2953c243cd341bc288068dce4c7d7"
+    }
+  ],
+  "ignore_policy": {
+    "canonical_gold_ignored": false,
+    "canonical_embeddings_ignored": false,
+    "canonical_metadata_ignored": false,
+    "gold_experiments_ignored": true,
+    "gold_samples_ignored": true,
+    "legacy_manual_probes_ignored": true,
+    "validation_status": "passed"
+  },
+  "query_encoder": {
+    "bootstrap_script": "scripts/bootstrap_query_encoder.py",
+    "model_repository": "sentence-transformers/all-MiniLM-L6-v2",
+    "model_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "embedding_dimension": 384,
+    "model_max_sequence_length": 256,
+    "initial_cache_state": "empty",
+    "download_status": "passed",
+    "revision_verification": "passed",
+    "local_only_reload": "passed"
+  },
+  "line_endings": {
+    "initial_archive_pytest": "27_passed_1_failed",
+    "failure_cause": "LF-to-CRLF conversion changed a frozen fixture byte hash",
+    "policy_file": ".gitattributes",
+    "policy_scope": "all auto-detected tracked text uses LF; canonical hash inputs remain explicit",
+    "binary_extensions": [
+      ".npy",
+      ".png",
+      ".xlsx"
+    ],
+    "historical_renormalization_required": false,
+    "post_policy_pytest": "28_passed",
+    "post_policy_benchmark_manifest": "passed"
+  },
+  "clean_room_validation_without_ollama": {
+    "pytest_passed": 28,
+    "pytest_failed": 0,
+    "benchmark_question_count": 40,
+    "benchmark_ground_truth_range_count": 57,
+    "search_api_validation_status": "passed",
+    "search_api_approved_question_count": 40,
+    "answerable_top_3_id_match_count": 35,
+    "answerable_top_3_score_match_count": 35,
+    "repeated_response_match_count": 40,
+    "citation_validation_pass_count": 120,
+    "failure_case_pass_count": 16,
+    "maximum_observed_score_delta": 4.138e-07
+  },
+  "clean_room_validation_with_ollama": {
+    "validation_status": "passed",
+    "model": "llama3.2:3b",
+    "digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+    "request_count": 2,
+    "model_call_count": 2,
+    "answer_count": 1,
+    "abstain_count": 1,
+    "citation_count": 2
+  },
+  "negative_scope": [
+    "ci",
+    "docker",
+    "pipeline_orchestration",
+    "database_changes",
+    "observability",
+    "retrieval_research",
+    "multilingual_runtime"
+  ],
+  "validation_status": "passed"
+}

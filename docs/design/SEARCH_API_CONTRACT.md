@@ -84,9 +84,11 @@ Video ID không thuộc 38 target video trả HTTP `404`.
 
 ## Chạy local
 
-Sau khi cài dependency trong `requirements.txt`:
+Sau khi cài dependency trong `requirements.txt`, bootstrap đúng pinned query encoder
+rồi chạy API:
 
 ```powershell
+python -X utf8 scripts/bootstrap_query_encoder.py
 python -m uvicorn src.search_api.app:app --host 127.0.0.1 --port 8000
 ```
 
@@ -122,8 +124,9 @@ Grounded Answer model call. Client không được truyền evidence tùy ý. Mo
 decision, answer, supporting chunk IDs và reason nội bộ; application kiểm tra IDs
 thuộc Top 3 rồi map sang URL/timestamp thật. Không có LLM gate trung gian.
 
-Grounded Answer M3 đã được freeze là `baseline_evaluated`: decision accuracy
-`18/37`, runtime failures `8/37`, answer precision `9/10`, citation entailment
-`16/17` và strict end-to-end success `13/37`. Không có pre-registered quality gate;
-không diễn giải các số này là pass, fail hoặc production-ready. Reliability diagnosis
-cho tám HTTP 502 là bước tiếp theo trước mọi prompt/model experiment.
+Grounded Answer Reliability V1 / G0 là canonical evaluated baseline: public runtime
+success `40/40`, decision accuracy `23/37`, false abstain `11/21`
+evidence-sufficient, false answer `3/16` evidence-insufficient và strict end-to-end
+success `17/37`. Đây là descriptive in-sample result, không có pre-registered
+quality gate và không phải production-ready claim. M3 cũ được giữ nguyên trong
+historical report của nó; runtime hiện tại dùng Reliability V1.
