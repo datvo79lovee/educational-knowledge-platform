@@ -1,0 +1,238 @@
+{
+  "analysis_code_sha256_lf_normalized": {
+    "scripts/evaluation/run_multilingual_runtime_v1_m3.py": "cf3e50c0bf79f1a5ce6dd9a29e5e86562bbcdd83fc12bf27a30d79e3458e9652",
+    "scripts/evaluation/run_multilingual_runtime_v1_m4.py": "3ae148431a727ac9ee95d8b6e89433995883e5b9ed81802aca2724eb3ab47998"
+  },
+  "analysis_code_verification": {
+    "includes_self": true,
+    "method": "LF-normalized SHA-256 of every pinned analysis script, compared before the encoder loads and before any Ollama call",
+    "on_mismatch": "The runner raises and refuses to execute; no result artifact is created",
+    "scripts": [
+      "scripts/evaluation/run_multilingual_runtime_v1_m3.py",
+      "scripts/evaluation/run_multilingual_runtime_v1_m4.py"
+    ],
+    "self_reference_note": "The runner verifies its own hash. This detects drift, meaning code changed after pre-registration without re-registering. It does not defeat a rewrite that also updates the pre-registration, and it is not claimed to.",
+    "verified_before_any_model_call": true,
+    "why": "Pinning a hash without checking it is documentation, not enforcement. The same gap existed for the runtime until integrity condition I4 was enforced in revision 2."
+  },
+  "base_commit_at_preregistration": "72a8e345a70508c82fee8d3faf0b742faf6c82f2",
+  "claims_not_permitted": [
+    "any statement about Vietnamese answer correctness, completeness, groundedness or citation support",
+    "any parity or non-inferiority comparison against the matched English baseline",
+    "any reinterpretation of frozen M2 or frozen M3",
+    "any production-readiness claim",
+    "treating the observed failure rate as the expected rate given known translator non-determinism"
+  ],
+  "declared_before_execution": true,
+  "declared_metrics": {
+    "interval": "Wilson score interval, two-sided 95%, reused from the frozen M3 implementation without reimplementation",
+    "primary": [
+      "runtime_success_rate",
+      "runtime_failure_rate",
+      "failure_layer_counts"
+    ],
+    "resolution_limitation": "With 20 intents a single observed failure moves the rate by 0.05 and the Wilson interval stays wide. M4 reports an interval, not a point estimate to be quoted alone. The translator is known to be non-deterministic at temperature 0, so this is one sample of the failure process, not its expected value.",
+    "secondary": [
+      "decision_counts_among_passed",
+      "per-stage latency for translation, retrieval and generation, captured identically on the success and failure paths",
+      "token counters for translation and generation, captured identically on the success and failure paths",
+      "diagnostic capture completeness on failed records"
+    ],
+    "stage_fields": [
+      "translation_latency_ms",
+      "translation_prompt_eval_count",
+      "translation_eval_count",
+      "retrieval_latency_ms",
+      "generation_latency_ms",
+      "generation_prompt_eval_count",
+      "generation_eval_count",
+      "total_latency_ms"
+    ]
+  },
+  "durability": {
+    "guarantee": "An external interruption at intent N retains the first N-1 completed records. This is what external_interruption_policy promises and revision 1 did not deliver.",
+    "method": "write to a temporary file then os.replace, so an interruption never leaves a torn or truncated record",
+    "raw_output_flush": "after every intent"
+  },
+  "evaluation_scope": {
+    "excluded_intent_ids": [],
+    "exclusion_note": "The Reliability V1 exclusion of mit60001-q-023 concerns answer-quality Ground Truth. M4 measures runtime failure, which does not depend on Ground Truth, so all 20 intents are in scope. M4 reports no quality metric for any intent, including q-023.",
+    "intent_count": 20,
+    "primary_evaluation_count": 20
+  },
+  "execution_order": {
+    "intent_ids": [
+      "mit60001-q-001",
+      "mit60001-q-002",
+      "mit60001-q-003",
+      "mit60001-q-004",
+      "mit60001-q-005",
+      "mit60001-q-006",
+      "mit60001-q-008",
+      "mit60001-q-010",
+      "mit60001-q-014",
+      "mit60001-q-016",
+      "mit60001-q-020",
+      "mit60001-q-021",
+      "mit60001-q-022",
+      "mit60001-q-023",
+      "mit60001-q-025",
+      "mit60001-q-029",
+      "mit60001-q-033",
+      "mit60001-q-034",
+      "mit60001-q-037",
+      "mit60001-q-039"
+    ],
+    "method": "Frozen order of evaluation/mit_60001/multilingual/paired_intents_v1.jsonl; the runner refuses to run if the file order differs.",
+    "rationale": "No human review happens in M4, so review-order randomization is unnecessary; a fixed declared order keeps execution auditable."
+  },
+  "failure_taxonomy": {
+    "assignment_rule": "Exception type at the boundary where the failure surfaced, mapped by a pure function declared in the runner before execution.",
+    "layers": [
+      "translation_contract",
+      "translation_provider",
+      "translation_other",
+      "generation_contract",
+      "generation_provider",
+      "runtime_other"
+    ],
+    "note": "The layer records where the runtime broke, not whether the underlying translation or evidence was semantically good."
+  },
+  "frozen_inputs_sha256": {
+    "data/gold/mit_60001/chunks.jsonl": "c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432",
+    "data/indexes/mit_60001/embeddings.npy": "3cf94fd32adf78e1e294d5562910f0d7144744a4c310de30f74f0084c80e56a7",
+    "data/indexes/mit_60001/metadata.jsonl": "376faf54d90b6c4a30dc562aeba2127cbdd2953c243cd341bc288068dce4c7d7",
+    "evaluation/mit_60001/benchmark_manifest.json": "75e4c1b6296c27a5485be0034d5d8425ad9966efb7be2152a741ff2d349f7724",
+    "evaluation/mit_60001/evaluation_questions.jsonl": "81d5a1374118b01d850d7c4808edf89b9432036a4488c49f5150720aa3fc8dee",
+    "evaluation/mit_60001/multilingual/m1_manifest.json": "496a180d5fa8e30ab3dbbd95daed80d4ec799256023071a7a717e69528b431ef",
+    "evaluation/mit_60001/multilingual/paired_intents_v1.jsonl": "c416752a7bc83d956f8a95990bfb8ad0d40cd6ac905498bd656c6309b05c43da",
+    "reports/09_embedding/embedding_index_manifest.json": "4e8d277f630eff2c1a4b8e7721f449400e13f7e2c9fee4d99183270cc6ca388c",
+    "reports/25_grounded_answer_reliability_v1/grounded_answer_reliability_v1_final_manifest.json": "d447b341e65957870cf6cd5196cb0f692b6d37f794bf483b576fd55ef5a99ee5",
+    "reports/25_grounded_answer_reliability_v1/grounded_answer_reliability_v1_final_results.csv": "0f325846325ced340737a9b2a46196fac4a0e20d7192bfa6714275748c59cb64",
+    "reports/30_multilingual_runtime_v1_m2/m2_adjudication_worksheet_reviewed.csv": "69542ffa62fa508c64ac02263232dc773576ac12cb09a2fcffee552889974fd0",
+    "reports/30_multilingual_runtime_v1_m2/m2_manifest.json": "cb4042b1f5d7f0862106ed4a380ece268ae575e81ede0ee1eff8f47096e55c43",
+    "reports/30_multilingual_runtime_v1_m2/m2_metrics.json": "37de6d06d5ff0f8db9e73082a37efbcc3dec224d835192d9bdf162781419d702",
+    "reports/31_multilingual_runtime_v1_m3/m3_final_manifest.json": "5ac4ee0e82f3856c1b6f9ea52bf009eb823f5a856def0f5dfcb9bbfed03fa7cd",
+    "reports/31_multilingual_runtime_v1_m3/m3_preregistration.json": "6c127e5e469e019409793e47a9ecfe453221810ad9f8fac794f7f94716920d52",
+    "reports/31_multilingual_runtime_v1_m3/m3_runtime_outputs.jsonl": "bd0dbe9f890fc2f351a081eb133f4103f429ab6c42edf1ede2bf0a0f069f00e0",
+    "schemas/grounded_answer_api_v1.schema.json": "9c22e79a1d6de284d312dd7cd1e8e5fe29c83377c2fba6cd5e53c99ee11536bc"
+  },
+  "future_reuse_of_outputs": "M4 raw outputs may be reused by a later quality-evaluation milestone only if that milestone pre-registers its gates and rubric before any human review of these outputs begins. Reviewing first and pre-registering afterwards is not permitted.",
+  "instrument_change": {
+    "attempts_are_never_deleted_or_cherry_picked": true,
+    "auto_repair": false,
+    "continue_after_failure": true,
+    "output_selection": false,
+    "retry_count": 0,
+    "stop_on_first_failure": false
+  },
+  "integrity_conditions": {
+    "conditions": [
+      {
+        "condition": "All 20 intents are attempted and 20 records are written, whatever their status",
+        "id": "I1"
+      },
+      {
+        "condition": "retry_count is 0 and no intent is executed more than once",
+        "id": "I2"
+      },
+      {
+        "condition": "Every failed record carries a failure_layer, an error_type, and the raw generator payload whenever a generation call was made",
+        "id": "I3"
+      },
+      {
+        "condition": "Runtime source hashes still match the pre-registration after execution",
+        "id": "I4"
+      }
+    ],
+    "enforcement": {
+      "evaluated_by_runner": true,
+      "i4_method": "Runtime source hashes are recomputed after the execution loop finishes and compared to the pre-registration; the mismatch list and PASS or FAIL are written into the manifest, and validation_status becomes failed_integrity_conditions when any condition fails.",
+      "recorded_in": "reports/32_multilingual_runtime_v1_m4/m4_execution_manifest.json under integrity_conditions"
+    },
+    "note": "These validate the measurement; none of them is a promotion gate."
+  },
+  "milestone": "multilingual_runtime_v1_m4",
+  "negative_scope": [
+    "no translator prompt, model or parameter change",
+    "no G0 prompt, model or parameter change",
+    "no normalization rule change",
+    "no Dense, Gold, index, metadata or Ground Truth change",
+    "no query expansion, BM25, RRF, reranker or external evidence",
+    "no retry, output selection or post-result tuning",
+    "no human review and no quality metric in M4",
+    "no modification of any M2 or M3 artifact"
+  ],
+  "no_promotion_gate": {
+    "declared": true,
+    "reason": "M4 has no prior for the failure rate, so any threshold would be invented after the fact or arbitrary before it. M3 already showed that thresholds with plus or minus one question at this sample size have poor power. M4 therefore reports a measurement and makes no accept or reject decision."
+  },
+  "observation_without_modification": {
+    "raw_output_capture": {
+      "json_failure": "json.JSONDecodeError keeps the unparsed text on its doc attribute",
+      "validation_failure": "pydantic ValidationError.errors() carries the full payload under the input key; only the string form truncates it"
+    },
+    "raw_output_capture_precedence": [
+      "generation provider recorder, which holds the payload even when strict validation rejects it afterwards",
+      "pydantic ValidationError errors() input entry",
+      "json.JSONDecodeError doc attribute"
+    ],
+    "recorders": [
+      "translator: records literal_en, token counters and translation latency",
+      "search service: records Dense Top 3 and retrieval latency; proxies index_run_id",
+      "generation provider: records raw content, token counters and generation latency before strict validation runs"
+    ],
+    "runtime_source_files_modified": 0,
+    "statement": "Diagnostics are collected without touching runtime code. Pure delegation wrappers around the pinned translator, the pinned Dense search service and the pinned generation provider record the translation, the Top 3 and the raw generator payload with its token counters; the wrapped objects, prompts, model, digest, decoding parameters and index are unchanged. The exception chain is a fallback when no generator call was recorded.",
+    "wrapper_contract": "Wrappers delegate every call and return the inner result unchanged; tests assert object identity of the returned value for all three recorders."
+  },
+  "planned_outputs": [
+    "reports/32_multilingual_runtime_v1_m4/m4_runtime_outputs.jsonl",
+    "reports/32_multilingual_runtime_v1_m4/m4_failure_summary.json",
+    "reports/32_multilingual_runtime_v1_m4/m4_execution_manifest.json"
+  ],
+  "preregistration_revision": 3,
+  "preregistration_revision_note": "Revision 3 closes the analysis layer before execution and before any M4 result existed or was observed. Revisions 1 and 2 pinned the hash of this runner and of the M3 runner it imports, but nothing verified them, so the measurement code could drift between pre-registration and execution exactly the way the runtime could before I4 was enforced. Revision 3 makes the runner verify both analysis scripts before any model call and re-pins its own hash. The runtime, prompts, model, retriever, normalization, frozen inputs, execution order, failure taxonomy, integrity conditions and the decision to have no promotion gate are unchanged. Revision 2 already locked atomic per-intent flushing, post-execution rehashing of runtime sources and the third delegation recorder.",
+  "relationship_to_previous_milestones": {
+    "m2": "frozen_failed; literal translator REJECTED. M4 does not reinterpret or reopen it.",
+    "m3": "frozen_failed_runtime_integrity; 2/20 executed. M4 does not rerun M3, does not reuse its attempt ID and does not complete its gates.",
+    "m3_gates_g2_g4": "remain NOT_EVALUATED. M4 does not evaluate them."
+  },
+  "research_question": "On the frozen 20 Vietnamese paired intents, how often does the unchanged Vietnamese runtime fail, and at which layer does each failure occur?",
+  "runtime_call_policy": {
+    "answer_language": "vi",
+    "auto_repair": false,
+    "execution_attempt_id": "m4-attempt-1",
+    "expected_answer_points_exposed_to_model_calls": false,
+    "external_interruption_policy": "An external process or machine interruption retains any partial raw output. A rerun requires a new attempt ID and explicit user approval; no attempt may be deleted or cherry-picked.",
+    "generation_calls_per_successful_intent": 1,
+    "ground_truth_exposed_to_model_calls": false,
+    "per_intent_failure_policy": "A translation, provider, contract or unexpected failure is recorded as evaluation data with full diagnostics, and execution continues with the next intent.",
+    "retry_count": 0,
+    "startup_failure_policy": "A failure before the first model call is an infrastructure abort and creates no result artifact.",
+    "translation_calls_per_intent": 1
+  },
+  "runtime_unchanged_since_m3": {
+    "meaning": "M4 measures the same runtime M3 attempted, so the two milestones are directly comparable.",
+    "method": "LF-normalized SHA-256 of every runtime source pinned by M3, recomputed at M4 pre-registration time and compared value by value.",
+    "verified": true
+  },
+  "runtime_under_test": {
+    "retriever": "dense_baseline_v1",
+    "source_hash_normalisation": "CRLF collapsed to LF before hashing",
+    "source_sha256_lf_normalized": {
+      "src/grounded_answer/contracts.py": "96478139b8777778f5dbc8e1b75dbca52e04be6e4fd8af70488e470593df9259",
+      "src/grounded_answer/ollama_provider.py": "9b972918d8458605660b38d3b320e11d565591822c1d7f6669fb65b98d69ddb3",
+      "src/grounded_answer/prompts.py": "ac8541bea67a6bfe1d7d980ce34fab2a5ff27467dce78fbf0a1df671c1d22342",
+      "src/grounded_answer/service.py": "7433b4596bbac8016a408b1d068da044558a8bf9e085017770dcffff1e995085",
+      "src/multilingual/translation.py": "2e469e5808093a2886d504f0290b90682bfb0768366da352e4607526f03b28ff",
+      "src/search_api/service.py": "c9fe2188bb559c16db49a8e2462512be23c16baccf6bcec36a20ad031c1aa4b6"
+    },
+    "top_k": 3,
+    "translator": null,
+    "verified_by_runner_before_execution": true
+  },
+  "schema_version": "multilingual_runtime_v1_m4_preregistration_v1",
+  "status": "preregistered_not_executed",
+  "why_this_milestone_exists": "M3 attempt 1 used stop-on-first-failure. It halted at the second intent, produced 2 of 20 records and could not estimate anything. Stop-on-first-failure is the right integrity gate for a system believed to be integral; it destroys measurement capacity for a system whose failure rate is unknown. M4 changes the instrument, not the runtime."
+}
