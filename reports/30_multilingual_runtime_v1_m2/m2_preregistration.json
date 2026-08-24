@@ -1,0 +1,162 @@
+{
+  "base_commit_at_preregistration": "df6752f4c438ef89bd9892c839b2ecc0282f27cb",
+  "branches_compared": [
+    "question_en",
+    "literal_en_frozen_human",
+    "machine_literal_en"
+  ],
+  "committed_metric_report": {
+    "branches": [
+      "question_en",
+      "literal_en_frozen_human",
+      "machine_literal_en"
+    ],
+    "metrics": [
+      "mrr",
+      "recall_at_1",
+      "recall_at_3",
+      "recall_at_5",
+      "full_evidence_at_3"
+    ],
+    "note": "All three branches are recomputed by the runner with the frozen M3 branch_metrics function; the two frozen branches must reproduce the Phase 9 baseline above."
+  },
+  "determinism_requirement": {
+    "expectation": "run_A and run_B translations byte-identical for all 20 intents",
+    "if_violated": "Report as a primary finding. Non-determinism at temperature 0 / seed 42 would undermine the reproducibility assumption of the whole runtime. The gate is still evaluated on run_A.",
+    "runs": 2
+  },
+  "frozen_baseline_from_phase9": {
+    "en_canonical": {
+      "full_evidence_at_3": 0.5,
+      "mrr": 0.59627451,
+      "recall_at_1": 0.4,
+      "recall_at_3": 0.75,
+      "recall_at_5": 0.8
+    },
+    "literal_en_frozen_human": {
+      "full_evidence_at_3": 0.55,
+      "mrr": 0.634226651,
+      "recall_at_1": 0.55,
+      "recall_at_3": 0.7,
+      "recall_at_5": 0.75
+    },
+    "source": "reports/28_multilingual_retrieval_evaluation/multilingual_retrieval_metrics.json"
+  },
+  "frozen_inputs_sha256": {
+    "data/gold/mit_60001/chunks.jsonl": "c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432",
+    "data/indexes/mit_60001/embeddings.npy": "3cf94fd32adf78e1e294d5562910f0d7144744a4c310de30f74f0084c80e56a7",
+    "data/indexes/mit_60001/metadata.jsonl": "376faf54d90b6c4a30dc562aeba2127cbdd2953c243cd341bc288068dce4c7d7",
+    "evaluation/mit_60001/multilingual/m1_manifest.json": "496a180d5fa8e30ab3dbbd95daed80d4ec799256023071a7a717e69528b431ef",
+    "evaluation/mit_60001/multilingual/paired_intents_v1.jsonl": "c416752a7bc83d956f8a95990bfb8ad0d40cd6ac905498bd656c6309b05c43da",
+    "reports/09_embedding/embedding_index_manifest.json": "4e8d277f630eff2c1a4b8e7721f449400e13f7e2c9fee4d99183270cc6ca388c",
+    "reports/27_multilingual_dense_retrieval/multilingual_dense_retrieval_results.jsonl": "244861f3535e2875dee2c3dcd31b0b2af3ecdad91edf43e7af26abef02af3991",
+    "reports/28_multilingual_retrieval_evaluation/multilingual_retrieval_metrics.json": "c11516db92243a43f070a987064c145d01d1745b96c39adace9b692ae263e93d"
+  },
+  "interpretation_of_failure": "A FAIL does not authorise a quick fix. It means the VI runtime branch is not accepted as fidelity-preserving, and any response is a separately scoped decision recorded in a new milestone.",
+  "milestone": "multilingual_runtime_v1_m2",
+  "naming_note": "Phase 9 already uses m1/m2/m3 for the multilingual BENCHMARK. This milestone is Multilingual Runtime V1 M2 and uses the distinct prefix multilingual_runtime_v1_m2 in all script, report and artifact names to avoid collision with the frozen Phase 9 artifacts.",
+  "negative_scope": [
+    "BM25",
+    "hybrid RRF",
+    "reranking",
+    "query expansion",
+    "expanded_en",
+    "encoder comparison",
+    "generator prompt tuning",
+    "changes to dense_baseline_v1"
+  ],
+  "objective": "Measure whether the shipped runtime machine translator preserves the retrieval fidelity that Phase 9 measured on human-approved literal English. Phase 9 results were obtained with human-reviewed literal_en and do NOT automatically transfer to the runtime.",
+  "output_manifest_requirement": "m2_manifest.json records SHA-256 of the pre-registration, every frozen input, every runtime source and every output artifact.",
+  "preregistered_at": "2026-08-24",
+  "preregistered_predictions": [
+    {
+      "evaluation_rule": {
+        "criterion_a": "mit60001-q-008 has the maximum rank_delta_machine_minus_frozen among the 20 intents (ties count as satisfied)",
+        "criterion_b": "mit60001-q-008 has the minimum top_3_overlap among the 20 intents (ties count as satisfied)",
+        "evaluated_automatically_by_runner": true,
+        "prediction_holds_if": "criterion_a OR criterion_b"
+      },
+      "id": "P1",
+      "intent_id": "mit60001-q-008",
+      "phase9_evidence": {
+        "en_rank": 2,
+        "rank_delta": 5,
+        "review": "Minor wording difference",
+        "vi_rank": 7
+      },
+      "statement": "q-008 will again be the most translation-sensitive intent, operationalised as: it ranks worst on at least one of (a) largest first-relevant-rank degradation vs frozen literal_en, (b) lowest Top-3 overlap vs frozen literal_en."
+    }
+  ],
+  "preregistration_revision": 2,
+  "preregistration_revision_note": "Revision 2 hardens the protocol BEFORE execution: runtime source hashes are verified by the runner, both frozen baselines are stated in full, the three-branch metric table is committed, P1 is given a machine-checkable rule, and an output manifest is required. No M2 result has been produced or observed at revision 2.",
+  "primary_gate": {
+    "conditions_all_must_hold": [
+      {
+        "id": "G1",
+        "rubric": [
+          "Equivalent",
+          "Minor wording difference",
+          "Semantic drift"
+        ],
+        "statement": "semantic_drift_count == 0 under the M1 adjudication rubric",
+        "threshold": 0
+      },
+      {
+        "absolute_minimum_required": 0.65,
+        "baseline": 0.7,
+        "id": "G2",
+        "statement": "Recall@3 of machine_literal_en must not fall more than 0.05 below frozen literal_en"
+      }
+    ],
+    "declared_before_execution": true,
+    "evaluated_on": "run_A"
+  },
+  "prohibited_after_seeing_results": [
+    "modifying the translation prompt, translator parameters or retriever",
+    "editing any frozen Phase 9 artifact or Ground Truth",
+    "re-running with different parameters and reporting the better run",
+    "post-hoc editing of machine translations",
+    "redefining the gate or the prediction"
+  ],
+  "required_output_artifacts": [
+    "m2_machine_translations.jsonl",
+    "m2_machine_retrieval_results.jsonl",
+    "m2_adjudication_worksheet.csv",
+    "m2_metrics.json",
+    "m2_manifest.json"
+  ],
+  "runtime_under_test": {
+    "full_ranking_depth": 861,
+    "retriever": "dense_baseline_v1",
+    "source_hash_normalisation": "CRLF collapsed to LF before hashing",
+    "source_sha256_lf_normalized": {
+      "src/grounded_answer/__init__.py": "f08564d68bc1031cb0f2e17143bb0224e62656ad6b375ab760f7246160d9e9d3",
+      "src/grounded_answer/prompts.py": "ac8541bea67a6bfe1d7d980ce34fab2a5ff27467dce78fbf0a1df671c1d22342",
+      "src/grounded_answer/service.py": "7433b4596bbac8016a408b1d068da044558a8bf9e085017770dcffff1e995085",
+      "src/multilingual/__init__.py": "e73097089e4eeda9e505af8fbb3fe150ce180365246bad7426e298c08418735a",
+      "src/multilingual/translation.py": "2e469e5808093a2886d504f0290b90682bfb0768366da352e4607526f03b28ff"
+    },
+    "source_state": "uncommitted_M1_working_tree_at_preregistration",
+    "top_k_for_gate": 3,
+    "translator": {
+      "model": "llama3.2:3b",
+      "model_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "num_ctx": 4096,
+      "num_predict": 128,
+      "prompt_version": "literal_translation_prompt_vi_en_v1",
+      "provider": "ollama",
+      "seed": 42,
+      "temperature": 0.0
+    },
+    "verified_by_runner_before_execution": true
+  },
+  "schema_version": "multilingual_runtime_v1_m2_preregistration_v1",
+  "secondary_observations_not_gates": [
+    "MRR, Recall@1, Recall@5, Full Evidence@3 for all three branches",
+    "per-intent first relevant rank delta and Top-3 overlap",
+    "exact string controls mit60001-q-003 and mit60001-q-022",
+    "translator prompt_eval_count / eval_count and whether any intent reached the num_predict=128 cap",
+    "wall-clock translation latency per intent"
+  ],
+  "status": "preregistered_not_executed"
+}

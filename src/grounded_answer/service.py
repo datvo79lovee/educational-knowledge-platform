@@ -18,8 +18,9 @@ from src.grounded_answer.contracts import (
     validate_supporting_chunk_subset,
 )
 from src.grounded_answer.ollama_provider import OllamaGroundedGenerationProvider
-from src.grounded_answer.prompts import SYSTEM_PROMPT, build_user_prompt
+from src.grounded_answer.prompts import SYSTEM_PROMPT, VI_SYSTEM_PROMPT, build_user_prompt
 from src.grounded_answer.provider import GroundedGenerationProvider
+from src.multilingual.translation import LiteralTranslationProvider, TranslationError
 from src.search_api.service import DenseSearchService, RETRIEVAL_METHOD, TOP_K
 
 
@@ -116,22 +117,37 @@ class GroundedAnswerExecution:
     normalized_output: Any
     normalization_applied: bool
     normalization_reason: str | None
+    translation_call_count: int
+    translation_prompt_version: str | None
+    translation_prompt_eval_count: int | None
+    translation_eval_count: int | None
 
 
 class GroundedAnswerService:
-    """Một retrieval call và đúng một model call cho mỗi question."""
+    """EN: one generation call; VI: one translation call then one generation call."""
 
     def __init__(
         self,
         *,
         search_service: DenseSearchService,
         provider: GroundedGenerationProvider,
+        translator: LiteralTranslationProvider | None = None,
     ) -> None:
         self.search_service = search_service
         self.provider = provider
+        self.translator = translator
 
-    def answer(self, question: str) -> GroundedAnswerExecution:
-        candidates = self.search_service.search(question)
+    def answer(self, question: str, answer_language: str = "en") -> GroundedAnswerExecution:
+        original_query = question.strip()
+        translation = None
+        if answer_language == "vi":
+            if self.translator is None:
+                raise TranslationError("Vietnamese runtime translator is not configured")
+            translation = self.translator.translate(original_query)
+            retrieval_query = translation.literal_en
+        else:
+            retrieval_query = original_query
+        candidates = self.search_service.search(retrieval_query)
         if len(candidates) != TOP_K:
             raise RuntimeError(f"Dense retrieval returned {len(candidates)} results, expected 3")
         top3_ids = [str(candidate["chunk_id"]) for candidate in candidates]
@@ -139,8 +155,8 @@ class GroundedAnswerService:
             raise RuntimeError("Dense retrieval returned duplicate Top 3 chunk IDs")
 
         provider_result = self.provider.generate(
-            system_prompt=SYSTEM_PROMPT,
-            user_prompt=build_user_prompt(question, candidates),
+            system_prompt=VI_SYSTEM_PROMPT if answer_language == "vi" else SYSTEM_PROMPT,
+            user_prompt=build_user_prompt(original_query, candidates, answer_language),
             output_schema=build_model_output_schema(top3_ids),
         )
         try:
@@ -171,7 +187,10 @@ class GroundedAnswerService:
             for candidate in selected_candidates
         ]
         response = GroundedAnswerResponse(
-            question=question.strip(),
+            question=original_query,
+            original_query=original_query,
+            retrieval_query=retrieval_query,
+            answer_language=answer_language,
             decision=decision.decision,
             answer=decision.answer,
             supporting_chunk_ids=canonical_ids,
@@ -189,6 +208,10 @@ class GroundedAnswerService:
             normalized_output=normalization.normalized_output,
             normalization_applied=normalization.normalization_applied,
             normalization_reason=normalization.normalization_reason,
+            translation_call_count=1 if translation is not None else 0,
+            translation_prompt_version=translation.prompt_version if translation else None,
+            translation_prompt_eval_count=translation.prompt_eval_count if translation else None,
+            translation_eval_count=translation.eval_count if translation else None,
         )
 
 

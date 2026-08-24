@@ -8,7 +8,8 @@
       "additionalProperties": false,
       "required": ["question"],
       "properties": {
-        "question": {"type": "string", "minLength": 1}
+        "question": {"type": "string", "minLength": 1},
+        "answer_language": {"enum": ["en", "vi"], "default": "en"}
       }
     },
     "citation": {
@@ -47,6 +48,9 @@
       "additionalProperties": false,
       "required": [
         "question",
+        "original_query",
+        "retrieval_query",
+        "answer_language",
         "decision",
         "answer",
         "supporting_chunk_ids",
@@ -55,6 +59,9 @@
       ],
       "properties": {
         "question": {"type": "string", "minLength": 1},
+        "original_query": {"type": "string", "minLength": 1},
+        "retrieval_query": {"type": "string", "minLength": 1},
+        "answer_language": {"enum": ["en", "vi"]},
         "decision": {"enum": ["answer", "abstain"]},
         "answer": {"type": ["string", "null"]},
         "supporting_chunk_ids": {

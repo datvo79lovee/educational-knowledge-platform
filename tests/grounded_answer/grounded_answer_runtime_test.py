@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from fastapi import HTTPException
 from jsonschema import Draft202012Validator
 from pydantic import ValidationError
 
@@ -23,6 +24,14 @@ from src.grounded_answer.service import (
     GroundedAnswerContractError,
     GroundedAnswerService,
 )
+from src.grounded_answer.prompts import SYSTEM_PROMPT
+from src.multilingual.translation import (
+    TranslationContractError,
+    TranslationError,
+    TranslationProviderError,
+    TranslationResult,
+)
+from src.search_api.app import answer as answer_endpoint
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -60,6 +69,7 @@ class FakeProvider:
         self.payload = payload
         self.call_count = 0
         self.last_schema: dict[str, Any] | None = None
+        self.last_user_prompt: str | None = None
 
     def verify_runtime(self) -> dict[str, Any]:
         return {"status": "fake"}
@@ -75,6 +85,7 @@ class FakeProvider:
         assert system_prompt
         assert "Candidate excerpts" in user_prompt
         self.last_schema = output_schema
+        self.last_user_prompt = user_prompt
         content = self.payload if isinstance(self.payload, str) else json.dumps(self.payload)
         return GenerationProviderResult(
             content=content,
@@ -88,6 +99,22 @@ def build_service(payload: dict[str, Any] | str) -> tuple[GroundedAnswerService,
     provider = FakeProvider(payload)
     service = GroundedAnswerService(search_service=search, provider=provider)  # type: ignore[arg-type]
     return service, search, provider
+
+
+class FakeTranslator:
+    def __init__(self, literal_en: str) -> None:
+        self.literal_en = literal_en
+        self.call_count = 0
+        self.received: str | None = None
+
+    def translate(self, question_vi: str) -> TranslationResult:
+        self.call_count += 1
+        self.received = question_vi
+        return TranslationResult(
+            literal_en=self.literal_en,
+            prompt_eval_count=4,
+            eval_count=3,
+        )
 
 
 def test_request_rejects_client_supplied_evidence() -> None:
@@ -138,6 +165,97 @@ def test_abstain_has_no_answer_evidence_or_citations() -> None:
     assert response.answer is None
     assert response.supporting_chunk_ids == []
     assert response.citations == []
+
+
+def test_vietnamese_branch_translates_only_original_query_then_retrieves_literal_english() -> None:
+    search = FakeSearchService()
+    provider = FakeProvider(
+        {
+            "decision": "answer",
+            "answer": "Câu trả lời có căn cứ.",
+            "supporting_chunk_ids": ["chunk-1"],
+            "reason": "Evidence supports the answer.",
+        }
+    )
+    translator = FakeTranslator("Why does a recursive function need a base case?")
+    service = GroundedAnswerService(
+        search_service=search,
+        provider=provider,  # type: ignore[arg-type]
+        translator=translator,
+    )
+
+    response = service.answer(" Vì sao hàm đệ quy cần base case? ", "vi").response
+
+    assert translator.call_count == 1
+    assert translator.received == "Vì sao hàm đệ quy cần base case?"
+    assert search.call_count == 1
+    assert response.original_query == "Vì sao hàm đệ quy cần base case?"
+    assert response.retrieval_query == "Why does a recursive function need a base case?"
+    assert response.answer_language == "vi"
+    assert service.answer("Vì sao hàm đệ quy cần base case?", "vi").translation_call_count == 1
+    assert provider.last_user_prompt is not None
+    assert "Answer language: vi" in provider.last_user_prompt
+
+
+def test_english_branch_does_not_require_or_call_translator() -> None:
+    service, _, _ = build_service(
+        {
+            "decision": "abstain",
+            "answer": None,
+            "supporting_chunk_ids": [],
+            "reason": "The excerpts are insufficient.",
+        }
+    )
+
+    response = service.answer("What is recursion?", "en").response
+
+    assert response.original_query == "What is recursion?"
+    assert response.retrieval_query == "What is recursion?"
+    assert response.answer_language == "en"
+
+
+def test_missing_vietnamese_translator_fails_closed() -> None:
+    service, search, provider = build_service(
+        {
+            "decision": "abstain",
+            "answer": None,
+            "supporting_chunk_ids": [],
+            "reason": "The excerpts are insufficient.",
+        }
+    )
+    with pytest.raises(TranslationError):
+        service.answer("Câu hỏi tiếng Việt", "vi")
+    assert search.call_count == 0
+    assert provider.call_count == 0
+
+
+@pytest.mark.parametrize(
+    ("error", "expected_status"),
+    [
+        (TranslationContractError("bad translation"), 502),
+        (TranslationProviderError("translator unavailable"), 503),
+    ],
+)
+def test_translation_errors_have_stable_http_mapping(
+    error: TranslationError,
+    expected_status: int,
+) -> None:
+    class FailingService:
+        def answer(self, question: str, answer_language: str) -> Any:
+            raise error
+
+    with pytest.raises(HTTPException) as caught:
+        answer_endpoint(
+            GroundedAnswerRequest(question="Câu hỏi", answer_language="vi"),
+            FailingService(),  # type: ignore[arg-type]
+        )
+    assert caught.value.status_code == expected_status
+
+
+def test_english_prompt_v1_hash_is_frozen() -> None:
+    assert hashlib.sha256(SYSTEM_PROMPT.encode("utf-8")).hexdigest() == (
+        "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459"
+    )
 
 
 def test_abstain_literal_is_normalized_and_audited() -> None:
@@ -332,9 +450,11 @@ def test_active_runtime_has_no_evaluation_label_access() -> None:
         "evaluation_questions.jsonl",
         "evidence_accept_reject",
     )
-    active_files = list((PROJECT_ROOT / "src/grounded_answer").glob("*.py")) + [
-        PROJECT_ROOT / "src/search_api/app.py"
-    ]
+    active_files = (
+        list((PROJECT_ROOT / "src/grounded_answer").glob("*.py"))
+        + list((PROJECT_ROOT / "src/multilingual").glob("*.py"))
+        + [PROJECT_ROOT / "src/search_api/app.py"]
+    )
     for path in active_files:
         content = path.read_text(encoding="utf-8")
         assert not any(value in content for value in prohibited), path

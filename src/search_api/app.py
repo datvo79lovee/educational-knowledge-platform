@@ -12,6 +12,12 @@ from src.grounded_answer.service import (
     GroundedAnswerService,
     build_default_provider,
 )
+from src.multilingual.translation import (
+    TranslationContractError,
+    TranslationError,
+    TranslationProviderError,
+    build_default_translation_provider,
+)
 from src.search_api.contracts import SearchRequest, SearchResponse, VideoResponse
 from src.search_api.service import DenseSearchService, RETRIEVAL_METHOD
 
@@ -21,9 +27,11 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     """Fail startup nếu canonical artifact hoặc pinned model không hợp lệ."""
 
     app.state.search_service = DenseSearchService.load()
+    generator = build_default_provider()
     app.state.answer_service = GroundedAnswerService(
         search_service=app.state.search_service,
-        provider=build_default_provider(),
+        provider=generator,
+        translator=build_default_translation_provider(),
     )
     yield
     app.state.answer_service = None
@@ -87,10 +95,10 @@ def answer(
     payload: GroundedAnswerRequest,
     service: GroundedAnswerService = Depends(get_answer_service),
 ) -> GroundedAnswerResponse:
-    """Retrieve Dense Top 3 rồi answer hoặc abstain bằng đúng một model call."""
+    """EN dùng một generation call; VI dịch literal rồi generation, fail-closed khi dịch lỗi."""
 
     try:
-        return service.answer(payload.question).response
+        return service.answer(payload.question, payload.answer_language).response
     except GroundedAnswerContractError as error:
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
@@ -100,6 +108,21 @@ def answer(
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail="Grounded answer model runtime is unavailable",
+        ) from error
+    except TranslationContractError as error:
+        raise HTTPException(
+            status_code=status.HTTP_502_BAD_GATEWAY,
+            detail="Literal translator returned an invalid response",
+        ) from error
+    except TranslationProviderError as error:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Literal translator runtime is unavailable",
+        ) from error
+    except TranslationError as error:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Vietnamese translation branch is unavailable",
         ) from error
 
 

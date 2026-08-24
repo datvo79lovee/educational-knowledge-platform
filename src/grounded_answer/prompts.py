@@ -7,6 +7,7 @@ from typing import Any
 
 
 PROMPT_VERSION = "grounded_answer_prompt_v1"
+VI_PROMPT_VERSION = "grounded_answer_prompt_vi_v1"
 
 SYSTEM_PROMPT = """You are a grounded answer generator for the MIT 6.0001 course.
 Use only information directly supported by the three candidate excerpts.
@@ -15,8 +16,10 @@ For an answer, select only the chunk IDs that directly support the answer.
 Do not use outside knowledge. Do not create URLs, timestamps, or citations.
 Return only JSON matching the supplied schema."""
 
+VI_SYSTEM_PROMPT = SYSTEM_PROMPT + "\nWrite an answer in Vietnamese."
 
-def build_user_prompt(question: str, candidates: list[dict[str, Any]]) -> str:
+
+def build_user_prompt(question: str, candidates: list[dict[str, Any]], answer_language: str) -> str:
     """Chỉ đưa question, retrieval rank, chunk ID và transcript text vào model."""
 
     evidence = [
@@ -27,9 +30,9 @@ def build_user_prompt(question: str, candidates: list[dict[str, Any]]) -> str:
         }
         for candidate in candidates
     ]
+    prefix = "Question:\n" if answer_language == "en" else "Answer language: vi\nQuestion:\n"
     return (
-        "Question:\n"
-        + question
+        prefix + question
         + "\n\nCandidate excerpts:\n"
         + json.dumps(evidence, ensure_ascii=False, separators=(",", ":"))
     )

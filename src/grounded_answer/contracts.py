@@ -14,9 +14,10 @@ class StrictModel(BaseModel):
 
 
 class GroundedAnswerRequest(StrictModel):
-    """Client chỉ gửi question; evidence luôn do DenseSearchService lấy."""
+    """Client gửi question và ngôn ngữ answer; evidence luôn do DenseSearchService lấy."""
 
     question: str = Field(min_length=1)
+    answer_language: Literal["en", "vi"] = "en"
 
     @field_validator("question")
     @classmethod
@@ -148,6 +149,9 @@ class GroundedAnswerResponse(StrictModel):
     """Public response; không expose model-generated diagnostic reason."""
 
     question: str
+    original_query: str
+    retrieval_query: str
+    answer_language: Literal["en", "vi"]
     decision: Literal["answer", "abstain"]
     answer: str | None
     supporting_chunk_ids: list[str] = Field(max_length=3)
