@@ -1,6 +1,10 @@
 # Multilingual Runtime V1 — M4: đo tỉ lệ lỗi runtime tiếng Việt
 
-Status: `preregistered_not_executed`.
+Status: `frozen_runtime_failure_measurement`.
+
+M4 attempt 1 đã chạy đủ 20 intent và được freeze tại
+`m4_final_manifest.json`. Đây là measurement runtime failure, không phải đánh giá
+quality câu trả lời tiếng Việt.
 
 Pre-registration revision 3 SHA-256:
 `229f4597448f723aeacbb83899192fdaf5341154e7561eebb1774d7fdf176921`.
@@ -171,6 +175,28 @@ Raw output của M4 có thể được dùng lại bởi một milestone đánh 
 **chỉ khi** milestone đó đăng ký trước gate và rubric **trước khi** bắt đầu human
 review. Review trước rồi đăng ký sau là không được phép.
 
+## Kết quả attempt 1
+
+```text
+Executed / passed / failed       : 20 / 12 / 8
+Runtime failure rate             : 8/20 = 0,400; Wilson 95% [0,219; 0,613]
+Retry                            : 0
+Integrity conditions I1–I4       : PASS
+Runtime source rehash sau run    : 0 mismatch
+```
+
+Tất cả 8 failure thuộc `generation_contract`; không có translation failure,
+generation provider failure hoặc runtime-other failure. Tất cả raw payload failure
+chọn `decision="abstain"`; 12 record passed chọn `decision="answer"`. Sáu failure
+là `abstain` kèm answer khác `null`; hai failure là `abstain` kèm answer `null` nhưng
+`supporting_chunk_ids` không rỗng.
+
+Raw generator payload, retrieval query, Top 3 và generation telemetry được capture
+trên 8/8 failure. Đây là một execution sample: không được xem failure rate 0,400 là
+tỉ lệ kỳ vọng, không được claim chất lượng VI/parity với English, và không được kết
+luận prompt VI là nguyên nhân. Không có prompt, model, retriever hay normalization nào
+được sửa bởi M4.
+
 ## Chạy
 
 ```powershell
@@ -183,4 +209,5 @@ return **trước** khi load encoder và trước mọi Ollama call. Full execut
 với `llama3.2:3b` đúng digest đã pin, và runner từ chối ghi đè nếu artifact kết quả đã
 tồn tại.
 
-Execution đầy đủ **chưa được chạy** và cần một lần duyệt riêng.
+Execution đầy đủ đã hoàn tất; runner sẽ từ chối ghi đè output artifact hiện có.
+Không rerun attempt 1 để tìm output khác.

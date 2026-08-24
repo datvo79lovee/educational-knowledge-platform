@@ -5578,3 +5578,75 @@ ghi VI là đã đo và bị từ chối.
 20 paired intents nay đã bị dùng làm dev set — kết quả từng câu đã được quan sát và
 adjudicate. Đánh giá remedy trên đúng bộ 20 câu này sẽ là so sánh contaminated; cần bộ
 paired thứ hai hoặc holdout tách trước.
+
+---
+
+# Multilingual Runtime V1 — M3 attempt 1 và M4 runtime measurement
+
+## M3 — Attempt 1 dừng tại runtime integrity
+
+M3 chạy Vietnamese end-to-end runtime đã pin trên 20 paired intent. Attempt
+`m3-attempt-1` chạy `q-001` thành công rồi gặp `GroundedAnswerContractError` tại
+`q-002`: generator trả `decision="abstain"` nhưng answer khác `null`. Runner ghi
+failure và dừng đúng pre-registration, không retry.
+
+```text
+Executed             : 2/20
+Passed / failed      : 1 / 1
+Retries              : 0
+G1 runtime integrity : FAIL
+G2, G3, G4           : NOT_EVALUATED
+```
+
+Attempt được freeze ở `reports/31_multilingual_runtime_v1_m3/`. Freeze cấm mọi claim
+về correctness, completeness, groundedness, citation support, decision parity hoặc
+production readiness tiếng Việt. Record error path của M3 không giữ đủ retrieval
+query, Top 3 và raw generator payload; đó là capture limitation của runner, không
+phải lý do được phép rerun attempt 1.
+
+## M4 — Đo runtime failure trên đủ 20 intent
+
+M4 dùng pre-registration R3, giữ byte-identical runtime source M3 nhưng đổi protocol
+đo: continue-after-failure, 0 retry, atomic raw flush sau từng intent, recorder thuần
+delegation cho translator/search/generator, và rehash 6 runtime source sau execution.
+M4 không human-review và không tính answer-quality metric.
+
+Execution `m4-attempt-1` đã hoàn tất và artifacts được commit riêng:
+
+```text
+Executed / passed / failed       : 20 / 12 / 8
+Runtime failure rate             : 8/20 = 0,400
+Wilson 95%                       : [0,219; 0,613]
+Retries                          : 0
+I1, I2, I3, I4                   : PASS
+Post-execution runtime rehash    : 0 mismatch
+```
+
+Toàn bộ 8 failure thuộc `generation_contract`; không có translation contract/provider
+failure, generation provider failure hay runtime-other failure. Tất cả 8 raw payload
+lỗi chọn `decision="abstain"`; 12 record passed chọn `decision="answer"`. Sáu failure
+là `abstain` kèm answer khác `null`; hai failure là `abstain` kèm
+`supporting_chunk_ids` không rỗng.
+
+M4 capture đầy đủ trên 8/8 failed record: raw generator payload, retrieval query,
+Dense Top 3 và generation telemetry. Đây là phép đo runtime integrity trong một
+sample; không được suy ra chất lượng câu trả lời VI, parity với English, quan hệ nhân
+quả của prompt, hoặc tỉ lệ lỗi kỳ vọng khi translator đã được chứng minh
+non-deterministic ở M2.
+
+## Validation và ranh giới
+
+- M4 pre-registration R3: 17 frozen input hashes, 6 runtime source hashes và 2
+  analysis runner hashes đều PASS trước model call.
+- M4 execution: I1–I4 PASS; output hashes khớp execution manifest.
+- Test sau execution: M4 tests `23 passed`; full suite `70 passed`; verify-only không
+  thay đổi result artifact.
+- Không sửa runtime, prompt, model, retriever, index, Ground Truth, normalization,
+  M2 hoặc M3 artifact.
+- M4 final manifest `f55a4752d712...` đã freeze; README report 32 đã cập nhật. Chưa
+  mở remedy.
+
+## Bước tiếp theo
+
+Freeze M4 đã hoàn tất. Mọi thay đổi prompt, normalization, model hoặc retry policy
+phải là milestone mới có pre-registration mới; không rerun M3/M4 để tìm output đẹp hơn.

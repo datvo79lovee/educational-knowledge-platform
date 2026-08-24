@@ -166,13 +166,42 @@ Determinism FAIL đo **riêng literal translator**. Nó cho thấy deterministic
 guarantee của repository không thể mặc định suy rộng sang Ollama generation nói chung;
 nó **không** phải kết luận về G0 English generator, vốn cần một test riêng.
 
+## Multilingual Runtime V1 — M3 attempt 1 và M4 đo runtime failure
+
+M3 attempt 1 chạy đúng runtime VI đã pin nhưng dừng ở intent thứ hai theo policy
+stop-on-first-failure. `mit60001-q-002` phát sinh `GroundedAnswerContractError` vì
+model trả `decision="abstain"` cùng answer khác `null`. Attempt chỉ có 2/20 record,
+0 retry; G1 FAIL, còn G2–G4 `NOT_EVALUATED`. Attempt đã được freeze tại
+`reports/31_multilingual_runtime_v1_m3/m3_final_manifest.json`. Không có kết luận
+về answer correctness, groundedness, citation support hoặc parity tiếng Việt từ M3.
+
+M4 thay **dụng cụ đo**, không thay runtime: đủ 20 paired intent được chạy với
+continue-after-failure, 0 retry, atomic flush sau mỗi intent, capture raw generator
+payload/translation query/Top 3 trên error path, và rehash runtime source sau
+execution. Pre-registration R3 và execution artifacts đã được commit riêng.
+
+| M4 runtime measurement | Kết quả |
+| --- | ---: |
+| Executed / passed / failed | 20 / 12 / 8 |
+| Runtime failure rate | 8/20 = 0,400; Wilson 95% [0,219; 0,613] |
+| Failure layer | `generation_contract`: 8; mọi layer khác: 0 |
+| Retry | 0 |
+| Integrity conditions I1–I4 | PASS |
+| Raw payload, retrieval query, Top 3, generation telemetry trên failure | 8/8 captured |
+
+Cả 8 failure có raw `decision="abstain"`; 12 record passed có `decision="answer"`.
+Điều này mô tả runtime integrity trong **một execution sample**, không phải quality
+metric, không phải parity với English baseline, và không phải tỉ lệ lỗi kỳ vọng vì
+translator đã có bằng chứng non-determinism ở M2. Có hai dạng contract violation:
+6 record `abstain` kèm answer khác `null`, 2 record `abstain` kèm
+`supporting_chunk_ids` không rỗng. Không có translation/provider failure trong sample.
+
+M4 không human-review và không tính quality metric. Giả thuyết prompt VI có tín hiệu
+mâu thuẫn với abstention là hướng chẩn đoán tương lai, chưa phải kết luận nhân quả và
+không được sửa trong M4.
+
 ## Bước tiếp theo
 
-Chưa chọn phương án. M2 đã đóng và không có remedy nào được mở trong cùng milestone.
-Ba hướng đang để ngỏ, mỗi hướng là một milestone riêng có pre-registration riêng: đổi
-model dịch, bỏ khâu dịch và dùng multilingual encoder, hoặc giữ EN-only và ghi VI là
-đã đo và bị từ chối.
-
-20 paired intents của Phase 9 nay đã bị dùng làm dev set — kết quả từng câu đã được
-quan sát và adjudicate. Mọi đánh giá phương án khắc phục trên đúng bộ 20 câu này sẽ là
-so sánh contaminated; cần một bộ paired thứ hai hoặc một holdout tách trước.
+M4 đã freeze tại final manifest `f55a4752d712...` sau execution commit `271db28`.
+Freeze chỉ khóa phép đo đã quan sát và ranh giới diễn giải; không mở prompt tuning,
+normalization mới, model mới, rerun hay đánh giá chất lượng VI.
