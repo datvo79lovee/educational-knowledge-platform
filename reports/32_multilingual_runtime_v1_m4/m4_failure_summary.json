@@ -1,0 +1,81 @@
+{
+  "attempt_id": "m4-attempt-1",
+  "decision_counts_among_passed": {
+    "abstain": 0,
+    "answer": 12
+  },
+  "executed_intent_count": 20,
+  "failed_count": 8,
+  "failed_intent_ids": [
+    "mit60001-q-002",
+    "mit60001-q-010",
+    "mit60001-q-014",
+    "mit60001-q-021",
+    "mit60001-q-022",
+    "mit60001-q-023",
+    "mit60001-q-025",
+    "mit60001-q-033"
+  ],
+  "failure_layer_counts": {
+    "generation_contract": 8,
+    "generation_provider": 0,
+    "runtime_other": 0,
+    "translation_contract": 0,
+    "translation_other": 0,
+    "translation_provider": 0
+  },
+  "generation_telemetry_captured_on_failure": 8,
+  "passed_count": 12,
+  "quality_claim": "none; M4 measures runtime failure only",
+  "quality_metrics_computed": false,
+  "raw_model_output_captured_on_failure": 8,
+  "retrieval_query_captured_on_failure": 8,
+  "runtime_failure_rate": {
+    "denominator": 20,
+    "numerator": 8,
+    "rate": 0.4,
+    "wilson_95": [
+      0.21880653237281705,
+      0.6134184992377469
+    ]
+  },
+  "runtime_success_rate": {
+    "denominator": 20,
+    "numerator": 12,
+    "rate": 0.6,
+    "wilson_95": [
+      0.3865815007622531,
+      0.781193467627183
+    ]
+  },
+  "schema_version": "multilingual_runtime_v1_m4_failure_summary_v2",
+  "stage_latency": {
+    "generation": {
+      "count": 20,
+      "max_ms": 6869.366,
+      "mean_ms": 3944.819
+    },
+    "retrieval": {
+      "count": 20,
+      "max_ms": 75.849,
+      "mean_ms": 20.312
+    },
+    "total": {
+      "count": 20,
+      "max_ms": 8746.704,
+      "mean_ms": 4653.848
+    },
+    "translation": {
+      "count": 20,
+      "max_ms": 5015.545,
+      "mean_ms": 688.356
+    }
+  },
+  "token_totals": {
+    "generation_eval": 3044,
+    "generation_prompt_eval": 14938,
+    "translation_eval": 303,
+    "translation_prompt_eval": 1628
+  },
+  "top3_captured_on_failure": 8
+}
