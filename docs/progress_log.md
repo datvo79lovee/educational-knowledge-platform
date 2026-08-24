@@ -5680,3 +5680,42 @@ trong khi positive verifier path vẫn được test bằng fixture tạm.
 
 Runtime VI vẫn chưa production-ready. Remediation tiếp theo cần pre-registration và
 approval mới trước mọi code/runtime experiment.
+
+---
+
+# Multilingual Runtime V1 — M5.3 fail-safe normalization và freeze PASS
+
+M5.3 mở một candidate khác với M5.1: không sửa prompt/model/translator/Dense mà thêm
+một application-boundary normalization hẹp cho nhánh VI. Khi raw generator đã chọn
+`decision="abstain"` nhưng còn trả answer và/hoặc supporting IDs hợp lệ thuộc chính
+Dense Top 3, runtime canonicalize response thành `answer=null` và IDs/citations rỗng.
+Raw payload vẫn được giữ để audit. English, unknown ID, malformed type, empty-string
+answer và decision khác abstain vẫn bị strict contract từ chối.
+
+Pre-registration R3 được commit trước execution. Runner pin 24 frozen inputs, 6
+runtime sources, 4 analysis scripts và từng symbol runtime; G1 kiểm đúng một call mỗi
+stage trên từng record, G2 đếm mọi runtime failure, G3 khóa scope chỉ `service.py`, G4
+kiểm eligibility/application hai chiều và shape canonical.
+
+Attempt `m5-3-attempt-1` kết quả:
+
+```text
+Executed / passed / failed : 20 / 20 / 0
+Translation / retrieval / generation calls : 20 / 20 / 20
+Retry : 0
+G1 / G2 / G3 / G4 : PASS / PASS / PASS / PASS
+Post-execution runtime rehash : PASS, 0 mismatch
+Normalization vi_abstain_payload_to_canonical : 8 records
+```
+
+Tám record canonicalized: q-002, q-010, q-014, q-021, q-022, q-023, q-025, q-033.
+Output, gate result và execution manifest đều được hash-link; freeze script xác nhận
+hash, gate pattern, call count, record uniqueness, raw-ID subset Top 3 và shape
+canonical trước khi tạo `m5_3_final_manifest.json`.
+
+M5.3 được freeze `frozen_passed_runtime_gates` với candidate decision
+`ADVANCE_TO_M6_QUALITY_EVALUATION`. Đây **không** là quality/groundedness/citation
+support/translation-fidelity/English-parity/production/demo result. Raw output vẫn
+giữ evidence về translation fidelity yếu (ví dụ q-033: decomposition → “nuclear
+fission”). Bước sau bắt buộc là M6 pre-registered human quality evaluation; không
+rerun M5.3 hay tune theo output đã quan sát.

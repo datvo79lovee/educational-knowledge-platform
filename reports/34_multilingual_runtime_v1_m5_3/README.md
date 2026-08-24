@@ -2,7 +2,7 @@
 
 ## Trạng thái
 
-`PREREGISTERED — NOT EXECUTED`
+`FROZEN PASS — RUNTIME GATES ONLY`
 
 M5.3 kiểm tra đúng một candidate: canonicalization fail-closed chỉ cho nhánh tiếng Việt khi model đã chọn `decision="abstain"` nhưng còn trả `answer` và/hoặc `supporting_chunk_ids` hợp lệ thuộc Dense Top 3.
 
@@ -56,9 +56,36 @@ Chỉ khi G1–G4 đều PASS mới chuyển M6 đánh giá chất lượng end-
 - Không retry, cherry-pick output, human review hoặc quality metric trong M5.3.
 - Không gọi model trong bước preparation này.
 
+## Kết quả attempt `m5-3-attempt-1`
+
+| Mục đo | Kết quả |
+| --- | ---: |
+| Executed / passed / failed | 20 / 20 / 0 |
+| Translation / retrieval / generation calls | 20 / 20 / 20 |
+| Retry | 0 |
+| `vi_abstain_payload_to_canonical` | 8 record |
+| G1 / G2 / G3 / G4 | PASS / PASS / PASS / PASS |
+| Post-execution runtime rehash | 0 mismatch |
+
+Tám record được canonicalize là `q-002`, `q-010`, `q-014`, `q-021`, `q-022`,
+`q-023`, `q-025` và `q-033`. Raw payload, literal retrieval query, Dense Top 3,
+normalized output và telemetry vẫn được giữ trong output JSONL.
+
+## Freeze và ranh giới
+
+`m5_3_final_manifest.json` đã freeze attempt PASS. Candidate chỉ được quyết định
+`ADVANCE_TO_M6_QUALITY_EVALUATION`.
+
+Không được suy ra từ M5.3 rằng answer tiếng Việt đúng, grounded, có citation hỗ trợ,
+dịch đúng ngữ nghĩa, ngang English, production-ready hoặc demo-ready. Raw output vẫn
+cho thấy các vấn đề translation fidelity đã biết, ví dụ `q-033` dùng “nuclear fission”
+cho intent decomposition. M6 phải đăng ký rubric/gate trước khi human review chất
+lượng end-to-end.
+
 ## Artifact
 
 - `m5_3_preregistration.json`: protocol và hash pin canonical trước execution.
-- `m5_3_runtime_outputs.jsonl`: chỉ xuất hiện sau khi live execution được duyệt riêng.
-- `m5_3_gate_results.json`: chỉ xuất hiện sau execution.
-- `m5_3_execution_manifest.json`: chỉ xuất hiện sau execution.
+- `m5_3_runtime_outputs.jsonl`: 20 raw runtime records.
+- `m5_3_gate_results.json`: G1–G4 PASS.
+- `m5_3_execution_manifest.json`: hash-linked execution record.
+- `m5_3_final_manifest.json`: final freeze; SHA-256 `b39e26ad…9563e`.

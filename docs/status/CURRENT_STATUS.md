@@ -2,7 +2,7 @@
 
 ## Ngày ghi nhận
 
-2026-08-24
+2026-08-25
 
 ## Pipeline canonical
 
@@ -200,7 +200,7 @@ M4 không human-review và không tính quality metric. Giả thuyết prompt VI
 mâu thuẫn với abstention là hướng chẩn đoán tương lai, chưa phải kết luận nhân quả và
 không được sửa trong M4.
 
-## Multilingual Runtime V1 — M5.1 failed và M5.2 rollback
+## Multilingual Runtime V1 — M5.1 failed, M5.2 rollback và M5.3 runtime PASS
 
 M5.1 thử đúng một prompt artifact candidate `grounded_answer_prompt_vi_v2` trên cùng
 20 intent. Pre-registration revision 5 được commit trước execution. Attempt chạy đủ
@@ -214,9 +214,33 @@ M5.2 đã rollback prompt active về `grounded_answer_prompt_vi_v1`, khớp M4 
 mới. Runtime VI active vẫn chưa production-ready vì prompt được restore chính là
 runtime đã quan sát 8/20 failure ở M4.
 
+M5.3 mở một candidate khác, không đổi prompt/model/translator/Dense: application chỉ
+canonicalize một payload VI đã chọn `decision="abstain"` nhưng còn answer và/hoặc
+supporting IDs hợp lệ thuộc Dense Top 3. Raw model payload vẫn được giữ để audit;
+English, unknown ID, malformed type, empty-string answer và non-abstain không được
+repair.
+
+Attempt `m5-3-attempt-1` đã freeze tại
+`reports/34_multilingual_runtime_v1_m5_3/m5_3_final_manifest.json`:
+
+| M5.3 runtime gate | Kết quả |
+| --- | ---: |
+| Executed / passed / failed | 20 / 20 / 0 |
+| Translation / retrieval / generation calls | 20 / 20 / 20 |
+| Retry | 0 |
+| VI abstain payload được canonicalize | 8 |
+| G1 execution / G2 failure / G3 scope / G4 normalization | PASS / PASS / PASS / PASS |
+| Runtime rehash sau execution | PASS, 0 mismatch |
+
+M5.3 chỉ chứng minh runtime/normalization integrity trên attempt đã đăng ký trước.
+Nó **không** chứng minh Vietnamese answer correctness, groundedness, citation support,
+translation fidelity, parity với English, production readiness hoặc demo readiness.
+Ví dụ raw output `q-033` vẫn dịch decomposition thành “nuclear fission”.
+
 ## Bước tiếp theo
 
-Muốn tiếp tục tới demo song ngữ phải mở một remediation milestone mới có
-pre-registration riêng. Không được diễn giải 8/20 → 1/20 giữa M4 và M5.1 là bằng
-chứng nhân quả hoặc cải thiện có hệ thống vì generation/translation không được bảo
-đảm deterministic.
+M6 phải là human quality evaluation đăng ký trước trên output M5.3: answer
+correctness/completeness, groundedness, citation support, abstention correctness và
+language compliance. Không rerun M5.3, không tune translator từ các record đã quan
+sát, không mở retrieval experiment. Chỉ khi M6 có evidence riêng mới quyết định scope
+demo web song ngữ.
