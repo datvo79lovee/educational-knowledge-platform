@@ -1,12 +1,13 @@
 # Multilingual Runtime V1 — M5: can thiệp contract-abstention tiếng Việt
 
-Status: `m5_1_preparation_complete_not_executed`.
+Status: `frozen_failed_runtime_gate`; candidate `grounded_answer_prompt_vi_v2` bị
+`REJECTED` theo gate đăng ký trước.
 
 Pre-registration revision 5 SHA-256:
 `4373ab68698011b1e182fb84aef2cfd0404969ad66c4850717ae7b4a2ba585e3`.
 
-Can thiệp prompt **đã được áp dụng** vào runtime; execution **chưa** chạy và chưa có
-model output M5 nào. Mọi revision đều viết trước execution.
+Can thiệp prompt đã được áp dụng trước execution. Attempt `m5-1-attempt-1` sau đó chạy
+đủ 20 intent, zero retry và đã freeze; không có rerun hay candidate thứ hai.
 
 ## Mục tiêu
 
@@ -137,8 +138,28 @@ hai symbol** — `VI_SYSTEM_PROMPT` là thay đổi **behavioral** duy nhất, v
 Lý do nâng version: repository đã coi một nhãn version trỏ tới hai nội dung khác nhau
 là defect — chính lý do prompt English từng phải khôi phục về byte-identical v1.
 
+## Kết quả M5.1
+
+```text
+Executed / passed / failed       : 20 / 19 / 1
+G1 execution integrity           : PASS
+G2 total runtime failure = 0     : FAIL (observed 1)
+G3 scope integrity               : PASS
+Overall                          : FAILED
+Candidate                        : REJECTED
+Retry                            : 0
+```
+
+Failure duy nhất là `mit60001-q-025`: raw payload chọn `decision="abstain"`, giữ
+`answer=null` nhưng trả một `supporting_chunk_ids`, nên strict Pydantic contract từ
+chối. Retrieval query, Top 3, raw payload và generation telemetry đều được capture.
+
+M4 quan sát 8/20 failure còn M5.1 quan sát 1/20. Đây chỉ là chênh lệch mô tả giữa hai
+attempt của quá trình không được bảo đảm deterministic; không được dùng để kết luận
+prompt mới cải thiện có hệ thống hoặc prompt cũ gây ra lỗi.
+
 ## Bước sau
 
-M5.1 preparation và pre-registration runner đã hoàn tất. Bước kế tiếp là commit riêng
-phần preparation để chứng minh contract có trước kết quả, rồi xin phê duyệt execution.
-Chỉ nếu M5.1 PASS mới mở M6: human evaluation E2E Vietnamese.
+Freeze không rollback prompt và không mở candidate mới. Theo failure rule đã đăng ký,
+rollback cần được thực hiện ở bước riêng sau khi artifact failed này được commit. M6
+không được mở vì M5.1 không PASS.

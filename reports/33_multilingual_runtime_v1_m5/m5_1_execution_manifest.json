@@ -1,0 +1,286 @@
+{
+  "analysis_code_sha256_lf_normalized": {
+    "scripts/evaluation/run_multilingual_runtime_v1_m3.py": "cf3e50c0bf79f1a5ce6dd9a29e5e86562bbcdd83fc12bf27a30d79e3458e9652",
+    "scripts/evaluation/run_multilingual_runtime_v1_m4.py": "3ae148431a727ac9ee95d8b6e89433995883e5b9ed81802aca2724eb3ab47998",
+    "scripts/evaluation/run_multilingual_runtime_v1_m5.py": "1ab7b31234909962d73bab6ebcd6f5577c61891c07392c1264bd04fb89447667"
+  },
+  "attempt_id": "m5-1-attempt-1",
+  "execution": {
+    "continued_after_failure": true,
+    "executed_intent_count": 20,
+    "expected_intent_count": 20,
+    "generation_call_count": 20,
+    "passed_count": 19,
+    "raw_output_flushed_after_each_intent": true,
+    "retrieval_call_count": 20,
+    "retry_count": 0,
+    "total_runtime_failure_count": 1,
+    "translation_call_count": 20
+  },
+  "frozen_inputs_sha256": {
+    "data/gold/mit_60001/chunks.jsonl": "c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432",
+    "data/indexes/mit_60001/embeddings.npy": "3cf94fd32adf78e1e294d5562910f0d7144744a4c310de30f74f0084c80e56a7",
+    "data/indexes/mit_60001/metadata.jsonl": "376faf54d90b6c4a30dc562aeba2127cbdd2953c243cd341bc288068dce4c7d7",
+    "evaluation/mit_60001/benchmark_manifest.json": "75e4c1b6296c27a5485be0034d5d8425ad9966efb7be2152a741ff2d349f7724",
+    "evaluation/mit_60001/evaluation_questions.jsonl": "81d5a1374118b01d850d7c4808edf89b9432036a4488c49f5150720aa3fc8dee",
+    "evaluation/mit_60001/multilingual/m1_manifest.json": "496a180d5fa8e30ab3dbbd95daed80d4ec799256023071a7a717e69528b431ef",
+    "evaluation/mit_60001/multilingual/paired_intents_v1.jsonl": "c416752a7bc83d956f8a95990bfb8ad0d40cd6ac905498bd656c6309b05c43da",
+    "reports/09_embedding/embedding_index_manifest.json": "4e8d277f630eff2c1a4b8e7721f449400e13f7e2c9fee4d99183270cc6ca388c",
+    "reports/25_grounded_answer_reliability_v1/grounded_answer_reliability_v1_final_manifest.json": "d447b341e65957870cf6cd5196cb0f692b6d37f794bf483b576fd55ef5a99ee5",
+    "reports/25_grounded_answer_reliability_v1/grounded_answer_reliability_v1_final_results.csv": "0f325846325ced340737a9b2a46196fac4a0e20d7192bfa6714275748c59cb64",
+    "reports/30_multilingual_runtime_v1_m2/m2_adjudication_worksheet_reviewed.csv": "69542ffa62fa508c64ac02263232dc773576ac12cb09a2fcffee552889974fd0",
+    "reports/30_multilingual_runtime_v1_m2/m2_manifest.json": "cb4042b1f5d7f0862106ed4a380ece268ae575e81ede0ee1eff8f47096e55c43",
+    "reports/30_multilingual_runtime_v1_m2/m2_metrics.json": "37de6d06d5ff0f8db9e73082a37efbcc3dec224d835192d9bdf162781419d702",
+    "reports/31_multilingual_runtime_v1_m3/m3_final_manifest.json": "5ac4ee0e82f3856c1b6f9ea52bf009eb823f5a856def0f5dfcb9bbfed03fa7cd",
+    "reports/31_multilingual_runtime_v1_m3/m3_preregistration.json": "6c127e5e469e019409793e47a9ecfe453221810ad9f8fac794f7f94716920d52",
+    "reports/31_multilingual_runtime_v1_m3/m3_runtime_outputs.jsonl": "bd0dbe9f890fc2f351a081eb133f4103f429ab6c42edf1ede2bf0a0f069f00e0",
+    "reports/32_multilingual_runtime_v1_m4/m4_execution_manifest.json": "c336c031496db7de6a520a006ec08ffbbbece37067f1d671180923e249aea63c",
+    "reports/32_multilingual_runtime_v1_m4/m4_failure_summary.json": "73ef1a4376ce74ac80881a39e8f7ca201ee3184812b80465a0fe16f48cae4952",
+    "reports/32_multilingual_runtime_v1_m4/m4_final_manifest.json": "f55a4752d712aba13815f41b30713acbeb48c9186865c3c993c1f3150be2d1c7",
+    "reports/32_multilingual_runtime_v1_m4/m4_preregistration.json": "229f4597448f723aeacbb83899192fdaf5341154e7561eebb1774d7fdf176921",
+    "reports/32_multilingual_runtime_v1_m4/m4_runtime_outputs.jsonl": "4d4fe063d2b7122511b182f4bf97fc56017c8cf62beaa59246f518f67d766e11",
+    "schemas/grounded_answer_api_v1.schema.json": "9c22e79a1d6de284d312dd7cd1e8e5fe29c83377c2fba6cd5e53c99ee11536bc"
+  },
+  "gates": {
+    "all_passed": false,
+    "conditions": {
+      "G1_execution_integrity": {
+        "complete_records": true,
+        "diagnostic_gaps_by_intent": {},
+        "diagnostics_retained": true,
+        "expected_record_count": 20,
+        "full_pipeline_on_every_passed_record": true,
+        "intent_ids_match_preregistered_order": true,
+        "mismatched_sources_after_execution": [],
+        "observed_record_count": 20,
+        "passed_records_missing_a_stage_call": [],
+        "result": "PASS",
+        "runtime_hashes_stable_after_execution": true,
+        "single_call_per_stage": true,
+        "stage_call_totals": {
+          "generation": 20,
+          "retrieval": 20,
+          "translation": 20
+        },
+        "stage_totals_complete_when_run_is_clean": true
+      },
+      "G2_runtime_failure": {
+        "failure_layer_counts": {
+          "generation_contract": 1,
+          "generation_provider": 0,
+          "runtime_other": 0,
+          "translation_contract": 0,
+          "translation_other": 0,
+          "translation_provider": 0
+        },
+        "generation_contract_failure_count": 1,
+        "note": "Counting only generation_contract would let a run pass while failing at the translation or provider layer. G2 therefore counts every layer.",
+        "result": "FAIL",
+        "rule": "total_runtime_failure_count must be zero across every failure layer",
+        "total_runtime_failure_count": 1
+      },
+      "G3_scope_integrity": {
+        "authorized_changed_files": [
+          "src/grounded_answer/prompts.py"
+        ],
+        "authorized_files_without_change": [],
+        "baseline_milestone": "multilingual_runtime_v1_m4",
+        "en_system_prompt_sha256": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+        "en_system_prompt_unchanged": true,
+        "observed_changed_files": [
+          "src/grounded_answer/prompts.py"
+        ],
+        "prompt_symbols": {
+          "frozen_symbols_unchanged": true,
+          "mismatched_symbols": [],
+          "result": "PASS",
+          "symbols": {
+            "build_user_prompt_source_sha256": {
+              "expected": "fe53e2806f95792f5cc8a32c45803c5f550c6c4bd80e7969a92b235f6e879bf6",
+              "observed": "fe53e2806f95792f5cc8a32c45803c5f550c6c4bd80e7969a92b235f6e879bf6",
+              "result": "PASS",
+              "role": "frozen"
+            },
+            "en_prompt_version": {
+              "expected": "grounded_answer_prompt_v1",
+              "observed": "grounded_answer_prompt_v1",
+              "result": "PASS",
+              "role": "frozen"
+            },
+            "en_system_prompt_sha256": {
+              "expected": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+              "observed": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+              "result": "PASS",
+              "role": "frozen"
+            },
+            "vi_prompt_version": {
+              "expected": "grounded_answer_prompt_vi_v2",
+              "observed": "grounded_answer_prompt_vi_v2",
+              "result": "PASS",
+              "role": "authorized_candidate"
+            },
+            "vi_system_prompt_sha256": {
+              "expected": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8",
+              "observed": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8",
+              "result": "PASS",
+              "role": "authorized_candidate"
+            }
+          }
+        },
+        "result": "PASS",
+        "unauthorized_changed_files": [],
+        "vi_prompt_version": "grounded_answer_prompt_vi_v2",
+        "vi_system_prompt_sha256": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8"
+      }
+    },
+    "pass_rule": "G1, G2 and G3 must all PASS"
+  },
+  "ground_truth_exposed_to_runtime_calls": false,
+  "human_review_performed": false,
+  "milestone": "multilingual_runtime_v1_m5",
+  "output_artifacts": [
+    {
+      "file": "reports/33_multilingual_runtime_v1_m5/m5_1_runtime_outputs.jsonl",
+      "sha256": "0656e205829f3ba417ea3ba4dcf1398079e4d27165e24fbedbec43f0c3d4dfe5"
+    },
+    {
+      "file": "reports/33_multilingual_runtime_v1_m5/m5_1_gate_results.json",
+      "sha256": "d4cdc99f8eef81fce43040a169bb9d8a94b486f209d0a727040f4f9ea67cb83c"
+    }
+  ],
+  "preregistration": {
+    "file": "reports/33_multilingual_runtime_v1_m5/m5_preregistration.json",
+    "revision": 5,
+    "sha256": "4373ab68698011b1e182fb84aef2cfd0404969ad66c4850717ae7b4a2ba585e3"
+  },
+  "prompt_identity": {
+    "en_prompt_version": "grounded_answer_prompt_v1",
+    "en_system_prompt_sha256": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+    "vi_prompt_version": "grounded_answer_prompt_vi_v2",
+    "vi_system_prompt_sha256": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8"
+  },
+  "quality_metrics_computed": false,
+  "runtime_sources_after_execution": {
+    "mismatched_sources": [],
+    "rehashed": true,
+    "result": "PASS"
+  },
+  "runtime_under_test_sha256_lf_normalized": {
+    "src/grounded_answer/contracts.py": "96478139b8777778f5dbc8e1b75dbca52e04be6e4fd8af70488e470593df9259",
+    "src/grounded_answer/ollama_provider.py": "9b972918d8458605660b38d3b320e11d565591822c1d7f6669fb65b98d69ddb3",
+    "src/grounded_answer/prompts.py": "0b069ccc683514c9871bf5d04f77446f5016a3f001360afd74c1f17bb1d606a2",
+    "src/grounded_answer/service.py": "7433b4596bbac8016a408b1d068da044558a8bf9e085017770dcffff1e995085",
+    "src/multilingual/translation.py": "2e469e5808093a2886d504f0290b90682bfb0768366da352e4607526f03b28ff",
+    "src/search_api/service.py": "c9fe2188bb559c16db49a8e2462512be23c16baccf6bcec36a20ad031c1aa4b6"
+  },
+  "schema_version": "multilingual_runtime_v1_m5_1_execution_manifest_v1",
+  "scope_integrity_after_execution": {
+    "authorized_changed_files": [
+      "src/grounded_answer/prompts.py"
+    ],
+    "authorized_files_without_change": [],
+    "baseline_milestone": "multilingual_runtime_v1_m4",
+    "en_system_prompt_sha256": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+    "en_system_prompt_unchanged": true,
+    "observed_changed_files": [
+      "src/grounded_answer/prompts.py"
+    ],
+    "prompt_symbols": {
+      "frozen_symbols_unchanged": true,
+      "mismatched_symbols": [],
+      "result": "PASS",
+      "symbols": {
+        "build_user_prompt_source_sha256": {
+          "expected": "fe53e2806f95792f5cc8a32c45803c5f550c6c4bd80e7969a92b235f6e879bf6",
+          "observed": "fe53e2806f95792f5cc8a32c45803c5f550c6c4bd80e7969a92b235f6e879bf6",
+          "result": "PASS",
+          "role": "frozen"
+        },
+        "en_prompt_version": {
+          "expected": "grounded_answer_prompt_v1",
+          "observed": "grounded_answer_prompt_v1",
+          "result": "PASS",
+          "role": "frozen"
+        },
+        "en_system_prompt_sha256": {
+          "expected": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+          "observed": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+          "result": "PASS",
+          "role": "frozen"
+        },
+        "vi_prompt_version": {
+          "expected": "grounded_answer_prompt_vi_v2",
+          "observed": "grounded_answer_prompt_vi_v2",
+          "result": "PASS",
+          "role": "authorized_candidate"
+        },
+        "vi_system_prompt_sha256": {
+          "expected": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8",
+          "observed": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8",
+          "result": "PASS",
+          "role": "authorized_candidate"
+        }
+      }
+    },
+    "result": "PASS",
+    "unauthorized_changed_files": [],
+    "vi_prompt_version": "grounded_answer_prompt_vi_v2",
+    "vi_system_prompt_sha256": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8"
+  },
+  "scope_integrity_before_execution": {
+    "authorized_changed_files": [
+      "src/grounded_answer/prompts.py"
+    ],
+    "authorized_files_without_change": [],
+    "baseline_milestone": "multilingual_runtime_v1_m4",
+    "en_system_prompt_sha256": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+    "en_system_prompt_unchanged": true,
+    "observed_changed_files": [
+      "src/grounded_answer/prompts.py"
+    ],
+    "prompt_symbols": {
+      "frozen_symbols_unchanged": true,
+      "mismatched_symbols": [],
+      "result": "PASS",
+      "symbols": {
+        "build_user_prompt_source_sha256": {
+          "expected": "fe53e2806f95792f5cc8a32c45803c5f550c6c4bd80e7969a92b235f6e879bf6",
+          "observed": "fe53e2806f95792f5cc8a32c45803c5f550c6c4bd80e7969a92b235f6e879bf6",
+          "result": "PASS",
+          "role": "frozen"
+        },
+        "en_prompt_version": {
+          "expected": "grounded_answer_prompt_v1",
+          "observed": "grounded_answer_prompt_v1",
+          "result": "PASS",
+          "role": "frozen"
+        },
+        "en_system_prompt_sha256": {
+          "expected": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+          "observed": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+          "result": "PASS",
+          "role": "frozen"
+        },
+        "vi_prompt_version": {
+          "expected": "grounded_answer_prompt_vi_v2",
+          "observed": "grounded_answer_prompt_vi_v2",
+          "result": "PASS",
+          "role": "authorized_candidate"
+        },
+        "vi_system_prompt_sha256": {
+          "expected": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8",
+          "observed": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8",
+          "result": "PASS",
+          "role": "authorized_candidate"
+        }
+      }
+    },
+    "result": "PASS",
+    "unauthorized_changed_files": [],
+    "vi_prompt_version": "grounded_answer_prompt_vi_v2",
+    "vi_system_prompt_sha256": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8"
+  },
+  "stage": "m5.1",
+  "status": "executed_complete",
+  "validation_status": "failed_gates"
+}

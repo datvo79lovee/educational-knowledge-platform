@@ -1,0 +1,157 @@
+{
+  "gates": {
+    "all_passed": false,
+    "conditions": {
+      "G1_execution_integrity": {
+        "complete_records": true,
+        "diagnostic_gaps_by_intent": {},
+        "diagnostics_retained": true,
+        "expected_record_count": 20,
+        "full_pipeline_on_every_passed_record": true,
+        "intent_ids_match_preregistered_order": true,
+        "mismatched_sources_after_execution": [],
+        "observed_record_count": 20,
+        "passed_records_missing_a_stage_call": [],
+        "result": "PASS",
+        "runtime_hashes_stable_after_execution": true,
+        "single_call_per_stage": true,
+        "stage_call_totals": {
+          "generation": 20,
+          "retrieval": 20,
+          "translation": 20
+        },
+        "stage_totals_complete_when_run_is_clean": true
+      },
+      "G2_runtime_failure": {
+        "failure_layer_counts": {
+          "generation_contract": 1,
+          "generation_provider": 0,
+          "runtime_other": 0,
+          "translation_contract": 0,
+          "translation_other": 0,
+          "translation_provider": 0
+        },
+        "generation_contract_failure_count": 1,
+        "note": "Counting only generation_contract would let a run pass while failing at the translation or provider layer. G2 therefore counts every layer.",
+        "result": "FAIL",
+        "rule": "total_runtime_failure_count must be zero across every failure layer",
+        "total_runtime_failure_count": 1
+      },
+      "G3_scope_integrity": {
+        "authorized_changed_files": [
+          "src/grounded_answer/prompts.py"
+        ],
+        "authorized_files_without_change": [],
+        "baseline_milestone": "multilingual_runtime_v1_m4",
+        "en_system_prompt_sha256": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+        "en_system_prompt_unchanged": true,
+        "observed_changed_files": [
+          "src/grounded_answer/prompts.py"
+        ],
+        "prompt_symbols": {
+          "frozen_symbols_unchanged": true,
+          "mismatched_symbols": [],
+          "result": "PASS",
+          "symbols": {
+            "build_user_prompt_source_sha256": {
+              "expected": "fe53e2806f95792f5cc8a32c45803c5f550c6c4bd80e7969a92b235f6e879bf6",
+              "observed": "fe53e2806f95792f5cc8a32c45803c5f550c6c4bd80e7969a92b235f6e879bf6",
+              "result": "PASS",
+              "role": "frozen"
+            },
+            "en_prompt_version": {
+              "expected": "grounded_answer_prompt_v1",
+              "observed": "grounded_answer_prompt_v1",
+              "result": "PASS",
+              "role": "frozen"
+            },
+            "en_system_prompt_sha256": {
+              "expected": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+              "observed": "2b0a35d600e1497c53b62e3d311b0f63802fb1dc0518cdb0dd57b67cd712f459",
+              "result": "PASS",
+              "role": "frozen"
+            },
+            "vi_prompt_version": {
+              "expected": "grounded_answer_prompt_vi_v2",
+              "observed": "grounded_answer_prompt_vi_v2",
+              "result": "PASS",
+              "role": "authorized_candidate"
+            },
+            "vi_system_prompt_sha256": {
+              "expected": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8",
+              "observed": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8",
+              "result": "PASS",
+              "role": "authorized_candidate"
+            }
+          }
+        },
+        "result": "PASS",
+        "unauthorized_changed_files": [],
+        "vi_prompt_version": "grounded_answer_prompt_vi_v2",
+        "vi_system_prompt_sha256": "a24c2222475c8730206228bbfdc097f2e9a51d3ac0403a5c807b650910b2e5a8"
+      }
+    },
+    "pass_rule": "G1, G2 and G3 must all PASS"
+  },
+  "summary": {
+    "attempt_id": "m5-1-attempt-1",
+    "decision_counts_among_passed": {
+      "abstain": 9,
+      "answer": 10
+    },
+    "executed_intent_count": 20,
+    "failed_intent_ids": [
+      "mit60001-q-025"
+    ],
+    "failure_layer_counts": {
+      "generation_contract": 1,
+      "generation_provider": 0,
+      "runtime_other": 0,
+      "translation_contract": 0,
+      "translation_other": 0,
+      "translation_provider": 0
+    },
+    "generation_telemetry_captured_on_failure": 1,
+    "passed_count": 19,
+    "quality_claim": "none; M5.1 tests abstention contract compliance only",
+    "quality_metrics_computed": false,
+    "raw_model_output_captured_on_failure": 1,
+    "retrieval_query_captured_on_failure": 1,
+    "runtime_failure_rate": {
+      "denominator": 20,
+      "numerator": 1,
+      "rate": 0.05,
+      "wilson_95": [
+        0.008881448800795402,
+        0.23613119344674205
+      ]
+    },
+    "schema_version": "multilingual_runtime_v1_m5_1_summary_v1",
+    "stage_latency": {
+      "generation": {
+        "count": 20,
+        "max_ms": 7860.213,
+        "mean_ms": 3023.949
+      },
+      "retrieval": {
+        "count": 20,
+        "max_ms": 68.78,
+        "mean_ms": 16.92
+      },
+      "total": {
+        "count": 20,
+        "max_ms": 8398.886,
+        "mean_ms": 3769.136
+      },
+      "translation": {
+        "count": 20,
+        "max_ms": 5925.977,
+        "mean_ms": 727.689
+      }
+    },
+    "top3_captured_on_failure": 1,
+    "total_runtime_failure_count": 1,
+    "valid_abstention_count": 9,
+    "vi_prompt_version": "grounded_answer_prompt_vi_v2"
+  }
+}
