@@ -83,9 +83,9 @@ bằng chứng systematic degradation.
 - Không tuyên bố Vietnamese retrieval tốt hơn English; kết quả chỉ hỗ trợ kết luận
   overall quality được giữ với mixed per-intent effects.
 
-## Bước tiếp theo — Multilingual Runtime Integration V1
+## Multilingual Runtime Integration V1 — M1–M6 hoàn thành
 
-Phase này chưa triển khai. Target flow:
+Runtime flow đã triển khai và pass quality gate tại M6:
 
 ```text
 Vietnamese user query
@@ -97,17 +97,34 @@ Vietnamese user query
   → Vietnamese answer + application-owned citations
 ```
 
-Runtime contract cần thêm đúng ba khái niệm:
+`original_query`, `retrieval_query`, `answer_language` đã có trong contract. Dense
+retrieval, index và scoring không đổi qua toàn bộ M1–M6; không có BM25/RRF/reranker.
 
-- `original_query`: câu người dùng nhập, giữ nguyên để answer generation hiểu ngôn
-  ngữ và intent gốc.
-- `retrieval_query`: literal English query dùng riêng cho Dense retrieval.
-- `answer_language`: ngôn ngữ output, V1 là `vi` cho Vietnamese input.
+Trạng thái từng milestone:
 
-Ranh giới: không sửa Dense/index/scoring, không thêm BM25/RRF/reranker và không dùng
-Phase 9 để tune translator theo riêng `mit60001-q-008`.
+| Milestone | Nội dung | Kết quả |
+| --- | --- | --- |
+| M1 | Runtime nhánh VI: translator + `answer_language=vi` | Triển khai |
+| M2 | Đo literal translator trên 20 paired intents | `frozen_failed`, translator REJECTED |
+| M3 attempt 1 / M4 | Đo runtime failure rate trên output M5.3-tiền-thân | Đo, không gate |
+| M5.1 | Candidate prompt `vi_v2` | `REJECTED`, G2 FAIL |
+| M5.2 | Rollback prompt về `vi_v1` (khớp M4 pin) | Rollback, không candidate mới |
+| M5.3 | Candidate application-boundary normalization cho abstain payload | `frozen_passed_runtime_gates`, ADVANCE_TO_M6 |
+| M6 | Human quality evaluation trên output M5.3 đã freeze, 19-intent primary | `frozen_passed_quality_gates`, G1–G4 PASS |
 
-## Engineering closeout sau Multilingual Runtime V1
+Kết luận được phép sau M6: candidate M5.3 (không đổi) đã pass quality gates trên
+sample 19-record primary đã dùng lại nhiều lần. Không production-ready, không tổng
+quát hóa sang query chưa thấy, không quan hệ nhân quả với translation/retrieval/
+generation, không phục hồi translator fidelity, không đảo ngược M2.
 
-Sau khi runtime multilingual được implement và validate: cập nhật demo, tài liệu
+## Bước tiếp theo — Bounded local demo (chưa bắt đầu)
+
+M6 PASS chỉ cho phép cân nhắc một milestone demo cục bộ có giới hạn (bounded local
+demo), cần pre-registration và scope riêng. Chưa có code demo nào được viết. Ranh
+giới giữ nguyên: không sửa Dense/index/scoring, không thêm BM25/RRF/reranker, không
+tune translator/prompt theo output đã quan sát trong M1–M6.
+
+## Engineering closeout sau bounded local demo
+
+Sau khi demo cục bộ được implement và validate trong scope riêng: cập nhật tài liệu
 vận hành và cân nhắc Docker. Docker không nằm trong scope hiện tại.

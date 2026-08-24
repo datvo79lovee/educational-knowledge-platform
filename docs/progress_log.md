@@ -5719,3 +5719,67 @@ support/translation-fidelity/English-parity/production/demo result. Raw output v
 giữ evidence về translation fidelity yếu (ví dụ q-033: decomposition → “nuclear
 fission”). Bước sau bắt buộc là M6 pre-registered human quality evaluation; không
 rerun M5.3 hay tune theo output đã quan sát.
+
+---
+
+# Multilingual Runtime V1 — M6 human quality evaluation, freeze PASS
+
+M6 là human quality evaluation đăng ký trước trên 20 output VI đã freeze tại M5.3.
+Không rerun M5.3, không gọi Ollama, không sửa runtime/prompt/normalization/Dense/
+index/Gold/Ground Truth trong suốt milestone.
+
+Pre-registration revision 2 được commit trước worksheet preparation và trước human
+review; revision 1 có lỗi hash do escape CR/LF sai trong lệnh tính hash bên ngoài,
+phát hiện và sửa trước khi tạo worksheet, không đổi scope/rubric/gate.
+
+Worksheet review mù, 20 dòng, ẩn `retrieval_query`, raw translation/model output,
+normalization metadata, nhãn M2 và outcome cũ; các trường này chỉ join sau khi toàn
+bộ nhãn review hợp lệ. 19 intent primary, `mit60001-q-023` review mô tả nhưng loại
+khỏi metric do Ground Truth ambiguity đã freeze từ Reliability V1.
+
+`--evaluate` lần đầu bị evaluator chặn đúng thiết kế: `evidence_sufficiency` dùng
+chữ thường (`sufficient`/`insufficient`) thay vì đúng vocabulary đã đăng ký,
+`citation_support_overall` dùng `No support` thay vì `None support`, và
+`decision_judgment` của `q-023` dùng `N/A - excluded` — giá trị không nằm trong
+`{Correct, Incorrect}`. Không có artifact kết quả nào được tạo ở lần chặn này.
+
+M6-R1 remediation: người review tự sửa thủ công đúng ba điểm trên theo exact
+vocabulary đã đăng ký, không sửa pre-registration/runner/rubric/gate. `q-023` được
+gán `decision_judgment` theo đúng rubric (`Sufficient` + `abstain` → `Incorrect`),
+không dùng giá trị ngoài từ vựng. Test lifecycle của preparation runner được viết lại
+hai lần để không còn phụ thuộc trạng thái repo: thay vì assert "reviewed worksheet
+chưa tồn tại" hay "3 quality artifact chưa tồn tại" dựa trên file thật trên đĩa, test
+cuối cùng cô lập bằng `tmp_path` + monkeypatch toàn bộ 6 path, gọi `runner.evaluate({})`
+trực tiếp trên một thư mục trống, và assert `FileNotFoundError` đúng message cùng ba
+output vẫn không tồn tại — một thuộc tính của hàm, không phải ảnh chụp trạng thái.
+
+`--evaluate` chạy lại thành công:
+
+```text
+G1 review integrity              : PASS  (20 reviewed, 19 primary, 1 excluded)
+G2 language compliance           : PASS  (12/12 Vietnamese hoặc Mixed acceptable)
+G3 decision non-inferiority      : PASS  (14/19, ngưỡng >=10/19)
+G4 strict E2E non-inferiority    : PASS  (7/19, ngưỡng >=6/19)
+decision_correct                 : 14/19 = 0.7368  Wilson95 [0.5121, 0.8819]
+language_compliance              : 12/12 = 1.0000  Wilson95 [0.7575, 1.0000]
+strict_end_to_end_success        :  7/19 = 0.3684  Wilson95 [0.1915, 0.5896]
+strict_answer_success (diagnostic):  1/19 = 0.0526  Wilson95 [0.0094, 0.2464]
+```
+
+So với matched English reference cùng 19 intent (decision 11/19, strict E2E 7/19,
+strict answer 2/19). Diagnostic sau review (intent thất bại decision/strict E2E,
+intent đã normalize, retrieval_query và Top 3 cho từng thất bại strict E2E) được ghi
+lại nhưng khai rõ vai trò `post-review_observation_only_no_causal_attribution`.
+
+Freeze script `freeze_multilingual_runtime_v1_m6.py` chỉ re-hash sáu artifact M6-E,
+đối chiếu với `m6_evaluation_manifest.json`, re-derive PASS/FAIL từ đúng gate đã ghi
+(không tính lại metric), rồi ghi `m6_final_manifest.json`. Re-runnable: chạy lần hai
+bị chặn bằng `FileExistsError` vì manifest đã tồn tại. Hash toàn bộ artifact khớp
+100%.
+
+M6 freeze `frozen_passed_quality_gates`. Kết luận được phép duy nhất: candidate M5.3
+(không đổi) đã pass M6 quality gates trên sample 19-record primary đã dùng lại nhiều
+lần. Không được suy ra production-ready, tổng quát hóa sang query chưa thấy, quan hệ
+nhân quả giữa translation/retrieval/generation và lỗi cuối, translator fidelity đã
+phục hồi, hay M2 (vẫn `frozen_failed`) bị đảo ngược. Bước sau chỉ là cân nhắc một
+milestone demo cục bộ có giới hạn với pre-registration riêng; chưa bắt đầu code demo.

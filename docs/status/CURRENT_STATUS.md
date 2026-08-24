@@ -237,10 +237,36 @@ Nó **không** chứng minh Vietnamese answer correctness, groundedness, citatio
 translation fidelity, parity với English, production readiness hoặc demo readiness.
 Ví dụ raw output `q-033` vẫn dịch decomposition thành “nuclear fission”.
 
+## Multilingual Runtime V1 — M6 human quality evaluation PASS
+
+M6 đã đóng băng tại `reports/35_multilingual_runtime_v1_m6/m6_final_manifest.json`,
+trạng thái `frozen_passed_quality_gates`. M6 đánh giá 20 output VI đã freeze tại M5.3
+bằng một lượt human review mù (không thấy `retrieval_query`, raw model output,
+normalization metadata, nhãn M2 hay outcome cũ), đúng 19 intent primary,
+`mit60001-q-023` review mô tả nhưng loại khỏi metric do Ground Truth ambiguity đã
+freeze từ Reliability V1.
+
+| M6 gate | Ngưỡng | Quan sát | Kết quả |
+| --- | --- | ---: | --- |
+| G1 review integrity | 20/20 hợp lệ | 20/19/1 | PASS |
+| G2 language compliance | 0 "Not Vietnamese" | 12/12 | PASS |
+| G3 decision non-inferiority | ≥10/19 | 14/19 | PASS |
+| G4 strict E2E non-inferiority | ≥6/19 | 7/19 | PASS |
+
+Matched English reference (từ Reliability V1, cùng 19 intent): decision correct
+11/19, strict E2E 7/19, strict answer 2/19. Strict answer success của VI là 1/19
+(diagnostic only, không phải gate, vì reference tiếng Anh 2/19 quá thấp để làm gate
+ổn định).
+
+Kết luận được phép duy nhất: candidate M5.3 (không đổi) đã pass M6 quality gates trên
+sample 19-record primary đã dùng lại nhiều lần. **Không** được suy ra production
+readiness, tổng quát hóa sang query chưa thấy, quan hệ nhân quả giữa
+translation/retrieval/generation và lỗi cuối, translator fidelity đã phục hồi, hay M2
+(literal translator, vẫn `frozen_failed`) bị đảo ngược. M6 không mở lại M2.
+
 ## Bước tiếp theo
 
-M6 phải là human quality evaluation đăng ký trước trên output M5.3: answer
-correctness/completeness, groundedness, citation support, abstention correctness và
-language compliance. Không rerun M5.3, không tune translator từ các record đã quan
-sát, không mở retrieval experiment. Chỉ khi M6 có evidence riêng mới quyết định scope
-demo web song ngữ.
+M6 PASS chỉ cho phép cân nhắc một milestone demo cục bộ có giới hạn (bounded local
+demo), scope riêng, đăng ký trước riêng — chưa bắt đầu code demo. Không rerun M5.3
+hay M6, không tune translator/prompt từ các record đã quan sát, không mở retrieval
+experiment mới.
