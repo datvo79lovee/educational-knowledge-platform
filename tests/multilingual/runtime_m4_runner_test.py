@@ -203,19 +203,20 @@ def _result_artifact_state() -> dict[str, str | None]:
     return state
 
 
-def test_verify_only_leaves_result_artifacts_unchanged() -> None:
+def test_frozen_m4_verify_only_refuses_runtime_drift_without_touching_artifacts() -> None:
     script = PROJECT_ROOT / "scripts/evaluation/run_multilingual_runtime_v1_m4.py"
     before = _result_artifact_state()
     completed = subprocess.run(
         [sys.executable, "-X", "utf8", str(script), "--verify-only"],
         cwd=PROJECT_ROOT,
-        check=True,
         capture_output=True,
         text=True,
         encoding="utf-8",
     )
 
-    assert "no encoder load and no Ollama call was made" in completed.stdout
+    assert completed.returncode != 0
+    assert "Runtime under test changed since pre-registration" in completed.stderr
+    assert "src/grounded_answer/service.py" in completed.stderr
     assert _result_artifact_state() == before
 
 
@@ -285,7 +286,7 @@ def test_failed_record_keeps_every_promised_diagnostic() -> None:
         {
             "decision": "abstain",
             "answer": "Không đủ bằng chứng, nhưng đây vẫn là một câu trả lời",
-            "supporting_chunk_ids": [],
+            "supporting_chunk_ids": ["outside-top3"],
             "reason": "lý do",
         },
         ensure_ascii=False,
@@ -371,12 +372,12 @@ def test_integrity_conditions_fail_when_runtime_changed_after_execution() -> Non
 
 def test_runtime_source_mismatch_detection_is_real() -> None:
     prereg = json.loads(M4_PREREGISTRATION.read_text(encoding="utf-8"))
-    assert runner.runtime_source_mismatches(prereg) == []
+    assert runner.runtime_source_mismatches(prereg) == ["src/grounded_answer/service.py"]
 
     tampered = json.loads(M4_PREREGISTRATION.read_text(encoding="utf-8"))
     first = next(iter(tampered["runtime_under_test"]["source_sha256_lf_normalized"]))
     tampered["runtime_under_test"]["source_sha256_lf_normalized"][first] = "0" * 64
-    assert runner.runtime_source_mismatches(tampered) == [first]
+    assert set(runner.runtime_source_mismatches(tampered)) == {first, "src/grounded_answer/service.py"}
 
 
 def test_integrity_conditions_fail_when_a_failed_record_lost_its_payload() -> None:
@@ -428,6 +429,10 @@ def test_runner_refuses_to_start_when_analysis_hash_is_wrong(
     """A wrong analysis hash must stop the run before the encoder and before Ollama."""
 
     tampered = json.loads(M4_PREREGISTRATION.read_text(encoding="utf-8"))
+    tampered["runtime_under_test"]["source_sha256_lf_normalized"] = {
+        relative_path: runner.sha256_file_lf(PROJECT_ROOT / relative_path)
+        for relative_path in tampered["runtime_under_test"]["source_sha256_lf_normalized"]
+    }
     tampered["analysis_code_sha256_lf_normalized"][
         "scripts/evaluation/run_multilingual_runtime_v1_m4.py"
     ] = "0" * 64

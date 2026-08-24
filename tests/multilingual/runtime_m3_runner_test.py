@@ -198,17 +198,18 @@ def _result_artifact_state() -> dict[str, str | None]:
     return state
 
 
-def test_verify_only_runs_in_clean_subprocess_without_creating_results() -> None:
+def test_frozen_m3_verify_only_refuses_runtime_drift_without_touching_results() -> None:
     script = PROJECT_ROOT / "scripts/evaluation/run_multilingual_runtime_v1_m3.py"
     before = _result_artifact_state()
     completed = subprocess.run(
         [sys.executable, "-X", "utf8", str(script), "--verify-only"],
         cwd=PROJECT_ROOT,
-        check=True,
         capture_output=True,
         text=True,
         encoding="utf-8",
     )
 
-    assert "no encoder load and no Ollama call was made" in completed.stdout
+    assert completed.returncode != 0
+    assert "Runtime source changed after pre-registration" in completed.stderr
+    assert "src/grounded_answer/service.py" in completed.stderr
     assert _result_artifact_state() == before

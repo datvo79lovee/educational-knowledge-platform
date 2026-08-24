@@ -54,8 +54,9 @@ class ModelOutputNormalization:
 def normalize_model_output(
     raw_model_output: Any,
     candidate_chunk_ids: list[str],
+    answer_language: str = "en",
 ) -> ModelOutputNormalization:
-    """Chỉ canonicalize hai representation-noise cases đã được duyệt."""
+    """Canonicalize only explicitly approved, deterministic representation cases."""
 
     normalized_output = copy.deepcopy(raw_model_output)
     if not isinstance(raw_model_output, dict):
@@ -76,6 +77,24 @@ def normalize_model_output(
             normalized_output=normalized_output,
             normalization_applied=True,
             normalization_reason="abstain_literal_to_null",
+        )
+
+    if (
+        answer_language == "vi"
+        and decision == "abstain"
+        and (answer is None or (isinstance(answer, str) and bool(answer.strip())))
+        and isinstance(supporting_ids, list)
+        and all(isinstance(chunk_id, str) for chunk_id in supporting_ids)
+        and set(supporting_ids).issubset(set(candidate_chunk_ids))
+        and (answer is not None or bool(supporting_ids))
+    ):
+        normalized_output["answer"] = None
+        normalized_output["supporting_chunk_ids"] = []
+        return ModelOutputNormalization(
+            raw_model_output=raw_model_output,
+            normalized_output=normalized_output,
+            normalization_applied=True,
+            normalization_reason="vi_abstain_payload_to_canonical",
         )
 
     if (
@@ -161,7 +180,7 @@ class GroundedAnswerService:
         )
         try:
             raw_decision = json.loads(provider_result.content)
-            normalization = normalize_model_output(raw_decision, top3_ids)
+            normalization = normalize_model_output(raw_decision, top3_ids, answer_language)
             decision = ModelGroundedDecision.model_validate(normalization.normalized_output)
             validate_supporting_chunk_subset(decision, top3_ids)
         except (json.JSONDecodeError, ValidationError, ValueError, TypeError) as error:

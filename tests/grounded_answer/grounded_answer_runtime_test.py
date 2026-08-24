@@ -306,6 +306,125 @@ def test_duplicate_supporting_ids_are_stably_normalized_and_audited() -> None:
     "payload",
     [
         {
+            "decision": "abstain",
+            "answer": "Không đủ bằng chứng để trả lời.",
+            "supporting_chunk_ids": [],
+            "reason": "The excerpts are insufficient.",
+        },
+        {
+            "decision": "abstain",
+            "answer": None,
+            "supporting_chunk_ids": ["chunk-2"],
+            "reason": "The excerpts are insufficient.",
+        },
+    ],
+)
+def test_vietnamese_abstain_payload_is_canonicalized_fail_closed(payload: dict[str, Any]) -> None:
+    search = FakeSearchService()
+    provider = FakeProvider(payload)
+    translator = FakeTranslator("What is the course explanation?")
+    service = GroundedAnswerService(
+        search_service=search,
+        provider=provider,  # type: ignore[arg-type]
+        translator=translator,
+    )
+
+    execution = service.answer("Khóa học giải thích thế nào?", "vi")
+
+    assert execution.response.decision == "abstain"
+    assert execution.response.answer is None
+    assert execution.response.supporting_chunk_ids == []
+    assert execution.response.citations == []
+    assert execution.raw_model_output == payload
+    assert execution.normalized_output["answer"] is None
+    assert execution.normalized_output["supporting_chunk_ids"] == []
+    assert execution.normalization_applied is True
+    assert execution.normalization_reason == "vi_abstain_payload_to_canonical"
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {
+            "decision": "abstain",
+            "answer": "Should remain invalid in English.",
+            "supporting_chunk_ids": [],
+            "reason": "Invalid English abstention.",
+        },
+        {
+            "decision": "abstain",
+            "answer": None,
+            "supporting_chunk_ids": ["chunk-1"],
+            "reason": "Invalid English abstention.",
+        },
+    ],
+)
+def test_english_abstain_contract_remains_strict(payload: dict[str, Any]) -> None:
+    service, _, _ = build_service(payload)
+
+    with pytest.raises(GroundedAnswerContractError):
+        service.answer("Question", "en")
+
+
+def test_vietnamese_abstain_with_unknown_chunk_id_is_not_repaired() -> None:
+    search = FakeSearchService()
+    provider = FakeProvider(
+        {
+            "decision": "abstain",
+            "answer": None,
+            "supporting_chunk_ids": ["outside-id"],
+            "reason": "Unknown evidence must remain invalid.",
+        }
+    )
+    service = GroundedAnswerService(
+        search_service=search,
+        provider=provider,  # type: ignore[arg-type]
+        translator=FakeTranslator("Question"),
+    )
+
+    with pytest.raises(GroundedAnswerContractError):
+        service.answer("Câu hỏi", "vi")
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {
+            "decision": "abstain",
+            "answer": "",
+            "supporting_chunk_ids": [],
+            "reason": "Empty answers remain invalid.",
+        },
+        {
+            "decision": "abstain",
+            "answer": None,
+            "supporting_chunk_ids": "chunk-1",
+            "reason": "A string is not an ID list.",
+        },
+        {
+            "decision": "abstain",
+            "answer": None,
+            "supporting_chunk_ids": [1],
+            "reason": "Non-string IDs remain invalid.",
+        },
+    ],
+)
+def test_vietnamese_abstain_malformed_shapes_are_not_repaired(payload: dict[str, Any]) -> None:
+    search = FakeSearchService()
+    service = GroundedAnswerService(
+        search_service=search,
+        provider=FakeProvider(payload),  # type: ignore[arg-type]
+        translator=FakeTranslator("Question"),
+    )
+
+    with pytest.raises(GroundedAnswerContractError):
+        service.answer("Câu hỏi", "vi")
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {
             "decision": "answer",
             "answer": "Unsupported.",
             "supporting_chunk_ids": ["outside-id"],

@@ -141,13 +141,13 @@ def test_gate_g1_fails_when_runtime_hashes_move_during_execution() -> None:
     assert gates["all_passed"] is False
 
 
-def test_frozen_m5_scope_detects_the_post_failure_rollback() -> None:
+def test_frozen_m5_scope_detects_rollback_and_later_m5_3_candidate() -> None:
     prereg = json.loads(M5_PREREGISTRATION.read_text(encoding="utf-8"))
 
     report = scope_integrity_report(prereg)
 
-    assert report["observed_changed_files"] == []
-    assert report["unauthorized_changed_files"] == []
+    assert report["observed_changed_files"] == ["src/grounded_answer/service.py"]
+    assert report["unauthorized_changed_files"] == ["src/grounded_answer/service.py"]
     assert report["authorized_files_without_change"] == ["src/grounded_answer/prompts.py"]
     assert report["en_system_prompt_unchanged"] is True
     assert report["prompt_symbols"]["mismatched_symbols"] == [
@@ -193,7 +193,10 @@ def test_preregistration_locks_the_corrected_gate_and_the_pins() -> None:
         "scripts/evaluation/run_multilingual_runtime_v1_m3.py",
     }
     assert runner.analysis_code_mismatches(prereg) == []
-    assert runner.runtime_source_mismatches(prereg) == ["src/grounded_answer/prompts.py"]
+    assert runner.runtime_source_mismatches(prereg) == [
+        "src/grounded_answer/prompts.py",
+        "src/grounded_answer/service.py",
+    ]
     assert "contract_must_not_be_weakened" in prereg
 
 
@@ -217,10 +220,18 @@ def _runtime_matched_preregistration(tmp_path: Path, filename: str = "m5_preregi
     """
 
     prereg = json.loads(M5_PREREGISTRATION.read_text(encoding="utf-8"))
+    rejected_runtime = dict(prereg["runtime_under_test"]["source_sha256_lf_normalized"])
     prereg["runtime_under_test"]["source_sha256_lf_normalized"] = {
         relative_path: runner.sha256_file_lf(PROJECT_ROOT / relative_path)
         for relative_path in prereg["runtime_under_test"]["source_sha256_lf_normalized"]
     }
+    prereg["scope_integrity"]["baseline_runtime_sources_sha256_lf_normalized"] = {
+        relative_path: runner.sha256_file_lf(PROJECT_ROOT / relative_path)
+        for relative_path in prereg["scope_integrity"]["baseline_runtime_sources_sha256_lf_normalized"]
+    }
+    prereg["scope_integrity"]["baseline_runtime_sources_sha256_lf_normalized"][
+        "src/grounded_answer/prompts.py"
+    ] = rejected_runtime["src/grounded_answer/prompts.py"]
     prereg["scope_integrity"]["prompt_symbols"] = _current_prompt_pins()
     path = tmp_path / filename
     path.write_text(json.dumps(prereg, ensure_ascii=False), encoding="utf-8")
