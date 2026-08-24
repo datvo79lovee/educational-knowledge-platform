@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import subprocess
 import sys
 from pathlib import Path
@@ -177,8 +178,29 @@ def test_interrupted_attempt_retains_partial_output(
     assert artifact["quality_metrics_computed"] is False
 
 
+def _result_artifact_state() -> dict[str, str | None]:
+    """Hash each result artifact, or None when it does not exist yet.
+
+    Existence alone says nothing once an attempt has legitimately run, so the check
+    compares state before and after instead.
+    """
+
+    report_dir = PROJECT_ROOT / "reports/31_multilingual_runtime_v1_m3"
+    names = (
+        "m3_runtime_outputs.jsonl",
+        "m3_human_review_worksheet.csv",
+        "m3_execution_manifest.json",
+    )
+    state: dict[str, str | None] = {}
+    for name in names:
+        path = report_dir / name
+        state[name] = hashlib.sha256(path.read_bytes()).hexdigest() if path.exists() else None
+    return state
+
+
 def test_verify_only_runs_in_clean_subprocess_without_creating_results() -> None:
     script = PROJECT_ROOT / "scripts/evaluation/run_multilingual_runtime_v1_m3.py"
+    before = _result_artifact_state()
     completed = subprocess.run(
         [sys.executable, "-X", "utf8", str(script), "--verify-only"],
         cwd=PROJECT_ROOT,
@@ -189,7 +211,5 @@ def test_verify_only_runs_in_clean_subprocess_without_creating_results() -> None
     )
 
     assert "no encoder load and no Ollama call was made" in completed.stdout
-    report_dir = PROJECT_ROOT / "reports/31_multilingual_runtime_v1_m3"
-    assert not (report_dir / "m3_runtime_outputs.jsonl").exists()
-    assert not (report_dir / "m3_human_review_worksheet.csv").exists()
-    assert not (report_dir / "m3_execution_manifest.json").exists()
+    # Nothing created and nothing overwritten, whether or not an attempt already ran.
+    assert _result_artifact_state() == before
