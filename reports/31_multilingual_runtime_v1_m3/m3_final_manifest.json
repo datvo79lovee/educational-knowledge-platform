@@ -1,0 +1,106 @@
+{
+  "analysis_code_sha256_lf_normalized": {
+    "scripts/evaluation/freeze_multilingual_runtime_v1_m3_attempt_1.py": "7dcda89ddd3e506873018a93520306c85b0263559853ff01289704e39f7cf3eb"
+  },
+  "attempt_id": "m3-attempt-1",
+  "attempt_integrity": {
+    "artifacts_modified_by_freeze": false,
+    "attempt_deleted_or_replaced": false,
+    "normalization_changed": false,
+    "rerun_performed": false,
+    "runtime_prompt_model_or_retriever_changed": false
+  },
+  "conclusions_not_permitted": [
+    "any statement about Vietnamese end-to-end answer correctness, completeness, groundedness or citation support",
+    "any decision-parity or non-inferiority comparison against the matched English baseline",
+    "any Vietnamese runtime failure rate estimated from 2 executed intents",
+    "any reinterpretation of the frozen M2 result",
+    "any production-readiness claim"
+  ],
+  "diagnostic_capture_limitation": {
+    "consequence": "The translation, the retrieved evidence and the full generator output for mit60001-q-002 are unrecoverable from attempt 1 artifacts.",
+    "remedy_owner": "A future milestone with its own pre-registration; attempt 1 is not re-run to recover it.",
+    "scope": "Runner data capture on the error path; not a protocol violation and not a runtime defect.",
+    "statement": "The failed record does not retain the diagnostic data needed to analyse the failure. retrieval_query is null, top3_chunk_ids is empty and raw_model_output is absent, even though a translation call completed for this intent. The Pydantic error message truncates the offending model output."
+  },
+  "execution_counts": {
+    "executed_intent_count": 2,
+    "expected_intent_count": 20,
+    "failed_count": 1,
+    "generation_call_count": 2,
+    "not_executed_intent_count": 18,
+    "passed_count": 1,
+    "retry_count": 0,
+    "translation_call_count": 2
+  },
+  "execution_manifest": {
+    "file": "reports/31_multilingual_runtime_v1_m3/m3_execution_manifest.json",
+    "sha256": "cc4a10266e7b5c7ecc41230d319dfef7bd7f62ef37e7f6329820cf84bc43e54d",
+    "status": "executed_failed_runtime",
+    "validation_status": "failed_runtime_integrity"
+  },
+  "gate_results": {
+    "G1": "FAIL",
+    "G2": "NOT_EVALUATED",
+    "G3": "NOT_EVALUATED",
+    "G4": "NOT_EVALUATED",
+    "gate_note": "G1 failed on runtime integrity. G2-G4 were not evaluated because only 2 of 20 intents executed; they have no data and must not be reported as passed, failed or estimated.",
+    "overall": "FAIL"
+  },
+  "human_review_performed": false,
+  "milestone": "multilingual_runtime_v1_m3",
+  "observed_runtime_failure": {
+    "classification": "generation contract violation",
+    "contract_rule": "abstain decision requires answer=null",
+    "error_type": "GroundedAnswerContractError",
+    "intent_id": "mit60001-q-002",
+    "not_evidence_of": [
+      "translator failure on this intent",
+      "retrieval failure on this intent"
+    ],
+    "novelty_note": "This variant did not occur in the frozen English Reliability V1 run, which recorded 40/40 public successes, 0 public failures and normalization reasons limited to abstain_literal_to_null and duplicate_supporting_ids. With 2 executed Vietnamese records this is an observation, not a rate and not a causal claim.",
+    "raised_at": "src/grounded_answer/service.py strict validation of the model output"
+  },
+  "output_artifacts": [
+    {
+      "file": "reports/31_multilingual_runtime_v1_m3/m3_runtime_outputs.jsonl",
+      "sha256": "bd0dbe9f890fc2f351a081eb133f4103f429ab6c42edf1ede2bf0a0f069f00e0"
+    },
+    {
+      "file": "reports/31_multilingual_runtime_v1_m3/m3_human_review_worksheet.csv",
+      "sha256": "b02683fe28a56dfe5e69f3de834d6a299f8e03dafd22e89e8db7b8b000dce567"
+    },
+    {
+      "file": "reports/31_multilingual_runtime_v1_m3/m3_execution_manifest.json",
+      "sha256": "cc4a10266e7b5c7ecc41230d319dfef7bd7f62ef37e7f6329820cf84bc43e54d"
+    }
+  ],
+  "preregistration": {
+    "file": "reports/31_multilingual_runtime_v1_m3/m3_preregistration.json",
+    "revision": 2,
+    "sha256": "6c127e5e469e019409793e47a9ecfe453221810ad9f8fac794f7f94716920d52"
+  },
+  "quality_metrics_computed": false,
+  "record_summary": {
+    "executed_intent_ids": [
+      "mit60001-q-001",
+      "mit60001-q-002"
+    ],
+    "failed_intent_ids": [
+      "mit60001-q-002"
+    ],
+    "failure_details": [
+      {
+        "error_message": "Grounded answer model output failed strict validation: 1 validation error for ModelGroundedDecision\n  Value error, abstain decision requires answer=null [type=value_error, input_value={'decision': 'abstain', '...ởi các đoạn văn'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error",
+        "error_type": "GroundedAnswerContractError",
+        "intent_id": "mit60001-q-002"
+      }
+    ],
+    "passed_intent_ids": [
+      "mit60001-q-001"
+    ]
+  },
+  "schema_version": "multilingual_runtime_v1_m3_final_manifest_v1",
+  "status": "frozen_failed_runtime_integrity",
+  "validation_status": "passed"
+}

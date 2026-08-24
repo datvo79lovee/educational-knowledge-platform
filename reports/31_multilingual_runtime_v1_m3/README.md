@@ -1,6 +1,21 @@
 # Multilingual Runtime V1 — M3 Vietnamese End-to-End Evaluation
 
-Status: `preregistered_not_executed`.
+Status: `frozen_failed_runtime_integrity` — attempt 1 dừng ở runtime integrity.
+
+```text
+Multilingual Runtime V1 — M3 attempt 1
+G1 runtime integrity : FAIL   1 runtime failure tại mit60001-q-002
+G2 language          : NOT_EVALUATED
+G3 decision parity   : NOT_EVALUATED
+G4 strict E2E parity : NOT_EVALUATED
+Overall              : FAIL
+Executed             : 2/20 intents (1 passed, 1 failed, 18 không chạy)
+Retries              : 0
+```
+
+**Không có kết luận nào về chất lượng end-to-end tiếng Việt.** G2–G4 không có dữ
+liệu; chúng không được báo cáo là passed, failed hay ước lượng. Chi tiết freeze nằm
+tại `m3_final_manifest.json`.
 
 Pre-registration revision 2 SHA-256:
 `6c127e5e469e019409793e47a9ecfe453221810ad9f8fac794f7f94716920d52`.
@@ -98,5 +113,55 @@ làm G1 FAIL và dừng ngay, không retry hay chạy tiếp. Nếu process/máy
 partial output được giữ với `aborted_incomplete`; chạy lại cần attempt ID mới và duyệt
 rõ, không xóa hay chọn lọc attempt cũ.
 
-Pre-registration và runner phải được verify trước mọi Ollama call. Kết quả live và
-human review chưa tồn tại ở trạng thái hiện tại.
+Pre-registration và runner phải được verify trước mọi Ollama call.
+
+## Attempt 1 — điều đã xảy ra
+
+Attempt `m3-attempt-1` chạy `q-001` thành công rồi dừng ở `q-002`. Generator trả
+`decision="abstain"` kèm answer khác null; strict contract từ chối output đó với
+`GroundedAnswerContractError` ("abstain decision requires answer=null"). Runner ghi
+record rồi dừng ngay, đúng `runtime_failure_policy`, không retry.
+
+Đây là **vi phạm contract ở tầng generation**. Nó không phải bằng chứng translator
+hay retrieval sai trên intent đó.
+
+Hai quan sát được ghi lại, không phải kết luận:
+
+- Biến thể lỗi này **không xuất hiện** trong frozen English Reliability V1: 40/40
+  public success, 0 public failure, và normalization chỉ gặp `abstain_literal_to_null`
+  cùng `duplicate_supporting_ids`. Với 2 record tiếng Việt thì đây là một quan sát,
+  không phải một tỉ lệ và không phải quan hệ nhân quả.
+- `q-001` retrieve bằng `retrieval_query = "Learning Objectives"`, đúng output mà M2
+  đã gán `Semantic drift`. Runtime vẫn sinh câu trả lời kèm citation mà không phát
+  hiện query của mình đã hỏng.
+
+### Diagnostic capture limitation
+
+Record failed **không giữ** dữ liệu cần để phân tích: `retrieval_query` là `null`,
+`top3_chunk_ids` rỗng, `raw_model_output` không có — dù một translation call đã hoàn
+tất cho intent đó (`translation_call_count: 1`, `459 ms`). Thông điệp lỗi Pydantic
+cũng cắt ngắn output vi phạm.
+
+Hệ quả: bản dịch, evidence và toàn văn output của generator cho `mit60001-q-002`
+**không khôi phục được** từ artifact attempt 1. Đây là lỗ hổng capture của runner trên
+error path, không phải vi phạm protocol và không phải defect của runtime. Việc khắc
+phục thuộc một milestone sau có pre-registration riêng; attempt 1 không được chạy lại
+để lấy lại dữ liệu đó.
+
+### Ranh giới của freeze
+
+Freeze chỉ ghi nhận kết quả đã có. Không rerun, không xóa hay thay thế attempt 1,
+không sửa artifact hay hash nào của attempt 1, không tính quality metric, không human
+review, và không đụng runtime, prompt, model, retriever hay normalization.
+
+Không mở rộng normalization để tự chuyển `abstain` + answer khác null thành
+`answer=null`. Hai rule normalization hiện có chỉ canonicalize nhiễu biểu diễn; rule
+đó sẽ **vứt bỏ output của model** và tự quyết định `decision` đáng tin hơn `answer` —
+đó là phán đoán ngữ nghĩa, không phải canonicalization.
+
+### Bước tiếp theo
+
+Chưa chuẩn bị. Attempt 2 chưa được chạy và runtime chưa được sửa. Bài học về dụng cụ
+đo: stop-on-first-failure là gate đúng cho hệ thống được tin là toàn vẹn, nhưng nó
+triệt tiêu năng lực đo với hệ thống có tỉ lệ lỗi chưa biết — 20 intents đã thành 2
+record.
