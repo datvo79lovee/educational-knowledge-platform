@@ -1,0 +1,20 @@
+{
+  "milestone": "multilingual_runtime_v1_m6",
+  "preregistration": {
+    "file": "reports/35_multilingual_runtime_v1_m6/m6_preregistration.json",
+    "sha256": "d551403d7bc106f7e5eb931d2f3aa8f4e881ec1e62a31b65c18347caf593f7ff"
+  },
+  "quality_metrics_computed": false,
+  "review_labels_present": false,
+  "runtime_calls": 0,
+  "schema_version": "multilingual_runtime_v1_m6_preparation_manifest_v1",
+  "status": "prepared_awaiting_human_review",
+  "worksheet": {
+    "encoding": "UTF-8 with BOM",
+    "excluded_count": 1,
+    "file": "reports/35_multilingual_runtime_v1_m6/m6_human_review_worksheet.csv",
+    "primary_count": 19,
+    "row_count": 20,
+    "sha256": "3bb0aed91dbe2061bfc50d92aabc1924bc8067b322e6ba6c78a12cabefffeeac"
+  }
+}
