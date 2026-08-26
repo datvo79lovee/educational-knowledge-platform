@@ -83,3 +83,53 @@ def test_index_content_rejects_non_normalized_vector() -> None:
     with pytest.raises(ValueError):
         DenseSearchService._validate_index_content(manifest, chunks, metadata, invalid)
 
+
+
+# --- Bounded local demo: route/static serving and diagnostic-leak guard ---
+
+
+def test_demo_page_and_static_assets_are_served_without_lifespan() -> None:
+    """The demo is static: it must serve before any encoder or Ollama is involved."""
+
+    from fastapi.testclient import TestClient
+
+    from src.search_api.app import app
+
+    client = TestClient(app)
+
+    page = client.get("/")
+    assert page.status_code == 200
+    assert page.headers["content-type"].startswith("text/html")
+    assert 'value="en"' in page.text and 'value="vi"' in page.text
+
+    for asset in ("/static/app.js", "/static/app.css"):
+        response = client.get(asset)
+        assert response.status_code == 200, asset
+
+
+def test_demo_client_never_references_runtime_diagnostics() -> None:
+    """The page must not surface retrieval or model internals to a demo viewer."""
+
+    from src.search_api.app import STATIC_DIR
+
+    forbidden = ("retrieval_query", "original_query", "raw_model_output", "normalization")
+    for name in ("index.html", "app.js", "app.css"):
+        source = (STATIC_DIR / name).read_text(encoding="utf-8")
+        for field in forbidden:
+            assert field not in source, f"{name} references {field}"
+
+
+def test_demo_page_does_not_change_the_answer_contract() -> None:
+    """Adding the demo must leave the /answer request/response schema untouched."""
+
+    from src.search_api.app import app
+
+    schema = app.openapi()
+    answer_post = schema["paths"]["/answer"]["post"]
+    request_ref = answer_post["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+    response_ref = answer_post["responses"]["200"]["content"]["application/json"]["schema"]["$ref"]
+
+    assert request_ref.endswith("/GroundedAnswerRequest")
+    assert response_ref.endswith("/GroundedAnswerResponse")
+    # The demo page is not part of the API contract and must stay out of the schema.
+    assert sorted(schema["paths"]) == ["/answer", "/search", "/videos/{video_id}"]

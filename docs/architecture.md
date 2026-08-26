@@ -41,3 +41,24 @@ requests retain the frozen `grounded_answer_prompt_v1` and make no translation c
 
 The canonical components are `dense_baseline_v1` and G0/Reliability V1. Retired
 experiments are intentionally absent from the active architecture.
+
+## Serving surface
+
+```text
+GET  /                → bounded local web demo (static HTML/CSS/JS)
+GET  /static/*        → demo assets, served from disk; no CDN, no external asset
+POST /search          → Dense Top 3 only; no model call, no Ollama dependency
+POST /answer          → grounded answer or abstain; requires Ollama
+GET  /videos/{id}     → canonical metadata for one of the 38 target videos
+```
+
+The demo page is a static client of the unchanged `/answer` contract. It adds no
+retrieval, generation or evidence logic, is excluded from the OpenAPI schema, and
+renders only `decision`, `answer` and application-owned `citations`. The API response
+may include `original_query` and `retrieval_query`, but the bundled UI does not read
+or render either field. Raw model output and normalization metadata are not public API
+response fields. A test enforces the UI boundary by scanning the static assets.
+
+Startup is fail-closed: the application verifies the SHA-256 of the canonical Gold
+chunks, embeddings and index metadata, checks positional alignment between them, and
+pins the query-encoder revision before accepting a request.

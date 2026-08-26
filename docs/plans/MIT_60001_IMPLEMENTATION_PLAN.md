@@ -117,12 +117,18 @@ sample 19-record primary đã dùng lại nhiều lần. Không production-ready
 quát hóa sang query chưa thấy, không quan hệ nhân quả với translation/retrieval/
 generation, không phục hồi translator fidelity, không đảo ngược M2.
 
-## Bước tiếp theo — Bounded local demo (chưa bắt đầu)
+## Bounded local demo — M2 release remediation validated
 
-M6 PASS chỉ cho phép cân nhắc một milestone demo cục bộ có giới hạn (bounded local
-demo), cần pre-registration và scope riêng. Chưa có code demo nào được viết. Ranh
-giới giữ nguyên: không sửa Dense/index/scoring, không thêm BM25/RRF/reranker, không
-tune translator/prompt theo output đã quan sát trong M1–M6.
+Demo cục bộ đã được review và smoke-validated trên release candidate: static `GET /`
+gọi unchanged `POST /answer`; English/Vietnamese dùng `answer_language=en|vi`; citations
+vẫn application-owned. Validation ghi tại `reports/36_bounded_local_demo/` khóa source
+hashes, targeted contract tests và status codes của `/`, static asset, `/search`,
+`/videos/{video_id}` và `/answer` EN/VI.
+
+Ranh giới giữ nguyên: không sửa Dense/index/scoring, không thêm BM25/RRF/reranker,
+không tune translator/prompt theo output đã quan sát trong M1–M6. Smoke demo chỉ chứng
+minh local request path/response contract, không mở chất lượng evaluation mới hoặc
+production-ready claim.
 
 ## Engineering closeout sau bounded local demo
 

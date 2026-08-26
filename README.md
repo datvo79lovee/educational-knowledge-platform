@@ -1,119 +1,229 @@
 # Educational Knowledge Platform
 
-## Overview
+A Data Engineering + NLP/RAG system built on the 38-video **MIT 6.0001 Fall 2016**
+corpus. It turns YouTube transcripts into a traceable Bronze → Silver → Gold pipeline,
+an exact Dense retrieval index, and a grounded local-answer API that cites the exact
+lecture timestamp it used — or abstains when the evidence is not sufficient.
 
-Educational Knowledge Platform is a Data Engineering and NLP/RAG project built on
-the 38-video MIT 6.0001 Fall 2016 corpus. It turns YouTube transcripts into a
-traceable Bronze → Silver → Gold pipeline, an exact Dense retrieval index, and a
-grounded local-answer API with application-owned citations.
+Everything runs locally. No cloud, no external API at serving time.
 
-## Canonical architecture
+## Architecture
 
 ```text
-YouTube API → Bronze → Silver → Gold
-                       ↓
-          lineage, hashes, schema validation, checkpoint/resume
-                       ↓
-             embedding / canonical index
-                       ↓
-               Dense Retrieval Top 3
-                       ↓
-     Grounded Answer Generator (Ollama / llama3.2:3b)
-                       ↓
-     normalization → strict Pydantic validation
-                       ↓
-        application-owned citations → API response
+  INGESTION                    PROCESSING                   INDEXING
+┌──────────────┐          ┌──────────────────┐         ┌──────────────────┐
+│ YouTube Data │  Bronze  │ Silver: cleaned  │  Gold   │ MiniLM-L6-v2     │
+│ API +        ├─────────►│ transcripts      ├────────►│ 861 × 384 float32│
+│ transcripts  │  (raw)   │ Gold: 861 chunks │         │ exact cosine     │
+└──────────────┘          └──────────────────┘         └────────┬─────────┘
+       │                           │                            │
+       └── lineage · SHA-256 · JSON Schema · checkpoint/resume ──┘
+                                                                │
+  SERVING                                                       ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  POST /search  ──►  Dense Retrieval Top 3            (no model call)     │
+│                                                                          │
+│  POST /answer  ──►  [vi] literal translator ──► retrieval_query          │
+│                     Dense Top 3                                          │
+│                     G0 generator (Ollama · llama3.2:3b)                  │
+│                     raw output → normalization → strict Pydantic         │
+│                     application-owned citation mapping                   │
+│                     ──► answer + citations   OR   abstain                │
+│                                                                          │
+│  GET  /        ──►  bounded local web demo (static HTML/CSS/JS)          │
+└─────────────────────────────────────────────────────────────────────────┘
 ```
 
-`POST /search` is retrieval-only. `POST /answer` uses the same Dense Top 3 and
-returns either a grounded answer with canonical citations or an abstention. The
-model may select chunk IDs only; application code maps those IDs to video URLs and
-timestamps.
+**The model never creates a citation.** It may only select chunk IDs from the exact
+Dense Top 3; application code maps those IDs to canonical video URLs and timestamps.
+An `answer` requires non-empty text plus 1–3 unique Top-3 IDs. An `abstain` requires
+`answer=null` and no supporting IDs — enforced by a strict Pydantic contract, not by
+convention.
 
-## Canonical decisions
+For a Vietnamese request the runtime keeps `original_query`, translates it to a
+literal English `retrieval_query`, retrieves the same Dense Top 3, then asks G0 to
+answer in Vietnamese. Translation is **fail-closed**: an unavailable or invalid
+translator never falls back to Vietnamese retrieval.
 
-- `dense_baseline_v1` is the selected retriever.
-- `Reliability V1 / G0` is the canonical grounded-answer runtime.
-- Runtime normalization is deliberate application behavior: it converts only an
-  abstain literal to `null` and deduplicates valid Top-3 supporting IDs before the
-  final Pydantic validation.
-- The standalone Evidence Reviewer, BM25/Hybrid RRF, Cross-Encoder, and G1 prompt
-  experiment are not part of this repository's active architecture.
+See [docs/architecture.md](docs/architecture.md) for the full canonical description.
 
-See [canonical runtime decisions](docs/decisions/CANONICAL_RUNTIME_DECISIONS.md)
-and [current status](docs/status/CURRENT_STATUS.md) for the measured basis and
-known limitations.
+## Run it end to end
 
-## Quick start
+### 0. Prerequisites
 
-Prerequisite for retrieval: Python 3.12. The repository includes the exact three
-canonical serving artifacts (Gold chunks, embeddings, and index metadata); larger
-Bronze/Silver data and Gold experiments remain local-only.
+- Python 3.12
+- [Ollama](https://ollama.com) — needed only for `/answer` and the demo's Ask button
+- ~3 GB disk for the model and encoder
 
-```powershell
+The repository already ships the three canonical serving artifacts (Gold chunks,
+embeddings, index metadata), so **no pipeline rebuild is required to serve**.
+
+### 1. Install
+
+```bash
 python -m venv .venv
-.venv\Scripts\Activate.ps1
+.venv\Scripts\Activate.ps1        # PowerShell;  source .venv/bin/activate on POSIX
 pip install -r requirements.txt
+```
+
+### 2. Bootstrap the pinned query encoder
+
+```bash
 python -X utf8 scripts/bootstrap_query_encoder.py
+```
+
+Downloads the exact MiniLM revision recorded in the index manifest, verifies its
+commit hash, and proves a second local-only load works. The API itself never
+downloads a model at startup.
+
+### 3. Pull the generator tag; runtime verifies the exact model identity
+
+```bash
+ollama pull llama3.2:3b
+```
+
+Canonical local-model identity:
+
+```text
+tag: llama3.2:3b
+expected digest: a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72
+```
+
+`ollama pull` makes the tag available. Before its first model call, the runtime reads
+the local Ollama model list and compares the full digest above; a mismatch fails
+closed. It does not silently use another build with the same tag.
+
+### 4. Start the API + demo
+
+```bash
 python -m uvicorn src.search_api.app:app --host 127.0.0.1 --port 8000
 ```
 
-The bootstrap command downloads the exact MiniLM revision recorded by the index
-manifest, verifies its commit hash, and proves that a second local-only load works.
-The API never downloads a model during startup.
+Startup verifies the SHA-256 of Gold, embeddings and metadata, checks index/metadata
+alignment, and pins the encoder revision. **It refuses to start if anything drifted.**
 
-In a second terminal, validate the retrieval API or call it directly:
+Wait for this line before opening a browser:
 
-```powershell
+```text
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+```
+
+Keep this terminal open — the server dies with it. Use a second terminal for anything
+else.
+
+### 5. Open the demo
+
+<http://127.0.0.1:8000/>
+
+Type a question, pick **English** or **Tiếng Việt**, press Ask. You get either an
+answer with clickable lecture citations, or an explicit *not enough evidence* state.
+
+### 6. Or call the API directly
+
+```bash
+curl -X POST http://127.0.0.1:8000/answer -H "Content-Type: application/json" -d "{\"question\":\"How does a function return a value to the code that called it?\",\"answer_language\":\"en\"}"
+```
+
+```bash
+curl -X POST http://127.0.0.1:8000/search -H "Content-Type: application/json" -d "{\"query\":\"recursion\"}"
+```
+
+`/search` and `GET /` need **no** Ollama. Only `/answer` does.
+
+### 7. Verify the install
+
+```bash
+pytest -q
+```
+
+```bash
 python -X utf8 scripts/api/validate_search_api.py
-Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/search `
-  -ContentType 'application/json' -Body '{"query":"What is recursion?"}'
 ```
 
-`POST /search`, its startup hash gate, the test suite, and the Search API validator
-do not require Ollama. The grounded-answer endpoint additionally requires the local
-Ollama service and pinned model:
-
-```powershell
-ollama pull llama3.2:3b
-Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/answer `
-  -ContentType 'application/json' -Body '{"question":"What is recursion?"}'
-```
-
-The committed `embeddings.npy` is authoritative. A byte-identical rebuild requires
-the Python, NumPy, PyTorch, Transformers, and Sentence Transformers versions pinned
-in `requirements.txt` and `reports/09_embedding/embedding_index_manifest.json`;
-under other versions, use the committed artifact instead of replacing it.
-
-## Development and pipeline setup
-
-```powershell
-pip install -r requirements-dev.txt
-pip install -r requirements-pipeline.txt
-pytest
+```bash
 python -X utf8 scripts/evaluation/validate_benchmark_manifest.py
 ```
 
-Copy `.env.example` to `.env` only when running ingestion or PostgreSQL pipeline
-steps. Never commit `.env`.
+All three run without Ollama. On a clean machine they are the fastest proof the clone
+is intact.
 
-## Evaluation snapshot
+## Repository map
 
-The canonical benchmark contains 40 human-approved questions: 35 answerable, 5
-out-of-scope, and 57 Ground Truth time ranges. Its compact provenance and hashes
-are locked in [benchmark_manifest.json](evaluation/mit_60001/benchmark_manifest.json).
+| Path | What it holds |
+|---|---|
+| [`src/`](src/) | Runtime + pipeline modules ([README](src/README.md)) |
+| [`scripts/`](scripts/) | Operational and evaluation runners ([README](scripts/README.md)) |
+| [`tests/`](tests/) | Automated contract tests ([README](tests/README.md)) |
+| [`reports/`](reports/) | Frozen milestone evidence, one folder per milestone ([README](reports/README.md)) |
+| [`evaluation/`](evaluation/) | Benchmark, ground truth and human-review artifacts ([README](evaluation/README.md)) |
+| [`schemas/`](schemas/) | JSON Schema contracts ([README](schemas/README.md)) |
+| [`docs/`](docs/) | Architecture, decisions, status, build log ([README](docs/README.md)) |
+| [`sql/`](sql/) | PostgreSQL ingestion schema ([README](sql/README.md)) |
+| [`data/`](data/) | Data lake; only canonical serving artifacts are tracked ([README](data/README.md)) |
 
-Reliability V1/G0 is an evaluated baseline, not a production-readiness claim:
+## Evaluation, honestly reported
 
-- Public runtime success: 40/40
-- Decision accuracy: 23/37 (62.16%)
-- False abstain: 11/21 evidence-sufficient questions
-- False answer: 3/16 evidence-insufficient questions
-- Strict end-to-end success: 17/37 (45.95%)
+Every capability in this repository was gated by a **pre-registration written before
+the run**, with hashes pinned for inputs, runtime sources and analysis code. Failed
+milestones are frozen as failures, not deleted.
 
-Phase 9 multilingual retrieval baseline M1-M4 is complete. The next planned
-capability is Multilingual Runtime V1 (`VI → literal EN → Dense → G0 → VI answer`),
-without expanded translation, BM25, RRF, or reranking. It is not implemented yet.
+**Grounded answer, English (Reliability V1 / G0)** — 40 human-approved benchmark
+questions:
 
-Repository reproducibility evidence is recorded in
-[`reports/29_repository_reproducibility/`](reports/29_repository_reproducibility/).
+| Metric | Result |
+|---|---:|
+| Public runtime success | 40/40 |
+| Decision accuracy | 23/37 (62.16%) |
+| False abstain | 11/21 evidence-sufficient |
+| False answer | 3/16 evidence-insufficient |
+| Strict end-to-end success | 17/37 (45.95%) |
+
+**Multilingual Runtime V1** — measured across six milestones on 20 paired intents:
+
+| Milestone | Question | Outcome |
+|---|---|---|
+| M2 | Does the machine translator preserve retrieval fidelity? | **FAIL** — 10/20 semantic drift, Recall@3 0.55 vs 0.70. Translator rejected |
+| M4 | How often does the VI runtime fail, and where? | 8/20 failures, all `generation_contract`; 8/8 abstain attempts malformed |
+| M5.1 | Does a conditional prompt fix it? | **FAIL** — candidate rejected, prompt rolled back |
+| M5.3 | Does an application-boundary normalization fix it? | **PASS** — 20/20 clean, 8 payloads canonicalized |
+| M6 | Is the resulting Vietnamese output actually good? | **PASS** — decision 14/19, strict E2E 7/19, language 12/12 |
+
+The single most useful finding: **retrieval metrics can be blind to semantic
+translation failure.** In M2, `q-039` lost the entire "white-box" half of its question
+yet kept a perfect 3/3 Top-3 overlap and zero rank change. A metric gate alone would
+have accepted it; the human semantic gate caught it.
+
+## Limitations — read before judging the numbers
+
+- **Not production-ready.** No milestone claims otherwise, and the frozen manifests
+  forbid the claim explicitly.
+- **Small, reused sample.** The same 20 multilingual intents were used throughout
+  development. M6 measures that development sample, not an unseen test set. At n=19,
+  one record moves a rate by 5.26 points.
+- **Single reviewer.** No inter-annotator or delayed intra-annotator agreement.
+- **Non-deterministic generation.** The local model is not reproducible even at
+  temperature 0; the same question can answer once and abstain the next time.
+- **Translator still rejected.** M2's rejection stands. M5.3/M6 fixed the *contract
+  shape* of abstentions, not translation fidelity — `q-033` still renders
+  "decomposition" as "nuclear fission".
+- **Retrieval ceiling.** Recall@3 is 0.743, so ~26% of answerable questions cannot be
+  answered correctly no matter how good the generator is.
+
+Full measured basis: [docs/status/CURRENT_STATUS.md](docs/status/CURRENT_STATUS.md)
+and [docs/decisions/CANONICAL_RUNTIME_DECISIONS.md](docs/decisions/CANONICAL_RUNTIME_DECISIONS.md).
+
+## Rebuilding the pipeline (optional)
+
+Serving needs none of this. To rebuild Bronze → Silver → Gold you additionally need
+the raw data lake, PostgreSQL and API credentials:
+
+```bash
+pip install -r requirements-pipeline.txt
+cp .env.example .env        # then fill in your own credentials; never commit .env
+```
+
+The committed `embeddings.npy` is authoritative. A byte-identical rebuild requires the
+exact Python, NumPy, PyTorch, Transformers and Sentence Transformers versions pinned
+in `requirements.txt` and `reports/09_embedding/embedding_index_manifest.json`. Under
+other versions, keep the committed artifact.

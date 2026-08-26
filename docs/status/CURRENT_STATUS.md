@@ -264,9 +264,18 @@ readiness, tổng quát hóa sang query chưa thấy, quan hệ nhân quả gi�
 translation/retrieval/generation và lỗi cuối, translator fidelity đã phục hồi, hay M2
 (literal translator, vẫn `frozen_failed`) bị đảo ngược. M6 không mở lại M2.
 
-## Bước tiếp theo
+## Bounded local demo — M2 release remediation validated
 
-M6 PASS chỉ cho phép cân nhắc một milestone demo cục bộ có giới hạn (bounded local
-demo), scope riêng, đăng ký trước riêng — chưa bắt đầu code demo. Không rerun M5.3
-hay M6, không tune translator/prompt từ các record đã quan sát, không mở retrieval
-experiment mới.
+M2 đã review và validate demo cục bộ đúng trên worktree release candidate: `GET /`,
+`GET /static/app.js`, `POST /search`, `GET /videos/{video_id}` và `POST /answer` cho
+cả English/Vietnamese đều trả response contract hợp lệ. `/answer` chỉ được smoke sau
+khi local Ollama `llama3.2:3b` khớp exact digest
+`a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72`.
+
+Demo chỉ là static client của `/answer`: không thay Dense/index/scoring, prompt,
+translator, normalization hay citation mapping. Smoke xác minh request path và shape
+response, không là đánh giá chất lượng mới và không thay đổi giới hạn M2/M5.1/M5.3/M6.
+Chi tiết behavior/source hashes tại `reports/36_bounded_local_demo/`.
+
+Bước tiếp theo là review và commit M2 release candidate theo allowlist; chưa cleanup
+test/report/runner, chưa normalize line ending hoặc rerun milestone evidence.

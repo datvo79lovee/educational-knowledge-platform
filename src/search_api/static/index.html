@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MIT 6.0001 Grounded Answer — Local Demo</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<main class="page">
+  <header class="page__header">
+    <h1>MIT 6.0001 Grounded Answer</h1>
+    <p class="page__subtitle">
+      Bounded local demo. Answers come only from the frozen 38-video MIT 6.0001
+      transcript corpus, with citations chosen by the application.
+    </p>
+  </header>
+
+  <form id="ask-form" class="ask" novalidate>
+    <div class="ask__field">
+      <label class="ask__label" for="question">Câu hỏi / Question</label>
+      <textarea
+        id="question"
+        name="question"
+        class="ask__input"
+        rows="3"
+        required
+        placeholder="What is recursion?"
+        autocomplete="off"
+      ></textarea>
+    </div>
+
+    <div class="ask__row">
+      <div class="ask__field ask__field--inline">
+        <label class="ask__label" for="answer-language">Ngôn ngữ trả lời / Answer language</label>
+        <select id="answer-language" name="answer_language" class="ask__select">
+          <option value="en" selected>English</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+      </div>
+      <button id="submit" type="submit" class="ask__submit">Hỏi / Ask</button>
+    </div>
+  </form>
+
+  <section id="result" class="result" aria-live="polite" aria-busy="false">
+    <p class="result__idle">Chưa có câu hỏi nào. / No question asked yet.</p>
+  </section>
+
+  <footer class="page__footer">
+    <p>
+      Local demo only. Not production-ready. Evaluated on a small reused sample;
+      see <code>reports/35_multilingual_runtime_v1_m6/</code> for the measured limits.
+    </p>
+  </footer>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>

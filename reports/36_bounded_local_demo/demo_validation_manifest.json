@@ -1,0 +1,51 @@
+{
+  "artifact_version": "bounded_local_demo_m2_v1",
+  "status": "validated_local_release_candidate",
+  "base_commit": "b7d1b1d9ae8032e30a0eeae41a69f28b79e38044",
+  "validation_scope": {
+    "runtime_architecture_changed": false,
+    "quality_evaluation_performed": false,
+    "production_ready_claim": false,
+    "canonical_ollama_model": {
+      "tag": "llama3.2:3b",
+      "expected_digest": "a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72",
+      "local_digest_verified_before_answer_smoke": true
+    }
+  },
+  "source_sha256": {
+    "src/search_api/app.py": "3a781a22acc0566a11c7f8bc072c44d1c5d752e851078303612ca67a20b795f1",
+    "src/search_api/static/index.html": "224f2c98a35a71a4c025a775aed14d08da13a95c3ebeff9c10afdb8c90d3ced8",
+    "src/search_api/static/app.js": "5396b55740dde8f926193f0e052b2881c068a0513a94a468ea67f66dfb2913fb",
+    "src/search_api/static/app.css": "e468f23b9626ae07a53614cbb51198763cb5a8276e690b4ba47c2238fb3d6081",
+    "tests/search_api/search_api_validation_test.py": "f1abcfdec2c0c402f4870cd2905072eb0b46175417bad43065587495cb778c78"
+  },
+  "validation": {
+    "targeted_pytest": {
+      "command": "python -m pytest -q tests/search_api/search_api_validation_test.py",
+      "passed": 8,
+      "warnings": 1
+    },
+    "local_smoke": {
+      "GET /": 200,
+      "GET /static/app.js": 200,
+      "POST /search": {
+        "status": 200,
+        "result_count": 3
+      },
+      "GET /videos/{video_id}": 200,
+      "POST /answer en": {
+        "status": 200,
+        "response_answer_language": "en",
+        "decision": "abstain",
+        "citation_count": 0
+      },
+      "POST /answer vi": {
+        "status": 200,
+        "response_answer_language": "vi",
+        "decision": "answer",
+        "citation_count": 2
+      }
+    }
+  },
+  "interpretation_boundary": "Smoke validation proves only the observed local request paths and response contract. It does not measure answer quality, generalization, translation fidelity or production readiness."
+}

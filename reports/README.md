@@ -8,6 +8,14 @@ Only final pipeline evidence is retained in `reports/`:
 - `20_grounded_answer_runtime`: runtime contract and smoke-validation manifest.
 - `25_grounded_answer_reliability_v1`: final G0/Reliability V1 metrics, results and
   manifest.
+- `26_multilingual_benchmark_preparation` through
+  `28_multilingual_retrieval_evaluation`: frozen paired EN–VI retrieval baseline.
+- `29_repository_reproducibility`: clean-clone reproducibility evidence.
+- `30_multilingual_runtime_v1_m2` through `35_multilingual_runtime_v1_m6`: frozen
+  multilingual runtime measurements, failed candidates, remediation and M6 quality
+  evaluation.
+- `36_bounded_local_demo`: source-pinned M2 validation of the bounded local demo.
 
-Deprecated retrieval and reviewer experiment reports were removed after their final
-selection decisions were recorded in `docs/decisions/CANONICAL_RUNTIME_DECISIONS.md`.
+Historical reports remain because their frozen manifests and decisions are provenance;
+they are not all active runtime components. Active runtime selection is recorded in
+`docs/decisions/CANONICAL_RUNTIME_DECISIONS.md`.

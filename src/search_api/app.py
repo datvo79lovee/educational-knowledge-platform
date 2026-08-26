@@ -2,8 +2,11 @@
 
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, Request, status
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from src.grounded_answer.contracts import GroundedAnswerRequest, GroundedAnswerResponse
 from src.grounded_answer.ollama_provider import GroundedAnswerProviderError
@@ -20,6 +23,10 @@ from src.multilingual.translation import (
 )
 from src.search_api.contracts import SearchRequest, SearchResponse, VideoResponse
 from src.search_api.service import DenseSearchService, RETRIEVAL_METHOD
+
+# Bounded local demo assets. Served from disk only; no CDN and no external asset.
+STATIC_DIR = Path(__file__).resolve().parent / "static"
+DEMO_INDEX = STATIC_DIR / "index.html"
 
 
 @asynccontextmanager
@@ -47,6 +54,19 @@ app = FastAPI(
     ),
     lifespan=lifespan,
 )
+
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+@app.get("/", include_in_schema=False)
+def demo_page() -> FileResponse:
+    """Serve the bounded local demo page.
+
+    The page is a static client of the unchanged `/answer` contract; it adds no
+    retrieval, generation or evidence logic of its own.
+    """
+
+    return FileResponse(DEMO_INDEX, media_type="text/html")
 
 
 def get_search_service(request: Request) -> DenseSearchService:
