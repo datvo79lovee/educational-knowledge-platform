@@ -47,13 +47,20 @@ translator never falls back to Vietnamese retrieval.
 
 See [docs/architecture.md](docs/architecture.md) for the full canonical description.
 
-## Run it end to end
+## Path A — Run the included demo (default)
 
-### 0. Prerequisites
+This is the default serving path intended for a fresh clone. It serves the committed canonical
+artifacts and the bounded local web demo; it does **not** rebuild the data pipeline.
+
+### System requirements
 
 - Python 3.12
 - [Ollama](https://ollama.com) — needed only for `/answer` and the demo's Ask button
-- ~3 GB disk for the model and encoder
+- Network access is needed once to bootstrap the pinned query encoder and pull the
+  Ollama tag, unless both are already present in local caches.
+- Additional local disk is needed for the Ollama model and encoder cache. This
+  repository does not claim a measured minimum RAM, GPU or disk configuration.
+- PostgreSQL, YouTube credentials and the raw data lake are **not** needed for Path A.
 
 The repository already ships the three canonical serving artifacts (Gold chunks,
 embeddings, index metadata), so **no pipeline rebuild is required to serve**.
@@ -148,6 +155,22 @@ python -X utf8 scripts/evaluation/validate_benchmark_manifest.py
 All three run without Ollama. On a clean machine they are the fastest proof the clone
 is intact.
 
+## Models and pinned identities
+
+This release validates one identity per runtime role. It does not advertise a family
+of interchangeable “supported models”. Using a different model requires a code and
+evaluation change; its behavior is not covered by the frozen evidence.
+
+| Component | Canonical identity | Purpose | Status |
+|---|---|---|---|
+| Dense query encoder | `sentence-transformers/all-MiniLM-L6-v2` at revision `1110a243fdf4706b3f48f1d95db1a4f5529b4d41` | Exact cosine query embeddings | Pinned to the canonical 861 × 384 index |
+| Grounded-answer generator | `llama3.2:3b` at digest `a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72` | English/ Vietnamese grounded answer or abstain | Pinned and evaluated; not production-ready |
+| Vietnamese retrieval translator | Same `llama3.2:3b` tag and digest | Literal VI → EN retrieval adapter | Pinned runtime identity; literal-fidelity evaluation remains rejected with documented limitations |
+
+The translator is an internal retrieval adapter. M5.3/M6 validated the current
+Vietnamese runtime candidate on a reused sample; they did not reverse M2's frozen
+literal-translation fidelity failure.
+
 ## Repository map
 
 | Path | What it holds |
@@ -164,9 +187,9 @@ is intact.
 
 ## Evaluation, honestly reported
 
-Every capability in this repository was gated by a **pre-registration written before
-the run**, with hashes pinned for inputs, runtime sources and analysis code. Failed
-milestones are frozen as failures, not deleted.
+The major evaluation milestones reported below were pre-registered before execution,
+with hashes pinned where required for inputs, runtime sources and analysis code.
+Failed milestones are frozen as failures, not deleted.
 
 **Grounded answer, English (Reliability V1 / G0)** — 40 human-approved benchmark
 questions:
@@ -213,10 +236,22 @@ have accepted it; the human semantic gate caught it.
 Full measured basis: [docs/status/CURRENT_STATUS.md](docs/status/CURRENT_STATUS.md)
 and [docs/decisions/CANONICAL_RUNTIME_DECISIONS.md](docs/decisions/CANONICAL_RUNTIME_DECISIONS.md).
 
-## Rebuilding the pipeline (optional)
+## Troubleshooting
 
-Serving needs none of this. To rebuild Bronze → Silver → Gold you additionally need
-the raw data lake, PostgreSQL and API credentials:
+| Symptom | What it means | Safe next step |
+|---|---|---|
+| Bootstrap cannot load the query encoder | The exact MiniLM revision is not available locally yet, or the bootstrap could not download it. | Check network access and rerun `python -X utf8 scripts/bootstrap_query_encoder.py`. |
+| `/search` is available but `/answer` returns `503` | Dense serving does not need Ollama; grounded answering does. | Start Ollama, pull `llama3.2:3b`, then retry. The runtime checks the exact digest before the first model call. |
+| `/answer` rejects the local model | The local tag does not have the canonical digest listed above. | Do not substitute another build with the same tag; refresh the canonical tag and let the runtime verify it again. |
+| The demo says “not enough evidence” | The system abstained under its strict answer/evidence contract. | Treat it as an abstention, not as a prompt to fabricate an answer. |
+| Pipeline commands require credentials or PostgreSQL | You are using Path B rather than the included serving path. | Follow the optional rebuild prerequisites below. |
+
+## Path B — Rebuild the data pipeline (advanced / optional)
+
+Serving needs none of this. A Bronze → Silver → Gold rebuild additionally needs the
+raw data lake, network access, YouTube credentials, PostgreSQL and pipeline-specific
+dependencies. A clean clone has **not** been presented as proof of this full rebuild
+path.
 
 ```bash
 pip install -r requirements-pipeline.txt
@@ -227,3 +262,19 @@ The committed `embeddings.npy` is authoritative. A byte-identical rebuild requir
 exact Python, NumPy, PyTorch, Transformers and Sentence Transformers versions pinned
 in `requirements.txt` and `reports/09_embedding/embedding_index_manifest.json`. Under
 other versions, keep the committed artifact.
+
+## Future improvements
+
+These are evidence-driven next steps, not claims that the current local demo is
+production-ready:
+
+- Evaluate on a larger unseen English set and a separate Vietnamese holdout set.
+- Improve and re-evaluate Vietnamese translation fidelity without tuning to the
+  observed reused intents.
+- Raise retrieval Recall@3 before attributing failures solely to generation.
+- Compare stronger local generators and calibrate abstention under a pre-registered
+  protocol.
+- Add multi-reviewer evaluation and agreement measurement.
+- Make optional pipeline orchestration and clean-clone validation simpler and more
+  reproducible.
+- Add CI smoke validation for the bounded local serving/demo contract.
