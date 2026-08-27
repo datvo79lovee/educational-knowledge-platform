@@ -265,7 +265,7 @@ cp .env.example .env        # then fill in your own credentials; never commit .e
 
 The committed `embeddings.npy` is authoritative. A byte-identical rebuild requires the
 exact Python, NumPy, PyTorch, Transformers and Sentence Transformers versions pinned
-in `requirements.txt` and `reports/09_embedding/embedding_index_manifest.json`. Under
+in `requirements.txt` and `data/indexes/mit_60001/manifest.json`. Under
 other versions, keep the committed artifact.
 
 ## Future improvements

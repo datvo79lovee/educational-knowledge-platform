@@ -15,7 +15,7 @@ from typing import Any
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-INDEX_MANIFEST_FILE = PROJECT_ROOT / "reports/09_embedding/embedding_index_manifest.json"
+INDEX_MANIFEST_FILE = PROJECT_ROOT / "data/indexes/mit_60001/manifest.json"
 
 
 def load_manifest() -> dict[str, Any]:

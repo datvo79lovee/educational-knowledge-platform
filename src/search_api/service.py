@@ -18,7 +18,7 @@ from sentence_transformers import SentenceTransformer
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-INDEX_MANIFEST_FILE = Path("reports/09_embedding/embedding_index_manifest.json")
+INDEX_MANIFEST_FILE = Path("data/indexes/mit_60001/manifest.json")
 RETRIEVAL_DECISION_FILE = Path("docs/decisions/CANONICAL_RUNTIME_DECISIONS.md")
 CANONICAL_GOLD_FILE = Path("data/gold/mit_60001/chunks.jsonl")
 EMBEDDINGS_FILE = Path("data/indexes/mit_60001/embeddings.npy")
@@ -141,15 +141,19 @@ class DenseSearchService:
         """Khóa runtime vào đúng Phase 6 index contract đã được chọn."""
 
         expected = {
+            "schema_version": "runtime_index_manifest_v1",
             "validation_status": "passed",
             "scope_version": SCOPE_VERSION,
             "selected_chunking_config_id": CHUNKING_CONFIG_ID,
             "index_backend": INDEX_BACKEND,
+            "canonical_gold_file": str(CANONICAL_GOLD_FILE).replace("\\", "/"),
             "model_repository": MODEL_REPOSITORY,
             "model_revision": MODEL_REVISION,
             "embedding_dimension": EMBEDDING_DIMENSION,
             "embedding_dtype": "float32",
             "normalize_embeddings": True,
+            "embeddings_file": str(EMBEDDINGS_FILE).replace("\\", "/"),
+            "metadata_file": str(METADATA_FILE).replace("\\", "/"),
         }
         mismatches = {
             field: (expected_value, manifest.get(field))

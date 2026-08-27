@@ -27,6 +27,7 @@ data/indexes/*
 data/indexes/mit_60001/*
 !data/indexes/mit_60001/embeddings.npy
 !data/indexes/mit_60001/metadata.jsonl
+!data/indexes/mit_60001/manifest.json
 data/models/
 
 # Legacy live/manual probes; these are not pytest tests.

@@ -11,19 +11,13 @@ Generated index nằm dưới ``data/indexes/`` và bị gitignore. Report khôn
 """
 
 import argparse
-import csv
-from datetime import datetime, timezone
 import hashlib
-import io
 import json
-import platform
 from pathlib import Path
 
 import numpy as np
-import sentence_transformers
 from sentence_transformers import SentenceTransformer
 import torch
-import transformers
 from jsonschema import Draft202012Validator
 
 
@@ -33,9 +27,8 @@ CANONICAL_MANIFEST_FILE = Path("reports/08_chunking/canonical_gold_manifest.json
 INDEX_DIR = Path("data/indexes/mit_60001")
 EMBEDDINGS_FILE = INDEX_DIR / "embeddings.npy"
 METADATA_FILE = INDEX_DIR / "metadata.jsonl"
-MANIFEST_FILE = Path("reports/09_embedding/embedding_index_manifest.json")
-VALIDATION_FILE = Path("reports/09_embedding/embedding_index_validation.csv")
-MANIFEST_SCHEMA_FILE = Path("schemas/embedding_index_manifest_v1.schema.json")
+RUNTIME_MANIFEST_FILE = INDEX_DIR / "manifest.json"
+RUNTIME_MANIFEST_SCHEMA_FILE = Path("schemas/runtime_index_manifest_v1.schema.json")
 
 MODEL_REPOSITORY = "sentence-transformers/all-MiniLM-L6-v2"
 MODEL_REVISION = "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
@@ -105,33 +98,12 @@ def serialize_jsonl(records: list[dict]) -> bytes:
     return ("\n".join(lines) + "\n").encode("utf-8")
 
 
-def serialize_csv(row: dict) -> bytes:
-    """Serialize một dòng validation CSV với UTF-8 BOM."""
-
-    buffer = io.StringIO(newline="")
-    writer = csv.DictWriter(buffer, fieldnames=list(row))
-    writer.writeheader()
-    writer.writerow(row)
-    return buffer.getvalue().encode("utf-8-sig")
-
-
 def serialize_npy(vectors: np.ndarray) -> bytes:
     """Serialize ma trận NumPy không pickle để index có thể hash và load an toàn."""
 
     buffer = io.BytesIO()
     np.save(buffer, vectors, allow_pickle=False)
     return buffer.getvalue()
-
-
-def utc_timestamp(value: str | None) -> str:
-    """Chuẩn hóa timestamp CLI hoặc dùng thời điểm build hiện tại theo UTC."""
-
-    if value is None:
-        return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-    parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
-    if parsed.tzinfo is None:
-        raise ValueError("--created-at-utc must include timezone")
-    return parsed.astimezone(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def validated_canonical_input() -> tuple[list[dict], dict, str]:
@@ -201,12 +173,7 @@ def main() -> None:
     """Encode canonical chunks, validate vectors và ghi index/audit artifacts."""
 
     parser = argparse.ArgumentParser(description="Build exact MIT 6.0001 dense vector index.")
-    parser.add_argument(
-        "--created-at-utc",
-        help="UTC ISO-8601 timestamp; M3 may pin this value for byte-level rebuild checks.",
-    )
-    args = parser.parse_args()
-    created_at = utc_timestamp(args.created_at_utc)
+    parser.parse_args()
 
     torch.manual_seed(0)
     np.random.seed(0)
@@ -258,20 +225,16 @@ def main() -> None:
         "index_content_sha256": index_content_hash,
     }
     index_run_id = f"mit60001_index_{sha256_bytes(canonical_json_bytes(identity))[:16]}"
-    manifest = {
-        "$schema": "../../schemas/embedding_index_manifest_v1.schema.json",
-        "schema_version": "embedding_index_manifest_v1",
+    runtime_manifest = {
+        "$schema": "../../../schemas/runtime_index_manifest_v1.schema.json",
+        "schema_version": "runtime_index_manifest_v1",
         "index_run_id": index_run_id,
-        "index_created_at_utc": created_at,
         **identity,
         "index_backend": "numpy_exact_cosine_v1",
         "similarity": "cosine_via_dot_product_of_l2_normalized_vectors",
         "embedding_dtype": "float32",
-        "batch_size": BATCH_SIZE,
         "norm_tolerance": NORM_TOLERANCE,
         "canonical_gold_file": str(CANONICAL_GOLD_FILE).replace("\\", "/"),
-        "canonical_gold_manifest_file": str(CANONICAL_MANIFEST_FILE).replace("\\", "/"),
-        "canonical_gold_manifest_sha256": sha256_file(CANONICAL_MANIFEST_FILE),
         "selected_chunking_config_id": canonical_manifest["selected_chunking_config_id"],
         "chunk_count": len(records),
         "video_count": len({record["video_id"] for record in records}),
@@ -283,53 +246,21 @@ def main() -> None:
         "metadata_sha256": metadata_hash,
         "metadata_record_count": len(metadata),
         "model_max_sequence_length": int(model.max_seq_length),
-        "python_version": platform.python_version(),
-        "numpy_version": np.__version__,
-        "torch_version": torch.__version__,
-        "transformers_version": transformers.__version__,
-        "sentence_transformers_version": sentence_transformers.__version__,
-        "nonfinite_value_count": nonfinite_value_count,
-        "zero_norm_vector_count": zero_norm_vector_count,
-        "norm_violation_count": norm_violation_count,
         "validation_status": "passed",
     }
-    schema = json.loads(MANIFEST_SCHEMA_FILE.read_text(encoding="utf-8"))
-    schema_errors = sorted(Draft202012Validator(schema).iter_errors(manifest), key=lambda error: list(error.path))
+    schema = json.loads(RUNTIME_MANIFEST_SCHEMA_FILE.read_text(encoding="utf-8"))
+    schema_errors = sorted(Draft202012Validator(schema).iter_errors(runtime_manifest), key=lambda error: list(error.path))
     if schema_errors:
         messages = "; ".join(error.message for error in schema_errors)
         raise ValueError(f"Embedding manifest schema validation failed: {messages}")
 
-    validation = {
-        "index_run_id": index_run_id,
-        "canonical_gold_sha256": canonical_hash,
-        "model_revision": MODEL_REVISION,
-        "chunk_count": len(records),
-        "unique_chunk_id_count": len({record["chunk_id"] for record in records}),
-        "video_count": len({record["video_id"] for record in records}),
-        "embedding_dimension": vectors.shape[1],
-        "embedding_dtype": str(vectors.dtype),
-        "normalize_embeddings": True,
-        "minimum_vector_norm": round(float(norms.min()), 9),
-        "maximum_vector_norm": round(float(norms.max()), 9),
-        "nonfinite_value_count": nonfinite_value_count,
-        "zero_norm_vector_count": zero_norm_vector_count,
-        "norm_violation_count": norm_violation_count,
-        "metadata_record_count": len(metadata),
-        "embeddings_sha256": embeddings_hash,
-        "metadata_sha256": metadata_hash,
-        "index_content_sha256": index_content_hash,
-        "manifest_schema_error_count": 0,
-        "validation_status": "passed",
-    }
-
     write_atomic(EMBEDDINGS_FILE, embeddings_bytes)
     write_atomic(METADATA_FILE, metadata_bytes)
     write_atomic(
-        MANIFEST_FILE,
-        json.dumps(manifest, ensure_ascii=False, sort_keys=True, indent=2).encode("utf-8") + b"\n",
+        RUNTIME_MANIFEST_FILE,
+        json.dumps(runtime_manifest, ensure_ascii=False, sort_keys=True, indent=2).encode("utf-8") + b"\n",
     )
-    write_atomic(VALIDATION_FILE, serialize_csv(validation))
-    print(json.dumps(validation, ensure_ascii=False, indent=2))
+    print(json.dumps(runtime_manifest, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

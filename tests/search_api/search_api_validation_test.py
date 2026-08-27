@@ -38,6 +38,7 @@ def test_static_schemas_are_valid_draft_2020_12() -> None:
     for relative_path in (
         "schemas/search_api_v1.schema.json",
         "schemas/search_api_validation_manifest_v1.schema.json",
+        "schemas/runtime_index_manifest_v1.schema.json",
     ):
         schema = json.loads((PROJECT_ROOT / relative_path).read_text(encoding="utf-8"))
         Draft202012Validator.check_schema(schema)
@@ -46,7 +47,7 @@ def test_static_schemas_are_valid_draft_2020_12() -> None:
 def test_manifest_contract_rejects_wrong_revision() -> None:
     manifest = json.loads(
         (
-            PROJECT_ROOT / "reports/09_embedding/embedding_index_manifest.json"
+            PROJECT_ROOT / "data/indexes/mit_60001/manifest.json"
         ).read_text(encoding="utf-8")
     )
     manifest["model_revision"] = "wrong-revision"
@@ -57,7 +58,7 @@ def test_manifest_contract_rejects_wrong_revision() -> None:
 def test_index_content_rejects_non_normalized_vector() -> None:
     manifest = json.loads(
         (
-            PROJECT_ROOT / "reports/09_embedding/embedding_index_manifest.json"
+            PROJECT_ROOT / "data/indexes/mit_60001/manifest.json"
         ).read_text(encoding="utf-8")
     )
     chunks = [

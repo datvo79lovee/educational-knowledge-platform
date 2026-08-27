@@ -15,7 +15,7 @@ Grounded Answer orchestration và không thay đổi contract retrieval-only c�
 Canonical Gold : data/gold/mit_60001/chunks.jsonl
 Embeddings      : data/indexes/mit_60001/embeddings.npy
 Metadata        : data/indexes/mit_60001/metadata.jsonl
-Index manifest  : reports/09_embedding/embedding_index_manifest.json
+Index manifest  : data/indexes/mit_60001/manifest.json
 Decision        : docs/decisions/CANONICAL_RUNTIME_DECISIONS.md
 ```
 
