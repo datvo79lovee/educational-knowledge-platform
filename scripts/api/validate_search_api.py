@@ -1,7 +1,7 @@
 """Validate Dense Search API trên toàn bộ canonical evaluation set.
 
-Runner gọi FastAPI qua ASGI HTTP, không gọi trực tiếp retrieval method. Output không
-chứa timestamp/runtime duration để cùng input tạo byte-identical artifacts.
+Runner gọi FastAPI qua ASGI HTTP, không gọi trực tiếp retrieval method. Không có
+output mặc định: successful validation chỉ in manifest lên stdout.
 """
 
 from __future__ import annotations
@@ -42,14 +42,11 @@ from src.search_api.service import (
 )
 
 
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "reports/12_search_api"
 EVALUATION_FILE = PROJECT_ROOT / "evaluation/mit_60001/evaluation_questions.jsonl"
 BASELINE_FILE = (
     PROJECT_ROOT / "reports/09_embedding/production_index_retrieval_results.csv"
 )
-MANIFEST_SCHEMA_FILE = (
-    PROJECT_ROOT / "schemas/search_api_validation_manifest_v1.schema.json"
-)
+MANIFEST_SCHEMA_FILE = PROJECT_ROOT / "schemas/search_api_validation_manifest_v2.schema.json"
 SCORE_TOLERANCE = 1e-6
 REPEAT_COUNT = 2
 
@@ -493,8 +490,8 @@ def build_manifest(
         for row in report_rows[ANSWERABLE_FILE]
     )
     return {
-        "$schema": "../../schemas/search_api_validation_manifest_v1.schema.json",
-        "schema_version": "search_api_validation_manifest_v1",
+        "$schema": "schemas/search_api_validation_manifest_v2.schema.json",
+        "schema_version": "search_api_validation_manifest_v2",
         "validation_run_id": run_id,
         "scope_version": "mit_60001_fall_2016_v1",
         "retrieval_method": "dense_baseline_v1",
@@ -515,13 +512,10 @@ def build_manifest(
         "startup_failure_case_count": 7,
         "failure_case_pass_count": 16,
         "input_sha256": input_hashes,
-        "output_artifacts": [
-            {
-                "file": f"reports/12_search_api/{file_name}",
-                "sha256": sha256_bytes(serialized_reports[file_name]),
-            }
+        "report_table_sha256": {
+            file_name: sha256_bytes(serialized_reports[file_name])
             for file_name in OUTPUT_FILES
-        ],
+        },
         "validation_status": "passed",
     }
 
@@ -557,11 +551,24 @@ def assert_all_passed(report_rows: dict[str, list[dict[str, Any]]]) -> None:
             )
 
 
-def main() -> None:
+def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
-    args = parser.parse_args()
-    output_dir = args.output_dir.resolve()
+    outputs = parser.add_mutually_exclusive_group()
+    outputs.add_argument(
+        "--output",
+        type=Path,
+        help="Optional path for the JSON validation manifest; no files are written by default.",
+    )
+    outputs.add_argument(
+        "--output-dir",
+        type=Path,
+        help=argparse.SUPPRESS,
+    )
+    return parser
+
+
+def main() -> None:
+    args = build_parser().parse_args()
 
     report_rows = asyncio.run(http_validation())
     assert_all_passed(report_rows)
@@ -572,13 +579,17 @@ def main() -> None:
     schema = json.loads(MANIFEST_SCHEMA_FILE.read_text(encoding="utf-8"))
     Draft202012Validator(schema).validate(manifest)
 
-    for file_name, content in serialized_reports.items():
-        write_atomic(output_dir / file_name, content)
     manifest_bytes = (
         json.dumps(manifest, ensure_ascii=False, sort_keys=True, indent=2).encode("utf-8")
         + b"\n"
     )
-    write_atomic(output_dir / MANIFEST_FILE, manifest_bytes)
+    if args.output is not None:
+        write_atomic(args.output.resolve(), manifest_bytes)
+    elif args.output_dir is not None:
+        output_dir = args.output_dir.resolve()
+        for file_name, content in serialized_reports.items():
+            write_atomic(output_dir / file_name, content)
+        write_atomic(output_dir / MANIFEST_FILE, manifest_bytes)
     print(json.dumps(manifest, ensure_ascii=False, indent=2))
 
 

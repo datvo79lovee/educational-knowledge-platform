@@ -102,7 +102,6 @@ Chạy unit test, full API validation và cross-process verification:
 ```powershell
 python -X utf8 -m pytest tests/search_api/search_api_validation_test.py -q
 python -X utf8 scripts/api/validate_search_api.py
-python -X utf8 scripts/api/verify_search_api_cross_process.py
 ```
 
 Full validator gọi đủ 40 canonical questions qua ASGI HTTP hai lần mỗi câu. Với 35
@@ -116,6 +115,10 @@ của retrieval-only API, không phải abstention. Response không được ch�
 
 `Recall@3 = 0.742857143` đo retrieval quality so với Ground Truth. Việc API Top 3
 khớp baseline 35/35 chỉ đo implementation fidelity; hai chỉ số này không tương đương.
+
+Validator không ghi file vào repo nếu không truyền tham số output. Khi cần giữ
+manifest, caller phải chỉ rõ một file output, ví dụ
+`--output tmp/search_api_validation.json`.
 
 ## Quan hệ với `POST /answer`
 

@@ -10,6 +10,7 @@ from pydantic import ValidationError
 
 from src.search_api.contracts import SearchRequest, SearchResponse
 from src.search_api.service import DenseSearchService
+from scripts.api.validate_search_api import build_parser
 from scripts.embedding.build_mit_60001_index import validated_canonical_input
 
 
@@ -39,6 +40,7 @@ def test_static_schemas_are_valid_draft_2020_12() -> None:
     for relative_path in (
         "schemas/search_api_v1.schema.json",
         "schemas/search_api_validation_manifest_v1.schema.json",
+        "schemas/search_api_validation_manifest_v2.schema.json",
         "schemas/runtime_index_manifest_v1.schema.json",
     ):
         schema = json.loads((PROJECT_ROOT / relative_path).read_text(encoding="utf-8"))
@@ -62,6 +64,16 @@ def test_index_builder_validates_gold_from_canonical_config() -> None:
     assert len(records) == 861
     assert config["chunking_config_id"] == "semantic_cosine_wp240_v1"
     assert canonical_hash == "c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432"
+
+
+def test_search_validator_defaults_to_stdout_and_accepts_explicit_output() -> None:
+    parser = build_parser()
+
+    default = parser.parse_args([])
+    explicit = parser.parse_args(["--output", "tmp/search_api_validation.json"])
+
+    assert default.output is None and default.output_dir is None
+    assert explicit.output == Path("tmp/search_api_validation.json")
 
 
 def test_index_content_rejects_non_normalized_vector() -> None:

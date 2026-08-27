@@ -148,6 +148,13 @@ pytest -q
 python -X utf8 scripts/api/validate_search_api.py
 ```
 
+The validator prints its result and leaves the clone unchanged by default. To keep
+a JSON validation manifest, choose an explicit untracked output path:
+
+```bash
+python -X utf8 scripts/api/validate_search_api.py --output tmp/search_api_validation.json
+```
+
 ```bash
 python -X utf8 scripts/evaluation/validate_benchmark_manifest.py
 ```

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://educational-knowledge-platform.local/schemas/search_api_validation_manifest_v2.schema.json",
+  "title": "Search API validation manifest v2",
+  "description": "Non-mutating Search API validation summary and in-memory table fingerprints.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema", "schema_version", "validation_run_id", "scope_version",
+    "retrieval_method", "top_k", "score_absolute_tolerance", "maximum_observed_score_delta",
+    "repeat_count", "approved_question_count", "answerable_question_count",
+    "out_of_scope_question_count", "video_count", "answerable_top_3_id_match_count",
+    "answerable_top_3_score_match_count", "repeated_response_match_count",
+    "citation_validation_row_count", "citation_validation_pass_count", "http_failure_case_count",
+    "startup_failure_case_count", "failure_case_pass_count", "input_sha256",
+    "report_table_sha256", "validation_status"
+  ],
+  "properties": {
+    "$schema": {"const": "schemas/search_api_validation_manifest_v2.schema.json"},
+    "schema_version": {"const": "search_api_validation_manifest_v2"},
+    "validation_run_id": {"type": "string", "pattern": "^mit60001_search_api_[0-9a-f]{16}$"},
+    "scope_version": {"const": "mit_60001_fall_2016_v1"},
+    "retrieval_method": {"const": "dense_baseline_v1"},
+    "top_k": {"const": 3},
+    "score_absolute_tolerance": {"const": 1e-6},
+    "maximum_observed_score_delta": {"type": "number", "minimum": 0, "maximum": 1e-6},
+    "repeat_count": {"const": 2},
+    "approved_question_count": {"const": 40},
+    "answerable_question_count": {"const": 35},
+    "out_of_scope_question_count": {"const": 5},
+    "video_count": {"const": 38},
+    "answerable_top_3_id_match_count": {"const": 35},
+    "answerable_top_3_score_match_count": {"const": 35},
+    "repeated_response_match_count": {"const": 40},
+    "citation_validation_row_count": {"const": 120},
+    "citation_validation_pass_count": {"const": 120},
+    "http_failure_case_count": {"const": 9},
+    "startup_failure_case_count": {"const": 7},
+    "failure_case_pass_count": {"const": 16},
+    "input_sha256": {
+      "type": "object",
+      "minProperties": 8,
+      "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+    },
+    "report_table_sha256": {
+      "type": "object",
+      "required": [
+        "search_api_answerable_validation.csv",
+        "search_api_out_of_scope_validation.csv",
+        "search_api_video_validation.csv",
+        "search_api_failure_validation.csv",
+        "search_api_citation_validation.csv"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "search_api_answerable_validation.csv": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "search_api_out_of_scope_validation.csv": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "search_api_video_validation.csv": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "search_api_failure_validation.csv": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "search_api_citation_validation.csv": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "validation_status": {"const": "passed"}
+  }
+}
