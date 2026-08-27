@@ -6,3 +6,7 @@ numpy==2.4.3
 sentence-transformers==5.4.1
 torch==2.11.0
 transformers==5.6.2
+# Path A verification dependencies: pytest, API validation and benchmark manifest checks
+pytest==9.1.1
+httpx==0.28.1
+jsonschema==4.26.0
