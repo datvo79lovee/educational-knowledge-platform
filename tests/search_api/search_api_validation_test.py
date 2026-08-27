@@ -10,6 +10,7 @@ from pydantic import ValidationError
 
 from src.search_api.contracts import SearchRequest, SearchResponse
 from src.search_api.service import DenseSearchService
+from scripts.embedding.build_mit_60001_index import validated_canonical_input
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -53,6 +54,14 @@ def test_manifest_contract_rejects_wrong_revision() -> None:
     manifest["model_revision"] = "wrong-revision"
     with pytest.raises(ValueError):
         DenseSearchService._validate_manifest_contract(manifest)
+
+
+def test_index_builder_validates_gold_from_canonical_config() -> None:
+    records, config, canonical_hash = validated_canonical_input()
+
+    assert len(records) == 861
+    assert config["chunking_config_id"] == "semantic_cosine_wp240_v1"
+    assert canonical_hash == "c03abf002c29b784d191eb393670da27b80fed8e0e18798f113d7ff8b7daf432"
 
 
 def test_index_content_rejects_non_normalized_vector() -> None:

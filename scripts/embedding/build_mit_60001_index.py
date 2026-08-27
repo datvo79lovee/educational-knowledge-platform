@@ -1,13 +1,7 @@
-"""Build exact dense index cho canonical MIT 6.0001 Gold chunks.
+"""Build exact dense index directly from canonical MIT 6.0001 Gold chunks.
 
-Luồng chính:
-1. Khóa canonical Gold bằng manifest và SHA-256 đã được human-approved promotion tạo.
-2. Encode đúng thứ tự canonical bằng model/revision cố định trên CPU.
-3. Lưu ma trận float32 L2-normalized và metadata ánh xạ vị trí -> chunk_id.
-4. Ghi manifest cùng validation report để M3 có thể kiểm tra rebuild/cross-process.
-
-Generated index nằm dưới ``data/indexes/`` và bị gitignore. Report không chứa
-``chunk_text`` hoặc embedding vector.
+The public build path validates Gold against the canonical chunking config and
+Gold schema before encoding.  It never reads historical selection reports.
 """
 
 import argparse
@@ -23,7 +17,8 @@ from jsonschema import Draft202012Validator
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 CANONICAL_GOLD_FILE = Path("data/gold/mit_60001/chunks.jsonl")
-CANONICAL_MANIFEST_FILE = Path("reports/08_chunking/canonical_gold_manifest.json")
+CANONICAL_CHUNKING_CONFIG_FILE = Path("config/mit_60001_canonical_chunking.json")
+GOLD_SCHEMA_FILE = Path("schemas/gold_chunk_v1.schema.json")
 INDEX_DIR = Path("data/indexes/mit_60001")
 EMBEDDINGS_FILE = INDEX_DIR / "embeddings.npy"
 METADATA_FILE = INDEX_DIR / "metadata.jsonl"
@@ -36,7 +31,6 @@ EXPECTED_DIMENSION = 384
 EXPECTED_CHUNK_COUNT = 861
 EXPECTED_VIDEO_COUNT = 38
 EXPECTED_SCOPE_VERSION = "mit_60001_fall_2016_v1"
-EXPECTED_CONFIG_ID = "semantic_cosine_wp240_v1"
 BATCH_SIZE = 32
 NORM_TOLERANCE = 1e-5
 INDEX_VERSION = "mit60001_exact_dense_v1"
@@ -106,33 +100,61 @@ def serialize_npy(vectors: np.ndarray) -> bytes:
     return buffer.getvalue()
 
 
+def load_canonical_chunking_config() -> dict:
+    """Load the frozen current chunking configuration, not its historical selection record."""
+
+    config = json.loads(CANONICAL_CHUNKING_CONFIG_FILE.read_text(encoding="utf-8"))
+    required = {
+        "schema_version",
+        "scope_version",
+        "chunking_version",
+        "chunking_config_id",
+        "strategy",
+        "minimum_wordpieces",
+        "preferred_wordpieces",
+        "maximum_wordpieces",
+        "overlap_target_wordpieces",
+        "encoder",
+    }
+    if set(config) != required or config["schema_version"] != "canonical_chunking_config_v1":
+        raise ValueError("Canonical chunking config has an invalid shape")
+    if config["scope_version"] != EXPECTED_SCOPE_VERSION:
+        raise ValueError("Canonical chunking config has an unexpected scope")
+    if config["chunking_version"] != "mit_60001_chunk_v1":
+        raise ValueError("Canonical chunking config has an unexpected version")
+    if config["strategy"] != "semantic_cosine":
+        raise ValueError("Canonical chunking config has an unsupported strategy")
+    if config["encoder"] != {"repository": MODEL_REPOSITORY, "revision": MODEL_REVISION}:
+        raise ValueError("Canonical chunking config differs from the pinned index encoder")
+    return config
+
+
 def validated_canonical_input() -> tuple[list[dict], dict, str]:
-    """Khóa canonical file theo manifest và kiểm tra scope/count/config cơ bản."""
+    """Validate the canonical Gold file directly against current config and schema."""
 
-    manifest = json.loads(CANONICAL_MANIFEST_FILE.read_text(encoding="utf-8"))
+    config = load_canonical_chunking_config()
     canonical_hash = sha256_file(CANONICAL_GOLD_FILE)
-    if canonical_hash != manifest["canonical_output_sha256"]:
-        raise ValueError("Canonical Gold SHA-256 differs from canonical manifest")
-    if manifest["validation_status"] != "passed" or manifest["validation_error_count"] != 0:
-        raise ValueError("Canonical Gold manifest is not passed")
-    if manifest["total_chunks"] != EXPECTED_CHUNK_COUNT or manifest["video_count"] != EXPECTED_VIDEO_COUNT:
-        raise ValueError("Canonical manifest count differs from Phase 6 contract")
-    if manifest["selected_chunking_config_id"] != EXPECTED_CONFIG_ID:
-        raise ValueError("Canonical manifest does not select the approved chunk configuration")
-
     records = load_jsonl(CANONICAL_GOLD_FILE)
+    schema = json.loads(GOLD_SCHEMA_FILE.read_text(encoding="utf-8"))
+    schema_errors = [
+        error.message
+        for record in records
+        for error in Draft202012Validator(schema).iter_errors(record)
+    ]
+    if schema_errors:
+        raise ValueError(f"Canonical Gold schema validation failed: {schema_errors[0]}")
     chunk_ids = [record["chunk_id"] for record in records]
     if len(records) != EXPECTED_CHUNK_COUNT or len(set(chunk_ids)) != EXPECTED_CHUNK_COUNT:
         raise ValueError("Canonical Gold must contain 861 unique chunk IDs")
     if len({record["video_id"] for record in records}) != EXPECTED_VIDEO_COUNT:
         raise ValueError("Canonical Gold must contain 38 videos")
-    if {record["scope_version"] for record in records} != {EXPECTED_SCOPE_VERSION}:
+    if {record["scope_version"] for record in records} != {config["scope_version"]}:
         raise ValueError("Canonical Gold contains a record outside the target scope")
-    if {record["chunking_config_id"] for record in records} != {EXPECTED_CONFIG_ID}:
+    if {record["chunking_config_id"] for record in records} != {config["chunking_config_id"]}:
         raise ValueError("Canonical Gold contains a non-selected chunk configuration")
     if any(not record["chunk_text"].strip() for record in records):
         raise ValueError("Canonical Gold contains empty chunk text")
-    return records, manifest, canonical_hash
+    return records, config, canonical_hash
 
 
 def load_pinned_model() -> SentenceTransformer:
@@ -180,7 +202,7 @@ def main() -> None:
     torch.set_num_threads(1)
     torch.set_num_interop_threads(1)
 
-    records, canonical_manifest, canonical_hash = validated_canonical_input()
+    records, chunking_config, canonical_hash = validated_canonical_input()
     model = load_pinned_model()
     vectors = model.encode(
         [record["chunk_text"] for record in records],
@@ -235,7 +257,7 @@ def main() -> None:
         "embedding_dtype": "float32",
         "norm_tolerance": NORM_TOLERANCE,
         "canonical_gold_file": str(CANONICAL_GOLD_FILE).replace("\\", "/"),
-        "selected_chunking_config_id": canonical_manifest["selected_chunking_config_id"],
+        "selected_chunking_config_id": chunking_config["chunking_config_id"],
         "chunk_count": len(records),
         "video_count": len({record["video_id"] for record in records}),
         "chunk_id_order_sha256": chunk_id_order_hash,
