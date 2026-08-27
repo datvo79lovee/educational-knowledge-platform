@@ -1,0 +1,32 @@
+{
+  "artifact_version": "m6_provenance_reproduction_result_v1",
+  "case": "A",
+  "preparation_commit": "7175897b7b7edf617b14d3e5318a7a9948c8ea33",
+  "freeze_commit": "b7d1b1d9ae8032e30a0eeae41a69f28b79e38044",
+  "input_sha256": "81da02c350de9daee685594be2bf07e780d917997795b1b19057b3d54c975967",
+  "evaluator_exit_code": 0,
+  "runtime_calls": 0,
+  "reproduction_evaluation_manifest_sha256": "f28103a423dcd4f55287a53513cde11731081dde9bfe919bcbaee29167ae55ba",
+  "aggregate_projection_match": true,
+  "per_intent_projection_match": {
+    "matched": 20,
+    "expected": 20
+  },
+  "aggregate": {
+    "reviewed": 20,
+    "primary": 19,
+    "excluded_intent_ids": ["mit60001-q-023"],
+    "decision_correct": "14/19",
+    "language_compliance": "12/12",
+    "strict_end_to_end_success": "7/19",
+    "strict_answer_success_diagnostic": "1/19"
+  },
+  "gates": {
+    "G1_review_integrity": "PASS",
+    "G2_language_compliance": "PASS",
+    "G3_decision_non_inferiority": "PASS",
+    "G4_strict_end_to_end_non_inferiority": "PASS"
+  },
+  "original_m6_artifacts_modified": false,
+  "model_or_ollama_called": false
+}

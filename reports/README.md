@@ -15,6 +15,8 @@ Only final pipeline evidence is retained in `reports/`:
   multilingual runtime measurements, failed candidates, remediation and M6 quality
   evaluation.
 - `36_bounded_local_demo`: source-pinned M2 validation of the bounded local demo.
+- `37_m6_provenance_remediation`: correction additive cho worksheet SHA mismatch M6;
+  reproduction preregister tái lập Case A từ artifact Git-canonical.
 
 Historical reports remain because their frozen manifests and decisions are provenance;
 they are not all active runtime components. Active runtime selection is recorded in

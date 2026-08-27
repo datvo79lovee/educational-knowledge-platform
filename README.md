@@ -212,6 +212,11 @@ questions:
 | M5.3 | Does an application-boundary normalization fix it? | **PASS** — 20/20 clean, 8 payloads canonicalized |
 | M6 | Is the resulting Vietnamese output actually good? | **PASS** — decision 14/19, strict E2E 7/19, language 12/12 |
 
+Ghi chú provenance: audit release sau đó phát hiện một SHA worksheet không khớp trong
+manifest M6 gốc. Manifest được giữ nguyên; reproduction đã preregister từ worksheet
+Git-canonical tái lập toàn bộ aggregate, 20/20 outcomes theo intent và G1–G4. Xem
+[M6 provenance remediation](reports/37_m6_provenance_remediation/README.md).
+
 The single most useful finding: **retrieval metrics can be blind to semantic
 translation failure.** In M2, `q-039` lost the entire "white-box" half of its question
 yet kept a perfect 3/3 Top-3 overlap and zero rank change. A metric gate alone would
