@@ -1,0 +1,95 @@
+{
+  "artifact_version": "m6_provenance_reproduction_v1",
+  "execution_status": "NOT_RUN",
+  "problem": {
+    "issue": "m6_reviewed_worksheet_manifest_hash_mismatch",
+    "freeze_commit": "b7d1b1d9ae8032e30a0eeae41a69f28b79e38044",
+    "root_cause": "UNKNOWN",
+    "original_recorded_sha256": "e9006c84160495873d8eac472678761452ec482554cc53c30cc7457f59ccc73a",
+    "committed_reproduction_input_sha256": "81da02c350de9daee685594be2bf07e780d917997795b1b19057b3d54c975967",
+    "statement": "The original recorded SHA-256 is not the reproduction input identity because P1 found no Git-reachable artifact with those bytes."
+  },
+  "frozen_sources": {
+    "scripts/evaluation/run_multilingual_runtime_v1_m6.py": "12dda33ed9da99cde38a434a512485d62d17f9292ec51fbc6f2f52edb10f7a26",
+    "scripts/evaluation/run_multilingual_runtime_v1_m3.py": "cf3e50c0bf79f1a5ce6dd9a29e5e86562bbcdd83fc12bf27a30d79e3458e9652",
+    "scripts/evaluation/freeze_multilingual_runtime_v1_m6.py": "ab5cef4ac32ecc3331eeacf669167dffeda8fdef01c72178de9d98fc6122ed43"
+  },
+  "frozen_artifacts": {
+    "reviewed_worksheet": {
+      "path": "reports/35_multilingual_runtime_v1_m6/m6_human_review_worksheet_reviewed.csv",
+      "sha256": "81da02c350de9daee685594be2bf07e780d917997795b1b19057b3d54c975967"
+    },
+    "original_evaluation_manifest": {
+      "path": "reports/35_multilingual_runtime_v1_m6/m6_evaluation_manifest.json",
+      "sha256": "b12b25af89207cf81168f548e524e9fe27b3398fbce2f3203551b68a3cdb2a65"
+    },
+    "original_final_manifest": {
+      "path": "reports/35_multilingual_runtime_v1_m6/m6_final_manifest.json",
+      "sha256": "7d47a6d32e466fae04483e0780d9e8088532843b4314624d78048f9028887b6f"
+    },
+    "original_final_results": {
+      "path": "reports/35_multilingual_runtime_v1_m6/m6_final_results.csv",
+      "sha256": "9c47b35a116ae9b04fa2431096f9aeac8a1f2d90cd5749a077a8da97eabd59f3"
+    },
+    "original_metrics": {
+      "path": "reports/35_multilingual_runtime_v1_m6/m6_metrics.json",
+      "sha256": "3a17872b12cf7c5831e16e8cd3e1ca3b8f268a92024e6540a61a6ab9f33a0c77"
+    }
+  },
+  "forensic_observation": {
+    "noncanonical_worktree": "E:/educational-knowledge-platform",
+    "path": "reports/35_multilingual_runtime_v1_m6/m6_human_review_worksheet_reviewed.csv",
+    "observed_sha256": "e9006c84160495873d8eac472678761452ec482554cc53c30cc7457f59ccc73a",
+    "git_ls_files_v_tag": "H",
+    "interpretation": "The uppercase H tag indicates a normal tracked entry under git ls-files -v; it does not establish assume-unchanged or explain why ordinary status did not surface the worktree/content discrepancy. This observation is not a reproduction input."
+  },
+  "comparison_exclusions": [
+    "timestamp",
+    "run_id",
+    "generated_at",
+    "execution_path",
+    "temporary_output_path",
+    "current_execution_environment_metadata",
+    "reviewed_worksheet_sha256",
+    "remediation_specific_metadata"
+  ],
+  "aggregate_projection": {
+    "reviewed_count": 20,
+    "primary_count": 19,
+    "excluded_intent_ids": ["mit60001-q-023"],
+    "decision_correct": {"numerator": 14, "denominator": 19},
+    "language_compliance": {"numerator": 12, "denominator": 12},
+    "strict_end_to_end_success": {"numerator": 7, "denominator": 19},
+    "strict_answer_success_diagnostic": {"numerator": 1, "denominator": 19},
+    "gates": {"G1_review_integrity": "PASS", "G2_language_compliance": "PASS", "G3_decision_non_inferiority": "PASS", "G4_strict_end_to_end_non_inferiority": "PASS"}
+  },
+  "row_fields": ["intent_id", "evaluation_scope", "decision", "evidence_sufficiency", "decision_judgment", "output_language", "answer_correctness", "answer_completeness", "groundedness", "citation_support_overall", "decision_correct", "language_compliant", "strict_answer_success", "strict_end_to_end_success"],
+  "per_intent_projection": [
+    ["mit60001-q-014","primary","abstain","Insufficient","Correct","N/A","N/A","N/A","N/A","N/A","true","true","false","true"],
+    ["mit60001-q-001","primary","answer","Insufficient","Incorrect","Vietnamese","Partial","Incomplete","Partial","Partial support","false","true","false","false"],
+    ["mit60001-q-003","primary","answer","Sufficient","Correct","Vietnamese","Partial","Incomplete","Partial","Partial support","true","true","false","false"],
+    ["mit60001-q-037","primary","answer","Sufficient","Correct","Vietnamese","Incorrect","Incomplete","Partial","Partial support","true","true","false","false"],
+    ["mit60001-q-029","primary","answer","Sufficient","Correct","Vietnamese","Partial","Incomplete","Grounded","All support","true","true","false","false"],
+    ["mit60001-q-022","primary","abstain","Insufficient","Correct","N/A","N/A","N/A","N/A","N/A","true","true","false","true"],
+    ["mit60001-q-008","primary","answer","Insufficient","Incorrect","Vietnamese","Incorrect","Incomplete","Ungrounded","None support","false","true","false","false"],
+    ["mit60001-q-039","primary","answer","Sufficient","Correct","Vietnamese","Partial","Complete","Partial","Partial support","true","true","false","false"],
+    ["mit60001-q-010","primary","abstain","Insufficient","Correct","N/A","N/A","N/A","N/A","N/A","true","true","false","true"],
+    ["mit60001-q-002","primary","abstain","Insufficient","Correct","N/A","N/A","N/A","N/A","N/A","true","true","false","true"],
+    ["mit60001-q-034","primary","answer","Sufficient","Correct","Vietnamese","Partial","Incomplete","Grounded","All support","true","true","false","false"],
+    ["mit60001-q-016","primary","answer","Sufficient","Correct","Vietnamese","Correct","Incomplete","Grounded","All support","true","true","false","false"],
+    ["mit60001-q-021","primary","abstain","Sufficient","Incorrect","N/A","N/A","N/A","N/A","N/A","false","true","false","false"],
+    ["mit60001-q-006","primary","answer","Insufficient","Incorrect","Vietnamese","Correct","Incomplete","Grounded","All support","false","true","false","false"],
+    ["mit60001-q-025","primary","abstain","Insufficient","Correct","N/A","N/A","N/A","N/A","N/A","true","true","false","true"],
+    ["mit60001-q-005","primary","answer","Sufficient","Correct","Vietnamese","Partial","Incomplete","Grounded","All support","true","true","false","false"],
+    ["mit60001-q-004","primary","answer","Insufficient","Incorrect","Vietnamese","Correct","Incomplete","Grounded","Partial support","false","true","false","false"],
+    ["mit60001-q-023","excluded_frozen_ground_truth_ambiguity","abstain","Sufficient","Incorrect","N/A","N/A","N/A","N/A","N/A","false","true","false","false"],
+    ["mit60001-q-033","primary","abstain","Insufficient","Correct","N/A","N/A","N/A","N/A","N/A","true","true","false","true"],
+    ["mit60001-q-020","primary","answer","Sufficient","Correct","Vietnamese","Correct","Complete","Grounded","All support","true","true","true","true"]
+  ],
+  "decision_rules": {
+    "case_A": "All aggregate projection fields, all per-intent projection rows, and G1-G4 equal the preregistered values.",
+    "case_B": "Execution completes but one or more preregistered aggregate, per-intent, or gate fields differ.",
+    "case_C": "Frozen reproduction cannot complete under the preregistered method."
+  },
+  "reproduction_method": "Use an isolated checkout at freeze_commit. Before evaluator execution, verify that the checkout HEAD equals freeze_commit, the reviewed worksheet SHA-256 equals committed_reproduction_input_sha256 (81da02c350de9daee685594be2bf07e780d917997795b1b19057b3d54c975967), and all pinned M6/M3 source hashes match. If any pre-execution check fails, classify Case C and do not run the evaluator. Otherwise remove only generated M6 evaluation outputs in that temporary checkout, execute the pinned M6 runner with --evaluate, and do not write to reports/35 in this repository."
+}
