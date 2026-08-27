@@ -13,21 +13,18 @@ collection to this directory.
 |---|---|
 | `search_api/` | Search contracts, fail-closed startup validation, demo route/static serving, and the demo diagnostic-leak guard |
 | `grounded_answer/` | Answer/abstain contract shape, normalization behaviour, frozen English prompt hash, and the frozen report-20 fixtures |
-| `multilingual/` | Milestone runner protocols for M3–M6: hash verification, per-stage diagnostics, gate arithmetic, review lifecycle |
+| `multilingual/` | Fresh-process import-order guard for the active Vietnamese runtime branch |
 
 ## What these tests are for
 
-They are **protocol tests**, not UI or model-quality tests. They exist because this
-repository's claims rest on pre-registrations and hashes, and a pinned hash that
-nobody checks is documentation rather than enforcement. Representative examples:
+They are focused runtime and API contract tests, not UI or model-quality tests.
+Representative examples:
 
-- the frozen English prompt must still hash to `2b0a35d6…`, so a Vietnamese change
-  cannot leak across branches
-- a wrong analysis-code or runtime hash must stop a milestone runner **before** any
-  model call, and must create no artifact
-- a failed record must retain the diagnostics its milestone promised, per stage
-- a gate must count every failure layer, not only the one under investigation
-- `--verify-only` must neither create nor overwrite any result artifact
+- client-supplied evidence is rejected and application-owned citations remain ordered
+- the Vietnamese branch fails closed when its translator is unavailable
+- the Dense Search API rejects incompatible index artifacts before serving requests
+- a fresh interpreter can import the Vietnamese and grounded-answer modules in either
+  order without a circular import
 
 ## Two conventions to know
 
@@ -35,15 +32,6 @@ nobody checks is documentation rather than enforcement. Representative examples:
 fresh interpreter. Inside a warm pytest process the import graph is already resolved,
 so an in-process check would pass even while a circular import exists.
 
-**Isolated lifecycle tests.** Tests about "artifact X does not exist yet" use
-`tmp_path` and monkeypatched paths rather than inspecting the real repository. Earlier
-versions asserted against real files and went red the moment a milestone legitimately
-ran; the property being tested belongs to the function, not to the repository's
-current state.
-
-## Frozen milestone runners refuse to run
-
-`scripts/evaluation/run_multilingual_runtime_v1_m3.py` and `…_m4.py` now exit with a
-runtime-hash mismatch, because M5 changed a pinned prompt module. That is correct
-behaviour and is asserted by tests. The positive verification path stays covered
-through fixture copies with refreshed runtime hashes; no frozen artifact is modified.
+Historical milestone protocol tests were retired from the public test suite during
+repository simplification. Their reports and runners are retained separately until a
+later cleanup batch; they are not part of the current Crawl → Web runtime contract.
