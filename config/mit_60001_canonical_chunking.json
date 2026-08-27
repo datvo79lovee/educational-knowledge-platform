@@ -1,0 +1,15 @@
+{
+  "schema_version": "canonical_chunking_config_v1",
+  "scope_version": "mit_60001_fall_2016_v1",
+  "chunking_version": "mit_60001_chunk_v1",
+  "chunking_config_id": "semantic_cosine_wp240_v1",
+  "strategy": "semantic_cosine",
+  "minimum_wordpieces": 96,
+  "preferred_wordpieces": 192,
+  "maximum_wordpieces": 240,
+  "overlap_target_wordpieces": 0,
+  "encoder": {
+    "repository": "sentence-transformers/all-MiniLM-L6-v2",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+  }
+}
