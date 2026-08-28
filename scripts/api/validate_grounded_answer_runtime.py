@@ -265,6 +265,9 @@ async def runtime_smoke() -> tuple[
                 expected_citations.sort(key=lambda row: row["rank"])
                 public_fields = {
                     "question",
+                    "original_query",
+                    "retrieval_query",
+                    "answer_language",
                     "decision",
                     "answer",
                     "supporting_chunk_ids",
