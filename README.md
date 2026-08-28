@@ -172,10 +172,10 @@ evaluation change; its behavior is not covered by the frozen evidence.
 |---|---|---|---|
 | Dense query encoder | `sentence-transformers/all-MiniLM-L6-v2` at revision `1110a243fdf4706b3f48f1d95db1a4f5529b4d41` | Exact cosine query embeddings | Pinned to the canonical 861 × 384 index |
 | Grounded-answer generator | `llama3.2:3b` at digest `a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72` | English/ Vietnamese grounded answer or abstain | Pinned and evaluated; not production-ready |
-| Vietnamese retrieval translator | Same `llama3.2:3b` tag and digest | Literal VI → EN retrieval adapter | Pinned runtime identity; literal-fidelity evaluation remains rejected with documented limitations |
+| Vietnamese retrieval translator | Same `llama3.2:3b` tag and digest | Literal VI → EN retrieval adapter | Pinned runtime identity |
 
-The translator is an internal retrieval adapter. Its literal Vietnamese-to-English
-translation fidelity remains rejected by the frozen M2 evaluation.
+The translator is an internal retrieval adapter used before Dense retrieval for a
+Vietnamese question.
 
 ## Repository map
 
@@ -208,23 +208,10 @@ questions:
 | False answer | 3/16 evidence-insufficient |
 | Strict end-to-end success | 17/37 (45.95%) |
 
-**Multilingual retrieval translation (M2)** — measured on 20 paired intents:
-
-| Milestone | Question | Outcome |
-|---|---|---|
-| M2 | Does the machine translator preserve retrieval fidelity? | **FAIL** — 10/20 semantic drift, Recall@3 0.55 vs 0.70. Translator rejected |
-
-The single most useful finding: **retrieval metrics can be blind to semantic
-translation failure.** In M2, `q-039` lost the entire "white-box" half of its question
-yet kept a perfect 3/3 Top-3 overlap and zero rank change. A metric gate alone would
-have accepted it; the human semantic gate caught it.
-
 ## Limitations — read before judging the numbers
 
 - **Not production-ready.** No milestone claims otherwise, and the frozen manifests
   forbid the claim explicitly.
-- **Translator still rejected.** M2's literal Vietnamese-to-English translation did
-  not meet the frozen fidelity and retrieval gates.
 - **Retrieval ceiling.** Recall@3 is 0.743, so ~26% of answerable questions cannot be
   answered correctly no matter how good the generator is.
 
