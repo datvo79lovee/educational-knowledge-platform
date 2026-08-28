@@ -166,104 +166,6 @@ Determinism FAIL đo **riêng literal translator**. Nó cho thấy deterministic
 guarantee của repository không thể mặc định suy rộng sang Ollama generation nói chung;
 nó **không** phải kết luận về G0 English generator, vốn cần một test riêng.
 
-## Multilingual Runtime V1 — M3 attempt 1 và M4 đo runtime failure
-
-M3 attempt 1 chạy đúng runtime VI đã pin nhưng dừng ở intent thứ hai theo policy
-stop-on-first-failure. `mit60001-q-002` phát sinh `GroundedAnswerContractError` vì
-model trả `decision="abstain"` cùng answer khác `null`. Attempt chỉ có 2/20 record,
-0 retry; G1 FAIL, còn G2–G4 `NOT_EVALUATED`. Attempt đã được freeze tại
-`reports/31_multilingual_runtime_v1_m3/m3_final_manifest.json`. Không có kết luận
-về answer correctness, groundedness, citation support hoặc parity tiếng Việt từ M3.
-
-M4 thay **dụng cụ đo**, không thay runtime: đủ 20 paired intent được chạy với
-continue-after-failure, 0 retry, atomic flush sau mỗi intent, capture raw generator
-payload/translation query/Top 3 trên error path, và rehash runtime source sau
-execution. Pre-registration R3 và execution artifacts đã được commit riêng.
-
-| M4 runtime measurement | Kết quả |
-| --- | ---: |
-| Executed / passed / failed | 20 / 12 / 8 |
-| Runtime failure rate | 8/20 = 0,400; Wilson 95% [0,219; 0,613] |
-| Failure layer | `generation_contract`: 8; mọi layer khác: 0 |
-| Retry | 0 |
-| Integrity conditions I1–I4 | PASS |
-| Raw payload, retrieval query, Top 3, generation telemetry trên failure | 8/8 captured |
-
-Cả 8 failure có raw `decision="abstain"`; 12 record passed có `decision="answer"`.
-Điều này mô tả runtime integrity trong **một execution sample**, không phải quality
-metric, không phải parity với English baseline, và không phải tỉ lệ lỗi kỳ vọng vì
-translator đã có bằng chứng non-determinism ở M2. Có hai dạng contract violation:
-6 record `abstain` kèm answer khác `null`, 2 record `abstain` kèm
-`supporting_chunk_ids` không rỗng. Không có translation/provider failure trong sample.
-
-M4 không human-review và không tính quality metric. Giả thuyết prompt VI có tín hiệu
-mâu thuẫn với abstention là hướng chẩn đoán tương lai, chưa phải kết luận nhân quả và
-không được sửa trong M4.
-
-## Multilingual Runtime V1 — M5.1 failed, M5.2 rollback và M5.3 runtime PASS
-
-M5.1 thử đúng một prompt artifact candidate `grounded_answer_prompt_vi_v2` trên cùng
-20 intent. Pre-registration revision 5 được commit trước execution. Attempt chạy đủ
-20/20, zero retry: G1 PASS, G3 PASS nhưng G2 FAIL vì `mit60001-q-025` trả
-`decision="abstain"`, `answer=null` và một supporting chunk. Kết quả 19 passed / 1
-failed đã freeze tại `reports/33_multilingual_runtime_v1_m5/m5_1_final_manifest.json`;
-candidate bị `REJECTED`.
-
-M5.2 đã rollback prompt active về `grounded_answer_prompt_vi_v1`, khớp M4 source pin
-`ac8541bea67a...`. Rollback không gọi model, không rerun M5.1 và không mở candidate
-mới. Runtime VI active vẫn chưa production-ready vì prompt được restore chính là
-runtime đã quan sát 8/20 failure ở M4.
-
-M5.3 mở một candidate khác, không đổi prompt/model/translator/Dense: application chỉ
-canonicalize một payload VI đã chọn `decision="abstain"` nhưng còn answer và/hoặc
-supporting IDs hợp lệ thuộc Dense Top 3. Raw model payload vẫn được giữ để audit;
-English, unknown ID, malformed type, empty-string answer và non-abstain không được
-repair.
-
-Attempt `m5-3-attempt-1` đã freeze tại
-`reports/34_multilingual_runtime_v1_m5_3/m5_3_final_manifest.json`:
-
-| M5.3 runtime gate | Kết quả |
-| --- | ---: |
-| Executed / passed / failed | 20 / 20 / 0 |
-| Translation / retrieval / generation calls | 20 / 20 / 20 |
-| Retry | 0 |
-| VI abstain payload được canonicalize | 8 |
-| G1 execution / G2 failure / G3 scope / G4 normalization | PASS / PASS / PASS / PASS |
-| Runtime rehash sau execution | PASS, 0 mismatch |
-
-M5.3 chỉ chứng minh runtime/normalization integrity trên attempt đã đăng ký trước.
-Nó **không** chứng minh Vietnamese answer correctness, groundedness, citation support,
-translation fidelity, parity với English, production readiness hoặc demo readiness.
-Ví dụ raw output `q-033` vẫn dịch decomposition thành “nuclear fission”.
-
-## Multilingual Runtime V1 — M6 human quality evaluation PASS
-
-M6 đã đóng băng tại `reports/35_multilingual_runtime_v1_m6/m6_final_manifest.json`,
-trạng thái `frozen_passed_quality_gates`. M6 đánh giá 20 output VI đã freeze tại M5.3
-bằng một lượt human review mù (không thấy `retrieval_query`, raw model output,
-normalization metadata, nhãn M2 hay outcome cũ), đúng 19 intent primary,
-`mit60001-q-023` review mô tả nhưng loại khỏi metric do Ground Truth ambiguity đã
-freeze từ Reliability V1.
-
-| M6 gate | Ngưỡng | Quan sát | Kết quả |
-| --- | --- | ---: | --- |
-| G1 review integrity | 20/20 hợp lệ | 20/19/1 | PASS |
-| G2 language compliance | 0 "Not Vietnamese" | 12/12 | PASS |
-| G3 decision non-inferiority | ≥10/19 | 14/19 | PASS |
-| G4 strict E2E non-inferiority | ≥6/19 | 7/19 | PASS |
-
-Matched English reference (từ Reliability V1, cùng 19 intent): decision correct
-11/19, strict E2E 7/19, strict answer 2/19. Strict answer success của VI là 1/19
-(diagnostic only, không phải gate, vì reference tiếng Anh 2/19 quá thấp để làm gate
-ổn định).
-
-Kết luận được phép duy nhất: candidate M5.3 (không đổi) đã pass M6 quality gates trên
-sample 19-record primary đã dùng lại nhiều lần. **Không** được suy ra production
-readiness, tổng quát hóa sang query chưa thấy, quan hệ nhân quả giữa
-translation/retrieval/generation và lỗi cuối, translator fidelity đã phục hồi, hay M2
-(literal translator, vẫn `frozen_failed`) bị đảo ngược. M6 không mở lại M2.
-
 ## Bounded local demo — M2 release remediation validated
 
 M2 đã review và validate demo cục bộ đúng trên worktree release candidate: `GET /`,
@@ -273,9 +175,6 @@ khi local Ollama `llama3.2:3b` khớp exact digest
 `a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72`.
 
 Demo chỉ là static client của `/answer`: không thay Dense/index/scoring, prompt,
-translator, normalization hay citation mapping. Smoke xác minh request path và shape
-response, không là đánh giá chất lượng mới và không thay đổi giới hạn M2/M5.1/M5.3/M6.
-Chi tiết behavior/source hashes tại `reports/36_bounded_local_demo/`.
-
-Bước tiếp theo là review và commit M2 release candidate theo allowlist; chưa cleanup
-test/report/runner, chưa normalize line ending hoặc rerun milestone evidence.
+translator hay citation mapping. Smoke xác minh request path và shape response, không
+là đánh giá chất lượng mới và không thay đổi giới hạn M2. Chi tiết behavior/source
+hashes tại `reports/36_bounded_local_demo/`.

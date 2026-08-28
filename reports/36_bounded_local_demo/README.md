@@ -5,8 +5,7 @@
 `VALIDATED ON LOCAL RELEASE CANDIDATE`
 
 This report freezes the M2 behavior check for the bounded local demo. It is not a
-quality evaluation, a production-readiness claim, or a replacement for M2/M5.1/M5.3/
-M6 evidence.
+quality evaluation or a production-readiness claim.
 
 ## Scope
 
@@ -36,7 +35,6 @@ rewrite them; `w/mixed` is a risk signal, not proof that a Git artifact hash is 
 | `reports/01_data_audit/transcript_summary.csv` | LF | `w/mixed` | No | `DEFER_TO_M5_CLEAN_CLONE_VALIDATION` |
 | `reports/01_data_audit/video_transcript_summary.csv` | LF | `w/mixed` | No | `DEFER_TO_M5_CLEAN_CLONE_VALIDATION` |
 | `reports/03_playlist_mapping/playlists.csv` | LF | `w/mixed` | No | `DEFER_TO_M5_CLEAN_CLONE_VALIDATION` |
-| `reports/35_multilingual_runtime_v1_m6/m6_human_review_worksheet_reviewed.csv` | LF | `w/mixed` | Yes — frozen review hash | `DEFER_TO_M5_CLEAN_CLONE_VALIDATION` |
 | `src/grounded_answer/contracts.py` | LF | `w/mixed` | Yes — runtime source was pinned by milestone protocols | `DEFER_TO_M5_CLEAN_CLONE_VALIDATION` |
 | `src/ingestion/fetch_transcripts.py` | LF | `w/mixed` | No serving-artifact hash | `DEFER_TO_M5_CLEAN_CLONE_VALIDATION` |
 | `tests/grounded_answer/grounded_answer_runtime_test.py` | LF | `w/mixed` | No serving-artifact hash | `DEFER_TO_M5_CLEAN_CLONE_VALIDATION` |

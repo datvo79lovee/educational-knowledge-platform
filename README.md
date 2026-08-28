@@ -174,9 +174,8 @@ evaluation change; its behavior is not covered by the frozen evidence.
 | Grounded-answer generator | `llama3.2:3b` at digest `a80c4f17acd55265feec403c7aef86be0c25983ab279d83f3bcd3abbcb5b8b72` | English/ Vietnamese grounded answer or abstain | Pinned and evaluated; not production-ready |
 | Vietnamese retrieval translator | Same `llama3.2:3b` tag and digest | Literal VI → EN retrieval adapter | Pinned runtime identity; literal-fidelity evaluation remains rejected with documented limitations |
 
-The translator is an internal retrieval adapter. M5.3/M6 validated the current
-Vietnamese runtime candidate on a reused sample; they did not reverse M2's frozen
-literal-translation fidelity failure.
+The translator is an internal retrieval adapter. Its literal Vietnamese-to-English
+translation fidelity remains rejected by the frozen M2 evaluation.
 
 ## Repository map
 
@@ -209,20 +208,11 @@ questions:
 | False answer | 3/16 evidence-insufficient |
 | Strict end-to-end success | 17/37 (45.95%) |
 
-**Multilingual Runtime V1** — measured across six milestones on 20 paired intents:
+**Multilingual retrieval translation (M2)** — measured on 20 paired intents:
 
 | Milestone | Question | Outcome |
 |---|---|---|
 | M2 | Does the machine translator preserve retrieval fidelity? | **FAIL** — 10/20 semantic drift, Recall@3 0.55 vs 0.70. Translator rejected |
-| M4 | How often does the VI runtime fail, and where? | 8/20 failures, all `generation_contract`; 8/8 abstain attempts malformed |
-| M5.1 | Does a conditional prompt fix it? | **FAIL** — candidate rejected, prompt rolled back |
-| M5.3 | Does an application-boundary normalization fix it? | **PASS** — 20/20 clean, 8 payloads canonicalized |
-| M6 | Is the resulting Vietnamese output actually good? | **PASS** — decision 14/19, strict E2E 7/19, language 12/12 |
-
-Ghi chú provenance: audit release sau đó phát hiện một SHA worksheet không khớp trong
-manifest M6 gốc. Manifest được giữ nguyên; reproduction đã preregister từ worksheet
-Git-canonical tái lập toàn bộ aggregate, 20/20 outcomes theo intent và G1–G4. Xem
-[M6 provenance remediation](reports/37_m6_provenance_remediation/README.md).
 
 The single most useful finding: **retrieval metrics can be blind to semantic
 translation failure.** In M2, `q-039` lost the entire "white-box" half of its question
@@ -233,15 +223,8 @@ have accepted it; the human semantic gate caught it.
 
 - **Not production-ready.** No milestone claims otherwise, and the frozen manifests
   forbid the claim explicitly.
-- **Small, reused sample.** The same 20 multilingual intents were used throughout
-  development. M6 measures that development sample, not an unseen test set. At n=19,
-  one record moves a rate by 5.26 points.
-- **Single reviewer.** No inter-annotator or delayed intra-annotator agreement.
-- **Non-deterministic generation.** The local model is not reproducible even at
-  temperature 0; the same question can answer once and abstain the next time.
-- **Translator still rejected.** M2's rejection stands. M5.3/M6 fixed the *contract
-  shape* of abstentions, not translation fidelity — `q-033` still renders
-  "decomposition" as "nuclear fission".
+- **Translator still rejected.** M2's literal Vietnamese-to-English translation did
+  not meet the frozen fidelity and retrieval gates.
 - **Retrieval ceiling.** Recall@3 is 0.743, so ~26% of answerable questions cannot be
   answered correctly no matter how good the generator is.
 

@@ -11,12 +11,9 @@ Only final pipeline evidence is retained in `reports/`:
 - `26_multilingual_benchmark_preparation` through
   `28_multilingual_retrieval_evaluation`: frozen paired EN–VI retrieval baseline.
 - `29_repository_reproducibility`: clean-clone reproducibility evidence.
-- `30_multilingual_runtime_v1_m2` through `35_multilingual_runtime_v1_m6`: frozen
-  multilingual runtime measurements, failed candidates, remediation and M6 quality
-  evaluation.
+- `30_multilingual_runtime_v1_m2`: frozen literal Vietnamese-to-English translation
+  measurement.
 - `36_bounded_local_demo`: source-pinned M2 validation of the bounded local demo.
-- `37_m6_provenance_remediation`: correction additive cho worksheet SHA mismatch M6;
-  reproduction preregister tái lập Case A từ artifact Git-canonical.
 
 Historical reports remain because their frozen manifests and decisions are provenance;
 they are not all active runtime components. Active runtime selection is recorded in
