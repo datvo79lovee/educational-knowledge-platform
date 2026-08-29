@@ -6,6 +6,7 @@ Gold schema before encoding.  It never reads historical selection reports.
 
 import argparse
 import hashlib
+import io
 import json
 from pathlib import Path
 
@@ -98,6 +99,25 @@ def serialize_npy(vectors: np.ndarray) -> bytes:
     buffer = io.BytesIO()
     np.save(buffer, vectors, allow_pickle=False)
     return buffer.getvalue()
+
+
+def serialize_runtime_manifest(manifest: dict) -> bytes:
+    """Serialize manifest runtime theo layout byte-stable đã được canonicalize.
+
+    Runtime manifest hiện chỉ có scalar JSON và ``embedding_shape``. Render từng
+    field top-level giữ array shape trên một dòng, nên rebuild không đổi SHA chỉ vì
+    JSON pretty-printer tự xuống dòng mảng ngắn.
+    """
+
+    keys = sorted(manifest)
+    lines = ["{"]
+    for index, key in enumerate(keys):
+        encoded_key = json.dumps(key, ensure_ascii=False)
+        encoded_value = json.dumps(manifest[key], ensure_ascii=False, sort_keys=True)
+        suffix = "," if index < len(keys) - 1 else ""
+        lines.append(f"  {encoded_key}: {encoded_value}{suffix}")
+    lines.append("}")
+    return ("\n".join(lines) + "\n").encode("utf-8")
 
 
 def load_canonical_chunking_config() -> dict:
@@ -278,10 +298,7 @@ def main() -> None:
 
     write_atomic(EMBEDDINGS_FILE, embeddings_bytes)
     write_atomic(METADATA_FILE, metadata_bytes)
-    write_atomic(
-        RUNTIME_MANIFEST_FILE,
-        json.dumps(runtime_manifest, ensure_ascii=False, sort_keys=True, indent=2).encode("utf-8") + b"\n",
-    )
+    write_atomic(RUNTIME_MANIFEST_FILE, serialize_runtime_manifest(runtime_manifest))
     print(json.dumps(runtime_manifest, ensure_ascii=False, indent=2))
 
 
