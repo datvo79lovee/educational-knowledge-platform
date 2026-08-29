@@ -43,8 +43,9 @@ from src.search_api.service import (
 
 
 EVALUATION_FILE = PROJECT_ROOT / "evaluation/mit_60001/evaluation_questions.jsonl"
-BASELINE_FILE = (
-    PROJECT_ROOT / "reports/09_embedding/production_index_retrieval_results.csv"
+ORACLE_FILE = (
+    PROJECT_ROOT
+    / "evaluation/mit_60001/search_validation/search_api_retrieval_oracle.json"
 )
 MANIFEST_SCHEMA_FILE = PROJECT_ROOT / "schemas/search_api_validation_manifest_v2.schema.json"
 SCORE_TOLERANCE = 1e-6
@@ -234,7 +235,8 @@ async def http_validation() -> dict[str, list[dict[str, Any]]]:
     if len(approved) != 40 or len(answerable) != 35 or len(out_of_scope) != 5:
         raise ValueError("Expected 40 approved questions: 35 answerable and 5 out-of-scope")
 
-    baseline = {row["question_id"]: row for row in load_csv(BASELINE_FILE)}
+    oracle = json.loads(ORACLE_FILE.read_text(encoding="utf-8"))
+    baseline = {row["question_id"]: row for row in oracle["records"]}
     if set(baseline) != {record["question_id"] for record in answerable}:
         raise ValueError("Locked Dense baseline does not match 35 answerable questions")
 
@@ -313,12 +315,12 @@ async def http_validation() -> dict[str, list[dict[str, Any]]]:
                     )
 
                 if question["answerable"]:
-                    expected_ids = json.loads(
-                        baseline[question["question_id"]]["top_10_chunk_ids_json"]
-                    )[:3]
-                    expected_scores = json.loads(
-                        baseline[question["question_id"]]["top_10_scores_json"]
-                    )[:3]
+                    expected_ids = baseline[question["question_id"]][
+                        "top_10_chunk_ids"
+                    ][:3]
+                    expected_scores = baseline[question["question_id"]][
+                        "top_10_scores"
+                    ][:3]
                     actual_ids = [result.get("chunk_id") for result in results]
                     actual_scores = [float(result.get("score")) for result in results]
                     ids_match = actual_ids == expected_ids
@@ -475,7 +477,7 @@ def build_manifest(
 ) -> dict[str, Any]:
     input_files = {
         "evaluation": EVALUATION_FILE,
-        "locked_dense_baseline": BASELINE_FILE,
+        "search_validation_oracle": ORACLE_FILE,
         "index_manifest": PROJECT_ROOT / INDEX_MANIFEST_FILE,
         "retrieval_decision": PROJECT_ROOT / RETRIEVAL_DECISION_FILE,
         "api_contract": PROJECT_ROOT / "docs/design/SEARCH_API_CONTRACT.md",
