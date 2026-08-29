@@ -226,18 +226,28 @@ and [docs/decisions/CANONICAL_RUNTIME_DECISIONS.md](docs/decisions/CANONICAL_RUN
 | `/search` is available but `/answer` returns `503` | Dense serving does not need Ollama; grounded answering does. | Start Ollama, pull `llama3.2:3b`, then retry. The runtime checks the exact digest before the first model call. |
 | `/answer` rejects the local model | The local tag does not have the canonical digest listed above. | Do not substitute another build with the same tag; refresh the canonical tag and let the runtime verify it again. |
 | The demo says “not enough evidence” | The system abstained under its strict answer/evidence contract. | Treat it as an abstention, not as a prompt to fabricate an answer. |
-| Pipeline commands require credentials or PostgreSQL | You are using Path B rather than the included serving path. | Follow the optional rebuild prerequisites below. |
+| Pipeline commands require raw data or YouTube credentials | You are using Path B rather than the included serving path. | Follow the optional rebuild prerequisites below. |
 
 ## Path B — Rebuild the data pipeline (advanced / optional)
 
-Serving needs none of this. A Bronze → Silver → Gold rebuild additionally needs the
-raw data lake, network access, YouTube credentials, PostgreSQL and pipeline-specific
-dependencies. A clean clone has **not** been presented as proof of this full rebuild
-path.
+Serving needs none of this. The canonical file-based Bronze → Silver → Gold → Index
+rebuild additionally needs the raw data lake, network access, YouTube credentials and
+pipeline-specific dependencies. PostgreSQL is **not** required for this canonical
+path. A clean clone has **not** been presented as proof of the full crawl/rebuild path.
 
 ```bash
 pip install -r requirements-pipeline.txt
 cp .env.example .env        # then fill in your own credentials; never commit .env
+```
+
+### Optional PostgreSQL audit and persistence
+
+PostgreSQL supports separate persistence, inventory and audit workflows; it is not an
+intermediate dependency of canonical Bronze → Silver → Gold → Index. Install its
+driver only when using those database-specific scripts:
+
+```bash
+pip install -r requirements-db.txt
 ```
 
 The committed `embeddings.npy` is authoritative. A byte-identical rebuild requires the

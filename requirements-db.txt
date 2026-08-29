@@ -1,0 +1,2 @@
+# Optional PostgreSQL audit and persistence extension.
+psycopg2-binary==2.9.12
