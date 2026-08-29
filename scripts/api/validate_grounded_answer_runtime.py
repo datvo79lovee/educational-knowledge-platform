@@ -38,7 +38,7 @@ from src.grounded_answer.service import (
     TEMPERATURE,
 )
 from src.search_api.app import app
-from src.search_api.service import RETRIEVAL_METHOD, TOP_K, _sha256_file
+from src.search_api.service import INDEX_MANIFEST_FILE, RETRIEVAL_METHOD, TOP_K, _sha256_file
 
 
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "reports/20_grounded_answer_runtime"
@@ -340,7 +340,7 @@ def build_manifest(
         / "scripts/api/validate_grounded_answer_runtime.py",
         "runtime_decision": PROJECT_ROOT
         / "docs/decisions/CANONICAL_RUNTIME_DECISIONS.md",
-        "index_manifest": PROJECT_ROOT / "reports/09_embedding/embedding_index_manifest.json",
+        "index_manifest": PROJECT_ROOT / INDEX_MANIFEST_FILE,
     }
     input_hashes = {name: _sha256_file(path) for name, path in input_files.items()}
     prompt_hash = sha256_bytes(SYSTEM_PROMPT.encode("utf-8"))
