@@ -33,12 +33,10 @@ Có một câu `Tie`. Workbook đã pass kiểm tra 35 unique question ID, cùng
 giữa ba configuration, không thiếu decision, không có giá trị ngoài contract và
 `Final_decision` khớp ba sheet nguồn.
 
-`reports/08_chunking/chunking_comparison.csv` là raw deterministic retrieval output;
-field `manual_citation_review_status=pending` trong file đó không được sửa tay vì sẽ
-làm sai cross-process hash. Trạng thái human review và configuration được chọn phải
-đọc từ decision CSV trong folder này.
+Các raw retrieval outputs và manifest của experiment chunking trước đây đã được
+retire khỏi public repository. Trạng thái human review và configuration được chọn
+được giữ lại trong decision workbook/CSV của folder này cho mục đích lịch sử.
 
-Canonical Gold full đã được build tại `data/gold/mit_60001/chunks.jsonl` từ
-configuration đã chọn. Output có 861 chunks trên 38 video, phủ đủ 12.518 Silver
-segments và byte-identical với selected candidate. Manifest và validation reports
-nằm trong `reports/08_chunking/`.
+Canonical Gold full hiện được rebuild trực tiếp bằng canonical chunking config và
+`scripts/chunking/build_canonical_gold.py`; không cần chạy lại historical selection
+hoặc retrieval experiment.
